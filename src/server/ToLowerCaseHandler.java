@@ -1,13 +1,18 @@
 package server;
 
+import shared.CommandData;
+import shared.CommandType;
 import shared.Results;
 
 public class ToLowerCaseHandler extends HandlerBase {
     public ToLowerCaseHandler(){}
 
     @Override
-    public Results runCommand(Object obj) {
-        String s = StringProcessor.getInstance().toLowerCase((String) obj);//TODO careful bout this cast?
+    public Results runCommand(CommandData cd) {
+        if (cd.getType() != CommandType.TOLOWERCASE){
+            throw new RuntimeException("CommandType mismatch.");
+        }
+        String s = StringProcessor.getInstance().toLowerCase(cd.getData());
         return new Results(true, s, "");
     }
 }

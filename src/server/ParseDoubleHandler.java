@@ -1,20 +1,23 @@
 package server;
 
+import shared.CommandData;
+import shared.CommandType;
 import shared.Results;
 
 public class ParseDoubleHandler extends HandlerBase{
     public ParseDoubleHandler(){}
 
     @Override
-    public Results runCommand(Object obj) {
-        Results r;
+    public Results runCommand(CommandData cd) {
+        if (cd.getType() != CommandType.PARSEDOUBLE){
+            throw new RuntimeException("CommandType mismatch.");
+        }
         try{
-            Double d = StringProcessor.getInstance().parseDouble((String) obj);
-            r = new Results(true, d, "");
+            Double d = StringProcessor.getInstance().parseDouble(cd.getData());
+            return new Results(true, d, "");
         }
         catch (NumberFormatException e){
-            r = new Results(false, null, e.getMessage());//TODO is getMessage right for this case?
+            return new Results(false, null, e.getMessage());//TODO is getMessage right for this case?
         }
-        return r;
     }
 }

@@ -1,6 +1,7 @@
 package server;
 
 import com.google.gson.Gson;
+import shared.CommandData;
 import shared.Results;
 
 import java.io.InputStreamReader;
@@ -10,10 +11,10 @@ public class Serializer {
 
     private static Gson gson = new Gson();
 
-    public static void serializeResults(Results o, OutputStreamWriter osr) {
-        gson.toJson(o, osr);
+    public static void serializeResults(Results o, OutputStreamWriter osw) {
+        gson.toJson(o, osw);
     }
-    public static Object deserializeObject(InputStreamReader isr){
-        return gson.fromJson(isr, Object.class);
+    public static CommandData deserializeCommandData(InputStreamReader isr){
+        return gson.fromJson(isr, CommandData.class);
     }
 }

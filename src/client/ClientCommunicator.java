@@ -1,5 +1,6 @@
 package client;
 
+import shared.CommandData;
 import shared.CommonData;
 import shared.Results;
 
@@ -20,9 +21,9 @@ public final class ClientCommunicator {
         return INSTANCE;
     }
 
-    public Results send(String urlSuffix, String requestInfo){
+    public Results send(String urlSuffix, CommandData cd){
         HttpURLConnection connection = openConnection(urlSuffix, true);
-        sendRequest(connection, requestInfo);
+        sendRequest(connection, cd);
         Results r = getResult(connection);
         connection.disconnect();
         return r;
@@ -47,7 +48,7 @@ public final class ClientCommunicator {
         return null;
     }
 
-    private void sendRequest(HttpURLConnection connection, String data){
+    private void sendRequest(HttpURLConnection connection, CommandData data){
         try {
             OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
             Serializer.serializeObject(data, osw);

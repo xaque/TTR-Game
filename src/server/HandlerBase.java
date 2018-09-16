@@ -2,6 +2,7 @@ package server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import shared.CommandData;
 import shared.Results;
 
 import java.io.IOException;
@@ -13,10 +14,10 @@ public abstract class HandlerBase implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody());
-        Object obj = Serializer.deserializeObject(isr);
+        CommandData cd = Serializer.deserializeCommandData(isr);
         isr.close();
 
-        Results r = runCommand(obj);
+        Results r = runCommand(cd);
 
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         OutputStreamWriter osr = new OutputStreamWriter(httpExchange.getResponseBody());
@@ -24,6 +25,6 @@ public abstract class HandlerBase implements HttpHandler {
         osr.close();
     }
 
-    public abstract Results runCommand(Object obj);
+    public abstract Results runCommand(CommandData cd);
 
 }
