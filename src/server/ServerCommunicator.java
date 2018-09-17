@@ -20,7 +20,7 @@ public class ServerCommunicator {
 
         server.setExecutor(null);
         ExecCommandHandler ech = new ExecCommandHandler();
-        //TODO should there only be one context since they all go to ech?
+        //TODO should there only be one context since they all go to the same handler?
         server.createContext(CommonData.TOLOWERCASE_URI, ech);
         server.createContext(CommonData.TRIM_URI, ech);
         server.createContext(CommonData.PARSEDOUBLE_URI, ech);

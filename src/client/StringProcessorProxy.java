@@ -12,12 +12,12 @@ public final class StringProcessorProxy implements iStringProcessor {
         return INSTANCE;
     }
 
-    private Object validateResults(Results r){
+    private Object validateResults(Results r) throws NumberFormatException{
         if (r.isSuccess()){
             return r.getData();
         }
         else{
-            throw new NumberFormatException(r.getErrorInfo());
+            throw new RuntimeException(r.getErrorInfo());
         }
     }
 
@@ -40,6 +40,9 @@ public final class StringProcessorProxy implements iStringProcessor {
     public Double parseDouble(String s) {
         CommandData cd = new CommandData(CommandType.PARSEDOUBLE, s);
         Results r = ClientCommunicator.getInstance().send(CommonData.PARSEDOUBLE_URI, cd);
-        return (Double) validateResults(r);
+        if (!r.isSuccess()){
+            throw new NumberFormatException(r.getErrorInfo());
+        }
+        return (Double) r.getData();
     }
 }

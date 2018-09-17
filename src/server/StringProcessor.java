@@ -2,7 +2,7 @@ package server;
 
 import shared.iStringProcessor;
 
-public class StringProcessor implements iStringProcessor{
+public final class StringProcessor implements iStringProcessor{
 
     private static final StringProcessor INSTANCE = new StringProcessor();
 
