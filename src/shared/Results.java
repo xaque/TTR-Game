@@ -1,6 +1,8 @@
 package shared;
 
-public class Results {
+import java.io.Serializable;
+
+public class Results implements Serializable {
     private boolean success;
     private Object data;
     private String errorInfo;

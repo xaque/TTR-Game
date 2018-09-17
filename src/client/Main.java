@@ -1,7 +1,5 @@
 package client;
 
-import shared.CommonData;
-
 import java.util.Scanner;
 
 public class Main {

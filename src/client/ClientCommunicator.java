@@ -3,13 +3,14 @@ package client;
 import shared.CommandData;
 import shared.CommonData;
 import shared.Results;
+import shared.Serializer;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 public final class ClientCommunicator {
 
@@ -35,7 +36,6 @@ public final class ClientCommunicator {
             HttpURLConnection result = (HttpURLConnection)url.openConnection();
             result.setRequestMethod("POST");
             result.setDoOutput(sendingObject);
-            //result.setRequestProperty(AUTH_KEY, authToken);
             result.connect();
             return result;
         } catch (MalformedURLException e) {
@@ -51,7 +51,7 @@ public final class ClientCommunicator {
     private void sendRequest(HttpURLConnection connection, CommandData data){
         try {
             OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
-            Serializer.serializeObject(data, osw);
+            osw.write(Serializer.serializeCommandData(data));
             osw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,9 +63,9 @@ public final class ClientCommunicator {
         try {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 if(connection.getContentLength() == -1) {
-                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-                    result = Serializer.deserializeResults(isr);
-                    isr.close();
+                    Scanner s = new Scanner(connection.getInputStream()).useDelimiter("\\A");
+                    String raw = s.hasNext() ? s.next() : "";
+                    result = Serializer.deserializeResults(raw);
                 }
             }
             else {
@@ -74,7 +74,7 @@ public final class ClientCommunicator {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return result;
     }

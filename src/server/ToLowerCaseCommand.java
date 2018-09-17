@@ -4,11 +4,13 @@ import shared.CommandData;
 import shared.CommandType;
 import shared.Results;
 
-public class ToLowerCaseHandler extends HandlerBase {
-    public ToLowerCaseHandler(){}
-
+public class ToLowerCaseCommand implements iCommand {
+    private CommandData cd;
+    public ToLowerCaseCommand(CommandData cd){
+        this.cd = cd;
+    }
     @Override
-    public Results runCommand(CommandData cd) {
+    public Results execute() {
         if (cd.getType() != CommandType.TOLOWERCASE){
             throw new RuntimeException("CommandType mismatch.");
         }

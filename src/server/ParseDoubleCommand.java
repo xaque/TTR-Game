@@ -4,11 +4,16 @@ import shared.CommandData;
 import shared.CommandType;
 import shared.Results;
 
-public class ParseDoubleHandler extends HandlerBase{
-    public ParseDoubleHandler(){}
+public class ParseDoubleCommand implements iCommand {
+
+    private CommandData cd;
+
+    public ParseDoubleCommand(CommandData cd){
+        this.cd = cd;
+    }
 
     @Override
-    public Results runCommand(CommandData cd) {
+    public Results execute() {
         if (cd.getType() != CommandType.PARSEDOUBLE){
             throw new RuntimeException("CommandType mismatch.");
         }
@@ -17,7 +22,7 @@ public class ParseDoubleHandler extends HandlerBase{
             return new Results(true, d, "");
         }
         catch (NumberFormatException e){
-            return new Results(false, null, e.getMessage());//TODO is getMessage right for this case?
+            return new Results(false, null, e.getMessage());
         }
     }
 }

@@ -1,6 +1,8 @@
 package shared;
 
-public class CommandData {
+import java.io.Serializable;
+
+public class CommandData implements Serializable {
     private CommandType type;
     private String data;
 

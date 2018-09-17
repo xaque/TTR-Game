@@ -21,7 +21,7 @@ public final class StringProcessorProxy implements iStringProcessor {
         }
     }
 
-    //TODO more robust type casting
+    //TODO safer type casting
     @Override
     public String toLowerCase(String s) {
         CommandData cd = new CommandData(CommandType.TOLOWERCASE, s);

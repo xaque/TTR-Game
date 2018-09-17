@@ -19,9 +19,11 @@ public class ServerCommunicator {
         }
 
         server.setExecutor(null);
-        server.createContext(CommonData.TOLOWERCASE_URI, new ToLowerCaseHandler());
-        server.createContext(CommonData.TRIM_URI, new TrimHandler());
-        server.createContext(CommonData.PARSEDOUBLE_URI, new ParseDoubleHandler());
+        ExecCommandHandler ech = new ExecCommandHandler();
+        //TODO should there only be one context since they all go to ech?
+        server.createContext(CommonData.TOLOWERCASE_URI, ech);
+        server.createContext(CommonData.TRIM_URI, ech);
+        server.createContext(CommonData.PARSEDOUBLE_URI, ech);
 
         server.start();
     }
