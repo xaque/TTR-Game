@@ -22,6 +22,12 @@ public final class ClientCommunicator {
         return INSTANCE;
     }
 
+    /**
+     * Send a command to the server
+     * @param urlSuffix The uri context from which to send data
+     * @param cd The CommandData object to be sent to the server
+     * @return The Results sent back from the server
+     */
     public Results send(String urlSuffix, CommandData cd){
         HttpURLConnection connection = openConnection(urlSuffix, true);
         sendRequest(connection, cd);
@@ -30,6 +36,12 @@ public final class ClientCommunicator {
         return r;
     }
 
+    /**
+     * Open a Http connection
+     * @param uri The uri context from which to open a connection
+     * @param sendingObject Whether the server should wait for request body
+     * @return A successfully established HttpURLConnection
+     */
     private HttpURLConnection openConnection(String uri, boolean sendingObject){
         try {
             URL url = new URL("http://" + CommonData.HOSTNAME + ":" + CommonData.PORT_NUMBER + uri);
@@ -48,6 +60,11 @@ public final class ClientCommunicator {
         return null;
     }
 
+    /**
+     * Send Http request to the server
+     * @param connection HttpURLConnection from which to send the request
+     * @param data The CommandData object to be sent to the server
+     */
     private void sendRequest(HttpURLConnection connection, CommandData data){
         try {
             OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
@@ -58,6 +75,11 @@ public final class ClientCommunicator {
         }
     }
 
+    /**
+     * Get Results from the connected server.
+     * @param connection HttpURLConnection from which to read a response.
+     * @return The Http response converted into Results
+     */
     private Results getResult(HttpURLConnection connection){
         Results result = null;
         try {

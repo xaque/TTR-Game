@@ -12,6 +12,11 @@ public class ParseDoubleCommand implements iCommand {
         this.cd = cd;
     }
 
+    /**
+     * Execute iCommand
+     * Parse double using the StringProcessor, and create response including any exceptions
+     * @return The Results of the operation to be sent back to client
+     */
     @Override
     public Results execute() {
         if (cd.getType() != CommandType.PARSEDOUBLE){

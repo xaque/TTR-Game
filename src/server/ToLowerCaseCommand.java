@@ -9,6 +9,12 @@ public class ToLowerCaseCommand implements iCommand {
     public ToLowerCaseCommand(CommandData cd){
         this.cd = cd;
     }
+
+    /**
+     * Execute iCommand
+     * Convert string to lower case using StringProcessor, then create response including any exceptions
+     * @return The result of the operation to be sent back to client
+     */
     @Override
     public Results execute() {
         if (cd.getType() != CommandType.TOLOWERCASE){

@@ -12,6 +12,11 @@ public class TrimCommand implements iCommand {
         this.cd = cd;
     }
 
+    /**
+     * Execute iCommand
+     * Trim string whitespace using StringProcessor, the create response including any exceptions
+     * @return The result of the operation to be sent back to client
+     */
     @Override
     public Results execute() {
         if (cd.getType() != CommandType.TRIM){

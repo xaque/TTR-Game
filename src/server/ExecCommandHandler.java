@@ -12,6 +12,11 @@ import java.net.HttpURLConnection;
 import java.util.Scanner;
 
 public class ExecCommandHandler implements HttpHandler {
+    /**
+     * Convert request and execute the command using the command pattern
+     * @param httpExchange Object from which to get request info and send response
+     * @throws IOException if serialization to CommandData object fails
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");

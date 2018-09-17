@@ -12,7 +12,12 @@ public final class StringProcessorProxy implements iStringProcessor {
         return INSTANCE;
     }
 
-    private Object validateResults(Results r) throws NumberFormatException{
+    /**
+     * Check if result is valid
+     * @param r Result object to check
+     * @return The result data, if it is valid
+     */
+    private Object validateResults(Results r) {
         if (r.isSuccess()){
             return r.getData();
         }
@@ -21,7 +26,14 @@ public final class StringProcessorProxy implements iStringProcessor {
         }
     }
 
+
     //TODO safer type casting
+    /**
+     * Proxy for String toLowerCase method
+     * Create CommandData from input to send to server, then return the server's result
+     * @param s The string to convert to lower case
+     * @return The lower case string
+     */
     @Override
     public String toLowerCase(String s) {
         CommandData cd = new CommandData(CommandType.TOLOWERCASE, s);
@@ -29,6 +41,12 @@ public final class StringProcessorProxy implements iStringProcessor {
         return (String) validateResults(r);
     }
 
+    /**
+     * Proxy for String trim method
+     * Create CommandData from input to send to server, then return the server's result
+     * @param s The string to trim
+     * @return the trimmed string
+     */
     @Override
     public String trim(String s) {
         CommandData cd = new CommandData(CommandType.TRIM, s);
@@ -36,6 +54,12 @@ public final class StringProcessorProxy implements iStringProcessor {
         return (String) validateResults(r);
     }
 
+    /**
+     * Proxy for Double parseDouble method
+     * Create CommandData from input to send to server, then return the server's result
+     * @param s The string to parse
+     * @return The parsed Double
+     */
     @Override
     public Double parseDouble(String s) {
         CommandData cd = new CommandData(CommandType.PARSEDOUBLE, s);

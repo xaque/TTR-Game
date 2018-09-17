@@ -8,6 +8,10 @@ import java.net.InetSocketAddress;
 
 public class ServerCommunicator {
     private HttpServer server;
+
+    /**
+     * Initialize the HttpServer port and uri contexts
+     */
     public void run(){
         try {
             server = HttpServer.create(new InetSocketAddress(CommonData.PORT_NUMBER), CommonData.MAX_WAITING_CONNECTIONS);

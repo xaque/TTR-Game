@@ -1,5 +1,8 @@
 package shared;
 
+/**
+ * Constant variables to be used across client and server
+ */
 public class CommonData {
     public static final String HOSTNAME = "localhost";
     public static final int PORT_NUMBER = 1922;

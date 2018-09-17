@@ -3,6 +3,7 @@ package client;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args){
         while (true){
             operationPrompt();
@@ -10,6 +11,10 @@ public class Main {
         }
 
     }
+
+    /**
+     * Simple console i/o for testing
+     */
     private static void operationPrompt(){
         Scanner in = new Scanner(System.in);
         System.out.println("Choose an operation:");
