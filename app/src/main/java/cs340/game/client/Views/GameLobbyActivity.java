@@ -1,0 +1,50 @@
+package cs340.game.client.Views;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+
+import com.tyler.ticket.Presenters.GameLobbyPresenter;
+import com.tyler.ticket.R;
+
+/**
+ * Created by Tyler on 9/26/2018.
+ */
+
+public class GameLobbyActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button startGameButton;
+
+    private GameLobbyPresenter presenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_lobby);
+
+        startGameButton = (Button) findViewById(R.id.start_game_button);
+
+        startGameButton.setOnClickListener(this);
+
+        presenter = new GameLobbyPresenter(this);
+    }
+
+    public void onStartGameResponse(boolean isStartGameSuccess) {
+        if (isStartGameSuccess) {
+            startActivity(new Intent(this, GameActivity.class));
+            this.finish();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.start_game_button:
+                presenter.startGame();
+                break;
+
+        }
+    }
+}
