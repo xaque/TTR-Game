@@ -9,12 +9,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
     }
 }
 
@@ -26,7 +36,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.code.gson:gson:2.8.2'
-    // https://mvnrepository.com/artifact/com.sun.net.httpserver/http
+    //https://mvnrepository.com/artifact/com.sun.net.httpserver/http
     testImplementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
     //implementation files('/Users/tbarto22/Downloads/http-20070405.jar')
     //implementation files('/taUsers/tbarto22/Downloads/gson-2.3.1.jar')

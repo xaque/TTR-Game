@@ -27,17 +27,17 @@ public class ExecCommandHandler implements HttpHandler {
         }
 
         iCommand cmd = null;
-        switch (cd.getType()){
-            case TOLOWERCASE:
-                cmd = new ToLowerCaseCommand(cd);
-                break;
-            case TRIM:
-                cmd = new TrimCommand(cd);
-                break;
-            case PARSEDOUBLE:
-                cmd = new ParseDoubleCommand(cd);
-                break;
-        }
+//        switch (cd.getType()){
+//            case TOLOWERCASE:
+//                cmd = new ToLowerCaseCommand(cd);
+//                break;
+//            case TRIM:
+//                cmd = new TrimCommand(cd);
+//                break;
+//            case PARSEDOUBLE:
+//                cmd = new ParseDoubleCommand(cd);
+//                break;
+//        }
         Results r = cmd.execute();
 
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

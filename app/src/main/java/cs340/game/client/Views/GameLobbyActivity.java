@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.tyler.ticket.Presenters.GameLobbyPresenter;
-import com.tyler.ticket.R;
+import cs340.game.R;
+import cs340.game.client.Presenters.GameLobbyPresenter;
+
 
 /**
  * Created by Tyler on 9/26/2018.
