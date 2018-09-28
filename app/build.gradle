@@ -25,6 +25,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation files('/Users/tbarto22/Downloads/http-20070405.jar')
-    implementation files('/Users/tbarto22/Downloads/gson-2.3.1.jar')
+    implementation 'com.google.code.gson:gson:2.8.2'
+    // https://mvnrepository.com/artifact/com.sun.net.httpserver/http
+    testImplementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
+    //implementation files('/Users/tbarto22/Downloads/http-20070405.jar')
+    //implementation files('/taUsers/tbarto22/Downloads/gson-2.3.1.jar')
 }
