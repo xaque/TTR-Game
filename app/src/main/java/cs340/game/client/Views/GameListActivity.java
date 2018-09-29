@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.GameListPresenter;
@@ -59,6 +60,11 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
             this.finish();
         }
     }
+
+    public void onError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onClick(View v) {

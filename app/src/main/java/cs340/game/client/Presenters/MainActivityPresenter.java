@@ -29,8 +29,8 @@ public class MainActivityPresenter implements Observer {
 
     public void register(String username, String password) {
         //appLayerFacade.Register(username, password);
-
-        onRegisterResponse(true);
+        onError("Couldn't register. Sorry about that.");
+        //onRegisterResponse(true);
     }
 
     public void onLoginResponse(boolean isLoginSuccess) {
@@ -39,6 +39,10 @@ public class MainActivityPresenter implements Observer {
 
     public void onRegisterResponse(boolean isRegisterSuccess) {
         view.onRegisterResponse(isRegisterSuccess);
+    }
+
+    public void onError(String message) {
+        view.onError(message);
     }
 
     @Override

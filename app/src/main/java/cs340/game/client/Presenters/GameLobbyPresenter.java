@@ -37,4 +37,8 @@ public class GameLobbyPresenter {
     private void onLeaveGameResponse(boolean isLeaveSuccess) {
         view.onLeaveGameResponse(isLeaveSuccess);
     }
+
+    public void onError(String message) {
+        view.onError(message);
+    }
 }

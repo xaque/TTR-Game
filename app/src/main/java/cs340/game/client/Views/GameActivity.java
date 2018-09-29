@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.GamePresenter;
@@ -36,10 +37,14 @@ public class GameActivity extends AppCompatActivity {
         this.finish();
     }
 
+    public void onError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
     public boolean onOptionsItemSelected(MenuItem item){
         presenter.leaveGame();
 
         return true;
     }
+
 }

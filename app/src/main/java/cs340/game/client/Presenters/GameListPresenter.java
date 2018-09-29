@@ -32,11 +32,6 @@ public class GameListPresenter {
     }
 
 
-
-
-
-
-
     public void onCreateGameResponse(boolean isCreateGameSuccess) {
         view.onCreateGameResponse(isCreateGameSuccess);
     }
@@ -47,5 +42,9 @@ public class GameListPresenter {
 
     public void onLogOutResponse(boolean isLogOutSuccess) {
         view.onLogOutResponse(isLogOutSuccess);
+    }
+
+    public void onError(String message) {
+        view.onError(message);
     }
 }
