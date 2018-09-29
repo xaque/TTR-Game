@@ -17,15 +17,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="client.Views.GameListActivity"
+            android:name=".client.Views.GameListActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name="client.Views.GameLobbyActivity"
+            android:name=".client.Views.GameLobbyActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name="client.Views.GameActivity"
+            android:name=".client.Views.GameActivity"
             android:label="@string/app_name">
         </activity>
     </application>
