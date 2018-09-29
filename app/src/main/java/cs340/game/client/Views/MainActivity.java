@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void onRegisterResponse(boolean isRegisterSuccess) {
+        if (isRegisterSuccess) {
+            startActivity(new Intent( this, GameListActivity.class));
+            this.finish();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         String user = username.getText().toString();
@@ -58,4 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+
 }

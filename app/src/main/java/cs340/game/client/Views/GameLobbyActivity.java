@@ -2,7 +2,9 @@ package cs340.game.client.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,6 +31,11 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
 
         startGameButton.setOnClickListener(this);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         presenter = new GameLobbyPresenter(this);
     }
 
@@ -37,6 +44,11 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
             startActivity(new Intent(this, GameActivity.class));
             this.finish();
         }
+    }
+
+    public void onLeaveGameResponse(boolean isLeaveSuccess) {
+        startActivity(new Intent(this, GameListActivity.class));
+        this.finish();
     }
 
     @Override
@@ -48,4 +60,11 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
 
         }
     }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        presenter.leaveGame();
+
+        return true;
+    }
+
 }

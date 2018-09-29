@@ -2,7 +2,9 @@ package cs340.game.client.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,11 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
         gameName = (EditText) findViewById(R.id.name_game);
         createGameButton = (Button) findViewById(R.id.create_game_button);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         createGameButton.setOnClickListener(this);
 
         presenter = new GameListPresenter(this);
@@ -38,6 +45,17 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
     public void onCreateGameResponse(boolean isCreateGameSuccess) {
         if (isCreateGameSuccess) {
             startActivity(new Intent(this, GameLobbyActivity.class));
+            this.finish();
+        }
+    }
+
+    public void onJoinGameResponse(boolean isJoinGameSuccess) {
+
+    }
+
+    public void onLogOutResponse(boolean isLogOutSuccess) {
+        if (isLogOutSuccess) {
+            startActivity(new Intent( this, MainActivity.class));
             this.finish();
         }
     }
@@ -52,4 +70,12 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        presenter.logout();
+
+        return true;
+    }
+
+
 }

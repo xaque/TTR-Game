@@ -27,4 +27,14 @@ public class GameLobbyPresenter {
     public void onStartGameResponse(boolean isCreateGameSuccess) {
         view.onStartGameResponse(isCreateGameSuccess);
     }
+
+    public void leaveGame() {
+        //facade.LeaveGame()
+
+        onLeaveGameResponse(true);
+    }
+
+    private void onLeaveGameResponse(boolean isLeaveSuccess) {
+        view.onLeaveGameResponse(isLeaveSuccess);
+    }
 }

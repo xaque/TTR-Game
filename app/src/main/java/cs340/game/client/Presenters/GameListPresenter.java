@@ -26,9 +26,26 @@ public class GameListPresenter {
 
     }
 
+    public void logout() {
+
+        onLogOutResponse(true);
+    }
+
+
+
+
+
 
 
     public void onCreateGameResponse(boolean isCreateGameSuccess) {
         view.onCreateGameResponse(isCreateGameSuccess);
+    }
+
+    public void onJoinGameResponse(boolean isJoinGameSuccess) {
+
+    }
+
+    public void onLogOutResponse(boolean isLogOutSuccess) {
+        view.onLogOutResponse(isLogOutSuccess);
     }
 }
