@@ -12,8 +12,36 @@ public class GameList implements Serializable{
         return games;
     }
 
-    public void AddGame(Game game){
+    public void addGame(Game game){
 
         games.add(game);
+    }
+
+    public Game getGame(String gameName){
+
+        for(int i = 0; i < games.size(); i++){
+
+            Game game = games.get(i);
+            if(game.getName().equals(gameName)){
+
+                return game;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean gameExists(String gameName){
+
+        for(int i = 0; i < games.size(); i++){
+
+            Game game = games.get(i);
+            if(game.getName().equals(gameName)){
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

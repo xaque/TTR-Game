@@ -29,50 +29,98 @@ public class AppLayerFacade extends Observable{
     }
     // End Singleton
 
-    private User currentUser;
-    private Map<String, Game> games;
-    private ServerProxy proxy;
+    private ServerProxy proxy = new ServerProxy();
+    private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
 
-    public void Login(String username, String password){
+    public boolean Login(String username, String password) throws Exception{
+
+        if(clientModelRoot.getCurrentUser() != null){
+            throw new Exception("Already logged in!");
+        }
 
         User user = new User(username, password);
         Results results = proxy.Login(user);
 
-        SetCurrentUser(user);
+        if(results.isSuccess()) {
+            clientModelRoot.setCurrentUser(user);
+        }else{
+            throw new Exception(results.getErrorInfo());
+        }
+
+        return results.isSuccess();
     }
 
-    public void Register(String username, String password){
+    public boolean Register(String username, String password) throws Exception{
+
+        if(clientModelRoot.getCurrentUser() != null){
+            throw new Exception("Already logged in!");
+        }
 
         User user = new User(username, password);
         Results results = proxy.Register(user);
 
-        SetCurrentUser(user);
+        if(results.isSuccess()) {
+            clientModelRoot.setCurrentUser(user);
+        }else{
+            throw new Exception(results.getErrorInfo());
+        }
+
+        return results.isSuccess();
     }
 
     public void Logout(){
 
-        currentUser = null;
+        clientModelRoot.setCurrentUser(null);
     }
 
-    private void SetCurrentUser(User user){
+    public GameList CreateGame(String gameName) throws Exception{
 
-        if(currentUser == null) {
-
-            currentUser = user;
+        User currentUser = clientModelRoot.getCurrentUser();
+        if(currentUser == null){
+            throw new Exception("You must be logged in to create a game!");
         }
+
+        GameList games = clientModelRoot.getGames();
+        if(games.gameExists(gameName)){
+            throw new Exception("A game with this name already exists!");
+        }
+
+        Results results = proxy.CreateGame(gameName, currentUser.getUsername());
+
+        if(results.isSuccess()) {
+            Game game = new Game(gameName, currentUser.getUsername());
+            clientModelRoot.addGame(game);
+        }else{
+            throw new Exception(results.getErrorInfo());
+        }
+
+        return clientModelRoot.getGames();
     }
 
-    public void CreateGame(String gameName){
+    public boolean JoinGame(String gameName) throws Exception{
 
-        //Game game = new Game(gameName, currentUser.getUsername());
-        //games.put(gameName, game);
-        proxy.CreateGame(gameName, currentUser.getUsername());
-    }
+        User currentUser = clientModelRoot.getCurrentUser();
+        if(currentUser == null){
+            throw new Exception("You must be logged in to create a game!");
+        }
 
-    public void JoinGame(String gameName){
+        Game game = clientModelRoot.getGame(gameName);
+        if(game.playerExistsInGame(currentUser.getUsername())){
+            throw new Exception("You are already in this game!");
+        }
 
-        //Game game = games.get(gameName);
-        //game.AddPlayer(currentUser.getUsername());
-        proxy.JoinGame(gameName, currentUser.getUsername());
+        if(game.isGameFull()){
+            throw new Exception("This game is already full!");
+        }
+
+        Results results = proxy.JoinGame(gameName, currentUser.getUsername());
+
+        if(results.isSuccess()){
+            clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
+        }else{
+            throw new Exception(results.getErrorInfo());
+        }
+
+        return results.isSuccess();
     }
 }

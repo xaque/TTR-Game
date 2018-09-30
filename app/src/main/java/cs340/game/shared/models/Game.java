@@ -19,14 +19,38 @@ public class Game implements Serializable{
 
     public void AddPlayer(String user){
 
-        if(GetGameSize() < MAX_GAME_SIZE) {
+        if(!isGameFull()) {
 
             players.add(user);
         }
     }
 
-    public int GetGameSize(){
+    public boolean playerExistsInGame(String user){
 
+        for(int i = 0; i < players.size(); i++){
+            String playerName = players.get(i);
+            if(playerName.equals(user)){
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isGameFull(){
+        return (GetGameSize() >= MAX_GAME_SIZE);
+    }
+
+    public int GetGameSize(){
         return players.size();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
