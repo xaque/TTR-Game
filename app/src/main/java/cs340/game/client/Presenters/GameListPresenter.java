@@ -1,6 +1,7 @@
 package cs340.game.client.Presenters;
 
 
+import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Views.GameListActivity;
 
 /**
@@ -11,6 +12,8 @@ public class GameListPresenter {
 
     private GameListActivity view;
 
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
+
     public GameListPresenter(GameListActivity view) {
         this.view = view;
         //model = new User();
@@ -19,6 +22,7 @@ public class GameListPresenter {
 
 
     public void createGame(String gameName) {
+        //facade.CreateGame(gameName);
         onCreateGameResponse(true);
     }
 
@@ -27,7 +31,7 @@ public class GameListPresenter {
     }
 
     public void logout() {
-
+        //facade.Logout();
         onLogOutResponse(true);
     }
 

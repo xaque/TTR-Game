@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cs340.game.R;
@@ -20,6 +21,13 @@ import cs340.game.client.Presenters.GameLobbyPresenter;
 public class GameLobbyActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button startGameButton;
+    private TextView gameName;
+
+    private TextView player1;
+    private TextView player2;
+    private TextView player3;
+    private TextView player4;
+    private TextView player5;
 
     private GameLobbyPresenter presenter;
 
@@ -29,8 +37,15 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_game_lobby);
 
         startGameButton = (Button) findViewById(R.id.start_game_button);
-
         startGameButton.setOnClickListener(this);
+
+        gameName = (TextView) findViewById(R.id.gameName);
+        gameName.setText("Ticket To Ride"); //TODO: put the real name of the game here
+
+        //This isn't right--If you are joining a game, you won't be player 1. I'll have to figure out how to do that.
+        //It'll be something like, populatePlayerList, which just pulls the players from the game object in the facade?
+        player1 = (TextView) findViewById(R.id.player1);
+        player1.setText("Tyler");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

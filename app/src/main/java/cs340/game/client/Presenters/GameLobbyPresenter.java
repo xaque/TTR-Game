@@ -24,8 +24,8 @@ public class GameLobbyPresenter {
 
 
 
-    public void onStartGameResponse(boolean isCreateGameSuccess) {
-        view.onStartGameResponse(isCreateGameSuccess);
+    public void onStartGameResponse(boolean isStartGameSuccess) {
+        view.onStartGameResponse(isStartGameSuccess);
     }
 
     public void leaveGame() {
