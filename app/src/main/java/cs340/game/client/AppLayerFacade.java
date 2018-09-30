@@ -7,11 +7,7 @@ import java.util.Observable;
 import cs340.game.shared.*;
 import cs340.game.shared.models.*;
 
-public class AppLayerFacade extends Observable{
-    // Observable methods:
-    // public void addObserver(Observer o)
-    // public void deleteObserver(Observer o)
-    // public void notifyObservers()
+public class AppLayerFacade{
 
     // Start Singleton
     private static AppLayerFacade instance;
