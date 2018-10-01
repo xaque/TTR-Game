@@ -38,6 +38,10 @@ public class Serializer {
         return deserializeObject(s, CommandData.class);
     }
 
+    public static Data deserializeData(String s) throws IOException, ClassNotFoundException {
+        return deserializeObject(s, Data.class);
+    }
+
     /**
      * Deserialize Results from Base64 string
      * @param s The serialized string in Base64

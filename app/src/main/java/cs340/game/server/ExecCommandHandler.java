@@ -2,7 +2,15 @@ package cs340.game.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
+import cs340.game.server.Commands.*;
+import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
+import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
+import cs340.game.server.Commands.LoginCommands.LoginCommand;
+import cs340.game.server.Commands.LoginCommands.RegisterCommand;
 import cs340.game.shared.*;
+import cs340.game.shared.data.Data;
+import cs340.game.shared.data.LoginData;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -19,26 +27,29 @@ public class ExecCommandHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");
         String raw = s.hasNext() ? s.next() : "";
-        CommandData cd = null;
+        Data data = null;
         try {
-            cd = Serializer.deserializeCommandData(raw);
+            data = Serializer.deserializeData(raw);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         iCommand cmd = null;
-//        switch (cd.getType()){
-//            case TOLOWERCASE:
-//                cmd = new ToLowerCaseCommand(cd);
-//                break;
-//            case TRIM:
-//                cmd = new TrimCommand(cd);
-//                break;
-//            case PARSEDOUBLE:
-//                cmd = new ParseDoubleCommand(cd);
-//                break;
-//        }
-        Results r = cmd.execute();
+        switch (data.getCommandType()){
+            case REGISTER:
+                cmd = new RegisterCommand();
+                break;
+            case LOGIN:
+                cmd = new LoginCommand();
+                break;
+            case CREATE_GAME:
+                cmd = new CreateGameCommand();
+                break;
+            case JOIN_GAME:
+                cmd = new JoinGameCommand();
+                break;
+        }
+        Results r = cmd.execute(data);
 
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         OutputStreamWriter osw = new OutputStreamWriter(httpExchange.getResponseBody());

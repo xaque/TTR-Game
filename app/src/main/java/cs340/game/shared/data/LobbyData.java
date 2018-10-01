@@ -14,9 +14,9 @@ public class LobbyData extends Data{
         this.username = username;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
-    }
+    //public CommandType getCommandType() {
+    //    return commandType;
+    //}
 
     public void setCommandType(CommandType commandType) {
         this.commandType = commandType;

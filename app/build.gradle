@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "cs340.game"
-        minSdkVersion 15
+        minSdkVersion 26 // Had to change this value to use the Base64 serializer, was 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
