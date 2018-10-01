@@ -1,6 +1,7 @@
 package cs340.game.client;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import cs340.game.shared.Results;
 import cs340.game.shared.models.Game;
@@ -12,6 +13,7 @@ public class ClientModelRoot extends Observable {
     // public void addObserver(Observer o)
     // public void deleteObserver(Observer o)
     // public void notifyObservers()
+    // public Object getUpdate(Observer o)
 
     // Start Singleton
     private static ClientModelRoot instance;

@@ -3,7 +3,11 @@ package cs340.game.client;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
+import cs340.game.client.Presenters.GameListPresenter;
+import cs340.game.client.Presenters.GameLobbyPresenter;
+import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.*;
 import cs340.game.shared.models.*;
 
@@ -28,10 +32,11 @@ public class AppLayerFacade{
     private ServerProxy proxy = new ServerProxy();
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
 
-    public boolean Login(String username, String password) throws Exception{
+    public void Login(MainActivityPresenter presenter, String username, String password){
 
         if(clientModelRoot.getCurrentUser() != null){
-            throw new Exception("Already logged in!");
+            presenter.onError("Already logged in!");
+            return;
         }
 
         User user = new User(username, password);
@@ -40,16 +45,18 @@ public class AppLayerFacade{
         if(results.isSuccess()) {
             clientModelRoot.setCurrentUser(user);
         }else{
-            throw new Exception(results.getErrorInfo());
+            presenter.onError(results.getErrorInfo());
+            return;
         }
 
-        return results.isSuccess();
+        presenter.onLoginResponse(results.isSuccess());
     }
 
-    public boolean Register(String username, String password) throws Exception{
+    public void Register(MainActivityPresenter presenter, String username, String password){
 
         if(clientModelRoot.getCurrentUser() != null){
-            throw new Exception("Already logged in!");
+            presenter.onError("Already logged in!");
+            return;
         }
 
         User user = new User(username, password);
@@ -58,10 +65,11 @@ public class AppLayerFacade{
         if(results.isSuccess()) {
             clientModelRoot.setCurrentUser(user);
         }else{
-            throw new Exception(results.getErrorInfo());
+            presenter.onError(results.getErrorInfo());
+            return;
         }
 
-        return results.isSuccess();
+        presenter.onRegisterResponse(results.isSuccess());
     }
 
     public void Logout(){
@@ -69,16 +77,18 @@ public class AppLayerFacade{
         clientModelRoot.setCurrentUser(null);
     }
 
-    public GameList CreateGame(String gameName) throws Exception{
+    public void CreateGame(GameListPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
-            throw new Exception("You must be logged in to create a game!");
+            presenter.onError("You must be logged in to create a game!");
+            return;
         }
 
         GameList games = clientModelRoot.getGames();
         if(games.gameExists(gameName)){
-            throw new Exception("A game with this name already exists!");
+            presenter.onError("A game with this name already exists!");
+            return;
         }
 
         Results results = proxy.CreateGame(gameName, currentUser.getUsername());
@@ -87,26 +97,31 @@ public class AppLayerFacade{
             Game game = new Game(gameName, currentUser.getUsername());
             clientModelRoot.addGame(game);
         }else{
-            throw new Exception(results.getErrorInfo());
+            presenter.onError(results.getErrorInfo());
+            return;
         }
 
-        return clientModelRoot.getGames();
+        presenter.onCreateGameResponse(results.isSuccess());
+        //return clientModelRoot.getGames();
     }
 
-    public boolean JoinGame(String gameName) throws Exception{
+    public void JoinGame(GameListPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
-            throw new Exception("You must be logged in to create a game!");
+            presenter.onError("You must be logged in to create a game!");
+            return;
         }
 
         Game game = clientModelRoot.getGame(gameName);
         if(game.playerExistsInGame(currentUser.getUsername())){
-            throw new Exception("You are already in this game!");
+            presenter.onError("You are already in this game!");
+            return;
         }
 
         if(game.isGameFull()){
-            throw new Exception("This game is already full!");
+            presenter.onError("This game is already full!");
+            return;
         }
 
         Results results = proxy.JoinGame(gameName, currentUser.getUsername());
@@ -114,9 +129,20 @@ public class AppLayerFacade{
         if(results.isSuccess()){
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
         }else{
-            throw new Exception(results.getErrorInfo());
+            presenter.onError(results.getErrorInfo());
+            return;
         }
 
-        return results.isSuccess();
+        presenter.onCreateGameResponse(results.isSuccess());
+    }
+
+    public void addObserver(Observer o){
+
+        clientModelRoot.addObserver(o);
+    }
+
+    public void deleteObserver(Observer o){
+
+        clientModelRoot.deleteObserver(o);
     }
 }
