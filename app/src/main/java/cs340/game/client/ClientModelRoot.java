@@ -1,5 +1,6 @@
 package cs340.game.client;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,6 +15,8 @@ public class ClientModelRoot extends Observable {
     // public void deleteObserver(Observer o)
     // public void notifyObservers()
     // public Object getUpdate(Observer o)
+
+    private List<Observer> observers;
 
     // Start Singleton
     private static ClientModelRoot instance;
@@ -54,6 +57,7 @@ public class ClientModelRoot extends Observable {
 
         Game game = games.getGame(gameName);
         game.AddPlayer(userName);
+        //notifyObservers();
     }
 
     public GameList getGames() {
@@ -63,5 +67,13 @@ public class ClientModelRoot extends Observable {
     public void addGame(Game game){
 
         games.addGame(game);
+        //notifyObservers();
+    }
+
+    @Override
+    public void notifyObservers(){
+        for(Observer obj : observers) {
+            //obj.update();
+        }
     }
 }

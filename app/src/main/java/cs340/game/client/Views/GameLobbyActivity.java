@@ -42,6 +42,7 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         gameName = (TextView) findViewById(R.id.gameName);
         gameName.setText("Ticket To Ride"); //TODO: put the real name of the game here
 
+
         //This isn't right--If you are joining a game, you won't be player 1. I'll have to figure out how to do that.
         //It'll be something like, populatePlayerList, which just pulls the players from the game object in the facade?
         player1 = (TextView) findViewById(R.id.player1);

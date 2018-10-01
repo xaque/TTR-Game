@@ -22,7 +22,7 @@ public class MainActivityPresenter implements Observer {
     }
 
     public void login(String username, String password){
-        //appLayerFacade.Login(username, password);
+        //appLayerFacade.Login(this, username, password);
 
         onLoginResponse(true);
     }
