@@ -44,4 +44,36 @@ public class GameList implements Serializable{
 
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof GameList)) {
+            return false;
+        }
+
+        GameList gameList = (GameList) o;
+        List<Game> otherGames = gameList.GetGames();
+        for(int i = 0; i < games.size(); i++){
+
+            boolean gameExists = false;
+            for(int j = 0; j < otherGames.size(); j++){
+
+                if(games.get(i).equals(otherGames.get(j))){
+
+                    gameExists = true;
+                }
+            }
+
+            if(!gameExists){
+
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

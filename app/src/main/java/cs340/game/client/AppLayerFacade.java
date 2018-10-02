@@ -136,6 +136,11 @@ public class AppLayerFacade{
         presenter.onCreateGameResponse(results.isSuccess());
     }
 
+    public void updateGames(GameList newGames){
+
+
+    }
+
     public void addObserver(Observer o){
 
         clientModelRoot.addObserver(o);

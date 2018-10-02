@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import cs340.game.shared.Results;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
@@ -14,7 +13,6 @@ public class ClientModelRoot extends Observable {
     // public void addObserver(Observer o)
     // public void deleteObserver(Observer o)
     // public void notifyObservers()
-    // public Object getUpdate(Observer o)
 
     private List<Observer> observers;
 
@@ -35,7 +33,7 @@ public class ClientModelRoot extends Observable {
     // End Singleton
 
     private User currentUser;
-    private GameList games;
+    private GameList games = new GameList();
 
     public User getCurrentUser() {
         return currentUser;
@@ -57,7 +55,8 @@ public class ClientModelRoot extends Observable {
 
         Game game = games.getGame(gameName);
         game.AddPlayer(userName);
-        //notifyObservers();
+
+        notifyObservers();
     }
 
     public GameList getGames() {
@@ -67,13 +66,15 @@ public class ClientModelRoot extends Observable {
     public void addGame(Game game){
 
         games.addGame(game);
-        //notifyObservers();
+
+        notifyObservers();
     }
 
     @Override
     public void notifyObservers(){
+
         for(Observer obj : observers) {
-            //obj.update();
+            obj.update(this, games);
         }
     }
 }
