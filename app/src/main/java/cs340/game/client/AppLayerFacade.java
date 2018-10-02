@@ -44,6 +44,7 @@ public class AppLayerFacade{
 
         if(results.isSuccess()) {
             clientModelRoot.setCurrentUser(user);
+            clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
             presenter.onError(results.getErrorInfo());
             return;
@@ -64,6 +65,7 @@ public class AppLayerFacade{
 
         if(results.isSuccess()) {
             clientModelRoot.setCurrentUser(user);
+            clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
             presenter.onError(results.getErrorInfo());
             return;
@@ -75,6 +77,7 @@ public class AppLayerFacade{
     public void Logout(){
 
         clientModelRoot.setCurrentUser(null);
+        clientModelRoot.setUserState(UserState.LOGGED_OUT);
     }
 
     public void CreateGame(GameListPresenter presenter, String gameName){

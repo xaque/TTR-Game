@@ -1,5 +1,6 @@
 package cs340.game.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,7 +15,7 @@ public class ClientModelRoot extends Observable {
     // public void deleteObserver(Observer o)
     // public void notifyObservers()
 
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
 
     // Start Singleton
     private static ClientModelRoot instance;
@@ -32,6 +33,7 @@ public class ClientModelRoot extends Observable {
     }
     // End Singleton
 
+    private UserState userState = UserState.LOGGED_OUT;
     private User currentUser;
     private GameList games = new GameList();
 
@@ -44,6 +46,14 @@ public class ClientModelRoot extends Observable {
         if(this.currentUser == null) {
             this.currentUser = currentUser;
         }
+    }
+
+    public UserState getUserState(){
+        return userState;
+    }
+
+    public void setUserState(UserState userState){
+        this.userState = userState;
     }
 
     public Game getGame(String gameName){
@@ -113,6 +123,16 @@ public class ClientModelRoot extends Observable {
         }
 
         return playerAdded;
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        observers.remove(o);
     }
 
     @Override
