@@ -72,7 +72,7 @@ public class ClientModelRoot extends Observable {
 
     public void updateGames(GameList newGames){
 
-        List<Game> _games = games.GetGames();
+        boolean changed = false;
         List<Game> _newGames = newGames.GetGames();
         for(int i = 0; i < _newGames.size(); i++){
 
@@ -81,16 +81,26 @@ public class ClientModelRoot extends Observable {
             if(games.gameExists(gameName)){
 
                 List<String> newPlayers = newGame.getPlayers();
-                addNewPlayersToGame(gameName, newPlayers);
+                if(addNewPlayersToGame(gameName, newPlayers)){
+
+                    changed = true;
+                }
             }else{
 
                 games.addGame(newGame);
+                changed = true;
             }
+        }
+
+        if(changed){
+
+            notifyObservers();
         }
     }
 
-    private void addNewPlayersToGame(String gameName, List<String> newPlayers){
+    private boolean addNewPlayersToGame(String gameName, List<String> newPlayers){
 
+        boolean playerAdded = false;
         Game currentGame = games.getGame(gameName);
         for(int i = 0; i < newPlayers.size(); i++){
 
@@ -98,8 +108,11 @@ public class ClientModelRoot extends Observable {
             if(!currentGame.playerExistsInGame(playerName)){
 
                 currentGame.AddPlayer(playerName);
+                playerAdded = true;
             }
         }
+
+        return playerAdded;
     }
 
     @Override

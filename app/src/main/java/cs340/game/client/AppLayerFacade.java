@@ -102,7 +102,6 @@ public class AppLayerFacade{
         }
 
         presenter.onCreateGameResponse(results.isSuccess());
-        //return clientModelRoot.getGames();
     }
 
     public void JoinGame(GameListPresenter presenter, String gameName){
