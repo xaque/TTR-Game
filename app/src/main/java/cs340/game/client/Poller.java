@@ -7,7 +7,7 @@ import cs340.game.shared.models.GameList;
 
 public class Poller {
 
-    AppLayerFacade facade = AppLayerFacade.getInstance();
+    ClientModelRoot modelRoot = ClientModelRoot.getInstance();
 
     public Results getLobbyUpdates(int lastSequenceNumber){
 
@@ -18,7 +18,7 @@ public class Poller {
 
         // GameList of NEW or CHANGED games
         GameList games = new GameList();
-        facade.updateGames(games);
+        modelRoot.updateGames(games);
 
         return null;
     }

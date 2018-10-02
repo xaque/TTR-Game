@@ -45,6 +45,11 @@ public class GameList implements Serializable{
         return false;
     }
 
+    public int size(){
+
+        return games.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

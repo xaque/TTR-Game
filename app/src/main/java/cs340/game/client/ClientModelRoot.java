@@ -70,6 +70,38 @@ public class ClientModelRoot extends Observable {
         notifyObservers();
     }
 
+    public void updateGames(GameList newGames){
+
+        List<Game> _games = games.GetGames();
+        List<Game> _newGames = newGames.GetGames();
+        for(int i = 0; i < _newGames.size(); i++){
+
+            Game newGame = _newGames.get(i);
+            String gameName = newGame.getName();
+            if(games.gameExists(gameName)){
+
+                List<String> newPlayers = newGame.getPlayers();
+                addNewPlayersToGame(gameName, newPlayers);
+            }else{
+
+                games.addGame(newGame);
+            }
+        }
+    }
+
+    private void addNewPlayersToGame(String gameName, List<String> newPlayers){
+
+        Game currentGame = games.getGame(gameName);
+        for(int i = 0; i < newPlayers.size(); i++){
+
+            String playerName = newPlayers.get(i);
+            if(!currentGame.playerExistsInGame(playerName)){
+
+                currentGame.AddPlayer(playerName);
+            }
+        }
+    }
+
     @Override
     public void notifyObservers(){
 

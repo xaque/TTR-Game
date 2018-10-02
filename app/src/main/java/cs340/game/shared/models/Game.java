@@ -56,6 +56,10 @@ public class Game implements Serializable{
         this.name = name;
     }
 
+    public List<String> getPlayers(){
+        return players;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
