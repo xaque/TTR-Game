@@ -12,6 +12,7 @@ public class Game implements Serializable{
 
     private String name;
     private List<String> players = new ArrayList<>();
+    private boolean gameStarted = false;
 
     public Game(String gameName, String originalUser){
 
@@ -58,6 +59,14 @@ public class Game implements Serializable{
 
     public List<String> getPlayers(){
         return players;
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
     }
 
     @Override

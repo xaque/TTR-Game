@@ -35,7 +35,10 @@ public class ClientModelRoot extends Observable {
 
     private UserState userState = UserState.LOGGED_OUT;
     private User currentUser;
+    private Game currentGame;
     private GameList games = new GameList();
+    private int lobbySequenceNumber;
+    private int gameSequenceNumber;
 
     public User getCurrentUser() {
         return currentUser;
@@ -46,6 +49,30 @@ public class ClientModelRoot extends Observable {
         if(this.currentUser == null) {
             this.currentUser = currentUser;
         }
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
+    }
+
+    public int getLobbySequenceNumber() {
+        return lobbySequenceNumber;
+    }
+
+    public void setLobbySequenceNumber(int lobbySequenceNumber) {
+        this.lobbySequenceNumber = lobbySequenceNumber;
+    }
+
+    public int getGameSequenceNumber() {
+        return gameSequenceNumber;
+    }
+
+    public void setGameSequenceNumber(int gameSequenceNumber) {
+        this.gameSequenceNumber = gameSequenceNumber;
     }
 
     public UserState getUserState(){

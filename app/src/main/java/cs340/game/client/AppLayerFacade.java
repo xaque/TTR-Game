@@ -50,6 +50,7 @@ public class AppLayerFacade{
             return;
         }
 
+        // TODO Start Poller
         presenter.onLoginResponse(results.isSuccess());
     }
 
@@ -71,6 +72,7 @@ public class AppLayerFacade{
             return;
         }
 
+        // TODO Start Poller
         presenter.onRegisterResponse(results.isSuccess());
     }
 
@@ -78,6 +80,7 @@ public class AppLayerFacade{
 
         clientModelRoot.setCurrentUser(null);
         clientModelRoot.setUserState(UserState.LOGGED_OUT);
+        // TODO Stopping Poller
     }
 
     public void CreateGame(GameListPresenter presenter, String gameName){
@@ -99,6 +102,7 @@ public class AppLayerFacade{
         if(results.isSuccess()) {
             Game game = new Game(gameName, currentUser.getUsername());
             clientModelRoot.addGame(game);
+            clientModelRoot.setCurrentGame(game);
         }else{
             presenter.onError(results.getErrorInfo());
             return;
@@ -130,12 +134,19 @@ public class AppLayerFacade{
 
         if(results.isSuccess()){
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
+            clientModelRoot.setCurrentGame(game);
         }else{
             presenter.onError(results.getErrorInfo());
             return;
         }
 
         presenter.onCreateGameResponse(results.isSuccess());
+    }
+
+    public void StartGame(GameListPresenter presenter, String gameName){
+
+        Game game = clientModelRoot.getGame(gameName);
+        game.setGameStarted(true);
     }
 
     public void addObserver(Observer o){
@@ -146,5 +157,10 @@ public class AppLayerFacade{
     public void deleteObserver(Observer o){
 
         clientModelRoot.deleteObserver(o);
+    }
+
+    public Game getCurrentGame(){
+
+        return null;
     }
 }
