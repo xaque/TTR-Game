@@ -40,13 +40,12 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         startGameButton.setOnClickListener(this);
 
         gameName = (TextView) findViewById(R.id.gameName);
-        gameName.setText("Ticket To Ride"); //TODO: put the real name of the game here
 
-
-        //This isn't right--If you are joining a game, you won't be player 1. I'll have to figure out how to do that.
-        //It'll be something like, populatePlayerList, which just pulls the players from the game object in the facade?
         player1 = (TextView) findViewById(R.id.player1);
-        player1.setText("Tyler");
+        player2 = (TextView) findViewById(R.id.player2);
+        player3 = (TextView) findViewById(R.id.player3);
+        player4 = (TextView) findViewById(R.id.player4);
+        player5 = (TextView) findViewById(R.id.player5);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -86,6 +85,30 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         presenter.leaveGame();
 
         return true;
+    }
+
+    public void setGameName(String name) {
+        gameName.setText(name);
+    }
+
+    public void setPlayer1(String name){
+        player1.setText(name);
+    }
+
+    public void setPlayer2(String name){
+        player2.setText(name);
+    }
+
+    public void setPlayer3(String name){
+        player3.setText(name);
+    }
+
+    public void setPlayer4(String name){
+        player4.setText(name);
+    }
+
+    public void setPlayer5(String name){
+        player5.setText(name);
     }
 
 }
