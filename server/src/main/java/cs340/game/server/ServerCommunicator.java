@@ -1,10 +1,11 @@
 package cs340.game.server;
 
 import com.sun.net.httpserver.HttpServer;
-import cs340.game.shared.CommonData;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+
+import cs340.game.shared.CommonData;
 
 public class ServerCommunicator {
     private HttpServer server;

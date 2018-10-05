@@ -17,6 +17,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
+import static cs340.game.shared.CommandType.*;
+
 public class ExecCommandHandler implements HttpHandler {
     /**
      * Convert request and execute the command using the command pattern

@@ -40,4 +40,5 @@ dependencies {
     testImplementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
     //implementation files('/Users/tbarto22/Downloads/http-20070405.jar')
     //implementation files('/taUsers/tbarto22/Downloads/gson-2.3.1.jar')
+    compile project(path: ':shared')
 }
