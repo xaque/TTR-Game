@@ -2,6 +2,11 @@ package cs340.game.shared.data;
 
 import cs340.game.shared.CommandType;
 
+/**
+ * A container for information about a command. This is specifically for any request that has to do
+ * with logging a player in or registering a new user.
+ * @see Data
+ */
 public class LoginData extends Data{
 
     private CommandType commandType;

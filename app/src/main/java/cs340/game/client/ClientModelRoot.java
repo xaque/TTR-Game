@@ -9,6 +9,9 @@ import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
 
+/**
+ * Contains models for the client side and stores relevant data for the client.
+ */
 public class ClientModelRoot extends Observable {
     // Observable methods:
     // public void addObserver(Observer o)
@@ -86,10 +89,18 @@ public class ClientModelRoot extends Observable {
     }
 
     public Game getGame(String gameName){
-
         return games.getGame(gameName);
     }
 
+    public GameList getGames() {
+        return games;
+    }
+
+    /**
+     * Add a player to the list of players in a game.
+     * @param userName the username of the player, used to identify them in the game
+     * @param gameName the name of the game to which the player is being added
+     */
     public void addPlayerToGame(String userName, String gameName){
 
         Game game = games.getGame(gameName);
@@ -98,10 +109,11 @@ public class ClientModelRoot extends Observable {
         notifyObservers();
     }
 
-    public GameList getGames() {
-        return games;
-    }
-
+    /**
+     * Add a newly created game to the list of all games, then notify the observers that the
+     * list of games has been changed.
+     * @param game a newly created game to be added to the list of all games
+     */
     public void addGame(Game game){
 
         games.addGame(game);
@@ -109,6 +121,14 @@ public class ClientModelRoot extends Observable {
         notifyObservers();
     }
 
+    /**
+     * Updates the list of games by adding new games and/or updating previously existing games that
+     * have had users added or removed. If games were added and/or updated, notify observers that
+     * the list of games has been changed.
+     * @param newGames a list of all games that have been newly created and/or changed in some way,
+     *                 this is expected to not contain previously existing games that have not been
+     *                 changed
+     */
     public void updateGames(GameList newGames){
 
         boolean changed = false;
@@ -137,6 +157,14 @@ public class ClientModelRoot extends Observable {
         }
     }
 
+    /**
+     * Adds one or more players to a game if they are not already in the game. This is meant to be
+     * a helper method for the updateGames() method.
+     * @param gameName the name of the game to which players will be added
+     * @param newPlayers a collection of the names of the new players that need to be added to the
+     *                   game
+     * @return true if at least one player was added to the game, false otherwise
+     */
     private boolean addNewPlayersToGame(String gameName, List<String> newPlayers){
 
         boolean playerAdded = false;
@@ -154,6 +182,10 @@ public class ClientModelRoot extends Observable {
         return playerAdded;
     }
 
+    /**
+     * Creates a new Thread to kick off the Poller, which will check for game updates, and starts it.
+     * @see Poller
+     */
     public void startPoller(){
 
         pollerThread = new Thread(new Poller());
@@ -162,6 +194,10 @@ public class ClientModelRoot extends Observable {
         // while(pollerThread.isAlive()){}
     }
 
+    /**
+     * Stops the Poller.
+     * @see Poller
+     */
     public void stopPoller(){
 
         if(pollerThread != null){
