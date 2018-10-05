@@ -6,7 +6,6 @@ import cs340.game.shared.CommandType;
  * A container for information about a command. This is specifically for any request that has to do
  * with the Poller.
  * @see Data
- * @see cs340.game.client.Poller
  */
 public class PollerData extends Data{
 

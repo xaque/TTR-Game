@@ -8,6 +8,7 @@ import cs340.game.shared.models.GameList;
 /**
  * This Class has the purpose of frequently checking with the server to see if anything has changed
  * inside of the app and checks for specific updates depending on the current state of the user.
+ * @see PollerData
  */
 public class Poller implements Runnable{
 
