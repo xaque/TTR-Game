@@ -42,12 +42,12 @@ public class ServerProxy {
      * Communicates with the server to create a new game and add the user that created it to that
      * game.
      * @param gameID the name of the game that will be created
-     * @param username the name of the user that created the game
+     * @param authToken the authentication token of the user that created the game
      * @return an Object containing results about the success of the request
      */
-    public Results CreateGame(String gameID, String username){
+    public Results CreateGame(String gameID, String authToken){
 
-        LobbyData lobbyData = new LobbyData(CommandType.CREATE_GAME, gameID, username);
+        LobbyData lobbyData = new LobbyData(CommandType.CREATE_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send("/lobby", lobbyData);
@@ -58,12 +58,12 @@ public class ServerProxy {
     /**
      * Communicates with the server to add a user to a game.
      * @param gameID the name of the game to which the user with the given username will be added
-     * @param username the name of the user that is joining the game
+     * @param authToken the authentication token of the user that is joining the game
      * @return an Object containing results about the success of the request
      */
-    public Results JoinGame(String gameID, String username){
+    public Results JoinGame(String gameID, String authToken){
 
-        LobbyData lobbyData = new LobbyData(CommandType.JOIN_GAME, gameID, username);
+        LobbyData lobbyData = new LobbyData(CommandType.JOIN_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send("/lobby", lobbyData);
@@ -74,12 +74,12 @@ public class ServerProxy {
     /**
      * Communicates with the server to start a game.
      * @param gameID the name of the game that is being started
-     * @param userStartingGame the name of the user that is starting the game
+     * @param authToken the authentication token of the user that is starting the game
      * @return an Object containing the results about the success of the request
      */
-    public Results StartGame(String gameID, String userStartingGame){
+    public Results StartGame(String gameID, String authToken){
 
-        LobbyData lobbyData = new LobbyData(CommandType.START_GAME, gameID, userStartingGame);
+        LobbyData lobbyData = new LobbyData(CommandType.START_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send("/lobby", lobbyData);
