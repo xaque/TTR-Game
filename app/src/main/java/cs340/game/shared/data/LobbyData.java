@@ -2,6 +2,11 @@ package cs340.game.shared.data;
 
 import cs340.game.shared.CommandType;
 
+/**
+ * A container for information about a command. This is specifically for any request that has to do
+ * with the game lobby.
+ * @see Data
+ */
 public class LobbyData extends Data{
 
     private CommandType commandType;
@@ -14,9 +19,9 @@ public class LobbyData extends Data{
         this.username = username;
     }
 
-    //public CommandType getCommandType() {
-    //    return commandType;
-    //}
+    public CommandType getCommandType() {
+        return commandType;
+    }
 
     public void setCommandType(CommandType commandType) {
         this.commandType = commandType;

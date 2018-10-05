@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Container for all information relevant to a game.
+ */
 public class Game implements Serializable{
 
     private static final int MIN_GAME_SIZE = 2;
@@ -12,6 +15,7 @@ public class Game implements Serializable{
 
     private String name;
     private List<String> players = new ArrayList<>();
+    private boolean gameStarted = false;
 
     public Game(String gameName, String originalUser){
 
@@ -27,11 +31,16 @@ public class Game implements Serializable{
         }
     }
 
-    public boolean playerExistsInGame(String user){
+    /**
+     * Checks if the given player is already part of the game.
+     * @param username the name of the user whose presence in the game is being checked
+     * @return true if the player is in the game, false otherwise
+     */
+    public boolean playerExistsInGame(String username){
 
         for(int i = 0; i < players.size(); i++){
             String playerName = players.get(i);
-            if(playerName.equals(user)){
+            if(playerName.equals(username)){
 
                 return true;
             }
@@ -42,6 +51,10 @@ public class Game implements Serializable{
 
     public boolean isGameFull(){
         return (GetGameSize() >= MAX_GAME_SIZE);
+    }
+
+    public boolean hasEnoughPlayersToStart(){
+        return (GetGameSize() >= MIN_GAME_SIZE);
     }
 
     public int GetGameSize(){
@@ -58,6 +71,14 @@ public class Game implements Serializable{
 
     public List<String> getPlayers(){
         return players;
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
     }
 
     @Override

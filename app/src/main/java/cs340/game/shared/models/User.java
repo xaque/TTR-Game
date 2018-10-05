@@ -2,6 +2,9 @@ package cs340.game.shared.models;
 
 import java.io.Serializable;
 
+/**
+ * A container for basic information about a user/player.
+ */
 public class User implements Serializable{
 
     private String username;
@@ -20,32 +23,26 @@ public class User implements Serializable{
     }
 
     public String getUsername() {
-
         return username;
     }
 
     public String getPassword() {
-
         return password;
     }
 
     public String getAuthToken() {
-
         return authToken;
     }
 
     public void setUsername(String username) {
-
         this.username = username;
     }
 
     public void setPassword(String password) {
-
         this.password = password;
     }
 
     public void setAuthToken(String authToken) {
-
         this.authToken = authToken;
     }
 }

@@ -4,5 +4,5 @@ package cs340.game.shared;
  * All possible commands that are implemented through iStringProcessor
  */
 public enum CommandType {
-    LOGIN, REGISTER, CREATE_GAME, JOIN_GAME, LOBBY_POLL //,GAME_POLL;
+    LOGIN, REGISTER, CREATE_GAME, JOIN_GAME, START_GAME, LOBBY_POLL //,GAME_POLL;
 }
