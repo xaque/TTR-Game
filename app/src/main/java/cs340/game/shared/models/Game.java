@@ -53,6 +53,10 @@ public class Game implements Serializable{
         return (GetGameSize() >= MAX_GAME_SIZE);
     }
 
+    public boolean hasEnoughPlayersToStart(){
+        return (GetGameSize() >= MIN_GAME_SIZE);
+    }
+
     public int GetGameSize(){
         return players.size();
     }

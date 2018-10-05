@@ -198,32 +198,50 @@ public class AppLayerFacade{
      */
     public void StartGame(GameListPresenter presenter, String gameName){
 
+        User currentUser = clientModelRoot.getCurrentUser();
+        if(currentUser == null){
+            presenter.onError("You must be logged in to start a game!");
+            return;
+        }
+
         Game game = clientModelRoot.getGame(gameName);
-        game.setGameStarted(true);
+        if(!game.playerExistsInGame(currentUser.getUsername())){
+            presenter.onError("You cannot start this game if you are not in it!");
+            return;
+        }
+
+        if(game.hasEnoughPlayersToStart()){
+            presenter.onError("This game does not have enough players!");
+            return;
+        }
+
+        Results results = proxy.StartGame(gameName, currentUser.getUsername());
+
+        if(results.isSuccess()){
+            clientModelRoot.startGame(gameName);
+        }else{
+            presenter.onError(results.getErrorInfo());
+            return;
+        }
     }
 
     public void addObserver(Observer o){
-
         clientModelRoot.addObserver(o);
     }
 
     public void deleteObserver(Observer o){
-
         clientModelRoot.deleteObserver(o);
     }
 
     public Game getCurrentGame(){
-
         return clientModelRoot.getCurrentGame();
     }
 
     public Game getGame(String gameName){
-
         return clientModelRoot.getGame(gameName);
     }
 
     public GameList getAllGames(){
-
         return clientModelRoot.getGames();
     }
 }

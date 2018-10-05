@@ -122,6 +122,16 @@ public class ClientModelRoot extends Observable {
     }
 
     /**
+     * Sets the state of the game (whose name is passed in) to be started.
+     * @param gameName the name of the game to be started
+     */
+    public void startGame(String gameName){
+
+        Game game = getGame(gameName);
+        game.setGameStarted(true);
+    }
+
+    /**
      * Updates the list of games by adding new games and/or updating previously existing games that
      * have had users added or removed. If games were added and/or updated, notify observers that
      * the list of games has been changed.

@@ -70,4 +70,20 @@ public class ServerProxy {
 
         return results;
     }
+
+    /**
+     * Communicates with the server to start a game.
+     * @param gameID the name of the game that is being started
+     * @param userStartingGame the name of the user that is starting the game
+     * @return an Object containing the results about the success of the request
+     */
+    public Results StartGame(String gameID, String userStartingGame){
+
+        LobbyData lobbyData = new LobbyData(CommandType.START_GAME, gameID, userStartingGame);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send("/lobby", lobbyData);
+
+        return results;
+    }
 }
