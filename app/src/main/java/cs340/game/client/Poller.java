@@ -9,18 +9,31 @@ public class Poller implements Runnable{
 
     ClientModelRoot modelRoot = ClientModelRoot.getInstance();
 
+    private static final int ONE_SECOND = 1000;
+
     @Override
     public void run() {
+
         while(true){
 
             UserState userState = modelRoot.getUserState();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(ONE_SECOND);
 
+                int lastSequenceNumber;
                 if(userState == UserState.IN_LOBBY){
 
-                    // TODO retrieve last sequence number (where should this be stored?)
-                    getLobbyUpdates(0);
+                    lastSequenceNumber = modelRoot.getLobbySequenceNumber();
+                    getLobbyUpdates(lastSequenceNumber);
+
+                }else if(userState == UserState.IN_GAME){
+
+                    lastSequenceNumber = modelRoot.getGameSequenceNumber();
+                    getGameUpdates(lastSequenceNumber);
+
+                }else if(userState == UserState.LOGGED_OUT){
+
+                    break;
                 }
 
             }catch (Exception ex){
@@ -38,5 +51,11 @@ public class Poller implements Runnable{
         // GameList of NEW or CHANGED games
         GameList games = new GameList();
         modelRoot.updateGames(games);
+        // TODO Update sequence number
+        int newSequenceNumber = 0;
+        modelRoot.setLobbySequenceNumber(newSequenceNumber);
+    }
+
+    public void getGameUpdates(int lastSequenceNumber){
     }
 }

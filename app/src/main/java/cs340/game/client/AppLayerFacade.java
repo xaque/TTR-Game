@@ -50,7 +50,9 @@ public class AppLayerFacade{
             return;
         }
 
-        // TODO Start Poller
+        // Start Poller
+        clientModelRoot.startPoller();
+
         presenter.onLoginResponse(results.isSuccess());
     }
 
@@ -72,7 +74,9 @@ public class AppLayerFacade{
             return;
         }
 
-        // TODO Start Poller
+        // Start Poller
+        clientModelRoot.startPoller();
+
         presenter.onRegisterResponse(results.isSuccess());
     }
 
@@ -80,7 +84,8 @@ public class AppLayerFacade{
 
         clientModelRoot.setCurrentUser(null);
         clientModelRoot.setUserState(UserState.LOGGED_OUT);
-        // TODO Stopping Poller
+        // Stop Poller
+        clientModelRoot.stopPoller();
     }
 
     public void CreateGame(GameListPresenter presenter, String gameName){
@@ -161,6 +166,16 @@ public class AppLayerFacade{
 
     public Game getCurrentGame(){
 
-        return null;
+        return clientModelRoot.getCurrentGame();
+    }
+
+    public Game getGame(String gameName){
+
+        return clientModelRoot.getGame(gameName);
+    }
+
+    public GameList getAllGames(){
+
+        return clientModelRoot.getGames();
     }
 }

@@ -37,6 +37,8 @@ public class ClientModelRoot extends Observable {
     private User currentUser;
     private Game currentGame;
     private GameList games = new GameList();
+
+    private Thread pollerThread;
     private int lobbySequenceNumber;
     private int gameSequenceNumber;
 
@@ -150,6 +152,22 @@ public class ClientModelRoot extends Observable {
         }
 
         return playerAdded;
+    }
+
+    public void startPoller(){
+
+        pollerThread = new Thread(new Poller());
+        pollerThread.start();
+        // How to wait for the thread to finish
+        // while(pollerThread.isAlive()){}
+    }
+
+    public void stopPoller(){
+
+        if(pollerThread != null){
+
+            pollerThread.stop();
+        }
     }
 
     @Override
