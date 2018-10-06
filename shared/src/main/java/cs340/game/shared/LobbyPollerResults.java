@@ -9,6 +9,7 @@ import cs340.game.shared.models.GameList;
 public class LobbyPollerResults implements Results{
     private boolean success;
     private GameList data;
+    private int sequenceNumber;
     private String errorInfo;
 
     /**
@@ -37,6 +38,14 @@ public class LobbyPollerResults implements Results{
      */
     public GameList getData() {
         return data;
+    }
+
+    /**
+     * Getter for data
+     * @return The result data if success is true
+     */
+    public int getSequenceNumber() {
+        return sequenceNumber;
     }
 
     /**

@@ -1,6 +1,7 @@
 package cs340.game.client;
 
 import cs340.game.shared.CommandType;
+import cs340.game.shared.LobbyPollerResults;
 import cs340.game.shared.Results;
 import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.GameList;
@@ -59,13 +60,13 @@ public class Poller implements Runnable{
         PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, lastSequenceNumber);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/poller", pollerData);
+        LobbyPollerResults results = (LobbyPollerResults)communicator.send("/poller", pollerData);
 
         // GameList of NEW or CHANGED games
-        GameList games = new GameList();
+        GameList games = results.getData();
         modelRoot.updateGames(games);
-        // TODO Update sequence number
-        int newSequenceNumber = 0;
+        // The most recent sequence number passed from the server
+        int newSequenceNumber = results.getSequenceNumber();
         modelRoot.setLobbySequenceNumber(newSequenceNumber);
     }
 

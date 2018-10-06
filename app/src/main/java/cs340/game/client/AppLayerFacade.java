@@ -52,10 +52,10 @@ public class AppLayerFacade{
         }
 
         User user = new User(username, password);
-        Results results = proxy.Login(user);
+        LoginResults results = (LoginResults) proxy.Login(user);
 
         if(results.isSuccess()) {
-            String authToken = "";//results.getAuthToken();
+            String authToken = results.getAuthToken();
             user.setAuthToken(authToken);
             clientModelRoot.setCurrentUser(user);
             clientModelRoot.setUserState(UserState.IN_LOBBY);
@@ -87,10 +87,10 @@ public class AppLayerFacade{
         }
 
         User user = new User(username, password);
-        Results results = proxy.Register(user);
+        LoginResults results = (LoginResults) proxy.Register(user);
 
         if(results.isSuccess()) {
-            String authToken = "";//results.getAuthToken();
+            String authToken = results.getAuthToken();
             user.setAuthToken(authToken);
             clientModelRoot.setCurrentUser(user);
             clientModelRoot.setUserState(UserState.IN_LOBBY);
@@ -140,7 +140,7 @@ public class AppLayerFacade{
             return;
         }
 
-        Results results = proxy.CreateGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.CreateGame(gameName, currentUser.getAuthToken());
 
         if(results.isSuccess()) {
             Game game = new Game(gameName, currentUser.getUsername());
@@ -180,7 +180,7 @@ public class AppLayerFacade{
             return;
         }
 
-        Results results = proxy.JoinGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.JoinGame(gameName, currentUser.getAuthToken());
 
         if(results.isSuccess()){
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
@@ -219,7 +219,7 @@ public class AppLayerFacade{
             return;
         }
 
-        Results results = proxy.StartGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getAuthToken());
 
         if(results.isSuccess()){
             clientModelRoot.startGame(gameName);
