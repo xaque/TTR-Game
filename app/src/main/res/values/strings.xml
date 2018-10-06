@@ -1,3 +1,56 @@
 <resources>
     <string name="app_name">TicketToRide</string>
+
+
+    <!--MAIN ACTIVITY-->
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="login">Log In</string>
+
+
+    <!--GAME LIST-->
+
+    <string name="joinAGame">JOIN A GAME</string>
+    <string name="startAGame">START A GAME</string>
+    <string name="gameHint">Name of game</string>
+    <string name="createGame">Create game</string>
+
+
+    <!--GAME LOBBY-->
+
+    <string name="welcome">Welcome to</string>
+    <string name="gameNamePlaceholder">Game Name</string>
+    <string name="waiting">Waiting for players…</string>
+
+    <string name="one">1.</string>
+    <string name="two">2.</string>
+    <string name="three">3.</string>
+    <string name="four">4.</string>
+    <string name="five">5.</string>
+
+    <string name="startGame">Start Game</string>
+
+
+    <!--GAME LIST ITEM-->
+
+    <string name="joinButton">Join</string>
+
+    <string name="status_waiting">Waiting</string>
+    <string name="status_started">Started</string>
+
+    <string name="zero_five">0/5</string>
+    <string name="one_five">1/5</string>
+    <string name="two_five">2/5</string>
+    <string name="three_five">3/5</string>
+    <string name="four_five">4/5</string>
+    <string name="five_five">5/5</string>
+
+
+    <!--GAME-->
+
+    <string name="welcomeText">THIS IS THE GAME</string>
+
+
 </resources>
