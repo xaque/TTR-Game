@@ -15,22 +15,18 @@ import cs340.game.shared.models.GameList;
 public class MainActivityPresenter implements Observer {
 
     private MainActivity view;
-    private AppLayerFacade appLayerFacade = AppLayerFacade.getInstance();
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
 
     public MainActivityPresenter(MainActivity view) {
         this.view = view;
     }
 
     public void login(String username, String password){
-        //appLayerFacade.Login(this, username, password);
-
-        onLoginResponse(true);
+        facade.Login(this, username, password);
     }
 
     public void register(String username, String password) {
-        //appLayerFacade.Register(username, password);
-        onError("Couldn't register. Sorry about that.");
-        //onRegisterResponse(true);
+        facade.Register(this, username, password);
     }
 
     public void onLoginResponse(boolean isLoginSuccess) {

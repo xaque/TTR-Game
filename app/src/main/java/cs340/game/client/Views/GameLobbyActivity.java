@@ -75,9 +75,8 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.start_game_button:
-                presenter.startGame();
+                presenter.startGame(gameName.getText().toString());
                 break;
-
         }
     }
 
@@ -91,24 +90,32 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         gameName.setText(name);
     }
 
-    public void setPlayer1(String name){
-        player1.setText(name);
+    public void setPlayer(int position, String name){
+        switch(position){
+            case 0:
+                player1.setText(name);
+                break;
+            case 1:
+                player2.setText(name);
+                break;
+            case 2:
+                player3.setText(name);
+                break;
+            case 3:
+                player4.setText(name);
+                break;
+            case 4:
+                player5.setText(name);
+                break;
+        }
     }
 
-    public void setPlayer2(String name){
-        player2.setText(name);
-    }
 
-    public void setPlayer3(String name){
-        player3.setText(name);
+    public void clearPlayerList() {
+        player1.setText("");
+        player2.setText("");
+        player3.setText("");
+        player4.setText("");
+        player5.setText("");
     }
-
-    public void setPlayer4(String name){
-        player4.setText(name);
-    }
-
-    public void setPlayer5(String name){
-        player5.setText(name);
-    }
-
 }

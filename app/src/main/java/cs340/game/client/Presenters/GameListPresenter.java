@@ -19,35 +19,34 @@ public class GameListPresenter implements Observer {
 
     public GameListPresenter(GameListActivity view) {
         this.view = view;
-        //model = new User();
+        facade.addObserver(this);
     }
-
 
 
     public void createGame(String gameName) {
-        //facade.CreateGame(gameName);
-        onCreateGameResponse(true);
+        facade.CreateGame(this, gameName);
     }
 
-    public void joinGame() {
-
+    public void joinGame(String gameName) {
+        facade.JoinGame(this, gameName);
     }
 
     public void logout() {
-        //facade.Logout();
-        onLogOutResponse(true);
+        facade.Logout();
     }
 
-
     public void onCreateGameResponse(boolean isCreateGameSuccess) {
+        facade.deleteObserver(this);
         view.onCreateGameResponse(isCreateGameSuccess);
     }
 
     public void onJoinGameResponse(boolean isJoinGameSuccess) {
-
+        facade.deleteObserver(this);
+        view.onJoinGameResponse(isJoinGameSuccess);
     }
 
     public void onLogOutResponse(boolean isLogOutSuccess) {
+        facade.deleteObserver(this);
         view.onLogOutResponse(isLogOutSuccess);
     }
 
@@ -57,6 +56,6 @@ public class GameListPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-
+        //Update the game list :)
     }
 }

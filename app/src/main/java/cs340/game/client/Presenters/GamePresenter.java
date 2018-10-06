@@ -6,7 +6,7 @@ import cs340.game.client.Views.GameActivity;
 public class GamePresenter {
 
     private GameActivity view;
-    private AppLayerFacade appLayerFacade = AppLayerFacade.getInstance();
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
 
     public GamePresenter(GameActivity view) {
         this.view = view;
@@ -14,7 +14,6 @@ public class GamePresenter {
 
     public void leaveGame() {
         //facade.LeaveGame()
-
         onLeaveGameResponse(true);
     }
 

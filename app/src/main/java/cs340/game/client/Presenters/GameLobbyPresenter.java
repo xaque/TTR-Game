@@ -1,33 +1,43 @@
 package cs340.game.client.Presenters;
 
 
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Views.GameLobbyActivity;
+import cs340.game.shared.models.Game;
 
 /**
  * Created by Tyler on 9/27/2018.
  */
 
-public class GameLobbyPresenter {
+public class GameLobbyPresenter implements Observer {
 
     private GameLobbyActivity view;
     private AppLayerFacade facade;
+    private Game currentGame;
 
     public GameLobbyPresenter(GameLobbyActivity view) {
         this.view = view;
 
         facade = AppLayerFacade.getInstance();
+        currentGame = facade.getCurrentGame();
 
-        this.view.setGameName("Ticket To Ride!");
+        this.view.setGameName(currentGame.getName());
 
-        populatePlayerList();
+        populatePlayerList(currentGame.getPlayers());
+
+        facade.addObserver(this);
     }
 
-    public void startGame() {
-        onStartGameResponse(true);
+    public void startGame(String gameName) {
+        facade.StartGame(this, gameName);
     }
 
     public void onStartGameResponse(boolean isStartGameSuccess) {
+        facade.deleteObserver(this);
         view.onStartGameResponse(isStartGameSuccess);
     }
 
@@ -37,6 +47,7 @@ public class GameLobbyPresenter {
     }
 
     private void onLeaveGameResponse(boolean isLeaveSuccess) {
+        facade.deleteObserver(this);
         view.onLeaveGameResponse(isLeaveSuccess);
     }
 
@@ -44,7 +55,15 @@ public class GameLobbyPresenter {
         view.onError(message);
     }
 
-    private void populatePlayerList() {
-        this.view.setPlayer1("Tyler");
+    private void populatePlayerList(List<String> players) {
+        this.view.clearPlayerList();
+        for(int i=0; i<players.size(); i++) {
+            this.view.setPlayer(i, players.get(i));
+        }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        populatePlayerList(this.currentGame.getPlayers());
     }
 }

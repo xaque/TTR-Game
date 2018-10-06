@@ -30,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
         presenter = new GamePresenter(this);
+
+        Toast.makeText(this, "The game has started. Good luck", Toast.LENGTH_SHORT).show();
     }
 
     public void onLeaveGameResponse(boolean isLeaveSuccess) {

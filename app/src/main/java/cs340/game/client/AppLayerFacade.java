@@ -190,7 +190,7 @@ public class AppLayerFacade{
             return;
         }
 
-        presenter.onCreateGameResponse(results.isSuccess());
+        presenter.onJoinGameResponse(results.isSuccess());
     }
 
     /**
@@ -200,7 +200,7 @@ public class AppLayerFacade{
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game that will be started
      */
-    public void StartGame(GameListPresenter presenter, String gameName){
+    public void StartGame(GameLobbyPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
@@ -227,6 +227,8 @@ public class AppLayerFacade{
             presenter.onError(results.getErrorInfo());
             return;
         }
+
+        presenter.onStartGameResponse(results.isSuccess());
     }
 
     public void addObserver(Observer o){
