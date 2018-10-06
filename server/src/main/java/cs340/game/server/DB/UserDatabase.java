@@ -24,8 +24,10 @@ public class UserDatabase {
         return instance;
     }
 
-    public void addUser(User user) {
+    public String addUser(User user) {
         userSet.add(user);
+        String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+        return authToken;
     }
 
     public boolean containsUser(User user) {

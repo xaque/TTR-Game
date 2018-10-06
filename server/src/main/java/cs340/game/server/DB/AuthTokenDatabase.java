@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import cs340.game.shared.ServerException;
+
 /**
  * Created by Stephen on 9/28/2018.
  */
@@ -26,14 +28,13 @@ public class AuthTokenDatabase {
         return instance;
     }
 
-    public String getAuthToken(String username) {
+    public String getAuthToken(String username) throws ServerException {
         String authToken = (String)authTokenMap.get(username);
         if(authToken != null) {
             return authToken;
         }
         else {
-            //TODO: throw exception for not being logged in?
-            return null;
+            throw new ServerException("User not logged in.");
         }
     }
 

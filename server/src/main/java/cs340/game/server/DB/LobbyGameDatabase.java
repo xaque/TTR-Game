@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.server.LobbyGame;
+import cs340.game.shared.models.Game;
 
 /**
  * Created by Stephen on 9/28/2018.
  */
 
 public class LobbyGameDatabase {
-    private List<LobbyGame> lobbyGameList;
+    private List<Game> lobbyGameList;
 
     private static LobbyGameDatabase instance;
 
@@ -25,21 +26,29 @@ public class LobbyGameDatabase {
         return instance;
     }
 
-    public void addGame(LobbyGame game) {
+    public void addGame(Game game) {
+        LobbyCommandLog.getInstance().addLobbyCommand(game);
         lobbyGameList.add(game);
     }
 
-    public void removeGame(LobbyGame game) {
+    public void removeGame(Game game) {
+        game.RemoveAllPlayers();
+        LobbyCommandLog.getInstance().addLobbyCommand(game);
         lobbyGameList.remove(game);
     }
 
-    public LobbyGame getGame(String gameName) {
+    public Game getGame(String gameName) {
         for(int i = 0; i < lobbyGameList.size(); i++) {
-            if(lobbyGameList.get(i).getGameID().equals(gameName)) {
+            if(lobbyGameList.get(i).getName().equals(gameName)) {
                 return lobbyGameList.get(i);
             }
         }
         //TODO error if game doesn't exist?
         return null;
+    }
+
+    public void addPlayerToGame(String username, Game game) {
+        game.AddPlayer(username);
+        LobbyCommandLog.getInstance().addLobbyCommand(game);
     }
 }

@@ -7,7 +7,9 @@ import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.UserDatabase;
 import cs340.game.server.User;
 import cs340.game.shared.CommandData;
+import cs340.game.shared.LoginResults;
 import cs340.game.shared.Results;
+import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;
 
@@ -22,12 +24,11 @@ public class LoginCommand implements iCommand {
         UserDatabase userDB = UserDatabase.getInstance();
         if(userDB.containsUser(user)) {
             String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
-            //TODO establish expectations for return values
-            return new Results(true, authToken, null);
+            return new LoginResults(true, authToken, null);
         }
         else {
-            //TODO establish exception/error format
-            return new Results(false, null, null);
+            ServerException ex = new ServerException("Invalid username/password combination.");
+            return new LoginResults(false, null, ex.getMessage());
         }
     }
 }

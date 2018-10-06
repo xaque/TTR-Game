@@ -31,6 +31,17 @@ public class Game implements Serializable{
         }
     }
 
+
+    public void RemovePlayer(String user) {
+        if(playerExistsInGame(user)) {
+            players.remove(user);
+        }
+    }
+
+    public void RemoveAllPlayers() {
+        players.clear();
+    }
+
     /**
      * Checks if the given player is already part of the game.
      * @param username the name of the user whose presence in the game is being checked
