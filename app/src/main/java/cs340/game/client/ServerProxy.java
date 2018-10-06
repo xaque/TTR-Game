@@ -1,6 +1,8 @@
 package cs340.game.client;
 
 
+import cs340.game.shared.CommandData;
+import cs340.game.shared.CommonData;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.Results;
 import cs340.game.shared.data.LobbyData;
@@ -19,7 +21,7 @@ public class ServerProxy {
         LoginData loginData = new LoginData(CommandType.LOGIN, user.getUsername(), user.getPassword());
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/login", loginData);
+        Results results = communicator.send(CommonData.LOGIN_URI, loginData);
 
         return results;
     }
@@ -34,7 +36,7 @@ public class ServerProxy {
         LoginData loginData = new LoginData(CommandType.REGISTER, user.getUsername(), user.getPassword());
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/login", loginData);
+        Results results = communicator.send(CommonData.LOGIN_URI, loginData);
 
         return results;
     }
@@ -51,7 +53,7 @@ public class ServerProxy {
         LobbyData lobbyData = new LobbyData(CommandType.CREATE_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/lobby", lobbyData);
+        Results results = communicator.send(CommonData.LOBBY_URI, lobbyData);
 
         return results;
     }
@@ -67,7 +69,7 @@ public class ServerProxy {
         LobbyData lobbyData = new LobbyData(CommandType.JOIN_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/lobby", lobbyData);
+        Results results = communicator.send(CommonData.LOBBY_URI, lobbyData);
 
         return results;
     }
@@ -83,7 +85,7 @@ public class ServerProxy {
         LobbyData lobbyData = new LobbyData(CommandType.START_GAME, gameID, authToken);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        Results results = communicator.send("/lobby", lobbyData);
+        Results results = communicator.send(CommonData.LOBBY_URI, lobbyData);
 
         return results;
     }

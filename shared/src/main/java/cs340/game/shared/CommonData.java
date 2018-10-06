@@ -8,7 +8,7 @@ public class CommonData {
     public static final int PORT_NUMBER = 1922;
     public static final int MAX_WAITING_CONNECTIONS = 10;
 
-    public static final String TOLOWERCASE_URI = "/tolowercase";
-    public static final String TRIM_URI = "/trim";
-    public static final String PARSEDOUBLE_URI = "/parsedouble";
+    public static final String LOGIN_URI = "/login";
+    public static final String LOBBY_URI = "/lobby";
+    public static final String POLLER_URI = "/poller";
 }

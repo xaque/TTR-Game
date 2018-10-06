@@ -1,6 +1,7 @@
 package cs340.game.client;
 
 import cs340.game.shared.CommandType;
+import cs340.game.shared.CommonData;
 import cs340.game.shared.LobbyPollerResults;
 import cs340.game.shared.Results;
 import cs340.game.shared.data.PollerData;
@@ -60,7 +61,7 @@ public class Poller implements Runnable{
         PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, lastSequenceNumber);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
-        LobbyPollerResults results = (LobbyPollerResults)communicator.send("/poller", pollerData);
+        LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
 
         // GameList of NEW or CHANGED games
         GameList games = results.getData();
