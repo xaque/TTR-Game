@@ -14,6 +14,9 @@ public class ServerCommunicator {
      * Initialize the HttpServer port and uri contexts
      */
     public void run(){
+
+        System.out.println("Starting Server");
+
         try {
             server = HttpServer.create(new InetSocketAddress(CommonData.PORT_NUMBER), CommonData.MAX_WAITING_CONNECTIONS);
         }

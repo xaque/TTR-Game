@@ -1,6 +1,7 @@
 package cs340.game.shared.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A container for basic information about a user/player.
@@ -44,5 +45,20 @@ public class User implements Serializable{
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return (username.equals(user.username)) &&
+                (password.equals(user.password));
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(username, password);
     }
 }

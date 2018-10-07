@@ -61,6 +61,7 @@ public class AppLayerFacade{
             clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
             presenter.onError(results.getErrorInfo());
+            System.out.println(results.getErrorInfo());
             return;
         }
 
@@ -96,6 +97,7 @@ public class AppLayerFacade{
             clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
             presenter.onError(results.getErrorInfo());
+            System.out.println(results.getErrorInfo());
             return;
         }
 
