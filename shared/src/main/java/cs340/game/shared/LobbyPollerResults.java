@@ -41,11 +41,19 @@ public class LobbyPollerResults implements Results{
     }
 
     /**
-     * Getter for data
+     * Getter for sequenceNumber
      * @return The result data if success is true
      */
     public int getSequenceNumber() {
         return sequenceNumber;
+    }
+
+    /**
+     * Setter for sequenceNumber
+     * @param sequenceNumber the number sequence number
+     */
+    public void setSequenceNumber(int sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 
     /**

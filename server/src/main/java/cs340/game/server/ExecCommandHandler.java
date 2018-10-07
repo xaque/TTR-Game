@@ -8,16 +8,14 @@ import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
 import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
 import cs340.game.server.Commands.LoginCommands.LoginCommand;
 import cs340.game.server.Commands.LoginCommands.RegisterCommand;
+import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.shared.*;
 import cs340.game.shared.data.Data;
-import cs340.game.shared.data.LoginData;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
-
-import static cs340.game.shared.CommandType.*;
 
 public class ExecCommandHandler implements HttpHandler {
     /**
@@ -49,6 +47,9 @@ public class ExecCommandHandler implements HttpHandler {
                 break;
             case JOIN_GAME:
                 cmd = new JoinGameCommand();
+                break;
+            case LOBBY_POLL:
+                cmd = new LobbyPollerCommand();
                 break;
         }
         Results r = cmd.execute(data);
