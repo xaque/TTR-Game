@@ -1,8 +1,8 @@
 package cs340.game;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
