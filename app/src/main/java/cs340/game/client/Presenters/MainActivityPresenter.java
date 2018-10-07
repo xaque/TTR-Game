@@ -6,7 +6,6 @@ import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Views.MainActivity;
-import cs340.game.shared.models.GameList;
 
 /**
  * Created by Tyler on 9/24/2018.

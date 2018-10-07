@@ -1,12 +1,9 @@
 package cs340.game.server.Commands.LoginCommands;
 
-import java.util.UUID;
-
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.UserDatabase;
 import cs340.game.server.User;
-import cs340.game.shared.CommandData;
 import cs340.game.shared.LoginResults;
 import cs340.game.shared.Results;
 import cs340.game.shared.ServerException;

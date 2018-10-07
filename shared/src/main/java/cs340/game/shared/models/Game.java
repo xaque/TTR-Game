@@ -3,7 +3,6 @@ package cs340.game.shared.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Container for all information relevant to a game.

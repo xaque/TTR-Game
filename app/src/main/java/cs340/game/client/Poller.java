@@ -3,7 +3,6 @@ package cs340.game.client;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.LobbyPollerResults;
-import cs340.game.shared.Results;
 import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.GameList;
 

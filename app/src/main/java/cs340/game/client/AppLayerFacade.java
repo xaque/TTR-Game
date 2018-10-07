@@ -1,15 +1,15 @@
 package cs340.game.client;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.client.Presenters.GameLobbyPresenter;
 import cs340.game.client.Presenters.MainActivityPresenter;
-import cs340.game.shared.*;
-import cs340.game.shared.models.*;
+import cs340.game.shared.LobbyResults;
+import cs340.game.shared.LoginResults;
+import cs340.game.shared.models.Game;
+import cs340.game.shared.models.GameList;
+import cs340.game.shared.models.User;
 
 /**
  * Handles communication with the ClientModelRoot object. Meant to limit dependencies between the

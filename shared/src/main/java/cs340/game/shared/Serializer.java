@@ -1,6 +1,11 @@
 package cs340.game.shared;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Base64;
 
 import cs340.game.shared.data.Data;

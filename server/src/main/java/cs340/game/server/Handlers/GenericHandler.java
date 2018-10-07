@@ -1,38 +1,40 @@
-package cs340.game.server;
+package cs340.game.server.Handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
-import cs340.game.server.Commands.*;
-import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
-import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
-import cs340.game.server.Commands.LoginCommands.LoginCommand;
-import cs340.game.server.Commands.LoginCommands.RegisterCommand;
-import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
-import cs340.game.shared.*;
-import cs340.game.shared.data.Data;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
-public class ExecCommandHandler implements HttpHandler {
-    /**
-     * Convert request and execute the command using the command pattern
-     * @param httpExchange Object from which to get request info and send response
-     * @throws IOException if serialization to CommandData object fails
-     */
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
+import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
+import cs340.game.server.Commands.LoginCommands.LoginCommand;
+import cs340.game.server.Commands.LoginCommands.RegisterCommand;
+import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
+import cs340.game.server.Commands.iCommand;
+import cs340.game.shared.Results;
+import cs340.game.shared.Serializer;
+import cs340.game.shared.data.Data;
+
+public class GenericHandler implements HttpHandler {
+    private Data getExchangeData(HttpExchange httpExchange){
         Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");
         String raw = s.hasNext() ? s.next() : "";
         Data data = null;
         try {
             data = Serializer.deserializeData(raw);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
+        return data;
+    }
+
+
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        Data data = getExchangeData(httpExchange);
 
         iCommand cmd = null;
         switch (data.getCommandType()){

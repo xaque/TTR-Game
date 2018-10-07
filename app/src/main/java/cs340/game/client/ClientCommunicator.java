@@ -1,14 +1,16 @@
 package cs340.game.client;
 
-import cs340.game.shared.*;
-import cs340.game.shared.data.Data;
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+
+import cs340.game.shared.CommonData;
+import cs340.game.shared.Results;
+import cs340.game.shared.Serializer;
+import cs340.game.shared.data.Data;
 
 public final class ClientCommunicator {
 

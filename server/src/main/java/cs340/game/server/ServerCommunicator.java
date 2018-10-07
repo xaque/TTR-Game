@@ -5,6 +5,9 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import cs340.game.server.Handlers.LobbyHandler;
+import cs340.game.server.Handlers.LoginHandler;
+import cs340.game.server.Handlers.PollerHandler;
 import cs340.game.shared.CommonData;
 
 public class ServerCommunicator {
@@ -27,11 +30,9 @@ public class ServerCommunicator {
         }
 
         server.setExecutor(null);
-        ExecCommandHandler ech = new ExecCommandHandler();
-        //TODO should there only be one context since they all go to the same handler?
-        server.createContext(CommonData.LOGIN_URI, ech);
-        server.createContext(CommonData.LOBBY_URI, ech);
-        server.createContext(CommonData.POLLER_URI, ech);
+        server.createContext(CommonData.LOGIN_URI, new LoginHandler());
+        server.createContext(CommonData.LOBBY_URI, new LobbyHandler());
+        server.createContext(CommonData.POLLER_URI, new PollerHandler());
 
         server.start();
     }
