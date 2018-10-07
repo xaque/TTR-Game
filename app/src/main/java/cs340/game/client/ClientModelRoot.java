@@ -141,6 +141,7 @@ public class ClientModelRoot extends Observable {
      */
     public void updateGames(GameList newGames){
 
+        System.out.println("Adding games: " + newGames.size());
         boolean changed = false;
         List<Game> _newGames = newGames.GetGames();
         for(int i = 0; i < _newGames.size(); i++){
@@ -201,7 +202,7 @@ public class ClientModelRoot extends Observable {
         pollerThread = new Thread(new Poller());
         pollerThread.start();
         // How to wait for the thread to finish
-        // while(pollerThread.isAlive()){}
+        //while(pollerThread.isAlive()){}
     }
 
     /**
