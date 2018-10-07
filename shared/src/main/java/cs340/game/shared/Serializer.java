@@ -10,6 +10,7 @@ import java.util.Base64;
 
 import cs340.game.shared.data.Data;
 
+//TODO Reimplement with gson so we can remove Serializable and Base64 dependencies and lower API version
 public class Serializer {
 
     /**

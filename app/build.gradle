@@ -30,15 +30,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(path: ':shared')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.8.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    //https://mvnrepository.com/artifact/com.sun.net.httpserver/http
-    testImplementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
-    //implementation files('/Users/tbarto22/Downloads/http-20070405.jar')
-    //implementation files('/taUsers/tbarto22/Downloads/gson-2.3.1.jar')
-    compile project(path: ':shared')
+    testImplementation 'com.sun.net.httpserver:http:20070405'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
