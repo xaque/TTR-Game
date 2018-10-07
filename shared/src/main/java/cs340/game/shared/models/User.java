@@ -61,4 +61,13 @@ public class User implements Serializable{
 
         return Objects.hash(username, password);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authToken='" + authToken + '\'' +
+                '}';
+    }
 }

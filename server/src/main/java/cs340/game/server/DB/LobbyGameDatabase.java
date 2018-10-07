@@ -27,6 +27,7 @@ public class LobbyGameDatabase {
     }
 
     public void addGame(Game game) {
+        //System.out.println(game.toString());
         LobbyCommandLog.getInstance().addLobbyCommand(game);
         lobbyGameList.add(game);
     }
@@ -40,6 +41,7 @@ public class LobbyGameDatabase {
     public Game getGame(String gameName) {
         for(int i = 0; i < lobbyGameList.size(); i++) {
             if(lobbyGameList.get(i).getName().equals(gameName)) {
+                //System.out.println(lobbyGameList.get(i).toString());
                 return lobbyGameList.get(i);
             }
         }

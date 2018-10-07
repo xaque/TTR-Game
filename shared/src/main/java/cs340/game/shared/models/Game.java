@@ -126,4 +126,13 @@ public class Game implements Serializable{
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "name='" + name + '\'' +
+                ", players=" + players.toString() +
+                ", gameStarted=" + gameStarted +
+                '}';
+    }
 }

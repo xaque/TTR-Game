@@ -142,7 +142,7 @@ public class AppLayerFacade{
             return;
         }
 
-        LobbyResults results = (LobbyResults) proxy.CreateGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.CreateGame(gameName, currentUser.getUsername());
 
         if(results.isSuccess()) {
             Game game = new Game(gameName, currentUser.getUsername());
@@ -150,6 +150,7 @@ public class AppLayerFacade{
             clientModelRoot.setCurrentGame(game);
         }else{
             presenter.onError(results.getErrorInfo());
+            System.out.println(results.getErrorInfo());
             return;
         }
 
@@ -182,7 +183,7 @@ public class AppLayerFacade{
             return;
         }
 
-        LobbyResults results = (LobbyResults) proxy.JoinGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.JoinGame(gameName, currentUser.getUsername());
 
         if(results.isSuccess()){
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
@@ -221,7 +222,7 @@ public class AppLayerFacade{
             return;
         }
 
-        LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getAuthToken());
+        LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getUsername());
 
         if(results.isSuccess()){
             clientModelRoot.startGame(gameName);
