@@ -19,8 +19,6 @@ public class GameListPresenter implements Observer {
 
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
-    private CreateGameTask createGameTask;
-
     public GameListPresenter(GameListActivity view) {
         this.view = view;
         facade.addObserver(this);
@@ -28,13 +26,13 @@ public class GameListPresenter implements Observer {
 
 
     public void createGame(String gameName) {
-        createGameTask = new CreateGameTask(this, gameName);
+        CreateGameTask createGameTask = new CreateGameTask(this, gameName);
         createGameTask.execute();
-        //facade.CreateGame(this, gameName);
     }
 
     public void joinGame(String gameName) {
-        facade.JoinGame(this, gameName);
+        JoinGameTask joinGameTask = new JoinGameTask(this, gameName);
+        joinGameTask.execute();
     }
 
     public void logout() {

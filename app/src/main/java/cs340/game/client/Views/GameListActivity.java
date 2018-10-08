@@ -106,7 +106,10 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
                 String name = gameName.getText().toString();
                 presenter.createGame(name);
                 break;
-
+            case R.id.join_button:
+                //get game name??
+                //presenter.joinGame();
+                break;
         }
     }
 

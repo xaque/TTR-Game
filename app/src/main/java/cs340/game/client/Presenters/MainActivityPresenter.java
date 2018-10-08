@@ -26,25 +26,19 @@ import cs340.game.shared.LoginResults;
 public class MainActivityPresenter implements Observer {
 
     private MainActivity view;
-    private AppLayerFacade facade = AppLayerFacade.getInstance();
 
     public MainActivityPresenter(MainActivity view) {
         this.view = view;
     }
 
-    private LoginTask loginTask;
-    private RegisterTask registerTask;
-
     public void login(String username, String password){
-        loginTask = new LoginTask(this, username, password);
+        LoginTask loginTask = new LoginTask(this, username, password);
         loginTask.execute();
-        //facade.Login(this, username, password);
     }
 
     public void register(String username, String password) {
-        registerTask = new RegisterTask(this, username, password);
+        RegisterTask registerTask = new RegisterTask(this, username, password);
         registerTask.execute();
-        //facade.Register(this, username, password);
     }
 
     public void onLoginResponse(boolean isLoginSuccess) {

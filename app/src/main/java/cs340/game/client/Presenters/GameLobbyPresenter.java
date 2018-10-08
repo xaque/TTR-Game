@@ -22,7 +22,6 @@ public class GameLobbyPresenter implements Observer {
     private GameLobbyActivity view;
     private AppLayerFacade facade;
     private Game currentGame;
-    private StartGameTask startGameTask;
 
     public GameLobbyPresenter(GameLobbyActivity view) {
         this.view = view;
@@ -39,9 +38,8 @@ public class GameLobbyPresenter implements Observer {
     }
 
     public void startGame(String gameName) {
-        startGameTask = new StartGameTask(this, gameName);
+        StartGameTask startGameTask = new StartGameTask(this, gameName);
         startGameTask.execute();
-        //facade.StartGame(this, gameName);
     }
 
     public void onStartGameResponse(boolean isStartGameSuccess) {
