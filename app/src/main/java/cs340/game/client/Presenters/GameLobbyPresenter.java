@@ -28,6 +28,7 @@ public class GameLobbyPresenter implements Observer {
         this.view.setGameName(currentGame.getName());
 
         populatePlayerList(currentGame.getPlayers());
+        checkPlayers(currentGame.getPlayers());
 
         facade.addObserver(this);
     }
@@ -62,8 +63,17 @@ public class GameLobbyPresenter implements Observer {
         }
     }
 
+    private void checkPlayers(List<String> players) {
+        if(players.size() < 2){
+            view.disableButton();
+        } else {
+            view.enableButton();
+        }
+    }
+
     @Override
     public void update(Observable observable, Object o) {
         populatePlayerList(this.currentGame.getPlayers());
+        checkPlayers(this.currentGame.getPlayers());
     }
 }

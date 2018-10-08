@@ -118,4 +118,16 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
         player4.setText("");
         player5.setText("");
     }
+
+    public void disableButton() {
+        if(startGameButton.isEnabled()){
+            startGameButton.setEnabled(false);
+        }
+    }
+
+    public void enableButton() {
+        if(!startGameButton.isEnabled()){
+            startGameButton.setEnabled(true);
+        }
+    }
 }
