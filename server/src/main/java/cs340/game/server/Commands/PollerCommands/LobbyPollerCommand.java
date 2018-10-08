@@ -10,6 +10,13 @@ import cs340.game.shared.models.GameList;
 
 public class LobbyPollerCommand implements iCommand {
 
+    /**
+     * Client polls the server to see if any new updates have occurred. If there are no updates, an
+     * error message is returned. If there are updates, a GameList is returned with each update.
+     * @param data cast to PollerData, contains the client's sequence number of its most recent poll
+     * @return Results object with boolean stating whether new information was polled, a GameList
+     *          of any new info, and an error message if there is no new info
+     */
     public Results execute(Data data) {
 
         PollerData pData = (PollerData)data;

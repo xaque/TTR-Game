@@ -14,6 +14,13 @@ import cs340.game.shared.models.Game;
  */
 
 public class CreateGameCommand implements iLobbyCommand {
+
+    /**
+     * Creates a game with name and user sent in data. Checks to make sure user is logged in and
+     * that game name does not already exist.
+     * @param data cast to type LobbyData, contains game name and username of the game creator
+     * @return Results object stating success of creating the game and a potential error message
+     */
     public Results execute(Data data) {
         LobbyData lobbyData = (LobbyData)data;
 

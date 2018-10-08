@@ -25,18 +25,21 @@ public class LobbyGameDatabase {
         return instance;
     }
 
+    /**
+     * Adds game to database and to LobbyCommandLog
+     * @param game the created game to add to the database
+     */
     public void addGame(Game game) {
         //System.out.println(game.toString());
         LobbyCommandLog.getInstance().addLobbyCommand(game);
         lobbyGameList.add(game);
     }
 
-    public void removeGame(Game game) {
-        game.RemoveAllPlayers();
-        LobbyCommandLog.getInstance().addLobbyCommand(game);
-        lobbyGameList.remove(game);
-    }
-
+    /**
+     * Returns game if the given name refers to any game in the database, otherwise returns null
+     * @param gameName the name of the game to be searched for
+     * @return the game with the given name, or null if no game of that name exists in the DB
+     */
     public Game getGame(String gameName) {
         for(int i = 0; i < lobbyGameList.size(); i++) {
             if(lobbyGameList.get(i).getName().equals(gameName)) {
@@ -47,11 +50,19 @@ public class LobbyGameDatabase {
         return null;
     }
 
+    /**
+     * Adds given username to the game within the database, and adds the join to the LobbyCommandLog
+     * @param username username to add to the game
+     * @param game game to which player username should be added
+     */
     public void addPlayerToGame(String username, Game game) {
         game.AddPlayer(username);
         LobbyCommandLog.getInstance().addLobbyCommand(game);
     }
 
+    /**
+     * Clears the database of all added games
+     */
     public void clearDatabase(){
         lobbyGameList = new ArrayList<>();
     }

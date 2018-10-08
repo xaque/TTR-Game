@@ -6,19 +6,27 @@ import cs340.game.shared.Results;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
+import cs340.game.shared.models.Game;
 
 /**
  * Created by Stephen on 9/28/2018.
  */
 
 public class JoinGameCommand implements iLobbyCommand {
+
+    /**
+     * Causes player to join game with the given gameID. Returns an error if the game is full.
+     * @param data cast to type LobbyData, contains player username and gameID of desired game to join.
+     * @return Results object stating success of creating the game and a potential error message
+     */
     public Results execute(Data data) {
         LobbyData lobbyData = (LobbyData)data;
-        if(LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID()).GetGameSize() == 5) {
+        Game game = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
+        if(game.GetGameSize() == 5) {
             ServerException ex = new ServerException("This game is already full.");
             return new LobbyResults(false, ex.getMessage());
         }
-        LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID()).AddPlayer(lobbyData.getUsername());
+        LobbyGameDatabase.getInstance().addPlayerToGame(lobbyData.getUsername(), game);
         return new LobbyResults(true, null);
     }
 }

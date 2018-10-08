@@ -15,6 +15,7 @@ public class User implements Serializable{
     public User(String u, String p){
         username = u;
         password = p;
+        authToken = null;
     }
 
     public User(String u, String p, String a){

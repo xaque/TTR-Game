@@ -28,6 +28,13 @@ public class AuthTokenDatabase {
         return instance;
     }
 
+    /**
+     * Returns an authToken of a given username contained in the database
+     * @param username The name of the player seeking their authToken
+     * @return the authToken of the given user
+     * @throws ServerException contains error message stating that the user with the given username
+     *          is not logged in
+     */
     public String getAuthToken(String username) throws ServerException {
         String authToken = (String)authTokenMap.get(username);
         if(authToken != null) {
@@ -38,6 +45,12 @@ public class AuthTokenDatabase {
         }
     }
 
+    /**
+     * Adds the given user's username to the database, attaches an authToken to the user within the
+     * database, and returns the authToken created.
+     * @param username the name of the player being added to the database
+     * @return the newly created authToken
+     */
     public String addUser(String username) {
         String authToken = UUID.randomUUID().toString();
         authTokenMap.put(username, authToken);

@@ -1,7 +1,7 @@
 package cs340.game.server.DB;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import cs340.game.shared.models.User;
 
@@ -11,11 +11,11 @@ import cs340.game.shared.models.User;
  */
 
 public class UserDatabase {
-    private Set userSet;
+    private List<User> userList;
     private static UserDatabase instance;
 
     private UserDatabase() {
-        userSet = new HashSet<User>();
+        userList = new ArrayList<>();
     }
 
     public static UserDatabase getInstance() {
@@ -25,13 +25,37 @@ public class UserDatabase {
         return instance;
     }
 
+    /**
+     * Adds the given user to the database and returns the user's new authToken
+     * @param user the user to be added to the database
+     * @return the created authToken to be returned to the user
+     */
     public String addUser(User user) {
-        userSet.add(user);
+        userList.add(user);
         String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
         return authToken;
     }
 
+    /**
+     * Checks if the user is contained within the database
+     * @param user the user checked against the database
+     * @return boolean whether the user is in the database
+     */
     public boolean containsUser(User user) {
-        return userSet.contains(user);
+        return userList.contains(user);
+    }
+
+    /**
+     * Checks if the username is contained somewhere within the database
+     * @param username the username to check against the database
+     * @return boolean whether the username is in the database
+     */
+    public boolean containsUsername(String username) {
+        for(int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

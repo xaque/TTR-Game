@@ -15,6 +15,13 @@ import cs340.game.shared.models.User;
  */
 
 public class LoginCommand implements iCommand {
+
+    /**
+     * Logs in player with correct username and password. Returns an error with an invalid username-
+     * password combination.
+     * @param data cast to LoginData type, contains player's username and password
+     * @return Results object containing authToken if login is successful or error message if user does not exist
+     */
     public Results execute(Data data) {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
