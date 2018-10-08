@@ -51,7 +51,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
         }
 
         username = getIntent().getStringExtra("username");
-        Toast.makeText(this, "You are logged in as " + username, Toast.LENGTH_SHORT);
+        Toast.makeText(this, "You are logged in as " + username, Toast.LENGTH_SHORT).show();
 
         createGameButton.setOnClickListener(this);
 
@@ -148,8 +148,25 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
         private void bindGame(Game game) {
             mGame = game;
             mGameName.setText(mGame.getName());
-            mNumberPlayers.setText(game.GetGameSize());
-            mStatus.setText("Waiting");
+            switch(game.GetGameSize()) {
+                case 0:
+                    mNumberPlayers.setText(R.string.zero_five);
+                case 1:
+                    mNumberPlayers.setText(R.string.one_five);
+                case 2:
+                    mNumberPlayers.setText(R.string.two_five);
+                case 3:
+                    mNumberPlayers.setText(R.string.three_five);
+                case 4:
+                    mNumberPlayers.setText(R.string.four_five);
+                case 5:
+                    mNumberPlayers.setText(R.string.five_five);
+            }
+            if(game.isGameStarted()) {
+                mStatus.setText(R.string.status_started);
+            } else {
+                mStatus.setText(R.string.status_waiting);
+            }
         }
     }
 
