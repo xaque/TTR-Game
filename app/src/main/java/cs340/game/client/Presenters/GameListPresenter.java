@@ -62,7 +62,7 @@ public class GameListPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        //Update the game list :)
+        view.updateUI();
     }
 }
 

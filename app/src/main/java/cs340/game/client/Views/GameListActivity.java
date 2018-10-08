@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs340.game.R;
+import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
@@ -86,8 +87,8 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
         updateUI();
     }
 
-    private void updateUI() {
-        GameList gameList = new GameList();
+    public void updateUI() {
+        GameList gameList = AppLayerFacade.getInstance().getAllGames();
         gameAdapter = new GameAdapter(gameList);
         gameListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         gameListRecyclerView.setAdapter(gameAdapter);
