@@ -101,8 +101,7 @@ class StartGameTask extends AsyncTask<Void, Void, String> {
         try{
             result = facade.StartGame(presenter, gameName);
         } catch (Exception e){
-            presenter.onError(e.toString());
-            return null;
+            return e.getMessage();
         }
         return result;
     }
