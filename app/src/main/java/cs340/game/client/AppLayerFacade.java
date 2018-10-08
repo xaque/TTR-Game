@@ -66,7 +66,7 @@ public class AppLayerFacade{
         }
 
         // Start Poller
-        clientModelRoot.startPoller();
+        clientModelRoot.startPoller(presenter);
 
         presenter.onLoginResponse(results.isSuccess());
     }
@@ -102,7 +102,7 @@ public class AppLayerFacade{
         }
 
         // Start Poller
-        clientModelRoot.startPoller();
+        clientModelRoot.startPoller(presenter);
 
         presenter.onRegisterResponse(results.isSuccess());
     }
@@ -132,12 +132,14 @@ public class AppLayerFacade{
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
+            System.out.println("You must be logged in to create a game!");
             presenter.onError("You must be logged in to create a game!");
             return;
         }
 
         GameList games = clientModelRoot.getGames();
         if(games.gameExists(gameName)){
+            System.out.println("A game with this name already exists!");
             presenter.onError("A game with this name already exists!");
             return;
         }
@@ -149,11 +151,12 @@ public class AppLayerFacade{
             clientModelRoot.addGame(game);
             clientModelRoot.setCurrentGame(game);
         }else{
-            presenter.onError(results.getErrorInfo());
             System.out.println(results.getErrorInfo());
+            presenter.onError(results.getErrorInfo());
             return;
         }
 
+        System.out.println("onCreateGameResponse");
         presenter.onCreateGameResponse(results.isSuccess());
     }
 

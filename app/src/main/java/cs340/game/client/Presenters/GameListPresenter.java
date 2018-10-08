@@ -62,6 +62,7 @@ public class GameListPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        System.out.println("update()");
         view.updateUI();
     }
 }
@@ -83,6 +84,7 @@ class CreateGameTask extends AsyncTask<Void, Void, Void> {
         try{
             facade.CreateGame(presenter, gameName);
         } catch (Exception e){
+            System.out.println(e.getMessage());
             presenter.onError("There was an error");
             //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
         }

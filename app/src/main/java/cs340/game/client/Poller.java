@@ -4,6 +4,7 @@ import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.LobbyPollerResults;
 import cs340.game.shared.data.PollerData;
+import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 
 /**
@@ -25,7 +26,7 @@ public class Poller implements Runnable{
             UserState userState = modelRoot.getUserState();
             try {
                 Thread.sleep(ONE_SECOND);
-                System.out.println("Polling");
+                //System.out.println("Polling");
 
                 int lastSequenceNumber;
                 if(userState == UserState.IN_LOBBY){
@@ -62,11 +63,15 @@ public class Poller implements Runnable{
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
+        // TESTING
+        //LobbyPollerResults results = new LobbyPollerResults(true, new GameList(), "");
 
         if(results.isSuccess()) {
             System.out.println("Success");
             // GameList of NEW or CHANGED games
             GameList games = results.getData();
+            // TESTING
+            //games.addGame(new Game("game", "a"));
             modelRoot.updateGames(games);
             // The most recent sequence number passed from the server
             int newSequenceNumber = results.getSequenceNumber();
@@ -74,7 +79,7 @@ public class Poller implements Runnable{
 
             System.out.println(modelRoot.getGames().toString());
         }else{
-            System.out.println("Not Success");
+            //System.out.println("Not Success");
         }
     }
 

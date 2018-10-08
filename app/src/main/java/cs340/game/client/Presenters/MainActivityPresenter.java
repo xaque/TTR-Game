@@ -35,7 +35,6 @@ public class MainActivityPresenter implements Observer {
     private LoginTask loginTask;
     private RegisterTask registerTask;
 
-
     public void login(String username, String password){
         loginTask = new LoginTask(this, username, password);
         loginTask.execute();

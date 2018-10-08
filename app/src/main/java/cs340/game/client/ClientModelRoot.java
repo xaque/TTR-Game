@@ -1,10 +1,14 @@
 package cs340.game.client;
 
+import android.content.Intent;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
@@ -106,7 +110,7 @@ public class ClientModelRoot extends Observable {
         Game game = games.getGame(gameName);
         game.AddPlayer(userName);
 
-        notifyObservers();
+        //notifyObservers();
     }
 
     /**
@@ -118,7 +122,7 @@ public class ClientModelRoot extends Observable {
 
         games.addGame(game);
 
-        notifyObservers();
+        //notifyObservers();
     }
 
     /**
@@ -164,6 +168,7 @@ public class ClientModelRoot extends Observable {
 
         if(changed){
 
+            System.out.println("Notifying Observers");
             notifyObservers();
         }
     }
@@ -197,10 +202,12 @@ public class ClientModelRoot extends Observable {
      * Creates a new Thread to kick off the Poller, which will check for game updates, and starts it.
      * @see Poller
      */
-    public void startPoller(){
+    public void startPoller(MainActivityPresenter presenter){
 
         pollerThread = new Thread(new Poller());
         pollerThread.start();
+        //presenter.getView().runOnUiThread(new Poller());
+
         // How to wait for the thread to finish
         //while(pollerThread.isAlive()){}
     }
