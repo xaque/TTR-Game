@@ -86,9 +86,7 @@ class LoginTask extends AsyncTask<Void, Void, String> {
         try{
             result = facade.Login(presenter, username, password);
         } catch (Exception e){
-            presenter.onError("There was an error");
-            return null;
-            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+            return e.getMessage();
         }
         return result;
     }
@@ -122,9 +120,7 @@ class RegisterTask extends AsyncTask<Void, Void, String> {
         try{
             result = facade.Register(presenter, username, password);
         } catch (Exception e){
-            presenter.onError("There was an error");
-            return null;
-            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+            return e.getMessage();
         }
         return result;
     }
