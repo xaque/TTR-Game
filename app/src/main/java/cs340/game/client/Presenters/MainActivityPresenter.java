@@ -65,12 +65,13 @@ public class MainActivityPresenter implements Observer {
     }
 }
 
-class LoginTask extends AsyncTask<Void, Void, LoginResults> {
+class LoginTask extends AsyncTask<Void, Void, String> {
 
     private MainActivityPresenter presenter;
     private final String username;
     private final String password;
-    private ServerProxy serverProxy;
+
+    private String result;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
 
@@ -81,23 +82,32 @@ class LoginTask extends AsyncTask<Void, Void, LoginResults> {
     }
 
     @Override
-    protected LoginResults doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try{
-            facade.Login(presenter, username, password);
+            result = facade.Login(presenter, username, password);
         } catch (Exception e){
             presenter.onError("There was an error");
+            return null;
             //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
         }
-        return null;
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            presenter.onError(result);
+        }
     }
 }
 
-class RegisterTask extends AsyncTask<Void, Void, LoginResults> {
+class RegisterTask extends AsyncTask<Void, Void, String> {
 
     private MainActivityPresenter presenter;
     private final String username;
     private final String password;
-    private ServerProxy serverProxy;
+
+    private String result;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
 
@@ -108,13 +118,21 @@ class RegisterTask extends AsyncTask<Void, Void, LoginResults> {
     }
 
     @Override
-    protected LoginResults doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try{
-            facade.Register(presenter, username, password);
+            result = facade.Register(presenter, username, password);
         } catch (Exception e){
             presenter.onError("There was an error");
+            return null;
             //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
         }
-        return null;
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            presenter.onError(result);
+        }
     }
 }

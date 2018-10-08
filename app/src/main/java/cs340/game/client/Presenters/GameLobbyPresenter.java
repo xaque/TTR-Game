@@ -22,6 +22,7 @@ public class GameLobbyPresenter implements Observer {
     private GameLobbyActivity view;
     private AppLayerFacade facade;
     private Game currentGame;
+    private StartGameTask startGameTask;
 
     public GameLobbyPresenter(GameLobbyActivity view) {
         this.view = view;
@@ -38,7 +39,9 @@ public class GameLobbyPresenter implements Observer {
     }
 
     public void startGame(String gameName) {
-        facade.StartGame(this, gameName);
+        startGameTask = new StartGameTask(this, gameName);
+        startGameTask.execute();
+        //facade.StartGame(this, gameName);
     }
 
     public void onStartGameResponse(boolean isStartGameSuccess) {
@@ -85,25 +88,21 @@ public class GameLobbyPresenter implements Observer {
 
 class StartGameTask extends AsyncTask<Void, Void, Void> {
 
+    private final String gameName;
     private GameLobbyPresenter presenter;
-    private final String username;
-    private final String password;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
-
-    public StartGameTask(GameLobbyPresenter presenter, String username, String password) {
+    public StartGameTask(GameLobbyPresenter presenter, String gameName) {
         this.presenter = presenter;
-        this.username = username;
-        this.password = password;
+        this.gameName = gameName;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try{
-            //facade.Register(presenter, username, password);
+            facade.StartGame(presenter, gameName);
         } catch (Exception e){
-            presenter.onError("There was an error");
-            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+            presenter.onError(e.toString());
         }
         return null;
     }

@@ -44,11 +44,11 @@ public class AppLayerFacade{
      * @param username the username of the user to be logged in
      * @param password the password of the user to be logged in
      */
-    public void Login(MainActivityPresenter presenter, String username, String password){
+    public String Login(MainActivityPresenter presenter, String username, String password){
 
         if(clientModelRoot.getCurrentUser() != null){
-            presenter.onError("Already logged in!");
-            return;
+            //presenter.onError("Already logged in!");
+            return "Already logged in!";
         }
 
         User user = new User(username, password);
@@ -60,15 +60,16 @@ public class AppLayerFacade{
             clientModelRoot.setCurrentUser(user);
             clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
-            presenter.onError(results.getErrorInfo());
+            //presenter.onError(results.getErrorInfo());
             System.out.println(results.getErrorInfo());
-            return;
+            return results.getErrorInfo();
         }
 
         // Start Poller
         clientModelRoot.startPoller(presenter);
 
         presenter.onLoginResponse(results.isSuccess());
+        return null;
     }
 
     /**
@@ -80,11 +81,11 @@ public class AppLayerFacade{
      * @param username the username of the user to be registered and then logged in
      * @param password the password of the user to be registered and then logged in
      */
-    public void Register(MainActivityPresenter presenter, String username, String password){
+    public String Register(MainActivityPresenter presenter, String username, String password){
 
         if(clientModelRoot.getCurrentUser() != null){
-            presenter.onError("Already logged in!");
-            return;
+            //presenter.onError("Already logged in!");
+            return "Already logged in!";
         }
 
         User user = new User(username, password);
@@ -96,15 +97,16 @@ public class AppLayerFacade{
             clientModelRoot.setCurrentUser(user);
             clientModelRoot.setUserState(UserState.IN_LOBBY);
         }else{
-            presenter.onError(results.getErrorInfo());
+            //presenter.onError(results.getErrorInfo());
             System.out.println(results.getErrorInfo());
-            return;
+            return results.getErrorInfo();
         }
 
         // Start Poller
         clientModelRoot.startPoller(presenter);
 
         presenter.onRegisterResponse(results.isSuccess());
+        return null;
     }
 
     /**
