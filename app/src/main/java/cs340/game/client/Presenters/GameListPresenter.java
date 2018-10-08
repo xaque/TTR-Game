@@ -1,6 +1,8 @@
 package cs340.game.client.Presenters;
 
 
+import android.os.AsyncTask;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +19,8 @@ public class GameListPresenter implements Observer {
 
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
+    private CreateGameTask createGameTask;
+
     public GameListPresenter(GameListActivity view) {
         this.view = view;
         facade.addObserver(this);
@@ -24,7 +28,9 @@ public class GameListPresenter implements Observer {
 
 
     public void createGame(String gameName) {
-        facade.CreateGame(this, gameName);
+        createGameTask = new CreateGameTask(this, gameName);
+        createGameTask.execute();
+        //facade.CreateGame(this, gameName);
     }
 
     public void joinGame(String gameName) {
@@ -57,5 +63,29 @@ public class GameListPresenter implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         //Update the game list :)
+    }
+}
+
+class CreateGameTask extends AsyncTask<Void, Void, Void> {
+
+    private GameListPresenter presenter;
+    private final String gameName;
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
+
+
+    public CreateGameTask(GameListPresenter presenter, String gameName) {
+        this.presenter = presenter;
+        this.gameName = gameName;
+    }
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        try{
+            facade.CreateGame(presenter, gameName);
+        } catch (Exception e){
+            presenter.onError("There was an error");
+            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+        }
+        return null;
     }
 }

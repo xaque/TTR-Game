@@ -1,12 +1,16 @@
 package cs340.game.client.Presenters;
 
 
+import android.os.AsyncTask;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
+import cs340.game.client.ServerProxy;
 import cs340.game.client.Views.GameLobbyActivity;
+import cs340.game.shared.LoginResults;
 import cs340.game.shared.models.Game;
 
 /**
@@ -75,5 +79,32 @@ public class GameLobbyPresenter implements Observer {
     public void update(Observable observable, Object o) {
         populatePlayerList(this.currentGame.getPlayers());
         checkPlayers(this.currentGame.getPlayers());
+    }
+}
+
+
+class StartGameTask extends AsyncTask<Void, Void, Void> {
+
+    private GameLobbyPresenter presenter;
+    private final String username;
+    private final String password;
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
+
+
+    public StartGameTask(GameLobbyPresenter presenter, String username, String password) {
+        this.presenter = presenter;
+        this.username = username;
+        this.password = password;
+    }
+
+    @Override
+    protected LoginResults doInBackground(Void... voids) {
+        try{
+            facade.Register(presenter, username, password);
+        } catch (Exception e){
+            presenter.onError("There was an error");
+            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+        }
+        return null;
     }
 }
