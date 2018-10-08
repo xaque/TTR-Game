@@ -130,20 +130,20 @@ public class AppLayerFacade{
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game the will be created
      */
-    public void CreateGame(GameListPresenter presenter, String gameName){
+    public String CreateGame(GameListPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
             System.out.println("You must be logged in to create a game!");
-            presenter.onError("You must be logged in to create a game!");
-            return;
+            //presenter.onError("You must be logged in to create a game!");
+            return "You must be logged in to create a game!";
         }
 
         GameList games = clientModelRoot.getGames();
         if(games.gameExists(gameName)){
             System.out.println("A game with this name already exists!");
-            presenter.onError("A game with this name already exists!");
-            return;
+            //presenter.onError("A game with this name already exists!");
+            return "A game with this name already exists!";
         }
 
         LobbyResults results = (LobbyResults) proxy.CreateGame(gameName, currentUser.getUsername());
@@ -154,12 +154,13 @@ public class AppLayerFacade{
             clientModelRoot.setCurrentGame(game);
         }else{
             System.out.println(results.getErrorInfo());
-            presenter.onError(results.getErrorInfo());
-            return;
+            //presenter.onError(results.getErrorInfo());
+            return results.getErrorInfo();
         }
 
         System.out.println("onCreateGameResponse");
         presenter.onCreateGameResponse(results.isSuccess());
+        return null;
     }
 
     /**
@@ -169,23 +170,23 @@ public class AppLayerFacade{
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game to which the user will be added
      */
-    public void JoinGame(GameListPresenter presenter, String gameName){
+    public String JoinGame(GameListPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
-            presenter.onError("You must be logged in to create a game!");
-            return;
+            //presenter.onError("You must be logged in to create a game!");
+            return "You must be logged in to create a game!";
         }
 
         Game game = clientModelRoot.getGame(gameName);
         if(game.playerExistsInGame(currentUser.getUsername())){
-            presenter.onError("You are already in this game!");
-            return;
+            //presenter.onError("You are already in this game!");
+            return "You are already in this game!";
         }
 
         if(game.isGameFull()){
-            presenter.onError("This game is already full!");
-            return;
+            //presenter.onError("This game is already full!");
+            return "This game is already full!";
         }
 
         LobbyResults results = (LobbyResults) proxy.JoinGame(gameName, currentUser.getUsername());
@@ -194,11 +195,12 @@ public class AppLayerFacade{
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);
             clientModelRoot.setCurrentGame(game);
         }else{
-            presenter.onError(results.getErrorInfo());
-            return;
+            //presenter.onError(results.getErrorInfo());
+            return results.getErrorInfo();
         }
 
         presenter.onJoinGameResponse(results.isSuccess());
+        return null;
     }
 
     /**
@@ -208,23 +210,23 @@ public class AppLayerFacade{
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game that will be started
      */
-    public void StartGame(GameLobbyPresenter presenter, String gameName){
+    public String StartGame(GameLobbyPresenter presenter, String gameName){
 
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
-            presenter.onError("You must be logged in to start a game!");
-            return;
+            //presenter.onError("You must be logged in to start a game!");
+            return "You must be loged in to start a game!";
         }
 
         Game game = clientModelRoot.getGame(gameName);
         if(!game.playerExistsInGame(currentUser.getUsername())){
-            presenter.onError("You cannot start this game if you are not in it!");
-            return;
+            //presenter.onError("You cannot start this game if you are not in it!");
+            return "You cannot a start this game if you are not in it!";
         }
 
         if(game.hasEnoughPlayersToStart()){
-            presenter.onError("This game does not have enough players!");
-            return;
+            //presenter.onError("This game does not have enough players!");
+            return "This game does not have enough players!";
         }
 
         LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getUsername());
@@ -232,11 +234,12 @@ public class AppLayerFacade{
         if(results.isSuccess()){
             clientModelRoot.startGame(gameName);
         }else{
-            presenter.onError(results.getErrorInfo());
-            return;
+            //presenter.onError(results.getErrorInfo());
+            return results.getErrorInfo();
         }
 
         presenter.onStartGameResponse(results.isSuccess());
+        return null;
     }
 
     public void addObserver(Observer o){

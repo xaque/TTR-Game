@@ -67,10 +67,11 @@ public class GameListPresenter implements Observer {
     }
 }
 
-class CreateGameTask extends AsyncTask<Void, Void, Void> {
+class CreateGameTask extends AsyncTask<Void, Void, String> {
 
     private GameListPresenter presenter;
     private final String gameName;
+    private String result;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
 
@@ -80,14 +81,50 @@ class CreateGameTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try{
-            facade.CreateGame(presenter, gameName);
+            result = facade.CreateGame(presenter, gameName);
         } catch (Exception e){
-            System.out.println(e.getMessage());
-            presenter.onError("There was an error");
-            //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
+            return e.getMessage();
         }
-        return null;
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            presenter.onError(result);
+        }
+    }
+}
+
+class JoinGameTask extends AsyncTask<Void, Void, String> {
+
+    private GameListPresenter presenter;
+    private final String gameName;
+    private String result;
+    private AppLayerFacade facade = AppLayerFacade.getInstance();
+
+
+    public JoinGameTask(GameListPresenter presenter, String gameName) {
+        this.presenter = presenter;
+        this.gameName = gameName;
+    }
+
+    @Override
+    protected String doInBackground(Void... voids) {
+        try{
+            result = facade.JoinGame(presenter, gameName);
+        } catch (Exception e){
+            return e.getMessage();
+        }
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            presenter.onError(result);
+        }
     }
 }

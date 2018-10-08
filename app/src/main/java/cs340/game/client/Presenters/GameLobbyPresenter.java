@@ -86,9 +86,10 @@ public class GameLobbyPresenter implements Observer {
 }
 
 
-class StartGameTask extends AsyncTask<Void, Void, Void> {
+class StartGameTask extends AsyncTask<Void, Void, String> {
 
     private final String gameName;
+    private String result;
     private GameLobbyPresenter presenter;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
@@ -98,12 +99,20 @@ class StartGameTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try{
-            facade.StartGame(presenter, gameName);
+            result = facade.StartGame(presenter, gameName);
         } catch (Exception e){
             presenter.onError(e.toString());
+            return null;
         }
-        return null;
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            presenter.onError(result);
+        }
     }
 }
