@@ -44,7 +44,6 @@ public class LobbyGameDatabase {
                 return lobbyGameList.get(i);
             }
         }
-        //TODO error if game doesn't exist?
         return null;
     }
 
