@@ -3,6 +3,7 @@ package cs340.game.server.Commands.LobbyCommands;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.shared.LobbyResults;
 import cs340.game.shared.Results;
+import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
 
@@ -13,7 +14,10 @@ import cs340.game.shared.data.LobbyData;
 public class JoinGameCommand implements iLobbyCommand {
     public Results execute(Data data) {
         LobbyData lobbyData = (LobbyData)data;
-        //TODO error if there are 5 players in the game already
+        if(LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID()).GetGameSize() == 5) {
+            ServerException ex = new ServerException("This game is already full.");
+            return new LobbyResults(false, ex.getMessage());
+        }
         LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID()).AddPlayer(lobbyData.getUsername());
         return new LobbyResults(true, null);
     }

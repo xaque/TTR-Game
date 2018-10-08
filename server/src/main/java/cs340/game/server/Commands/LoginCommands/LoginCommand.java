@@ -3,12 +3,12 @@ package cs340.game.server.Commands.LoginCommands;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.UserDatabase;
-import cs340.game.server.User;
 import cs340.game.shared.LoginResults;
 import cs340.game.shared.Results;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;
+import cs340.game.shared.models.User;
 
 /**
  * Created by Stephen on 9/28/2018.

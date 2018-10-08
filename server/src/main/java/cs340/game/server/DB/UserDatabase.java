@@ -3,7 +3,8 @@ package cs340.game.server.DB;
 import java.util.HashSet;
 import java.util.Set;
 
-import cs340.game.server.User;
+import cs340.game.shared.models.User;
+
 
 /**
  * Created by Stephen on 9/28/2018.
