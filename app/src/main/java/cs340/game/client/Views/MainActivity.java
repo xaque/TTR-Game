@@ -36,14 +36,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onLoginResponse(boolean isLoginSuccess) {
         if (isLoginSuccess) {
-            startActivity(new Intent(this, GameListActivity.class));
+            Intent intent = new Intent(this, GameListActivity.class);
+            intent.putExtra("username", username.getText());
+            startActivity(intent);
             this.finish();
         }
     }
 
     public void onRegisterResponse(boolean isRegisterSuccess) {
         if (isRegisterSuccess) {
-            startActivity(new Intent( this, GameListActivity.class));
+            Intent intent = new Intent(this, GameListActivity.class);
+            intent.putExtra("username", username.getText());
+            startActivity(intent);
             this.finish();
         }
     }

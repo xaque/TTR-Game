@@ -22,6 +22,7 @@ public class ServerCommunicator {
 
         try {
             server = HttpServer.create(new InetSocketAddress(CommonData.PORT_NUMBER), CommonData.MAX_WAITING_CONNECTIONS);
+            System.out.println("Listening on Port " + CommonData.PORT_NUMBER);
         }
         catch (IOException e) {
             System.out.println("Could not create HTTP server: " + e.getMessage());

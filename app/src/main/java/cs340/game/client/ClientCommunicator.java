@@ -44,6 +44,7 @@ public final class ClientCommunicator {
      */
     private HttpURLConnection openConnection(String uri, boolean sendingObject){
         try {
+            System.out.println("http://" + CommonData.HOSTNAME + ":" + CommonData.PORT_NUMBER + uri);
             URL url = new URL("http://" + CommonData.HOSTNAME + ":" + CommonData.PORT_NUMBER + uri);
             HttpURLConnection result = (HttpURLConnection)url.openConnection();
             result.setRequestMethod("POST");

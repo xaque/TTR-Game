@@ -5,10 +5,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
-        while (true){
-            operationPrompt();
-            System.out.println();
-        }
+
+//        while (true){
+//            operationPrompt();
+//            System.out.println();
+//        }
 
     }
 
