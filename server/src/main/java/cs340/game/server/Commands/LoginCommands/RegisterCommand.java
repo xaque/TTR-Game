@@ -24,7 +24,16 @@ public class RegisterCommand implements iCommand{
     public Results execute(Data data) {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
+
+        // make sure no field is empty
+        if(user.getUsername() == null || user.getPassword() == null) {
+            ServerException ex = new ServerException("Please enter a value for both fields.");
+            return new LoginResults(false, null, ex.getMessage());
+        }
+
         UserDatabase userDB = UserDatabase.getInstance();
+
+        // check if a user already exists with this username
         if(userDB.containsUsername(user.getUsername())) {
             ServerException ex = new ServerException("A user already exists with this username.");
             return new LoginResults(false, null, ex.getMessage());
