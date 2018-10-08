@@ -98,9 +98,9 @@ class StartGameTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected LoginResults doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         try{
-            facade.Register(presenter, username, password);
+            //facade.Register(presenter, username, password);
         } catch (Exception e){
             presenter.onError("There was an error");
             //Log.w(TAG, "Exception while constructing URL" + e.getMessage());
