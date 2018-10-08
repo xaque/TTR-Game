@@ -28,7 +28,7 @@ public class MainActivityPresenter implements Observer {
     private MainActivity view;
     private AppLayerFacade facade = AppLayerFacade.getInstance();
 
-    private MainActivityPresenter(MainActivity view) {
+    public MainActivityPresenter(MainActivity view) {
         this.view = view;
     }
 
