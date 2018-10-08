@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import cs340.game.shared.models.GameList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LobbyPollerResultsTest {
     LobbyPollerResults lpr1;

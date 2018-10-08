@@ -16,8 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import cs340.game.R;
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.shared.models.Game;

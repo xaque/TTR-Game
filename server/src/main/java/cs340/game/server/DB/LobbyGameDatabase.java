@@ -51,4 +51,9 @@ public class LobbyGameDatabase {
         game.AddPlayer(username);
         LobbyCommandLog.getInstance().addLobbyCommand(game);
     }
+
+    public void clearDatabase(){
+        lobbyGameList = new ArrayList<>();
+    }
+
 }
