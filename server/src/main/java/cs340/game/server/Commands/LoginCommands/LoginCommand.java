@@ -26,12 +26,19 @@ public class LoginCommand implements iCommand {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
         UserDatabase userDB = UserDatabase.getInstance();
+        // if a valid username-password combination is entered
         if(userDB.containsUser(user)) {
             String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
             return new LoginResults(true, authToken, null);
         }
+        // if a valid username is entered but with the wrong password
+        else if(userDB.containsUsername(user.getUsername())) {
+            ServerException ex = new ServerException("Incorrect password.");
+            return new LoginResults(false, null, ex.getMessage());
+        }
+        // if an invalid username is entered
         else {
-            ServerException ex = new ServerException("Invalid username/password combination.");
+            ServerException ex = new ServerException("User does not exist.");
             return new LoginResults(false, null, ex.getMessage());
         }
     }
