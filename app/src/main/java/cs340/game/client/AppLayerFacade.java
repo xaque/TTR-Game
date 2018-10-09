@@ -249,14 +249,14 @@ public class AppLayerFacade{
 
         LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getUsername());
 
-        if(results.isSuccess()){
+        //if(results.isSuccess()){
             clientModelRoot.startGame(gameName);
-        }else{
+        //}else{
             //presenter.onError(results.getErrorInfo());
-            return results.getErrorInfo();
-        }
+        //    return results.getErrorInfo();
+        //}
 
-        presenter.onStartGameResponse(results.isSuccess());
+        presenter.onStartGameResponse(true);
         return null;
     }
 
