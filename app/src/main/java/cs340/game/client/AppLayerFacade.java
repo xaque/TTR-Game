@@ -55,6 +55,10 @@ public class AppLayerFacade{
             return "Already logged in!";
         }
 
+        if(username.isEmpty() || password.isEmpty()){
+            return "Must include username and password";
+        }
+
         User user = new User(username, password);
         LoginResults results = (LoginResults) proxy.Login(user);
 
@@ -90,6 +94,10 @@ public class AppLayerFacade{
         if(clientModelRoot.getCurrentUser() != null){
             //presenter.onError("Already logged in!");
             return "Already logged in!";
+        }
+
+        if(username.isEmpty() || password.isEmpty()){
+            return "Must include username and password";
         }
 
         User user = new User(username, password);
@@ -148,6 +156,10 @@ public class AppLayerFacade{
             System.out.println("A game with this name already exists!");
             //presenter.onError("A game with this name already exists!");
             return "A game with this name already exists!";
+        }
+
+        if(gameName.isEmpty()){
+            return "Must include a game name";
         }
 
         LobbyResults results = (LobbyResults) proxy.CreateGame(gameName, currentUser.getUsername());
@@ -230,7 +242,7 @@ public class AppLayerFacade{
             return "You cannot a start this game if you are not in it!";
         }
 
-        if(game.hasEnoughPlayersToStart()){
+        if(!game.hasEnoughPlayersToStart()){
             //presenter.onError("This game does not have enough players!");
             return "This game does not have enough players!";
         }
