@@ -110,7 +110,7 @@ public class ClientModelRoot extends Observable {
         Game game = games.getGame(gameName);
         game.AddPlayer(userName);
 
-        //notifyObservers();
+        notifyObservers();
     }
 
     /**
@@ -122,7 +122,7 @@ public class ClientModelRoot extends Observable {
 
         games.addGame(game);
 
-        //notifyObservers();
+        notifyObservers();
     }
 
     /**

@@ -64,7 +64,13 @@ public class GameListPresenter implements Observer {
         System.out.println("update()");
         System.out.println("This is the list of games");
         System.out.println(o.toString());
-        view.updateUI();
+        view.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                view.updateUI();
+            }
+        });
     }
 }
 

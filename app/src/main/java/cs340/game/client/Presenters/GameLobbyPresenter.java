@@ -78,8 +78,16 @@ public class GameLobbyPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        populatePlayerList(this.currentGame.getPlayers());
-        checkPlayers(this.currentGame.getPlayers());
+
+        view.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                populatePlayerList(AppLayerFacade.getInstance().getCurrentGame().getPlayers());
+                checkPlayers(AppLayerFacade.getInstance().getCurrentGame().getPlayers());
+            }
+        });
+
     }
 }
 
