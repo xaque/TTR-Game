@@ -5,8 +5,12 @@ import java.util.Observer;
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.client.Presenters.GameLobbyPresenter;
 import cs340.game.client.Presenters.MainActivityPresenter;
+import cs340.game.shared.CommandType;
+import cs340.game.shared.CommonData;
+import cs340.game.shared.LobbyPollerResults;
 import cs340.game.shared.LobbyResults;
 import cs340.game.shared.LoginResults;
+import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
@@ -259,7 +263,63 @@ public class AppLayerFacade{
     }
 
     public GameList getAllGames(){
-        return clientModelRoot.getGames();
+        GameList games = clientModelRoot.getGames();
+        if(games.size() == 0){
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, 0);
+
+                    ClientCommunicator communicator = ClientCommunicator.getInstance();
+                    LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
+                    ClientModelRoot modelRoot = ClientModelRoot.getInstance();
+
+                    if(results.isSuccess()) {
+                        System.out.println("Preload Success");
+                        // GameList of NEW or CHANGED games
+                        GameList games = results.getData();
+                        modelRoot.updateGames(games);
+                        // The most recent sequence number passed from the server
+                        int newSequenceNumber = results.getSequenceNumber();
+                        modelRoot.setLobbySequenceNumber(newSequenceNumber);
+
+                        System.out.println(modelRoot.getGames().toString());
+                    }else{
+                        System.out.println("Not Success");
+                    }
+                }
+            });
+            thread.start();
+            while(thread.isAlive()){
+                //wait
+            }
+            //preLoadGames();
+        }
+        return games;
+    }
+
+    private void preLoadGames(){
+
+        PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, 0);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
+        ClientModelRoot modelRoot = ClientModelRoot.getInstance();
+
+        if(results.isSuccess()) {
+            System.out.println("Preload Success");
+            // GameList of NEW or CHANGED games
+            GameList games = results.getData();
+            modelRoot.updateGames(games);
+            // The most recent sequence number passed from the server
+            int newSequenceNumber = results.getSequenceNumber();
+            modelRoot.setLobbySequenceNumber(newSequenceNumber);
+
+            System.out.println(modelRoot.getGames().toString());
+        }else{
+            System.out.println("Not Success");
+        }
     }
 }
 

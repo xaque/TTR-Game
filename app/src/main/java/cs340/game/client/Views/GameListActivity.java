@@ -34,6 +34,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
     private RecyclerView gameListRecyclerView;
     private EditText gameName;
     private Button createGameButton;
+    private Button joinGameButton;
     private String username;
 
     @Override
@@ -44,6 +45,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
         gameListRecyclerView = findViewById(R.id.gameList);
         gameName = (EditText) findViewById(R.id.name_game);
         createGameButton = (Button) findViewById(R.id.create_game_button);
+        joinGameButton = (Button) findViewById(R.id.join_button);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -89,6 +91,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
 
     public void updateUI() {
         GameList gameList = AppLayerFacade.getInstance().getAllGames();
+        System.out.println(gameList.toString());
         gameAdapter = new GameAdapter(gameList);
         gameListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         gameListRecyclerView.setAdapter(gameAdapter);
@@ -101,14 +104,18 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        System.out.println("onClick()");
         switch(v.getId()){
             case R.id.create_game_button:
                 String name = gameName.getText().toString();
+                System.out.println("CREATE GAME");
                 presenter.createGame(name);
                 break;
             case R.id.join_button:
                 //get game name??
-                //presenter.joinGame();
+                String gameToJoin = "gane";
+                System.out.println("JOIN GAME");
+                presenter.joinGame(gameToJoin);
                 break;
         }
     }
@@ -154,16 +161,22 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
             switch(game.GetGameSize()) {
                 case 0:
                     mNumberPlayers.setText(R.string.zero_five);
+                    break;
                 case 1:
                     mNumberPlayers.setText(R.string.one_five);
+                    break;
                 case 2:
                     mNumberPlayers.setText(R.string.two_five);
+                    break;
                 case 3:
                     mNumberPlayers.setText(R.string.three_five);
+                    break;
                 case 4:
                     mNumberPlayers.setText(R.string.four_five);
+                    break;
                 case 5:
                     mNumberPlayers.setText(R.string.five_five);
+                    break;
             }
             if(game.isGameStarted()) {
                 mStatus.setText(R.string.status_started);
