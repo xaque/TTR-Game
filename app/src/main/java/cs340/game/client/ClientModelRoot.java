@@ -158,6 +158,13 @@ public class ClientModelRoot extends Observable {
                 if(addNewPlayersToGame(gameName, newPlayers)){
 
                     changed = true;
+                }else{
+
+                    // Check if game has been started
+                    if(!games.getGame(gameName).isGameStarted() && newGame.isGameStarted()){
+                        games.getGame(gameName).setGameStarted(true);
+                        changed = true;
+                    }
                 }
             }else{
 

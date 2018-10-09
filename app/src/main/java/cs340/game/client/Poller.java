@@ -63,15 +63,11 @@ public class Poller implements Runnable{
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
-        // TESTING
-        //LobbyPollerResults results = new LobbyPollerResults(true, new GameList(), "");
 
         if(results.isSuccess()) {
             System.out.println("Success");
             // GameList of NEW or CHANGED games
             GameList games = results.getData();
-            // TESTING
-            //games.addGame(new Game("game", "a"));
             modelRoot.updateGames(games);
             // The most recent sequence number passed from the server
             int newSequenceNumber = results.getSequenceNumber();
