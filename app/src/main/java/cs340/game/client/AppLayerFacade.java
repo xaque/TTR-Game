@@ -197,7 +197,10 @@ public class AppLayerFacade{
         Game game = clientModelRoot.getGame(gameName);
         if(game.playerExistsInGame(currentUser.getUsername())){
             //presenter.onError("You are already in this game!");
-            return "You are already in this game!";
+            clientModelRoot.setCurrentGame(game);
+            presenter.onJoinGameResponse(true);
+            return null;
+            //return "You are already in this game!";
         }
 
         if(game.isGameFull()){
