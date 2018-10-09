@@ -73,7 +73,10 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void onJoinGameResponse(boolean isJoinGameSuccess) {
-
+        if (isJoinGameSuccess) {
+            startActivity(new Intent(this, GameLobbyActivity.class));
+            this.finish();
+        }
     }
 
     public void onLogOutResponse(boolean isLogOutSuccess) {
@@ -148,9 +151,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
             mJoinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getGameListContext(), GameLobbyActivity.class);
-                    intent.putExtra("gameName", mGame.getName());
-                    startActivity(intent);
+                    presenter.joinGame(mGame.getName());
                 }
             });
         }

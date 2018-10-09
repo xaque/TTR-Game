@@ -179,7 +179,7 @@ public class AppLayerFacade{
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
             //presenter.onError("You must be logged in to create a game!");
-            return "You must be logged in to create a game!";
+            return "You must be logged in to join a game!";
         }
 
         Game game = clientModelRoot.getGame(gameName);
@@ -193,7 +193,9 @@ public class AppLayerFacade{
             return "This game is already full!";
         }
 
+        System.out.println("Sending Join Game to Proxy");
         LobbyResults results = (LobbyResults) proxy.JoinGame(gameName, currentUser.getUsername());
+        System.out.println(results.toString());
 
         if(results.isSuccess()){
             clientModelRoot.addPlayerToGame(currentUser.getUsername(), gameName);

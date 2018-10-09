@@ -121,7 +121,7 @@ public class GameLobbyActivity extends AppCompatActivity implements View.OnClick
 
     public void disableButton() {
         if(startGameButton.isEnabled()){
-            startGameButton.setEnabled(false);
+            startGameButton.setEnabled(true);
         }
     }
 
