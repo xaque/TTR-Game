@@ -16,6 +16,8 @@ public class Game implements Serializable{
     private List<String> players = new ArrayList<>();
     private boolean gameStarted = false;
 
+    private List<Route> routes = new ArrayList<>();
+
     public Game(String gameName, String originalUser){
 
         name = gameName;
