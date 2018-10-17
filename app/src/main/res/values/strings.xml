@@ -52,5 +52,33 @@
 
     <string name="welcomeText">THIS IS THE GAME</string>
 
+        <!--LEFT SIDE-->
+    <string name="playerPlaceholer">Player Name</string>
+    <string name="scoreLabel">Score:</string>
+    <string name="startingScore">0</string>
+    <string name="trainsLabel">Trains:</string>
+    <string name="startingTrains">45</string>
+
+        <!--CARDS-->
+    <string name="cardTab">Cards</string>
+
+        <!--DESTINATIONS-->
+    <string name="destTab">Dest.</string>
+
+
+        <!--Buttons-->
+    <string name="drawTrains">Draw Trains</string>
+    <string name="placeTrains">Place Trains</string>
+    <string name="drawDestinations">Draw Destinations</string>
+
+
+        <!--RIGHT SIDE-->
+
+        <!--CHAT-->
+    <string name="chatTab">Chat</string>
+
+        <!--HISTORY-->
+    <string name="historyTab">Hist.</string>
+
 
 </resources>
