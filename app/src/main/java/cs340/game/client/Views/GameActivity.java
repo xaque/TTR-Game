@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.support.design.widget.TabLayout;
 
+import java.util.Objects;
+
 import cs340.game.R;
 import cs340.game.client.Presenters.GamePresenter;
 
@@ -29,10 +31,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         /* *********Set up left side tabs**********/
         TabLayout leftTabLayout = (TabLayout) findViewById(R.id.player_tabs);

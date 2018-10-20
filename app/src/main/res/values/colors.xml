@@ -3,4 +3,29 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <!--PLAYER COLORS-->
+
+    <color name="red">#ff4245</color>
+    <color name="blue">#7A45FF</color>
+    <color name="yellow">#FFFB5E</color>
+    <color name="black">#333</color>
+    <color name="green">#00D15D</color>
+
+    <!--TRAIN COLORS-->
+
+    <color name="white">#ffffff</color>
+    <color name="orange">#FF9052</color>
+    <color name="purple">#FF65FB</color>
+
+
+    <!--OTHER-->
+
+    <color name="lightgray">#CCC</color>
+    <color name="darkgray">#343F4B</color>
+
+
+
+
 </resources>
