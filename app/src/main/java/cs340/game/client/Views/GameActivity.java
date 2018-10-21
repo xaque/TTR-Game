@@ -2,6 +2,7 @@ package cs340.game.client.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -9,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.design.widget.TabLayout;
 
@@ -22,9 +26,16 @@ import cs340.game.client.Presenters.GamePresenter;
  * Created by Tyler on 9/27/2018.
  */
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GamePresenter presenter;
+
+    private TextView points;
+    private TextView trainsLeft;
+    private Button drawTrainsButton;
+    private Button drawDestinationsButton;
+    private Button placeTrainsButton;
+    private ConstraintLayout playerInfoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +102,45 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+
+        //Set up the BUTTONS
+        drawTrainsButton = findViewById(R.id.draw_trains_button);
+        drawTrainsButton.setOnClickListener(this);
+
+        drawDestinationsButton = findViewById(R.id.draw_destinations_button);
+        drawDestinationsButton.setOnClickListener(this);
+
+        placeTrainsButton = findViewById(R.id.place_trains_button);
+        placeTrainsButton.setOnClickListener(this);
+
+        playerInfoButton = findViewById(R.id.turn_order);
+        playerInfoButton.setOnClickListener(this);
+
+
+
         presenter = new GamePresenter(this);
+
+
+        //Initialize all the text views and stuff
+
+        points = (TextView) findViewById(R.id.score);
+        trainsLeft = findViewById(R.id.trains_left);
 
         Toast.makeText(this, "The game has started. Good luck", Toast.LENGTH_SHORT).show();
     }
+
+    //************UPDATE UI FUNCTIONS**********************
+
+    public void updatePoints(int points){
+        this.points.setText(points);
+    }
+
+    public void updateTrainsLeft(int trainsLeft) {
+        this.trainsLeft.setText(trainsLeft);
+    }
+
+
+
 
     public void onLeaveGameResponse(boolean isLeaveSuccess) {
         startActivity(new Intent(this, GameListActivity.class));
@@ -111,6 +157,23 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.draw_trains_button:
+                Toast.makeText(this, "You clicked DRAW TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.draw_destinations_button:
+                Toast.makeText(this, "You clicked DRAW DESTINATIONS. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.place_trains_button:
+                Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.turn_order:
+                Toast.makeText(this, "You clicked the turn order thing. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 }
 
 
