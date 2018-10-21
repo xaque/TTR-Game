@@ -7,6 +7,11 @@ public class DestinationCard {
     private City city1;
     private City city2;
 
+    public DestinationCard(City _city1, City _city2){
+        city1 = _city1;
+        city2 = _city2;
+    }
+
     public City getCity1() {
         return city1;
     }

@@ -3,6 +3,7 @@ package cs340.game.shared.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs340.game.shared.City;
 import cs340.game.shared.Color;
 
 public class Player {
@@ -68,6 +69,10 @@ public class Player {
         return (count >= numberNeeded);
     }
 
+    public void addTrainCard(TrainCard newCard){
+        trainCards.add(newCard);
+    }
+
     public void removeTrainCard(Color color) throws Exception{
 
         for(int i = 0; i < trainCards.size(); i++){
@@ -87,5 +92,9 @@ public class Player {
 
     public void setDestinationCards(List<DestinationCard> destinationCards) {
         this.destinationCards = destinationCards;
+    }
+
+    public void addDestinationCard(DestinationCard newCard){
+        destinationCards.add(newCard);
     }
 }

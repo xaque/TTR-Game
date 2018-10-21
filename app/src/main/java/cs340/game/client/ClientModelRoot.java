@@ -11,6 +11,7 @@ import java.util.Observer;
 import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
+import cs340.game.shared.models.Player;
 import cs340.game.shared.models.User;
 
 /**
@@ -48,6 +49,19 @@ public class ClientModelRoot extends Observable {
     private Thread pollerThread;
     private int lobbySequenceNumber;
     private int gameSequenceNumber;
+
+    private Player currentPlayer;
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+
+        if(this.currentPlayer == null) {
+            this.currentPlayer = currentPlayer;
+        }
+    }
 
     public User getCurrentUser() {
         return currentUser;

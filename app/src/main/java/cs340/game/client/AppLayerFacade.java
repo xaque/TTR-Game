@@ -5,14 +5,19 @@ import java.util.Observer;
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.client.Presenters.GameLobbyPresenter;
 import cs340.game.client.Presenters.MainActivityPresenter;
+import cs340.game.shared.City;
+import cs340.game.shared.Color;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.LobbyPollerResults;
 import cs340.game.shared.LobbyResults;
 import cs340.game.shared.LoginResults;
 import cs340.game.shared.data.PollerData;
+import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
+import cs340.game.shared.models.Player;
+import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 
 /**
@@ -40,6 +45,26 @@ public class AppLayerFacade{
     private ServerProxy proxy = new ServerProxy();
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
 
+    // DRAWING
+    public String DrawTrainCardFromDeck(){
+
+        TrainCard newCard = new TrainCard(Color.BLUE);
+        Player currentPlayer = clientModelRoot.getCurrentPlayer();
+        currentPlayer.addTrainCard(newCard);
+
+        return null;
+    }
+
+    public String DrawDestinationCards(){
+
+        DestinationCard newCard = new DestinationCard(City.DENVER, City.SALT_LAKE);
+        Player currentPlayer = clientModelRoot.getCurrentPlayer();
+        currentPlayer.addDestinationCard(newCard);
+
+        return null;
+    }
+
+    // LOBBY
     /**
      * Logs the player in. Communicates with the client-side models and the ServerProxy in order
      * to log a user into the game. Notifies the necessary Presenter of the success of the request.
