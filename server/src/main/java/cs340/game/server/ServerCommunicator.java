@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import cs340.game.server.Handlers.GameHandler;
 import cs340.game.server.Handlers.LobbyHandler;
 import cs340.game.server.Handlers.LoginHandler;
 import cs340.game.server.Handlers.PollerHandler;
@@ -34,6 +35,7 @@ public class ServerCommunicator {
         server.createContext(CommonData.LOGIN_URI, new LoginHandler());
         server.createContext(CommonData.LOBBY_URI, new LobbyHandler());
         server.createContext(CommonData.POLLER_URI, new PollerHandler());
+        server.createContext(CommonData.GAME_URI, new GameHandler());
 
         server.start();
     }

@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.LobbyCommands;
 
+import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.shared.LobbyResults;
@@ -13,7 +14,7 @@ import cs340.game.shared.models.Game;
  * Created by Stephen on 9/28/2018.
  */
 
-public class CreateGameCommand implements iLobbyCommand {
+public class CreateGameCommand implements iCommand {
 
     /**
      * Creates a game with name and user sent in data. Checks to make sure user is logged in and

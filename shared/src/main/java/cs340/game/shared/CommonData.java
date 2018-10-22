@@ -12,4 +12,5 @@ public class CommonData {
     public static final String LOGIN_URI = "/login";
     public static final String LOBBY_URI = "/lobby";
     public static final String POLLER_URI = "/poller";
+    public static final String GAME_URI = "/game";
 }

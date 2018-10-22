@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.LobbyCommands;
 
+import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.shared.LobbyResults;
 import cs340.game.shared.Results;
@@ -12,7 +13,7 @@ import cs340.game.shared.models.Game;
  * Created by Stephen on 9/28/2018.
  */
 
-public class JoinGameCommand implements iLobbyCommand {
+public class JoinGameCommand implements iCommand {
 
     /**
      * Causes player to join game with the given gameID. Returns an error if the game is full.
