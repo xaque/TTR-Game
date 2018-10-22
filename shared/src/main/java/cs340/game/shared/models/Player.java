@@ -61,7 +61,7 @@ public class Player {
         int count = 0;
         for(int i = 0; i < trainCards.size(); i++){
             TrainCard card = trainCards.get(i);
-            if(card.getColor() == colorNeeded || card.getColor() == Color.LOCOMOTIVE){
+            if(card.getColor() == colorNeeded || card.getColor() == Color.WILD){
                 count++;
             }
         }

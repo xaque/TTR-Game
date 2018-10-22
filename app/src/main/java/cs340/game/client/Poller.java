@@ -90,4 +90,15 @@ public class Poller implements Runnable{
      */
     public void getGameUpdates(int lastSequenceNumber){
     }
+
+    /**
+     * A helper method that handles communicating with the server in order to get the updates to
+     * a specific game and its chat. This includes all logs of actions taken by players in the game
+     * and all messages sent by the players in that game.
+     * @param lastSequenceNumber a number that identifies the last time that the game was updated;
+     *                           this changes on the server's side as other players take turns or
+     *                           send messages
+     */
+    public void getChatUpdates(int lastSequenceNumber){
+    }
 }

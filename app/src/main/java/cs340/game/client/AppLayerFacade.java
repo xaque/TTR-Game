@@ -45,25 +45,6 @@ public class AppLayerFacade{
     private ServerProxy proxy = new ServerProxy();
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
 
-    // DRAWING
-    public String DrawTrainCardFromDeck(){
-
-        TrainCard newCard = new TrainCard(Color.BLUE);
-        Player currentPlayer = clientModelRoot.getCurrentPlayer();
-        currentPlayer.addTrainCard(newCard);
-
-        return null;
-    }
-
-    public String DrawDestinationCards(){
-
-        DestinationCard newCard = new DestinationCard(City.DENVER, City.SALT_LAKE);
-        Player currentPlayer = clientModelRoot.getCurrentPlayer();
-        currentPlayer.addDestinationCard(newCard);
-
-        return null;
-    }
-
     // LOBBY
     /**
      * Logs the player in. Communicates with the client-side models and the ServerProxy in order
