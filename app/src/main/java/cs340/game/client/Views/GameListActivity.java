@@ -116,7 +116,7 @@ public class GameListActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.join_button:
                 //get game name??
-                String gameToJoin = "gane";
+                String gameToJoin = "game";
                 System.out.println("JOIN GAME");
                 presenter.joinGame(gameToJoin);
                 break;
