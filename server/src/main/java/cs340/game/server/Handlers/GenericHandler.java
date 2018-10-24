@@ -14,7 +14,7 @@ import cs340.game.server.Commands.LoginCommands.LoginCommand;
 import cs340.game.server.Commands.LoginCommands.RegisterCommand;
 import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.server.Commands.iCommand;
-import cs340.game.shared.Results;
+import cs340.game.shared.results.Results;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
 
@@ -53,6 +53,7 @@ public class GenericHandler implements HttpHandler {
             case LOBBY_POLL:
                 cmd = new LobbyPollerCommand();
                 break;
+            //TODO add cases for chat and Destination Card Commands
         }
         Results r = cmd.execute(data);
 

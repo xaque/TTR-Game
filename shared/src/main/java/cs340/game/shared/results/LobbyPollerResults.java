@@ -1,23 +1,26 @@
-package cs340.game.shared;
+package cs340.game.shared.results;
+
+import cs340.game.shared.models.GameList;
 
 /**
  * Created by Stephen on 10/5/2018.
  */
 
-public class LoginResults implements Results {
+public class LobbyPollerResults implements Results {
     private boolean success;
-    private String authToken;
+    private GameList data;
+    private int sequenceNumber;
     private String errorInfo;
 
     /**
      * The Results object to be sent from the server to client
      * @param success Whether the command executed successfully
-     * @param authToken The result authToken if success is true
+     * @param data The result data if success is true
      * @param errorInfo Error info if success is false
      */
-    public LoginResults(boolean success, String authToken, String errorInfo){
+    public LobbyPollerResults(boolean success, GameList data, String errorInfo){
         this.success = success;
-        this.authToken = authToken;
+        this.data = data;
         this.errorInfo = errorInfo;
     }
 
@@ -33,8 +36,24 @@ public class LoginResults implements Results {
      * Getter for data
      * @return The result data if success is true
      */
-    public String getAuthToken() {
-        return authToken;
+    public GameList getData() {
+        return data;
+    }
+
+    /**
+     * Getter for sequenceNumber
+     * @return The result data if success is true
+     */
+    public int getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    /**
+     * Setter for sequenceNumber
+     * @param sequenceNumber the number sequence number
+     */
+    public void setSequenceNumber(int sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 
     /**

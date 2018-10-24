@@ -1,7 +1,7 @@
 package cs340.game.server.Commands.GameCommands;
 
 import cs340.game.server.Commands.iCommand;
-import cs340.game.shared.Results;
+import cs340.game.shared.results.Results;
 import cs340.game.shared.data.Data;
 
 //TODO stub for phase 2 implementation

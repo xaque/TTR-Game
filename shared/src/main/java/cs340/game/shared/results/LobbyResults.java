@@ -1,10 +1,10 @@
-package cs340.game.shared;
+package cs340.game.shared.results;
 
 /**
  * Created by Stephen on 10/5/2018.
  */
 
-public class LobbyResults implements Results{
+public class LobbyResults implements Results {
     private boolean success;
     private String errorInfo;
 

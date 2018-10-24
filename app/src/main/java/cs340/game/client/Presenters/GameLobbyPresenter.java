@@ -8,9 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
-import cs340.game.client.ServerProxy;
 import cs340.game.client.Views.GameLobbyActivity;
-import cs340.game.shared.LoginResults;
 import cs340.game.shared.models.Game;
 
 /**

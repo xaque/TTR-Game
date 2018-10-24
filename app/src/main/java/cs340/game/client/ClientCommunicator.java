@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 import cs340.game.shared.CommonData;
-import cs340.game.shared.Results;
+import cs340.game.shared.results.Results;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
 

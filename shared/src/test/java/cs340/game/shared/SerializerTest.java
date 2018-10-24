@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;
+import cs340.game.shared.results.LoginResults;
+import cs340.game.shared.results.Results;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

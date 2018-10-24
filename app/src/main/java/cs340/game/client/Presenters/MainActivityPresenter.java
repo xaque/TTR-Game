@@ -3,21 +3,11 @@ package cs340.game.client.Presenters;
 
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
-import cs340.game.client.ServerProxy;
 import cs340.game.client.Views.MainActivity;
-import cs340.game.shared.LoginResults;
 
 /**
  * Created by Tyler on 9/24/2018.

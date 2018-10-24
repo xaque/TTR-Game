@@ -2,8 +2,8 @@ package cs340.game.server.Commands.LoginCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.UserDatabase;
-import cs340.game.shared.LoginResults;
-import cs340.game.shared.Results;
+import cs340.game.shared.results.LoginResults;
+import cs340.game.shared.results.Results;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;

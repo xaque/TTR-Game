@@ -2,8 +2,8 @@ package cs340.game.server.Commands.PollerCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.LobbyCommandLog;
-import cs340.game.shared.LobbyPollerResults;
-import cs340.game.shared.Results;
+import cs340.game.shared.results.LobbyPollerResults;
+import cs340.game.shared.results.Results;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.GameList;
@@ -24,13 +24,14 @@ public class LobbyPollerCommand implements iCommand {
         LobbyCommandLog log = LobbyCommandLog.getInstance();
 
         // Check if the Client is up to date
-        if(pData.getSequenceNumber() == log.getLogLength()){
+        int currentSequenceNumber = pData.getSequenceNumber();
+        if(currentSequenceNumber == log.getLogLength()){
             return new LobbyPollerResults(false, null, "No new data.");
         }
 
         int newSequenceNumber = log.getLogLength();
         GameList games = new GameList();
-        for(int i = 0; i < log.getLobbyCommands().size(); i++){
+        for(int i = currentSequenceNumber + 1; i < log.getLogLength(); i++){
             games.addGame(log.getIndexedLobbyCommand(i));
         }
 

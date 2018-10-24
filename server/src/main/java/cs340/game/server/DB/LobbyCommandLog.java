@@ -29,9 +29,9 @@ public class LobbyCommandLog {
         lobbyCommands.add(game);
     }
 
-    public List<Game> getLobbyCommands() {
+    /*public List<Game> getLobbyCommands() {
         return lobbyCommands;
-    }
+    }*/
 
     public int getLogLength() {
         return lobbyCommands.size();

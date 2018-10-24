@@ -1,4 +1,4 @@
-package cs340.game.shared;
+package cs340.game.shared.results;
 
 import java.io.Serializable;
 

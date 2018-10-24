@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import cs340.game.shared.models.GameList;
+import cs340.game.shared.results.LobbyPollerResults;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
