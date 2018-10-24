@@ -31,7 +31,7 @@ public class LobbyPollerCommand implements iCommand {
 
         int newSequenceNumber = log.getLogLength();
         GameList games = new GameList();
-        for(int i = currentSequenceNumber + 1; i < log.getLogLength(); i++){
+        for(int i = currentSequenceNumber; i < log.getLogLength(); i++){
             games.addGame(log.getIndexedLobbyCommand(i));
         }
 
