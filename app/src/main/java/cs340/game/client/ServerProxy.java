@@ -3,12 +3,67 @@ package cs340.game.client;
 
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
-import cs340.game.shared.results.Results;
+import cs340.game.shared.data.ChatData;
+import cs340.game.shared.data.DestinationCardData;
 import cs340.game.shared.data.LobbyData;
 import cs340.game.shared.data.LoginData;
+import cs340.game.shared.data.TrainCardData;
+import cs340.game.shared.models.DestinationCard;
+import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
+import cs340.game.shared.results.Results;
 
 public class ServerProxy {
+
+    public Results DrawTrainCard(String authToken){
+
+        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD, authToken,null);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results DiscardTrainCard(String authToken, TrainCard card){
+
+        TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, card);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results DrawDestinationCard(String authToken){
+
+        TrainCardData cardData = new TrainCardData(CommandType.DRAW_DESTINATION_CARD, authToken, null);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results DiscardDestinationCard(String authToken, DestinationCard card){
+
+        DestinationCardData cardData = new DestinationCardData(CommandType.DISCARD_DESTINATION_CARD, authToken, card);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results SendChat(String authToken, String message){
+
+        ChatData chatData = new ChatData(CommandType.CHAT, authToken, message);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, chatData);
+
+        return results;
+    }
 
     /**
      * Communicates with the server to log a person in.
