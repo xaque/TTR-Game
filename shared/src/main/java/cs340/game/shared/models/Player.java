@@ -3,7 +3,6 @@ package cs340.game.shared.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs340.game.shared.City;
 import cs340.game.shared.Color;
 
 public class Player {
@@ -73,12 +72,37 @@ public class Player {
         trainCards.add(newCard);
     }
 
+    public TrainCard getTrainCard(Color color) throws Exception{
+
+        for(int i = 0; i < trainCards.size(); i++){
+            TrainCard card = trainCards.get(i);
+            if(card.getColor() == color){
+                return card;
+            }
+        }
+
+        throw new Exception("The player does not have this card!");
+    }
+
     public void removeTrainCard(Color color) throws Exception{
 
         for(int i = 0; i < trainCards.size(); i++){
             TrainCard card = trainCards.get(i);
             if(card.getColor() == color){
                 trainCards.remove(i);
+                return;
+            }
+        }
+
+        throw new Exception("The player does not have this card!");
+    }
+
+    public void removeDestinationCard(DestinationCard _card) throws Exception{
+
+        for(int i = 0; i < destinationCards.size(); i++){
+            DestinationCard card = destinationCards.get(i);
+            if(card.equals(_card)){
+                destinationCards.remove(i);
                 return;
             }
         }
