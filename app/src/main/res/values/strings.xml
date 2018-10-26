@@ -76,13 +76,6 @@
         <!--DESTINATIONS-->
     <string name="destTab">Dest.</string>
 
-
-        <!--Buttons-->
-    <string name="drawTrains">Draw Trains</string>
-    <string name="placeTrains">Place Trains</string>
-    <string name="drawDestinations">Draw Destinations</string>
-
-
         <!--RIGHT SIDE-->
 
         <!--CHAT-->
@@ -91,5 +84,34 @@
         <!--HISTORY-->
     <string name="historyTab">Hist.</string>
 
+
+    <!--Buttons-->
+    <string name="drawTrains">Draw Trains</string>
+    <string name="placeTrains">Place Trains</string>
+    <string name="drawDestinations">Draw Destinations</string>
+
+    <!-- DIALOGS -->
+    <string name="ok">OK</string>
+    <string name="cancel">BACK</string>
+    <string name="draw_train">Pick a Train</string>
+    <string name="draw">DRAW</string>
+    <string name="deck">Deck</string>
+    <string name="starting_train_cards">144</string>
+    <string name="left_paren">(</string>
+    <string name="right_paren">)</string>
+
+    <!-- PLAYER INFO -->
+    <string name="playerInfo">Player Information</string>
+    <string name="player">Player</string>
+    <string name="points">Points</string>
+    <string name="num_trains"># Trains</string>
+    <string name="num_cards"># Cards</string>
+    <string name="num_dest"># Destinations</string>
+
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
+    <string name="player4">Player 4</string>
+    <string name="player5">Player 5</string>
 
 </resources>

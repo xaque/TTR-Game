@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/card5"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cardTab"
+        app:layout_constraintStart_toEndOf="@+id/card4"
+        app:layout_constraintTop_toBottomOf="@+id/card2"
+        app:srcCompat="@mipmap/wild" />
+
+    <ImageView
+        android:id="@+id/card1"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cardTab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/yellow" />
+
+    <ImageView
+        android:id="@+id/deck"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/deck"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/card5"
+        app:layout_constraintTop_toBottomOf="@+id/card3"
+        app:srcCompat="@color/lightgray">
+
+    </ImageView>
+
+
+
+    <ImageView
+        android:id="@+id/card4"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cardTab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card1"
+        app:srcCompat="@mipmap/black" />
+
+    <ImageView
+        android:id="@+id/card2"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cardTab"
+        app:layout_constraintStart_toEndOf="@+id/card1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/red" />
+
+    <ImageView
+        android:id="@+id/card3"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cardTab"
+        app:layout_constraintStart_toEndOf="@+id/card2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/purple" />
+
+    <TextView
+        android:id="@+id/decktext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/draw"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/deck"
+        app:layout_constraintStart_toStartOf="@+id/deck"
+        app:layout_constraintTop_toTopOf="@+id/deck" />
+
+    <TextView
+        android:id="@+id/cards_in_deck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/starting_train_cards"
+        app:layout_constraintEnd_toEndOf="@+id/deck"
+        app:layout_constraintStart_toStartOf="@+id/deck"
+        app:layout_constraintTop_toBottomOf="@+id/decktext" />
+
+    <TextView
+        android:id="@+id/leftParen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="1dp"
+        android:text="@string/left_paren"
+        app:layout_constraintEnd_toStartOf="@+id/cards_in_deck"
+        app:layout_constraintTop_toBottomOf="@+id/decktext" />
+
+    <TextView
+        android:id="@+id/rightParen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/right_paren"
+        app:layout_constraintStart_toEndOf="@+id/cards_in_deck"
+        app:layout_constraintTop_toBottomOf="@+id/decktext" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,293 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/points"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/num_trains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/num_cards"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/num_dest" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/player1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player1"
+            android:textAlignment="viewStart" />
+
+        <TextView
+            android:id="@+id/player1_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player1_trains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingTrains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player1_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player1_dest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/player2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player2" />
+
+        <TextView
+            android:id="@+id/player2_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player2_trains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingTrains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player2_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player2_dest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/player3_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player3" />
+
+        <TextView
+            android:id="@+id/player3_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player3_trains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingTrains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player3_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player3_dest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/player4_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player4" />
+
+        <TextView
+            android:id="@+id/player4_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player4_trains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingTrains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player4_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player4_dest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/player5_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/player5" />
+
+        <TextView
+            android:id="@+id/player5_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player5_trains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingTrains"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player5_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/player5_dest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/startingScore"
+            android:textAlignment="center" />
+    </TableRow>
+
+</TableLayout>

@@ -1,5 +1,6 @@
 package cs340.game.client.Views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -161,7 +163,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.draw_trains_button:
-                Toast.makeText(this, "You clicked DRAW TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
+                DrawTrainsFragment drawTrainsDialog = new DrawTrainsFragment();
+                drawTrainsDialog.show(getSupportFragmentManager(), "draw trains");
                 break;
             case R.id.draw_destinations_button:
                 Toast.makeText(this, "You clicked DRAW DESTINATIONS. Nice job!", Toast.LENGTH_SHORT).show();
@@ -170,7 +173,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.turn_order:
-                Toast.makeText(this, "You clicked the turn order thing. Nice job!", Toast.LENGTH_SHORT).show();
+                PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
+                playerInfoFragment.show(getSupportFragmentManager(), "player info");
                 break;
         }
     }
