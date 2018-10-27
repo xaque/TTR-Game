@@ -11,6 +11,7 @@ public class GameStateDiff {
     private List<DestinationCard> destinationCardDeck;
     private List<Route> routeList;
     private List<TrainCard> trainCardDeck;
+    private List<TrainCard> faceUpCards;
 
     public GameStateDiff(){}
 
@@ -46,4 +47,11 @@ public class GameStateDiff {
         this.trainCardDeck = trainCardDeck;
     }
 
+    public List<TrainCard> getFaceUpCards() {
+        return faceUpCards;
+    }
+
+    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
 }

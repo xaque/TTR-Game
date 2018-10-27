@@ -1,10 +1,16 @@
 package cs340.game.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.DestinationCard;
+import cs340.game.shared.models.Game;
+import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.TrainCard;
+import cs340.game.shared.models.User;
 import cs340.game.shared.results.GameResults;
 
 /**
@@ -31,6 +37,10 @@ public class InGameFacade {
 
     private ServerProxy proxy = new ServerProxy();
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
+
+    public void setupCurrentGameState(Game game){
+        clientModelRoot.InitializeGameState(game);
+    }
 
     // DRAWING
     public String DrawTrainCardFromDeck(){
@@ -124,5 +134,13 @@ public class InGameFacade {
         }
 
         return null;
+    }
+
+    public GameState getCurrentGame() {
+        return clientModelRoot.getCurrentGameState();
+    }
+
+    public void setCurrentGame(GameState currentGame) {
+        clientModelRoot.setCurrentGameState(currentGame);
     }
 }

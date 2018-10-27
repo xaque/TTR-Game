@@ -15,6 +15,10 @@ public class Player {
     private List<TrainCard> trainCards = new ArrayList<>();
     private List<DestinationCard> destinationCards = new ArrayList<>();
 
+    public Player(String name){
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

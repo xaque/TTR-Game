@@ -11,6 +11,8 @@ import java.util.Observer;
 import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
+import cs340.game.shared.models.GameState;
+import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.User;
 
@@ -51,6 +53,36 @@ public class ClientModelRoot extends Observable {
     private int gameSequenceNumber;
 
     private Player currentPlayer;
+    private GameState currentGameState;
+
+    public void InitializeGameState(Game game){
+        List<String> users = game.getPlayers();
+        List<Player> players = new ArrayList<>();
+        for(int i = 0; i < users.size(); i++){
+            String user = users.get(i);
+            Player player = new Player(user);
+            players.add(player);
+        }
+
+        currentGameState = new GameState();
+        currentGameState.setGameName(game.getName());
+        currentGameState.setPlayers(players);
+    }
+
+    public void updateGameState(GameStateDiff diff){
+        // TODO Implement how these will actually be updated
+        currentGameState.setPlayers(diff.getPlayerList());
+        currentGameState.setRoutes(diff.getRouteList());
+        currentGameState.setFaceUpCards(diff.getFaceUpCards());
+    }
+
+    public GameState getCurrentGameState(){
+        return currentGameState;
+    }
+
+    public void setCurrentGameState(GameState currentGameState){
+        this.currentGameState = currentGameState;
+    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
