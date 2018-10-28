@@ -75,34 +75,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        /* *********Set up right side tabs**********/
-        TabLayout rightTabLayout = (TabLayout) findViewById(R.id.chat_tabs);
-        rightTabLayout.addTab(rightTabLayout.newTab().setText(R.string.chatTab));
-        rightTabLayout.addTab(rightTabLayout.newTab().setText(R.string.historyTab));
-        rightTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        /* *********CHAT STUFF**********/
 
-        final ViewPager rightPager = (ViewPager) findViewById(R.id.right_pager);
-        final RightPagerAdapter rightAdapter = new RightPagerAdapter(getSupportFragmentManager(),
-                rightTabLayout.getTabCount());
-
-        rightPager.setAdapter(rightAdapter);
-        rightPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(rightTabLayout));
-        rightTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                rightPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
 
         //Set up the BUTTONS
