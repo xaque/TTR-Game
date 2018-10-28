@@ -2,14 +2,14 @@ package cs340.game.client;
 
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
+import cs340.game.shared.data.LobbyPollerData;
 import cs340.game.shared.results.LobbyPollerResults;
-import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.GameList;
 
 /**
  * This Class has the purpose of frequently checking with the server to see if anything has changed
  * inside of the app and checks for specific updates depending on the current state of the user.
- * @see PollerData
+ * @see LobbyPollerData
  */
 public class Poller implements Runnable{
 
@@ -58,7 +58,7 @@ public class Poller implements Runnable{
      */
     public void getLobbyUpdates(int lastSequenceNumber){
 
-        PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, lastSequenceNumber);
+        LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, lastSequenceNumber);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);

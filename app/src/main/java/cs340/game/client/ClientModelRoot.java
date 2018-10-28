@@ -63,6 +63,7 @@ public class ClientModelRoot extends Observable {
             Player player = new Player(user);
             players.add(player);
         }
+        currentPlayer.setAuthToken(currentUser.getAuthToken()); // added this line and alternate constructor so Players could be made in client without accessing Server for other player authTokens
 
         currentGameState = new GameState();
         currentGameState.setGameName(game.getName());

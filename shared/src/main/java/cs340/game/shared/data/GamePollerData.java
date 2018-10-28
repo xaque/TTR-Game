@@ -3,19 +3,18 @@ package cs340.game.shared.data;
 import cs340.game.shared.CommandType;
 
 /**
- * A container for information about a command. This is specifically for any request that has to do
- * with the Poller.
- * @see Data
- * @see cs340.game.client
+ * Created by Stephen on 10/28/2018.
  */
-public class PollerData extends Data{
 
+public class GamePollerData extends Data{
     private CommandType commandType;
     private int sequenceNumber;
+    private String authtoken;
 
-    public PollerData(CommandType commandType, int sequenceNumber){
+    public GamePollerData(CommandType commandType, int sequenceNumber, String authtoken){
         this.commandType = commandType;
         this.sequenceNumber = sequenceNumber;
+        this.authtoken = authtoken;
     }
 
     public CommandType getCommandType() {
@@ -32,5 +31,13 @@ public class PollerData extends Data{
 
     public void setSequenceNumber(int sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 }

@@ -9,16 +9,8 @@ import cs340.game.shared.GameHistoryAction;
 public class GameCommandLog {
 
     private List<GameHistoryAction> gameActions;
-    private static GameCommandLog instance;
 
-    public static GameCommandLog getInstance() {
-        if(instance == null) {
-            instance = new GameCommandLog();
-        }
-        return instance;
-    }
-
-    private GameCommandLog() {gameActions = new ArrayList<>();}
+    public GameCommandLog() {gameActions = new ArrayList<>();}
 
     public void addGameCommand(GameHistoryAction action) {
         gameActions.add(action);

@@ -7,10 +7,10 @@ import cs340.game.client.Presenters.GameLobbyPresenter;
 import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
+import cs340.game.shared.data.LobbyPollerData;
 import cs340.game.shared.results.LobbyPollerResults;
 import cs340.game.shared.results.LobbyResults;
 import cs340.game.shared.results.LoginResults;
-import cs340.game.shared.data.PollerData;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
@@ -287,7 +287,7 @@ public class AppLayerFacade{
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, 0);
+                    LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, 0);
 
                     ClientCommunicator communicator = ClientCommunicator.getInstance();
                     LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
@@ -319,7 +319,7 @@ public class AppLayerFacade{
 
     private void preLoadGames(){
 
-        PollerData pollerData = new PollerData(CommandType.LOBBY_POLL, 0);
+        LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, 0);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);

@@ -58,4 +58,13 @@ public class UserDatabase {
         }
         return false;
     }
+
+    public User getUserByUsername(String username) {
+        for(int i = 0; i < userList.size(); i++) {
+            if(userList.get(i).getUsername().equals(username)) {
+                return userList.get(i);
+            }
+        }
+        return null;
+    }
 }

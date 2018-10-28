@@ -31,7 +31,7 @@ public class DestinationCard {
     }
 
     public int getPointValue() {
-        return pointValue;
+        return this.pointValue;
     }
 
     public void setPointValue(int pointValue) {

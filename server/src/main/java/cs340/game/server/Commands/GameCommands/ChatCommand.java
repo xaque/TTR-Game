@@ -1,7 +1,9 @@
 package cs340.game.server.Commands.GameCommands;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.GameCommandLog;
+import cs340.game.server.Models.ServerGameState;
 import cs340.game.shared.results.Results;
 import cs340.game.shared.data.ChatData;
 import cs340.game.shared.data.Data;
@@ -15,10 +17,11 @@ public class ChatCommand implements iCommand {
     @Override
     public Results execute(Data data) {
         ChatData chatData = (ChatData)data;
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(chatData.getUsername());
+
         String chatMessage = chatData.getUsername() + ": "  + chatData.getChatContent();
         GameHistoryAction action = new GameHistoryAction(chatMessage, null);
-        GameCommandLog log = GameCommandLog.getInstance();
-        log.addGameCommand(action);
+        game.addGameCommand(action);
         //TODO any errors possible here?
         return new GameResults(true, null);
     }

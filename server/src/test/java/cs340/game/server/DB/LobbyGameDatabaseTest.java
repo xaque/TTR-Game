@@ -32,7 +32,7 @@ class LobbyGameDatabaseTest {
     @Test
     void removeGame() {
         addGame();
-        LobbyGameDatabase.getInstance().removeGame(game);
+        LobbyGameDatabase.getInstance().removeGame("testgame");
         assertNull(LobbyGameDatabase.getInstance().getGame("testgame"));
     }
 

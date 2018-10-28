@@ -10,6 +10,7 @@ public class GameState {
     private List<Player> players = new ArrayList<>();
     private List<TrainCard> faceUpCards = new ArrayList<>();
 
+
     public String getGameName() {
         return name;
     }

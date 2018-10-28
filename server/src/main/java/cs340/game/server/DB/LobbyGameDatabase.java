@@ -51,12 +51,32 @@ public class LobbyGameDatabase {
     }
 
     /**
+     * Removes game with the given name from the Lobby Database
+     * @param gameName name of the game to be removed
+     * @return the removed game, or null if the game is not contained in the Lobby
+     */
+    public Game removeGame(String gameName) {
+        for(int i = 0; i < lobbyGameList.size(); i++) {
+            if(lobbyGameList.get(i).getName().equals(gameName)) {
+                Game removedGame = lobbyGameList.remove(i);
+                return removedGame;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds given username to the game within the database, and adds the join to the LobbyCommandLog
      * @param username username to add to the game
      * @param game game to which player username should be added
      */
     public void addPlayerToGame(String username, Game game) {
         game.AddPlayer(username);
+        LobbyCommandLog.getInstance().addLobbyCommand(game);
+    }
+
+    public void startGame(Game game) {
+        game.setGameStarted(true);
         LobbyCommandLog.getInstance().addLobbyCommand(game);
     }
 

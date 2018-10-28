@@ -15,8 +15,16 @@ public class Player {
     private List<TrainCard> trainCards = new ArrayList<>();
     private List<DestinationCard> destinationCards = new ArrayList<>();
 
-    public Player(String name){
+    public Player(String name, String authToken){
         this.name = name;
+        this.authToken = authToken;
+        this.points = 0;
+    }
+
+    public Player(String name) {
+        this.name = name;
+        this.authToken = null;
+        this.points = 0;
     }
 
     public String getName() {

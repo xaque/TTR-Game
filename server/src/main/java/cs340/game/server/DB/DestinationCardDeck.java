@@ -15,20 +15,16 @@ import cs340.game.shared.models.DestinationCard;
  * Created by Stephen on 10/26/2018.
  */
 
+/**
+ * The deck of cards is contained in a list. Index 0 of the list contains the top card of the deck.
+ * Cards will drawn from the beginning of the list and discarded to the end of the list.
+ */
 public class DestinationCardDeck {
     private List<DestinationCard> cards;
     private int size;
 
-    private static DestinationCardDeck instance;
 
-    public static DestinationCardDeck getInstance() {
-        if(instance == null) {
-            instance = new DestinationCardDeck();
-        }
-        return instance;
-    }
-
-    private DestinationCardDeck() {
+    public DestinationCardDeck() {
         try {
             FileReader fileReader = new FileReader("DestinationCardSetupText.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -55,13 +51,36 @@ public class DestinationCardDeck {
         Random rand = new Random();
         List<DestinationCard> shuffledList = new ArrayList<>();
         for(int i = 0; i < howManyTimes; i++) {
-            while (cards.size() != 0) {
-                int index = rand.nextInt(cards.size());
-                DestinationCard removedCard = cards.remove(index);
+            while (this.cards.size() != 0) {
+                int index = rand.nextInt(this.cards.size());
+                DestinationCard removedCard = this.cards.remove(index);
                 shuffledList.add(removedCard);
             }
-            cards = shuffledList;
+            this.cards = shuffledList;
             shuffledList.clear();
         }
+    }
+
+    public List<DestinationCard> drawCards() {
+        int numberOfDrawnCards;
+        if(this.size >= 3) {
+            numberOfDrawnCards = 3;
+        }
+        else {
+            numberOfDrawnCards = this.size;
+        }
+        //TODO contingency if deck is empty? (size = 0)
+        List<DestinationCard> drawnCards = new ArrayList<>();
+        for(int i = 0; i < numberOfDrawnCards; i++) {
+            DestinationCard drawnCard = this.cards.remove(0);
+            this.size -= 1;
+            drawnCards.add(drawnCard);
+        }
+        return drawnCards;
+    }
+
+    public void returnCards(List<DestinationCard> returnedCards) {
+        this.cards.addAll(returnedCards);
+        this.size += returnedCards.size();
     }
 }
