@@ -6,10 +6,12 @@ public class DestinationCard {
 
     private City city1;
     private City city2;
+    private int pointValue;
 
-    public DestinationCard(City _city1, City _city2){
+    public DestinationCard(City _city1, City _city2, int _pointValue){
         city1 = _city1;
         city2 = _city2;
+        pointValue = _pointValue;
     }
 
     public City getCity1() {
@@ -26,5 +28,13 @@ public class DestinationCard {
 
     public void setCity2(City city2) {
         this.city2 = city2;
+    }
+
+    public int getPointValue() {
+        return pointValue;
+    }
+
+    public void setPointValue(int pointValue) {
+        this.pointValue = pointValue;
     }
 }
