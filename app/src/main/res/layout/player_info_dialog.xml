@@ -5,9 +5,9 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="10dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
@@ -48,9 +48,9 @@
     </TableRow>
 
     <TableRow
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
@@ -96,9 +96,9 @@
     </TableRow>
 
     <TableRow
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
@@ -145,9 +145,9 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
@@ -195,9 +195,9 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
@@ -244,9 +244,9 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingStart="5dp"
+        android:paddingStart="25dp"
         android:paddingTop="5dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="25dp"
         android:paddingBottom="5dp"
         android:visibility="visible">
 
