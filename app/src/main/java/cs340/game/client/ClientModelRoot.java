@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.Presenters.MainActivityPresenter;
+import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.GameState;
@@ -54,6 +55,7 @@ public class ClientModelRoot extends Observable {
 
     private Player currentPlayer;
     private GameState currentGameState;
+    private GameHistoryActionList history;
 
     public void InitializeGameState(Game game){
         List<String> users = game.getPlayers();
@@ -83,6 +85,14 @@ public class ClientModelRoot extends Observable {
 
     public void setCurrentGameState(GameState currentGameState){
         this.currentGameState = currentGameState;
+    }
+
+    public GameHistoryActionList getHistory() {
+        return history;
+    }
+
+    public void setHistory(GameHistoryActionList history) {
+        this.history = history;
     }
 
     public Player getCurrentPlayer() {
