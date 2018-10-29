@@ -136,6 +136,10 @@ public class InGameFacade {
         return null;
     }
 
+    public Player getCurrentPlayer(){
+        return clientModelRoot.getCurrentPlayer();
+    }
+
     public GameState getCurrentGame() {
         return clientModelRoot.getCurrentGameState();
     }
