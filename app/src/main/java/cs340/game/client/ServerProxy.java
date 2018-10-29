@@ -1,6 +1,8 @@
 package cs340.game.client;
 
 
+import java.util.List;
+
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.ChatData;
@@ -45,9 +47,9 @@ public class ServerProxy {
         return results;
     }
 
-    public Results DiscardDestinationCard(String authToken, DestinationCard card){
+    public Results DiscardDestinationCards(String authToken, List<DestinationCard> cards){
 
-        DestinationCardData cardData = new DestinationCardData(CommandType.DISCARD_DESTINATION_CARD, authToken, card);
+        DestinationCardData cardData = new DestinationCardData(CommandType.DISCARD_DESTINATION_CARD, authToken, cards);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);

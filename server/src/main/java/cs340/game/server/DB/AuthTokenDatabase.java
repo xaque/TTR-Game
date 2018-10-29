@@ -13,12 +13,12 @@ import cs340.game.shared.ServerException;
 public class AuthTokenDatabase {
 
     //format: <key=username, val=authToken>
-    private Map authTokenMap;
+    private Map<String, String> authTokenMap;
 
     private static AuthTokenDatabase instance;
 
     private AuthTokenDatabase() {
-        authTokenMap = new HashMap<String, String>();
+        authTokenMap = new HashMap<>();
     }
 
     public static AuthTokenDatabase getInstance() {
@@ -55,5 +55,14 @@ public class AuthTokenDatabase {
         String authToken = UUID.randomUUID().toString();
         authTokenMap.put(username, authToken);
         return authToken;
+    }
+
+    public String getUsernameByAuthToken(String authToken) {
+        for(Map.Entry<String, String> entry : authTokenMap.entrySet()) {
+            if(entry.getValue() == authToken) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 }

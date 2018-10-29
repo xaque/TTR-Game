@@ -109,17 +109,9 @@ public class Player {
         throw new Exception("The player does not have this card!");
     }
 
-    public void removeDestinationCard(DestinationCard _card) throws Exception{
-
-        for(int i = 0; i < destinationCards.size(); i++){
-            DestinationCard card = destinationCards.get(i);
-            if(card.equals(_card)){
-                destinationCards.remove(i);
-                return;
-            }
-        }
-
-        throw new Exception("The player does not have this card!");
+    public void removeDestinationCards(List<DestinationCard> _cards) {//throws Exception{
+        destinationCards.removeAll(_cards);
+        //throw new Exception("The player does not have this card!");
     }
 
     public List<DestinationCard> getDestinationCards() {
@@ -130,7 +122,7 @@ public class Player {
         this.destinationCards = destinationCards;
     }
 
-    public void addDestinationCard(DestinationCard newCard){
-        destinationCards.add(newCard);
+    public void addDestinationCards(List<DestinationCard> newCards){
+        destinationCards.addAll(newCards);
     }
 }

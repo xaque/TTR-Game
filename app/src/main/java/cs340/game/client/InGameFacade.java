@@ -103,15 +103,15 @@ public class InGameFacade {
         return null;
     }
 
-    public String DiscardDestinationCard(DestinationCard card){
+    public String DiscardDestinationCards(List<DestinationCard> cards){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DiscardDestinationCard(currentPlayer.getAuthToken(), card);
+        GameResults results = (GameResults)proxy.DiscardDestinationCards(currentPlayer.getAuthToken(), cards);
 
         if(results.isSuccess()){
             try {
-                currentPlayer.removeDestinationCard(card);
+                currentPlayer.removeDestinationCards(cards);
             }catch (Exception e){
                 return e.getMessage();
             }

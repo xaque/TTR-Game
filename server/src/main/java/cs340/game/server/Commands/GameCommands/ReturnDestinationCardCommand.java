@@ -8,30 +8,38 @@ import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.Models.ServerGameState;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
+import cs340.game.shared.data.Data;
 import cs340.game.shared.data.DestinationCardData;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.results.DestinationCardResults;
 import cs340.game.shared.results.Results;
-import cs340.game.shared.data.Data;
 
-public class DrawDestincationCardCommand implements iCommand {
+/**
+ * Created by Stephen on 10/28/2018.
+ */
 
-    @Override
+public class ReturnDestinationCardCommand implements iCommand {
     public Results execute(Data data) {
         DestinationCardData destinationCardData = (DestinationCardData)data;
         String authToken = destinationCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        List<DestinationCard> returnedCards = destinationCardData.getCards();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");
             return new DestinationCardResults(false, null, ex.getMessage());
         }
-        List<DestinationCard> drawnCards = game.drawDestinationCards(username);
+        try {
+            game.returnDestinationCards(returnedCards, username);
 
-        String actionMessage = username + " drew " + Integer.toString(drawnCards.size()) + " Destination cards.";
-        GameHistoryAction action = new GameHistoryAction(actionMessage, null);
-        game.addGameCommand(action);
-
-        return new DestinationCardResults(true, drawnCards, null);
+            String actionMessage = username + " returned " + Integer.toString(returnedCards.size()) + " Destination cards to the deck.";
+            GameHistoryAction action = new GameHistoryAction(actionMessage, null);
+            game.addGameCommand(action);
+            return new DestinationCardResults(true, null, null);
+        }
+        catch(Exception exception) {
+            ServerException ex = new ServerException("You do not have the cards you are trying to return.");
+            return new DestinationCardResults(false, null, ex.getMessage());
+        }
     }
 }

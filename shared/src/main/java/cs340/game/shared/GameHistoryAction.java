@@ -5,6 +5,8 @@ package cs340.game.shared;
  */
 
 public class GameHistoryAction {
+    //TODO add a CommandType or similar identifier?
+    //TODO change mapChange to GameStateDiff, implement all necessary changes in Commands
     private String actionMessage;
     private Object mapChange; // this will likely be a claimed route that can be sent to update the Client but could be any object to return
 

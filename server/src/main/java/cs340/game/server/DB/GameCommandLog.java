@@ -5,7 +5,6 @@ import java.util.List;
 
 import cs340.game.shared.GameHistoryAction;
 
-//TODO stub for phase 2
 public class GameCommandLog {
 
     private List<GameHistoryAction> gameActions;

@@ -5,6 +5,7 @@ import java.util.List;
 import cs340.game.server.DB.DestinationCardDeck;
 import cs340.game.server.DB.GameCommandLog;
 import cs340.game.shared.GameHistoryAction;
+import cs340.game.shared.ServerException;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.User;
@@ -34,9 +35,25 @@ public class ServerGameState {
         return this.players;
     }
 
-    public List<DestinationCard> drawDestinationCards() {
+    public List<DestinationCard> drawDestinationCards(String username) {
         List<DestinationCard> drawnCards = this.destinationCardDeck.drawCards();
+        for(int i = 0; i < players.size(); i++) {
+            if(players.get(i).getName().equals(username)) {
+                players.get(i).addDestinationCards(drawnCards);
+                break;
+            }
+        }
         return drawnCards;
+    }
+
+    public void returnDestinationCards(List<DestinationCard> cards, String username) {
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getName().equals(username)) {
+                players.get(i).removeDestinationCards(cards);
+                break;
+            }
+        }
+        this.destinationCardDeck.returnCards(cards);
     }
 
     public void addGameCommand(GameHistoryAction action) {

@@ -10,10 +10,8 @@ import cs340.game.shared.data.Data;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.results.GameResults;
 
-//TODO stub for phase 2 implementation
 public class ChatCommand implements iCommand {
 
-    //TODO implement override stub method
     @Override
     public Results execute(Data data) {
         ChatData chatData = (ChatData)data;

@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
+import cs340.game.server.Commands.GameCommands.ChatCommand;
+import cs340.game.server.Commands.GameCommands.DrawDestincationCardCommand;
+import cs340.game.server.Commands.GameCommands.ReturnDestinationCardCommand;
 import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
 import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
 import cs340.game.server.Commands.LoginCommands.LoginCommand;
@@ -53,7 +56,15 @@ public class GenericHandler implements HttpHandler {
             case LOBBY_POLL:
                 cmd = new LobbyPollerCommand();
                 break;
-            //TODO add cases for chat and Destination Card Commands
+            case CHAT:
+                cmd = new ChatCommand();
+                break;
+            case DRAW_DESTINATION_CARD:
+                cmd = new DrawDestincationCardCommand();
+                break;
+            case DISCARD_DESTINATION_CARD:
+                cmd = new ReturnDestinationCardCommand();
+                break;
         }
         Results r = cmd.execute(data);
 
