@@ -79,6 +79,10 @@ public class GameState extends Observable {
         this.history = history;
     }
 
+    public void updateHistory(GameHistoryActionList newHistory){
+        this.history.getActions().addAll(newHistory.getActions());
+    }
+
     public void checkForChanges(){
         if(isChanged){
             notifyObservers();

@@ -5,6 +5,7 @@ import cs340.game.shared.CommonData;
 import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.data.LobbyPollerData;
+import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.LobbyPollerResults;
@@ -102,7 +103,9 @@ public class Poller implements Runnable{
         if(results.isSuccess()) {
             System.out.println("Success");
             GameHistoryActionList history = results.getData();
-            modelRoot.setHistory(history);
+
+            GameStateDiff diff = new GameStateDiff();
+            modelRoot.updateGameState(diff);
             // The most recent sequence number passed from the server
             int newSequenceNumber = results.getSequenceNumber();
             modelRoot.setLobbySequenceNumber(newSequenceNumber);

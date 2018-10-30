@@ -15,6 +15,7 @@ import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
+import cs340.game.shared.models.Route;
 import cs340.game.shared.models.User;
 
 /**
@@ -64,7 +65,7 @@ public class ClientModelRoot extends Observable {
             Player player = new Player(user);
             players.add(player);
         }
-        currentPlayer.setAuthToken(currentUser.getAuthToken()); // added this line and alternate constructor so Players could be made in client without accessing Server for other player authTokens
+        //currentPlayer.setAuthToken(currentUser.getAuthToken()); // added this line and alternate constructor so Players could be made in client without accessing Server for other player authTokens
 
         currentGameState = new GameState();
         currentGameState.setGameName(game.getName());
@@ -72,10 +73,19 @@ public class ClientModelRoot extends Observable {
     }
 
     public void updateGameState(GameStateDiff diff){
-        // TODO Implement how these will actually be updated
-        currentGameState.setPlayers(diff.getPlayerList());
-        currentGameState.setRoutes(diff.getRouteList());
+        List<Player> diffPlayers = diff.getPlayerList();
+        for(int i = 0; i < diffPlayers.size(); i++){
+            currentGameState.updatePlayer(diffPlayers.get(i));
+        }
+
+        List<Route> diffRoutes = diff.getRouteList();
+        for(int i = 0; i < diffRoutes.size(); i++){
+            currentGameState.updateRoute(diffRoutes.get(i));
+        }
+
         currentGameState.setFaceUpCards(diff.getFaceUpCards());
+
+        //currentGameState.updateHistory(diff.getHistory());
     }
 
     public GameState getCurrentGameState(){
