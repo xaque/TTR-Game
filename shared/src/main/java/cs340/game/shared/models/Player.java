@@ -2,10 +2,12 @@ package cs340.game.shared.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import cs340.game.shared.Color;
 
-public class Player {
+public class Player extends Observable{
 
     private String name;
     private String authToken;
@@ -14,6 +16,8 @@ public class Player {
 
     private List<TrainCard> trainCards = new ArrayList<>();
     private List<DestinationCard> destinationCards = new ArrayList<>();
+
+    private List<Observer> observers = new ArrayList<>();
 
     public Player(String name, String authToken){
         this.name = name;
@@ -124,5 +128,23 @@ public class Player {
 
     public void addDestinationCards(List<DestinationCard> newCards){
         destinationCards.addAll(newCards);
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers(){
+
+        for (Observer obj : observers) {
+            obj.update(this, name);
+        }
     }
 }
