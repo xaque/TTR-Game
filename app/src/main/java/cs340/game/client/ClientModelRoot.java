@@ -55,7 +55,6 @@ public class ClientModelRoot extends Observable {
 
     private Player currentPlayer;
     private GameState currentGameState;
-    private GameHistoryActionList history;
 
     public void InitializeGameState(Game game){
         List<String> users = game.getPlayers();
@@ -85,14 +84,6 @@ public class ClientModelRoot extends Observable {
 
     public void setCurrentGameState(GameState currentGameState){
         this.currentGameState = currentGameState;
-    }
-
-    public GameHistoryActionList getHistory() {
-        return history;
-    }
-
-    public void setHistory(GameHistoryActionList history) {
-        this.history = history;
     }
 
     public Player getCurrentPlayer() {
@@ -227,6 +218,20 @@ public class ClientModelRoot extends Observable {
 
                 games.addGame(newGame);
                 changed = true;
+            }
+        }
+
+        List<Game> listOfGames = games.GetGames();
+        for(int i = 0; i < listOfGames.size(); i++){
+            Game game = listOfGames.get(i);
+            if(game.isGameStarted() && game.playerExistsInGame(currentUser.getUsername())){
+
+                setUserState(UserState.IN_GAME);
+                setCurrentGame(game);
+
+                InGameFacade inGameFacade = InGameFacade.getInstance();
+                inGameFacade.setupCurrentGameState(game);
+                inGameFacade.initializeCurrentPlayer(currentUser);
             }
         }
 

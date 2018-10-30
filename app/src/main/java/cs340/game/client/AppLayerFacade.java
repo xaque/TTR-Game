@@ -8,6 +8,7 @@ import cs340.game.client.Presenters.MainActivityPresenter;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.LobbyPollerData;
+import cs340.game.shared.models.Player;
 import cs340.game.shared.results.LobbyPollerResults;
 import cs340.game.shared.results.LobbyResults;
 import cs340.game.shared.results.LoginResults;
@@ -237,7 +238,7 @@ public class AppLayerFacade{
         User currentUser = clientModelRoot.getCurrentUser();
         if(currentUser == null){
             //presenter.onError("You must be logged in to start a game!");
-            return "You must be loged in to start a game!";
+            return "You must be logged in to start a game!";
         }
 
         Game game = clientModelRoot.getGame(gameName);
@@ -259,6 +260,11 @@ public class AppLayerFacade{
             //presenter.onError(results.getErrorInfo());
         //    return results.getErrorInfo();
         //}
+        InGameFacade inGameFacade = InGameFacade.getInstance();
+        inGameFacade.setupCurrentGameState(getCurrentGame());
+        inGameFacade.initializeCurrentPlayer(currentUser);
+
+        clientModelRoot.setUserState(UserState.IN_GAME);
 
         presenter.onStartGameResponse(true);
         return null;

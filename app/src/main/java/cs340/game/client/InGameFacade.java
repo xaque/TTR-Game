@@ -5,6 +5,7 @@ import java.util.List;
 
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
+import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameState;
@@ -42,7 +43,12 @@ public class InGameFacade {
         clientModelRoot.InitializeGameState(game);
     }
 
-    // DRAWING
+    public void initializeCurrentPlayer(User user){
+        Player currentPlayer = new Player(user.getUsername(), user.getAuthToken());
+        clientModelRoot.setCurrentPlayer(currentPlayer);
+    }
+
+    // DRAWING / DISCARDING
     public String DrawTrainCardFromDeck(){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
@@ -136,8 +142,13 @@ public class InGameFacade {
         return null;
     }
 
+    // Getters
     public Player getCurrentPlayer(){
         return clientModelRoot.getCurrentPlayer();
+    }
+
+    public void setCurrentPlayer(Player player){
+        clientModelRoot.setCurrentPlayer(player);
     }
 
     public GameState getCurrentGame() {
