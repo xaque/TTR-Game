@@ -1,17 +1,10 @@
 package cs340.game.shared;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Base64;
-
 import cs340.game.shared.data.Data;
 import cs340.game.shared.results.Results;
 
-//TODO Reimplement with gson so we can remove Serializable and Base64 dependencies and lower API version
 public class Serializer {
 
     /**
@@ -67,11 +60,7 @@ public class Serializer {
      * @throws IOException if serialization fails
      */
     private static String serializeObject(Serializable obj) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(obj);
-        oos.close();
-        return Base64.getEncoder().encodeToString(baos.toByteArray());
+        return Base64.encodeObject(obj);
     }
 
     /**
@@ -84,11 +73,7 @@ public class Serializer {
      * @throws ClassNotFoundException if type casting fails
      */
     private static <T> T deserializeObject(String s, Class<T> type) throws IOException, ClassNotFoundException {
-        byte[] data = Base64.getDecoder().decode(s);
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-        T o = type.cast(ois.readObject());
-        ois.close();
-        return o;
+        return type.cast( Base64.decodeToObject(s) );
     }
 
 }
