@@ -49,6 +49,7 @@ public class ClientModelRoot extends Observable {
     private User currentUser;
     private Game currentGame;
     private GameList games = new GameList();
+    private List<String> messages;
 
     private Thread pollerThread;
     private int lobbySequenceNumber;
@@ -60,6 +61,7 @@ public class ClientModelRoot extends Observable {
     public void InitializeGameState(Game game){
         List<String> users = game.getPlayers();
         List<Player> players = new ArrayList<>();
+        List<String> messages = new ArrayList<>();
         for(int i = 0; i < users.size(); i++){
             String user = users.get(i);
             Player player = new Player(user);
@@ -87,6 +89,8 @@ public class ClientModelRoot extends Observable {
 
         //currentGameState.updateHistory(diff.getHistory());
     }
+
+    public List<String> getAllMessages() { return messages; };
 
     public GameState getCurrentGameState(){
         return currentGameState;

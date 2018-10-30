@@ -8,7 +8,6 @@ import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Views.GameListActivity;
-import cs340.game.shared.models.GameList;
 
 /**
  * Created by Tyler on 9/26/2018.

@@ -2,6 +2,7 @@ package cs340.game.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
@@ -48,8 +49,17 @@ public class InGameFacade {
         clientModelRoot.setCurrentPlayer(currentPlayer);
     }
 
+
+    public void addObserver(Observer o){
+        clientModelRoot.addObserver(o);
+    }
+
+    public void deleteObserver(Observer o){
+        clientModelRoot.deleteObserver(o);
+    }
+
     // DRAWING / DISCARDING
-    public String DrawTrainCardFromDeck(){
+    public String drawTrainCardFromDeck(){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -65,7 +75,7 @@ public class InGameFacade {
         return null;
     }
 
-    public String DiscardTrainCards(Color color, int numberToDiscard){
+    public String discardTrainCards(Color color, int numberToDiscard){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
         if(!currentPlayer.hasSufficientCards(color, numberToDiscard)){
@@ -93,7 +103,7 @@ public class InGameFacade {
         return null;
     }
 
-    public String DrawDestinationCards(){
+    public String drawDestinationCards(){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -109,7 +119,7 @@ public class InGameFacade {
         return null;
     }
 
-    public String DiscardDestinationCards(List<DestinationCard> cards){
+    public String discardDestinationCards(List<DestinationCard> cards){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -129,7 +139,7 @@ public class InGameFacade {
     }
 
     // CHAT
-    public String SendMessage(String message){
+    public String sendMessage(String message){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -141,6 +151,8 @@ public class InGameFacade {
 
         return null;
     }
+
+    public List<String> getAllMessages() { return clientModelRoot.getAllMessages(); }
 
     // Getters
     public Player getCurrentPlayer(){
