@@ -66,7 +66,7 @@ public class GamePresenter implements Observer {
         //currentPlayer.addTrainCard(new TrainCard(Color.BLACK));
         //Add/remove player destination cards for player
         List<DestinationCard> d = new ArrayList<DestinationCard>();
-        d.add(new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
+        d.add(new DestinationCard(City.HELENA, City.CALGARY, 8));
         modelRoot.addDestinationCardToPlayer(currentPlayer, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
         //currentPlayer.addDestinationCards(d);
         //Update number of train cards for opponents

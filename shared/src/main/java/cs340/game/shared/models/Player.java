@@ -151,6 +151,7 @@ public class Player extends Observable implements Serializable {
 
     public void addDestinationCards(List<DestinationCard> newCards){
         destinationCards.addAll(newCards);
+        notifyObservers();
     }
 
     @Override
