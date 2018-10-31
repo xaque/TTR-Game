@@ -79,6 +79,11 @@ public class Player extends Observable implements Serializable {
         notifyObservers();
     }
 
+    public void addTrainTokens(int trainTokensToAdd){
+        trainTokens -= trainTokensToAdd;
+        notifyObservers();
+    }
+
     public void subtractTrainTokens(int trainTokensToSubtract){
         trainTokens -= trainTokensToSubtract;
         notifyObservers();
