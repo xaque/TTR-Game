@@ -66,7 +66,10 @@ public class GamePresenter implements Observer {
             player.addTrainCard(new TrainCard(Color.BLACK));
         }
         //Update number of train cars for opponents
-
+        currentPlayer.subtractTrainTokens(1);
+        for(Player player : players){
+            player.subtractTrainTokens(2);
+        }
         //Update number of destination cards for opponents
         for(Player player : players) {
             player.addDestinationCards(d);
@@ -139,8 +142,6 @@ public class GamePresenter implements Observer {
         view.changeTurn(turn);
     }
 
-
-
     public void leaveGame() {
         //facade.LeaveGame()
         onLeaveGameResponse(true);
@@ -160,7 +161,7 @@ public class GamePresenter implements Observer {
             @Override
             public void run() {
                 updatePoints(currentPlayer.getPoints());
-                //updateTrainsLeft(currentPlayer.getTrainsLeft());
+                updateTrains(currentPlayer.getTrainTokens());
             }
         });
 

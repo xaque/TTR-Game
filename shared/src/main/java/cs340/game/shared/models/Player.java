@@ -25,12 +25,14 @@ public class Player extends Observable implements Serializable {
         this.name = name;
         this.authToken = authToken;
         this.points = 0;
+        this.trainTokens = 45;
     }
 
     public Player(String name) {
         this.name = name;
         this.authToken = null;
         this.points = 0;
+        this.trainTokens = 45;
     }
 
     public String getName() {
@@ -74,10 +76,12 @@ public class Player extends Observable implements Serializable {
 
     public void setTrainTokens(int trainTokens){
         this.trainTokens = trainTokens;
+        notifyObservers();
     }
 
     public void subtractTrainTokens(int trainTokensToSubtract){
         trainTokens -= trainTokensToSubtract;
+        notifyObservers();
     }
 
     public List<TrainCard> getTrainCards() {
@@ -86,6 +90,7 @@ public class Player extends Observable implements Serializable {
 
     public void setTrainCards(List<TrainCard> trainCards) {
         this.trainCards = trainCards;
+        notifyObservers();
     }
 
     public boolean hasSufficientCards(Color colorNeeded, int numberNeeded){

@@ -37,7 +37,7 @@ public class PlayerInfoPresenter implements Observer {
     public void setPlayer(int playerNumber, Player player){
         String name = player.getName();
         String score = Integer.toString(player.getPoints());
-        String trains = Integer.toString(45);
+        String trains = Integer.toString(player.getTrainTokens());
         String cards = Integer.toString(player.getTrainCards().size());
         String dest = Integer.toString(player.getDestinationCards().size());
 
