@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.util.Scanner;
 
 import cs340.game.server.Commands.GameCommands.ChatCommand;
-import cs340.game.server.Commands.GameCommands.DrawDestincationCardCommand;
+import cs340.game.server.Commands.GameCommands.DrawDestinationCardCommand;
 import cs340.game.server.Commands.GameCommands.ReturnDestinationCardCommand;
 import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
 import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
@@ -17,9 +17,9 @@ import cs340.game.server.Commands.LoginCommands.LoginCommand;
 import cs340.game.server.Commands.LoginCommands.RegisterCommand;
 import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.server.Commands.iCommand;
-import cs340.game.shared.results.Results;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
+import cs340.game.shared.results.Results;
 
 public class GenericHandler implements HttpHandler {
     private Data getExchangeData(HttpExchange httpExchange){
@@ -60,7 +60,7 @@ public class GenericHandler implements HttpHandler {
                 cmd = new ChatCommand();
                 break;
             case DRAW_DESTINATION_CARD:
-                cmd = new DrawDestincationCardCommand();
+                cmd = new DrawDestinationCardCommand();
                 break;
             case DISCARD_DESTINATION_CARD:
                 cmd = new ReturnDestinationCardCommand();

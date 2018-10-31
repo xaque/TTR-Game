@@ -1,8 +1,10 @@
 package cs340.game.shared.models;
 
+import java.io.Serializable;
+
 import cs340.game.shared.City;
 
-public class DestinationCard {
+public class DestinationCard implements Serializable {
 
     private City city1;
     private City city2;

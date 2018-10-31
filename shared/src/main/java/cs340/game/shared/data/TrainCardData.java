@@ -1,12 +1,9 @@
 package cs340.game.shared.data;
 
-import cs340.game.shared.Color;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.models.TrainCard;
 
 public class TrainCardData extends Data{
-
-    private CommandType commandType;
     private String authToken;
     private TrainCard card;
 

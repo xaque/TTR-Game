@@ -6,7 +6,6 @@ import java.util.Observer;
 
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
-import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameState;

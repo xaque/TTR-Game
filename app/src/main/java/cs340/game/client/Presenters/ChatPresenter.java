@@ -6,11 +6,8 @@ import android.os.AsyncTask;
 import java.util.Observable;
 import java.util.Observer;
 
-import cs340.game.client.AppLayerFacade;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.ChatFragment;
-import cs340.game.client.Views.GameListActivity;
-import cs340.game.shared.models.GameList;
 
 /**
  * Created by Tyler on 9/26/2018.

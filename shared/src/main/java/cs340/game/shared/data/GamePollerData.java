@@ -7,12 +7,12 @@ import cs340.game.shared.CommandType;
  */
 
 public class GamePollerData extends Data{
-    private CommandType commandType;
     private int sequenceNumber;
     private String authtoken;
 
-    public GamePollerData(CommandType commandType, int sequenceNumber, String authtoken){
-        this.commandType = commandType;
+    public GamePollerData(int sequenceNumber, String authtoken){
+        //commandType should always be GAME_POLL
+        this.commandType = CommandType.GAME_POLL;
         this.sequenceNumber = sequenceNumber;
         this.authtoken = authtoken;
     }

@@ -1,11 +1,12 @@
 package cs340.game.shared.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
 
-public class Route {
+public class Route implements Serializable {
 
     private City city1;
     private City city2;

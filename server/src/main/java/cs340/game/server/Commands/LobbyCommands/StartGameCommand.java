@@ -12,7 +12,6 @@ import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
 import cs340.game.shared.models.Game;
-import cs340.game.shared.models.Player;
 import cs340.game.shared.models.User;
 import cs340.game.shared.results.LobbyResults;
 import cs340.game.shared.results.Results;

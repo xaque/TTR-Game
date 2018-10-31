@@ -8,8 +8,6 @@ import cs340.game.shared.CommandType;
  * @see Data
  */
 public class LobbyData extends Data{
-
-    private CommandType commandType;
     private String gameID;
     private String username;
 

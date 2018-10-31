@@ -6,8 +6,6 @@ import cs340.game.shared.CommandType;
 import cs340.game.shared.models.DestinationCard;
 
 public class DestinationCardData extends Data{
-
-    private CommandType commandType;
     private String authToken;
     private List<DestinationCard> cards; // should be null to draw, should be list to return to deck
 
