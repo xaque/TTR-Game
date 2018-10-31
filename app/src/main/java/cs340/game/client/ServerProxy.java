@@ -19,7 +19,7 @@ public class ServerProxy {
 
     public Results DrawTrainCard(String authToken){
 
-        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD, authToken,null);
+        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_DECK, authToken,null, null);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);
@@ -29,7 +29,7 @@ public class ServerProxy {
 
     public Results DiscardTrainCard(String authToken, List<TrainCard> cards){
 
-        TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, cards);
+        TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, cards, null);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);

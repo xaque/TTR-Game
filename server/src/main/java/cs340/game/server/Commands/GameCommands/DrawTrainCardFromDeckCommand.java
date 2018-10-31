@@ -16,7 +16,7 @@ import cs340.game.shared.results.TrainCardResults;
  * Created by Stephen on 10/31/2018.
  */
 
-public class DrawTrainCardCommand implements iCommand {
+public class DrawTrainCardFromDeckCommand implements iCommand {
     public Results execute(Data data) {
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
@@ -27,11 +27,9 @@ public class DrawTrainCardCommand implements iCommand {
             return new TrainCardResults(false, null, ex.getMessage());
         }
 
-        //TODO implement this method in ServerGameState once Zach is done
-        TrainCard drawnCard = null;
-        //TrainCard drawnCard = game.drawTrainCards(username);
+        TrainCard drawnCard = game.drawTrainCardFromDeck(username);
 
-        String actionMessage = username + " drew a Train card from the deck.";
+        String actionMessage = username + " drew a " + drawnCard.getColor().toString() + " face up Train card.";
         GameHistoryAction action = new GameHistoryAction(actionMessage, null);
         game.addGameCommand(action);
 

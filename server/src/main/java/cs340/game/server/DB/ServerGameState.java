@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.shared.GameHistoryAction;
+import cs340.game.shared.ServerException;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
@@ -83,6 +84,51 @@ public class ServerGameState {
             }
         }
         this.destinationCardDeck.returnCards(cards);
+    }
+
+    public TrainCard drawTrainCardFromDeck(String username) {
+        TrainCard drawnCard = this.trainCardDeck.drawCardFromDeck();
+        List<Player> players = this.gameState.getPlayers();
+        for(Player player: players) {
+            if(player.getName().equals(username)) {
+                player.addTrainCard(drawnCard);
+                break;
+            }
+        }
+        return drawnCard;
+    }
+
+    public TrainCard drawTrainCardFaceUp(int position, String username) {
+        TrainCard drawnCard = this.trainCardDeck.drawFaceUpCard(position);
+        List<Player> players = this.gameState.getPlayers();
+        for(Player player: players) {
+            if(player.getName().equals(username)) {
+                player.addTrainCard(drawnCard);
+                break;
+            }
+        }
+        return drawnCard;
+    }
+
+    public void discardTrainCards(List<TrainCard> cardsToDiscard, String username) {
+        List<Player> players = this.gameState.getPlayers();
+        List<TrainCard> discardedCards = new ArrayList<>();
+        try {
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getName().equals(username)) {
+                    for (int j = 0; j < cardsToDiscard.size(); j++) {
+                        players.get(i).removeTrainCard(cardsToDiscard.get(j).getColor());
+                        discardedCards.add(cardsToDiscard.get(j));
+                    }
+                    break;
+                }
+            }
+            this.trainCardDeck.discardCards(discardedCards);
+        }
+        catch(Exception ex) {
+            ServerException exception = new ServerException(ex.getMessage());
+            return;
+        }
     }
 
     public void addGameCommand(GameHistoryAction action) {

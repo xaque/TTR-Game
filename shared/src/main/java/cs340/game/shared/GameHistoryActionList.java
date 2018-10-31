@@ -19,7 +19,7 @@ public class GameHistoryActionList {
         return actions;
     }
 
-    public int size() {
+    public int getSize() {
         return actions.size();
     }
 

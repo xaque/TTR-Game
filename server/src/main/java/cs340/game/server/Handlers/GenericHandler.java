@@ -9,7 +9,10 @@ import java.net.HttpURLConnection;
 import java.util.Scanner;
 
 import cs340.game.server.Commands.GameCommands.ChatCommand;
+import cs340.game.server.Commands.GameCommands.DiscardTrainCardsCommand;
 import cs340.game.server.Commands.GameCommands.DrawDestinationCardCommand;
+import cs340.game.server.Commands.GameCommands.DrawTrainCardFaceUpCommand;
+import cs340.game.server.Commands.GameCommands.DrawTrainCardFromDeckCommand;
 import cs340.game.server.Commands.GameCommands.ReturnDestinationCardCommand;
 import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
 import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
@@ -67,6 +70,15 @@ public class GenericHandler implements HttpHandler {
                 break;
             case DISCARD_DESTINATION_CARD:
                 cmd = new ReturnDestinationCardCommand();
+                break;
+            case DRAW_TRAIN_CARD_DECK:
+                cmd = new DrawTrainCardFromDeckCommand();
+                break;
+            case DRAW_TRAIN_CARD_FACE_UP:
+                cmd = new DrawTrainCardFaceUpCommand();
+                break;
+            case DISCARD_TRAIN_CARD:
+                cmd = new DiscardTrainCardsCommand();
                 break;
             case START_GAME:
                 cmd = new StartGameCommand();

@@ -8,11 +8,13 @@ import cs340.game.shared.models.TrainCard;
 public class TrainCardData extends Data{
     private String authToken;
     private List<TrainCard> cards;
+    private Integer faceUpPosition;
 
-    public TrainCardData(CommandType commandType, String authToken, List<TrainCard> cards){
+    public TrainCardData(CommandType commandType, String authToken, List<TrainCard> cards, Integer faceUpPosition){
         this.commandType = commandType;
         this.authToken = authToken;
         this.cards = cards;
+        this.faceUpPosition = faceUpPosition;
     }
 
     public CommandType getCommandType() {
@@ -35,7 +37,15 @@ public class TrainCardData extends Data{
         return cards;
     }
 
-    public void setCard(List<TrainCard> cards) {
+    public void setCards(List<TrainCard> cards) {
         this.cards = cards;
+    }
+
+    public int getFaceUpPosition() {
+        return faceUpPosition;
+    }
+
+    public void setFaceUpPosition(int faceUpPosition) {
+        this.faceUpPosition = faceUpPosition;
     }
 }
