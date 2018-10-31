@@ -1,5 +1,6 @@
 package cs340.game.client.Views;
 
+//Hopefully this will allow me to pull the changes again.
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
