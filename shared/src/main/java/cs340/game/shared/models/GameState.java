@@ -17,8 +17,25 @@ public class GameState extends Observable implements Serializable {
     private GameHistoryActionList history;
     private List<Observer> observers;
     private boolean isChanged;
-    private int TrainCardDeckSize;
-    private int DestinationTicketDeckSize;
+    private int trainCardDeckSize;
+
+    public int getTrainCardDeckSize() {
+        return trainCardDeckSize;
+    }
+
+    public void setTrainCardDeckSize(int trainCardDeckSize) {
+        this.trainCardDeckSize = trainCardDeckSize;
+    }
+
+    public int getDestinationTicketDeckSize() {
+        return destinationTicketDeckSize;
+    }
+
+    public void setDestinationTicketDeckSize(int destinationTicketDeckSize) {
+        this.destinationTicketDeckSize = destinationTicketDeckSize;
+    }
+
+    private int destinationTicketDeckSize;
 
     public GameState(String name){
         this.name = name;
@@ -28,6 +45,8 @@ public class GameState extends Observable implements Serializable {
         history = new GameHistoryActionList();
         observers = new ArrayList<>();
         isChanged = false;
+        trainCardDeckSize = 0;
+        destinationTicketDeckSize = 0;
     }
 
     public GameState(String name, List<Player> players){

@@ -4,7 +4,6 @@ import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.GameCommandLog;
 import cs340.game.server.DB.ServerGameState;
-import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.results.GamePollerResults;
@@ -23,6 +22,7 @@ public class GamePollerCommand implements iCommand {
         }
 
         int newSequenceNumber = log.getLogLength();
+        //Not using action list anymore. GameState instead
         /*
         GameHistoryActionList actions = new GameHistoryActionList();
         for(int i = currentSequenceNumber + 1; i < log.getLogLength(); i++) {
