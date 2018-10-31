@@ -13,6 +13,7 @@ public class Player extends Observable implements Serializable {
     private String name;
     private String authToken;
 
+    private int trainTokens;
     private int points;
 
     private List<TrainCard> trainCards = new ArrayList<>();
@@ -65,6 +66,18 @@ public class Player extends Observable implements Serializable {
     public void subtractPoints(int pointsToSubtract){
         this.points -= pointsToSubtract;
         notifyObservers();
+    }
+
+    public int getTrainTokens(){
+        return trainTokens;
+    }
+
+    public void setTrainTokens(int trainTokens){
+        this.trainTokens = trainTokens;
+    }
+
+    public void subtractTrainTokens(int trainTokensToSubtract){
+        trainTokens -= trainTokensToSubtract;
     }
 
     public List<TrainCard> getTrainCards() {
