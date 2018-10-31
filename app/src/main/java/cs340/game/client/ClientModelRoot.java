@@ -92,7 +92,11 @@ public class ClientModelRoot extends Observable {
         currentGameState.checkForChanges();
     }
 
-    public List<String> getAllMessages() { return messages; };
+    public List<String> getAllMessages() {
+        if(messages == null) {
+            messages = new ArrayList<>();
+        }
+        return messages; };
 
     public GameState getCurrentGameState(){
         return currentGameState;

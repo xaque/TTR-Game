@@ -13,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -46,16 +47,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button placeTrainsButton;
     private ConstraintLayout playerInfoButton;
 
-    TextView player1;
-    TextView player2;
-    TextView player3;
-    TextView player4;
-    TextView player5;
-    ImageView turn1;
-    ImageView turn2;
-    ImageView turn3;
-    ImageView turn4;
-    ImageView turn5;
+    private ChatFragment chatFragment;
+    private TextView player1;
+    private TextView player2;
+    private TextView player3;
+    private TextView player4;
+    private TextView player5;
+    private ImageView turn1;
+    private ImageView turn2;
+    private ImageView turn3;
+    private ImageView turn4;
+    private ImageView turn5;
 
     private Canvas canvas;
     private Paint paint = new Paint();
@@ -110,7 +112,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         /* *********CHAT STUFF**********/
+        chatFragment = new ChatFragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.chat_fragment_container, chatFragment).addToBackStack(null).commit();
 
 
         //Set up the BUTTONS

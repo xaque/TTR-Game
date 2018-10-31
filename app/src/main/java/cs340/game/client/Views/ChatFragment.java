@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.R;
+import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.ChatPresenter;
 
 public class ChatFragment extends Fragment {
@@ -54,15 +55,14 @@ public class ChatFragment extends Fragment {
     }
 
     public void updateUI() {
-        //List<String> messageList = InGameFacade.getInstance().getAllMessages();
-        List<String> messageList = new ArrayList<>();
+        List<String> messageList = InGameFacade.getInstance().getAllMessages();
         messageList.add("This is the first message");
         messageList.add("Second Message");
         messageList.add("DJ: Third Message");
         messageList.add("Tyler: This is a fun game");
         System.out.println(messageList.toString());
         messageAdapter = new MessageAdapter(messageList);
-        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         messageRecyclerView.setAdapter(messageAdapter);
     }
 
