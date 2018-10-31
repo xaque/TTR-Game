@@ -11,14 +11,27 @@ import cs340.game.shared.GameHistoryActionList;
 public class GameState extends Observable implements Serializable {
 
     private String name;
-    private List<Route> routes = new ArrayList<>();
-    private List<Player> players = new ArrayList<>();
-    private List<TrainCard> faceUpCards = new ArrayList<>();
+    private List<Route> routes;
+    private List<Player> players;
+    private List<TrainCard> faceUpCards;
     private GameHistoryActionList history;
+    private List<Observer> observers;
+    private boolean isChanged;
 
-    private List<Observer> observers = new ArrayList<>();
+    public GameState(String name){
+        this.name = name;
+        routes = new ArrayList<>();
+        players = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        history = new GameHistoryActionList();
+        observers = new ArrayList<>();
+        isChanged = false;
+    }
 
-    private boolean isChanged = false;
+    public GameState(String name, List<Player> players){
+        this.name = name;
+        this.players = players;
+    }
 
     public String getGameName() {
         return name;

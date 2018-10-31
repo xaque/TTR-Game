@@ -5,7 +5,7 @@ import java.util.List;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
-import cs340.game.server.Models.ServerGameState;
+import cs340.game.server.DB.ServerGameState;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;

@@ -7,7 +7,7 @@ import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.server.DB.UserDatabase;
-import cs340.game.server.Models.ServerGameState;
+import cs340.game.server.DB.ServerGameState;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
