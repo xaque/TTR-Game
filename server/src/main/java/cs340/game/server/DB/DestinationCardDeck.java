@@ -84,4 +84,8 @@ public class DestinationCardDeck {
         this.cards.addAll(returnedCards);
         this.size += returnedCards.size();
     }
+
+    public int getSize() {
+        return this.size;
+    }
 }

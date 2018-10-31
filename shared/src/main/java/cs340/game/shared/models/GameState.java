@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.GameHistoryActionList;
 
 public class GameState extends Observable implements Serializable {
@@ -121,9 +122,13 @@ public class GameState extends Observable implements Serializable {
         this.history = history;
     }
 
-    public void updateHistory(GameHistoryActionList newHistory){
-        this.history.getActions().addAll(newHistory.getActions());
+    public void addHistoryAction(GameHistoryAction action) {
+        this.history.addAction(action);
     }
+
+    /*public void updateHistory(GameHistoryActionList newHistory){
+        this.history.getActions().addAll(newHistory.getActions());
+    }*/
 
     public void checkForChanges(){
         if(isChanged){

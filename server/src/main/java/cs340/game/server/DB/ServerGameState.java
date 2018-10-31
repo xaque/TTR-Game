@@ -7,12 +7,13 @@ import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
+import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 
 public class ServerGameState {
     private GameState gameState;
     private DestinationCardDeck destinationCardDeck;
-    private GameCommandLog commandLog;
+    private TrainCardDeck trainCardDeck;
 
     public ServerGameState(String name, List<User> users) {
         //Create Players from Users
@@ -22,12 +23,31 @@ public class ServerGameState {
             String authToken = users.get(i).getAuthToken();
             Player player = new Player(username, authToken);
             players.add(player);
+
         }
 
         //Initialize GameState and decks
         this.gameState = new GameState(name, players);
         this.destinationCardDeck = new DestinationCardDeck();
-        this.commandLog = new GameCommandLog();
+        this.trainCardDeck = new TrainCardDeck();
+        for(Player player : players) {
+            List<DestinationCard> drawnDestinationCards = destinationCardDeck.drawCards();
+            player.addDestinationCards(drawnDestinationCards);
+            String actionMessage = player.getName() + " drew " + Integer.toString(drawnDestinationCards.size()) + " Destination cards.";
+            GameHistoryAction action = new GameHistoryAction(actionMessage, null);
+            gameState.addHistoryAction(action);
+
+            List<TrainCard> drawnTrainCards = trainCardDeck.drawStartingCards();
+            for(TrainCard card : drawnTrainCards) {
+                player.addTrainCard(card);
+            }
+            actionMessage = player.getName() + " drew " + Integer.toString(drawnTrainCards.size()) + " Train cards.";
+            action = new GameHistoryAction(actionMessage, null);
+            gameState.addHistoryAction(action);
+        }
+
+        this.trainCardDeck.initializeFaceUpCards();
+        updateDeckSizes();
     }
 
     public GameState getGameState() {
@@ -66,14 +86,12 @@ public class ServerGameState {
     }
 
     public void addGameCommand(GameHistoryAction action) {
-        this.commandLog.addGameCommand(action);
+        this.gameState.addHistoryAction(action);
     }
 
-    public GameCommandLog getCommandLog() {
-        return this.commandLog;
-    }
-
-    public void updateDeckSizes(){
-        //TODO Update gameState deck sizes to be equal to the actual size of the decks
+    public void updateDeckSizes() {
+        gameState.setDestinationTicketDeckSize(destinationCardDeck.getSize());
+        gameState.setTrainCardDeckSize(trainCardDeck.getSize());
+        gameState.setFaceUpCards(trainCardDeck.getFaceUpCards());
     }
 }
