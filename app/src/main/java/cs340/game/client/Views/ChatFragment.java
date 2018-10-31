@@ -2,6 +2,7 @@ package cs340.game.client.Views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class ChatFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.chat_tab, container, false);
         messageRecyclerView = v.findViewById(R.id.message_reyclerview);
+        messageRecyclerView.setHasFixedSize(true);
         editTextChat = v.findViewById(R.id.edittext_chat);
         buttonChatSend = v.findViewById(R.id.button_chat_send);
         buttonChatSend.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +58,10 @@ public class ChatFragment extends Fragment {
 
     public void updateUI() {
         List<String> messageList = InGameFacade.getInstance().getAllMessages();
-        messageList.add("This is the first message");
-        messageList.add("Second Message");
-        messageList.add("DJ: Third Message");
-        messageList.add("Tyler: This is a fun game");
-        System.out.println(messageList.toString());
         messageAdapter = new MessageAdapter(messageList);
-        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        messageRecyclerView.setLayoutManager(linearLayoutManager);
         messageRecyclerView.setAdapter(messageAdapter);
     }
 
@@ -72,7 +71,7 @@ public class ChatFragment extends Fragment {
 
     private class MessageHolder extends RecyclerView.ViewHolder {
 
-        private RelativeLayout messageListItem;
+        private ConstraintLayout messageListItem;
         private TextView mMessage;
 
         private String message;
@@ -100,7 +99,7 @@ public class ChatFragment extends Fragment {
 
         @Override
         public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             View view = layoutInflater.inflate(R.layout.message_list_item, parent, false);
             return new MessageHolder(view);
         }
