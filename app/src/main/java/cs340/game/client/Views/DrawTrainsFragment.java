@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.R;
+import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DrawTrainsPresenter;
 import cs340.game.shared.Color;
 
@@ -153,7 +154,8 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.deck:
-
+                //Testing
+                InGameFacade.getInstance().drawTrainCardFromDeck();
             default:
                 unselectCards();
                 selectCard(view.getId());

@@ -67,9 +67,7 @@ public class InGameFacade {
         //if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
             TrainCard newCard = new TrainCard(Color.BLUE);
-            currentPlayer.addTrainCard(newCard);
-
-            currentPlayer.notifyObservers();
+            clientModelRoot.addTrainCardToPlayer(currentPlayer, newCard);
         //}else{
         //    return results.getErrorInfo();
         //}

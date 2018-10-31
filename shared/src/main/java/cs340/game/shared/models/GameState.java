@@ -52,6 +52,13 @@ public class GameState extends Observable implements Serializable {
     public GameState(String name, List<Player> players){
         this.name = name;
         this.players = players;
+        routes = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        history = new GameHistoryActionList();
+        observers = new ArrayList<>();
+        isChanged = false;
+        trainCardDeckSize = 0;
+        destinationTicketDeckSize = 0;
     }
 
     public String getGameName() {

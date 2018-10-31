@@ -67,8 +67,7 @@ public class ClientModelRoot extends Observable {
         }
         //currentPlayer.setAuthToken(currentUser.getAuthToken()); // added this line and alternate constructor so Players could be made in client without accessing Server for other player authTokens
 
-        currentGameState = new GameState(game.getName());
-        currentGameState.setPlayers(players);
+        currentGameState = new GameState(game.getName(), players);
     }
 
     public void updateGameState(GameState newState){
@@ -354,14 +353,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.addPoints(points);
             if(p.getName().equals(player.getName())) {
 
+                p.addPoints(points);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.addPoints(points);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void subtractPointsFromPlayer(Player player, int points){
@@ -369,14 +370,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.subtractPoints(points);
             if(p.getName().equals(player.getName())) {
 
+                p.subtractPoints(points);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.subtractPoints(points);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void addTrainTokensToPlayer(Player player, int tokens){
@@ -384,14 +387,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.setTrainTokens(p.getTrainTokens() + tokens);
             if(p.getName().equals(player.getName())) {
 
+                p.addTrainTokens(tokens);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.addTrainTokens(tokens);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void subtractTrainTokensFromPlayer(Player player, int tokens){
@@ -399,14 +404,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.setTrainTokens(p.getTrainTokens() - tokens);
             if(p.getName().equals(player.getName())) {
 
+                p.subtractTrainTokens(tokens);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.subtractTrainTokens(tokens);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void addTrainCardToPlayer(Player player, TrainCard card){
@@ -414,14 +421,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.addTrainCard(card);
             if(p.getName().equals(player.getName())) {
 
+                p.addTrainCard(card);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.addTrainCard(card);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void removeTrainCardFromPlayer(Player player, TrainCard card) throws Exception{
@@ -429,14 +438,16 @@ public class ClientModelRoot extends Observable {
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            p.removeTrainCard(card.getColor());
             if(p.getName().equals(player.getName())) {
 
+                p.removeTrainCard(card.getColor());
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.removeTrainCard(card.getColor());
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void addDestinationCardToPlayer(Player player, DestinationCard card){
@@ -446,14 +457,16 @@ public class ClientModelRoot extends Observable {
             Player p = players.get(i);
             List<DestinationCard> cards = new ArrayList<>();
             cards.add(card);
-            p.addDestinationCards(cards);
             if(p.getName().equals(player.getName())) {
 
+                p.addDestinationCards(cards);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.addDestinationCards(cards);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 
     public void removeDestinationCardFromPlayer(Player player, DestinationCard card) {
@@ -463,13 +476,15 @@ public class ClientModelRoot extends Observable {
             Player p = players.get(i);
             List<DestinationCard> cards = new ArrayList<>();
             cards.add(card);
-            p.removeDestinationCards(cards);
             if (p.getName().equals(player.getName())) {
 
+                p.removeDestinationCards(cards);
                 if (p.getName().equals(currentPlayer.getName())) {
-                    currentPlayer = p;
+                    currentPlayer.removeDestinationCards(cards);
                 }
             }
         }
+        currentPlayer.notifyObservers();
+        currentGameState.notifyObservers();
     }
 }
