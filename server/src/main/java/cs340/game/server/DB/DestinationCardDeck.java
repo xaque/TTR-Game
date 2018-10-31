@@ -38,6 +38,7 @@ public class DestinationCardDeck {
                 this.cards.add(card);
             }
             this.size = 30; // initial deck has 30 cards
+            shuffle(5);
         }
         catch(FileNotFoundException ex) {
             System.out.println("Cannot find the DestinationCardSetupText file to initialize DestinationCardDeck.");
