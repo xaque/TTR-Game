@@ -90,7 +90,11 @@ public class ClientModelRoot extends Observable {
         //currentGameState.updateHistory(diff.getHistory());
     }
 
-    public List<String> getAllMessages() { return messages; };
+    public List<String> getAllMessages() {
+        if(messages == null) {
+            messages = new ArrayList<>();
+        }
+        return messages; };
 
     public GameState getCurrentGameState(){
         return currentGameState;

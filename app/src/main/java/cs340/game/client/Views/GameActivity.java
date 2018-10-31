@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -38,6 +39,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button drawDestinationsButton;
     private Button placeTrainsButton;
     private ConstraintLayout playerInfoButton;
+
+    private ChatFragment chatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         /* *********CHAT STUFF**********/
+        chatFragment = new ChatFragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.chat_fragment_container, chatFragment).addToBackStack(null).commit();
 
 
         //Set up the BUTTONS
