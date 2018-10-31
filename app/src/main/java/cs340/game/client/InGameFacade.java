@@ -62,17 +62,17 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
+        //GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
 
-        if(results.isSuccess()) {
+        //if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
             TrainCard newCard = new TrainCard(Color.BLUE);
             currentPlayer.addTrainCard(newCard);
 
             currentPlayer.notifyObservers();
-        }else{
-            return results.getErrorInfo();
-        }
+        //}else{
+        //    return results.getErrorInfo();
+        //}
 
         return null;
     }

@@ -1,6 +1,7 @@
 package cs340.game.shared.results;
 
 import cs340.game.shared.GameHistoryActionList;
+import cs340.game.shared.models.GameState;
 
 /**
  * Created by Stephen on 10/23/2018.
@@ -8,7 +9,7 @@ import cs340.game.shared.GameHistoryActionList;
 
 public class GamePollerResults implements Results{
     private boolean success;
-    private GameHistoryActionList data;
+    private GameState data;
     private int sequenceNumber;
     private String errorInfo;
 
@@ -18,7 +19,7 @@ public class GamePollerResults implements Results{
      * @param data The result data if success is true
      * @param errorInfo Error info if success is false
      */
-    public GamePollerResults(boolean success, GameHistoryActionList data, int sequenceNumber, String errorInfo){
+    public GamePollerResults(boolean success, GameState data, int sequenceNumber, String errorInfo){
         this.success = success;
         this.data = data;
         this.sequenceNumber = sequenceNumber;
@@ -37,7 +38,7 @@ public class GamePollerResults implements Results{
      * Getter for data
      * @return The result data if success is true
      */
-    public GameHistoryActionList getData() {
+    public GameState getData() {
         return data;
     }
 

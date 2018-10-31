@@ -70,20 +70,26 @@ public class ClientModelRoot extends Observable {
         currentGameState.setPlayers(players);
     }
 
-    public void updateGameState(GameStateDiff diff){
-        List<Player> diffPlayers = diff.getPlayerList();
+    public void updateGameState(GameState newState){
+        List<Player> diffPlayers = newState.getPlayers();
         for(int i = 0; i < diffPlayers.size(); i++){
             currentGameState.updatePlayer(diffPlayers.get(i));
+
+            if(diffPlayers.get(i).getName().equals(currentPlayer.getName())){
+                currentPlayer = diffPlayers.get(i);
+                currentPlayer.notifyObservers();
+            }
         }
 
-        List<Route> diffRoutes = diff.getRouteList();
+        List<Route> diffRoutes = newState.getRoutes();
         for(int i = 0; i < diffRoutes.size(); i++){
             currentGameState.updateRoute(diffRoutes.get(i));
         }
 
-        currentGameState.setFaceUpCards(diff.getFaceUpCards());
+        currentGameState.setFaceUpCards(newState.getFaceUpCards());
+        currentGameState.setHistory(newState.getHistory());
 
-        //currentGameState.updateHistory(diff.getHistory());
+        currentGameState.checkForChanges();
     }
 
     public List<String> getAllMessages() { return messages; };

@@ -87,6 +87,7 @@ public class GameState extends Observable implements Serializable {
     public void checkForChanges(){
         if(isChanged){
             notifyObservers();
+            isChanged = false;
         }
     }
 
