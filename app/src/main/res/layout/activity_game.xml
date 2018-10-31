@@ -20,15 +20,15 @@
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/map"
         android:layout_width="450dp"
         android:layout_height="265dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/darkgray"
+        android:background="@color/white"
         android:contentDescription="@string/welcomeText"
+        android:scaleType="fitCenter"
         android:src="@mipmap/map"
-        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintHorizontal_bias="0.497"
@@ -123,7 +123,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/leftSide"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         tools:text="Draw Trains" />
 
     <Button
@@ -136,7 +136,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/draw_trains_button"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         tools:text="Draw Destinations" />
 
     <Button
@@ -149,7 +149,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/draw_destinations_button"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         tools:text="Place Trains" />
 
     <android.support.constraint.ConstraintLayout
@@ -159,7 +159,7 @@
         android:background="@color/lightgray"
         app:layout_constraintEnd_toStartOf="@+id/rightSide"
         app:layout_constraintStart_toEndOf="@+id/place_trains_button"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/map">
 
 
         <TextView
@@ -237,6 +237,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fourth_player" />
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/demoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintStart_toEndOf="@+id/leftSide"
+        app:srcCompat="@mipmap/wild" />
 
 
 </android.support.constraint.ConstraintLayout>

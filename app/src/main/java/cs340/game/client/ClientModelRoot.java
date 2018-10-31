@@ -104,6 +104,14 @@ public class ClientModelRoot extends Observable {
         this.currentGameState = currentGameState;
     }
 
+    public void addObserverToCurrentGameState(Observer o){
+        currentGameState.addObserver(o);
+    }
+
+    public void removeObserverFromCurrentGameState(Observer o){
+        currentGameState.deleteObserver(o);
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -113,6 +121,14 @@ public class ClientModelRoot extends Observable {
         if(this.currentPlayer == null) {
             this.currentPlayer = currentPlayer;
         }
+    }
+
+    public void addObserverToCurrentPlayer(Observer o){
+        currentPlayer.addObserver(o);
+    }
+
+    public void removeObserverFromCurrentPlayer(Observer o){
+        currentPlayer.deleteObserver(o);
     }
 
     public User getCurrentUser() {

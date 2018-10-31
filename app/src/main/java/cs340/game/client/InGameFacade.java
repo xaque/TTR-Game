@@ -67,7 +67,10 @@ public class InGameFacade {
 
         if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
-            //currentPlayer.addTrainCard(newCard);
+            TrainCard newCard = new TrainCard(Color.BLUE);
+            currentPlayer.addTrainCard(newCard);
+
+            currentPlayer.notifyObservers();
         }else{
             return results.getErrorInfo();
         }
@@ -111,7 +114,18 @@ public class InGameFacade {
 
         if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
-            //currentPlayer.addDestinationCard(newCard);
+            List<DestinationCard> newCards = new ArrayList<>();
+            DestinationCard card1 = new DestinationCard(City.DENVER, City.KANSAS_CITY, 5);
+            DestinationCard card2 = new DestinationCard(City.DENVER, City.OKLAHOMA_CITY, 4);
+            DestinationCard card3 = new DestinationCard(City.SALT_LAKE_CITY, City.ATLANTA, 9);
+
+            newCards.add(card1);
+            newCards.add(card2);
+            newCards.add(card3);
+
+            currentPlayer.addDestinationCards(newCards);
+
+            currentPlayer.notifyObservers();
         }else{
             return results.getErrorInfo();
         }
@@ -169,5 +183,21 @@ public class InGameFacade {
 
     public void setCurrentGame(GameState currentGame) {
         clientModelRoot.setCurrentGameState(currentGame);
+    }
+
+    public void addObserverToGameState(Observer o){
+        clientModelRoot.addObserverToCurrentGameState(o);
+    }
+
+    public void removeObserverFromGameState(Observer o){
+        clientModelRoot.removeObserverFromCurrentGameState(o);
+    }
+
+    public void addObserverToCurrentPlayer(Observer o){
+        clientModelRoot.addObserverToCurrentPlayer(o);
+    }
+
+    public void removeObserverFromCurrentPlayer(Observer o){
+        clientModelRoot.removeObserverFromCurrentPlayer(o);
     }
 }
