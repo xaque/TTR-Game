@@ -7,19 +7,18 @@ import cs340.game.shared.CommandType;
  */
 
 public class ChatData extends Data {
-
-    private CommandType CommandType;
     private String username;
     private String chatContent;
 
-    public ChatData(cs340.game.shared.CommandType commandType, String username, String chatContent) {
-        CommandType = commandType;
+    public ChatData(String username, String chatContent) {
+        //commandType should always be chat
+        this.commandType = CommandType.CHAT;
         this.username = username;
         this.chatContent = chatContent;
     }
 
-    public void setCommandType(cs340.game.shared.CommandType commandType) {
-        CommandType = commandType;
+    public void setCommandType(CommandType commandType) {
+        this.commandType = commandType;
     }
 
     public String getUsername() {

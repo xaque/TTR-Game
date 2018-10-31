@@ -8,13 +8,13 @@ import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.Models.ServerGameState;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
+import cs340.game.shared.data.Data;
 import cs340.game.shared.data.DestinationCardData;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.results.DestinationCardResults;
 import cs340.game.shared.results.Results;
-import cs340.game.shared.data.Data;
 
-public class DrawDestincationCardCommand implements iCommand {
+public class DrawDestinationCardCommand implements iCommand {
 
     @Override
     public Results execute(Data data) {

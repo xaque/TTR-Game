@@ -9,12 +9,11 @@ import cs340.game.shared.CommandType;
  * @see cs340.game.client
  */
 public class LobbyPollerData extends Data{
-
-    private CommandType commandType;
     private int sequenceNumber;
 
-    public LobbyPollerData(CommandType commandType, int sequenceNumber){
-        this.commandType = commandType;
+    public LobbyPollerData(int sequenceNumber){
+        //commandType should always be LOBBY_POLL
+        this.commandType = CommandType.LOBBY_POLL;
         this.sequenceNumber = sequenceNumber;
     }
 

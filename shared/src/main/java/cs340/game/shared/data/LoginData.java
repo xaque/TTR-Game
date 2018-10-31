@@ -8,8 +8,6 @@ import cs340.game.shared.CommandType;
  * @see Data
  */
 public class LoginData extends Data{
-
-    private CommandType commandType;
     private String username;
     private String password;
 

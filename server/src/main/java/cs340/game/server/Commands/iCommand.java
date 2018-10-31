@@ -1,7 +1,7 @@
 package cs340.game.server.Commands;
 
-import cs340.game.shared.results.Results;
 import cs340.game.shared.data.Data;
+import cs340.game.shared.results.Results;
 
 /**
  * Interface for command pattern implementation

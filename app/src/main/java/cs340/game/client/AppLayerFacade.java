@@ -5,16 +5,14 @@ import java.util.Observer;
 import cs340.game.client.Presenters.GameListPresenter;
 import cs340.game.client.Presenters.GameLobbyPresenter;
 import cs340.game.client.Presenters.MainActivityPresenter;
-import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.LobbyPollerData;
-import cs340.game.shared.models.Player;
-import cs340.game.shared.results.LobbyPollerResults;
-import cs340.game.shared.results.LobbyResults;
-import cs340.game.shared.results.LoginResults;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.User;
+import cs340.game.shared.results.LobbyPollerResults;
+import cs340.game.shared.results.LobbyResults;
+import cs340.game.shared.results.LoginResults;
 
 /**
  * Handles communication with the ClientModelRoot object. Meant to limit dependencies between the
@@ -293,7 +291,7 @@ public class AppLayerFacade{
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, 0);
+                    LobbyPollerData pollerData = new LobbyPollerData(0);
 
                     ClientCommunicator communicator = ClientCommunicator.getInstance();
                     LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
@@ -325,7 +323,7 @@ public class AppLayerFacade{
 
     private void preLoadGames(){
 
-        LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, 0);
+        LobbyPollerData pollerData = new LobbyPollerData(0);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);

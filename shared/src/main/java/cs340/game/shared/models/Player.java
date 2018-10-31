@@ -1,5 +1,6 @@
 package cs340.game.shared.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -7,11 +8,12 @@ import java.util.Observer;
 
 import cs340.game.shared.Color;
 
-public class Player extends Observable{
+public class Player extends Observable implements Serializable {
 
     private String name;
     private String authToken;
 
+    private int trainTokens;
     private int points;
 
     private List<TrainCard> trainCards = new ArrayList<>();
@@ -23,12 +25,14 @@ public class Player extends Observable{
         this.name = name;
         this.authToken = authToken;
         this.points = 0;
+        this.trainTokens = 45;
     }
 
     public Player(String name) {
         this.name = name;
         this.authToken = null;
         this.points = 0;
+        this.trainTokens = 45;
     }
 
     public String getName() {
@@ -53,14 +57,31 @@ public class Player extends Observable{
 
     public void setPoints(int points) {
         this.points = points;
+        notifyObservers();
     }
 
     public void addPoints(int pointsToAdd){
         this.points += pointsToAdd;
+        notifyObservers();
     }
 
     public void subtractPoints(int pointsToSubtract){
         this.points -= pointsToSubtract;
+        notifyObservers();
+    }
+
+    public int getTrainTokens(){
+        return trainTokens;
+    }
+
+    public void setTrainTokens(int trainTokens){
+        this.trainTokens = trainTokens;
+        notifyObservers();
+    }
+
+    public void subtractTrainTokens(int trainTokensToSubtract){
+        trainTokens -= trainTokensToSubtract;
+        notifyObservers();
     }
 
     public List<TrainCard> getTrainCards() {
@@ -69,6 +90,7 @@ public class Player extends Observable{
 
     public void setTrainCards(List<TrainCard> trainCards) {
         this.trainCards = trainCards;
+        notifyObservers();
     }
 
     public boolean hasSufficientCards(Color colorNeeded, int numberNeeded){
@@ -86,6 +108,7 @@ public class Player extends Observable{
 
     public void addTrainCard(TrainCard newCard){
         trainCards.add(newCard);
+        notifyObservers();
     }
 
     public TrainCard getTrainCard(Color color) throws Exception{

@@ -1,12 +1,13 @@
 package cs340.game.shared.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /*
 For now, perhaps we don't really do a diff, but give the whole state of the game.
 Then we can see if there is a bandwidth issue. Then we can implement it as a diff if necessary.
  */
-public class GameStateDiff {
+public class GameStateDiff implements Serializable {
     private List<Player> playerList;
     private List<DestinationCard> destinationCardDeck;
     private List<Route> routeList;

@@ -2,6 +2,7 @@ package cs340.game.shared;
 
 import java.io.IOException;
 import java.io.Serializable;
+
 import cs340.game.shared.data.Data;
 import cs340.game.shared.results.Results;
 
