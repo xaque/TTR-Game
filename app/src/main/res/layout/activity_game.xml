@@ -231,6 +231,55 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fourth_player" />
+
+        <ImageView
+            android:id="@+id/turn1"
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/turnLight"
+            app:layout_constraintEnd_toStartOf="@+id/first_player"
+            app:layout_constraintTop_toTopOf="@+id/first_player"
+            app:srcCompat="@mipmap/wild" />
+
+        <ImageView
+            android:id="@+id/turn4"
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/turnLight"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/fourth_player"
+            app:layout_constraintTop_toTopOf="@+id/fourth_player"
+            app:srcCompat="@mipmap/wild" />
+
+        <ImageView
+            android:id="@+id/turn5"
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/turnLight"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/fifth_player"
+            app:layout_constraintTop_toTopOf="@+id/fifth_player"
+            app:srcCompat="@mipmap/wild" />
+
+        <ImageView
+            android:id="@+id/turn2"
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/turnLight"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/second_player"
+            app:layout_constraintTop_toTopOf="@+id/second_player"
+            app:srcCompat="@mipmap/wild" />
+
+        <ImageView
+            android:id="@+id/turn3"
+            android:layout_width="17dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/turnLight"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/third_player"
+            app:layout_constraintTop_toTopOf="@+id/third_player"
+            app:srcCompat="@mipmap/wild" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -243,6 +292,35 @@
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintStart_toEndOf="@+id/leftSide"
         app:srcCompat="@mipmap/wild" />
+
+    <TextView
+        android:id="@+id/destinations_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/startingDestinations"
+        app:layout_constraintEnd_toStartOf="@+id/place_trains_button"
+        app:layout_constraintStart_toStartOf="@+id/draw_destinations_button"
+        app:layout_constraintTop_toBottomOf="@+id/draw_destinations_button" />
+
+    <TextView
+        android:id="@+id/left_paren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="@string/left_paren"
+        app:layout_constraintEnd_toStartOf="@+id/destinations_left"
+        app:layout_constraintTop_toTopOf="@+id/destinations_left" />
+
+    <TextView
+        android:id="@+id/right_paren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="@string/right_paren"
+        app:layout_constraintStart_toEndOf="@+id/destinations_left"
+        app:layout_constraintTop_toTopOf="@+id/destinations_left" />
 
 
 </android.support.constraint.ConstraintLayout>

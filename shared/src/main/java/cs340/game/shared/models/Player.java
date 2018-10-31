@@ -53,14 +53,17 @@ public class Player extends Observable{
 
     public void setPoints(int points) {
         this.points = points;
+        notifyObservers();
     }
 
     public void addPoints(int pointsToAdd){
         this.points += pointsToAdd;
+        notifyObservers();
     }
 
     public void subtractPoints(int pointsToSubtract){
         this.points -= pointsToSubtract;
+        notifyObservers();
     }
 
     public List<TrainCard> getTrainCards() {
@@ -86,6 +89,7 @@ public class Player extends Observable{
 
     public void addTrainCard(TrainCard newCard){
         trainCards.add(newCard);
+        notifyObservers();
     }
 
     public TrainCard getTrainCard(Color color) throws Exception{

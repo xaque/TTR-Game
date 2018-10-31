@@ -50,6 +50,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button placeTrainsButton;
     private ConstraintLayout playerInfoButton;
 
+    TextView player1;
+    TextView player2;
+    TextView player3;
+    TextView player4;
+    TextView player5;
+    ImageView turn1;
+    ImageView turn2;
+    ImageView turn3;
+    ImageView turn4;
+    ImageView turn5;
+
     private Canvas canvas;
     private Paint paint = new Paint();
     private ImageView map;
@@ -122,18 +133,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         FloatingActionButton demoButton = findViewById(R.id.demoButton);
         demoButton.setOnClickListener(this);
 
-        presenter = new GamePresenter(this);
-
-
         //Initialize all the text views and stuff
 
         points = (TextView) findViewById(R.id.score);
         trainsLeft = findViewById(R.id.trains_left);
         map = findViewById(R.id.map);
 
+        player1 = findViewById(R.id.first_player);
+        player2 = findViewById(R.id.second_player);
+        player3 = findViewById(R.id.third_player);
+        player4 = findViewById(R.id.fourth_player);
+        player5 = findViewById(R.id.fifth_player);
+        turn1 = findViewById(R.id.turn1);
+        turn2 = findViewById(R.id.turn2);
+        turn3 = findViewById(R.id.turn3);
+        turn4 = findViewById(R.id.turn4);
+        turn5 = findViewById(R.id.turn5);
+
         //Initialize the canvas stuff
         setPaints();
         initializeCanvas();
+
+
+        presenter = new GamePresenter(this);
 
         Toast.makeText(this, "The game has started. Good luck", Toast.LENGTH_SHORT).show();
     }
@@ -171,15 +193,42 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     //************UPDATE UI FUNCTIONS**********************
 
-    public void updatePoints(int points){
+    public void updatePoints(String points){
         this.points.setText(points);
     }
 
-    public void updateTrainsLeft(int trainsLeft) {
+    public void updateTrainsLeft(String trainsLeft) {
         this.trainsLeft.setText(trainsLeft);
     }
 
+    public void changeTurn(int turn) {
+        resetTurn();
+        switch(turn){
+            case 1:
+                turn1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                turn2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                turn3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                turn4.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                turn5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 
+    public void resetTurn(){
+        turn1.setVisibility(View.INVISIBLE);
+        turn2.setVisibility(View.INVISIBLE);
+        turn3.setVisibility(View.INVISIBLE);
+        turn4.setVisibility(View.INVISIBLE);
+        turn5.setVisibility(View.INVISIBLE);
+    }
 
 
     public void onLeaveGameResponse(boolean isLeaveSuccess) {
@@ -197,38 +246,49 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.draw_trains_button:
-                DrawTrainsFragment drawTrainsDialog = new DrawTrainsFragment();
-                drawTrainsDialog.show(getSupportFragmentManager(), "draw trains");
-                break;
-            case R.id.draw_destinations_button:
-                Toast.makeText(this, "You clicked DRAW DESTINATIONS. Nice job!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.place_trains_button:
-                Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.turn_order:
-                PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
-                playerInfoFragment.show(getSupportFragmentManager(), "player info");
-                break;
-            case R.id.demoButton:
-                presenter.runDemo();
-                break;
-        }
-    }
-
-
-    /* *********************UPDATE UI************************ */
     public void setPlayerName(String name){
         TextView playerName = findViewById(R.id.playerName);
         playerName.setText(name);
     }
 
-    public void setPlayers(List<Player> players){
+    public void setPlayer1(String name){
+        player1.setText(name);
+    }
 
+    public void setPlayer2(String name) {
+        player2.setText(name);
+    }
+
+    public void setPlayer3(String name) {
+        player3.setText(name);
+    }
+
+    public void setPlayer4(String name) {
+        player4.setText(name);
+    }
+
+    public void setPlayer5(String name) {
+        player5.setText(name);
+    }
+
+    public void hidePlayer(int playerNumber) {
+        switch(playerNumber) {
+            case 1:
+                player1.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                player2.setVisibility(View.INVISIBLE);
+                break;
+            case 3:
+                player3.setVisibility(View.INVISIBLE);
+                break;
+            case 4:
+                player4.setVisibility(View.INVISIBLE);
+                break;
+            case 5:
+                player5.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 
     public Paint getPaint(String color) {
@@ -259,6 +319,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int size = coords.length;
         for(int i = 0; i < size; i= i+2){
             canvas.drawCircle(coords[i], coords[i+1], RADIUS, paint);
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.draw_trains_button:
+                DrawTrainsFragment drawTrainsDialog = new DrawTrainsFragment();
+                drawTrainsDialog.show(getSupportFragmentManager(), "draw trains");
+                break;
+            case R.id.draw_destinations_button:
+                Toast.makeText(this, "You clicked DRAW DESTINATIONS. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.place_trains_button:
+                Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.turn_order:
+                PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
+                playerInfoFragment.show(getSupportFragmentManager(), "player info");
+                break;
+            case R.id.demoButton:
+                presenter.runDemo();
+                break;
         }
     }
 

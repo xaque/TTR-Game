@@ -3,6 +3,7 @@
     android:layout_height="fill_parent">
 
     <TableRow
+        android:id="@+id/labels"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:paddingStart="25dp"
@@ -48,6 +49,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/player1_row"
         android:paddingStart="25dp"
         android:paddingTop="5dp"
         android:paddingEnd="25dp"
@@ -96,6 +98,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/player2_row"
         android:paddingStart="25dp"
         android:paddingTop="5dp"
         android:paddingEnd="25dp"
@@ -143,6 +146,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/player3_row"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:paddingStart="25dp"
@@ -193,6 +197,7 @@
 
 
     <TableRow
+        android:id="@+id/player4_row"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:paddingStart="25dp"
@@ -242,6 +247,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/player5_row"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:paddingStart="25dp"

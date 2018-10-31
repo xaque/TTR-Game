@@ -89,6 +89,7 @@
     <string name="drawTrains">Draw Trains</string>
     <string name="placeTrains">Place Trains</string>
     <string name="drawDestinations">Draw Destinations</string>
+    <string name="startingDestinations">30</string>
 
     <!-- DIALOGS -->
     <string name="ok">OK</string>
@@ -113,5 +114,7 @@
     <string name="player3">Player 3</string>
     <string name="player4">Player 4</string>
     <string name="player5">Player 5</string>
+
+    <string name="turnLight">turn light</string>
 
 </resources>
