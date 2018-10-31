@@ -6,12 +6,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.Presenters.MainActivityPresenter;
+import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.Route;
+import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 
 /**
@@ -70,20 +72,26 @@ public class ClientModelRoot extends Observable {
         currentGameState.setPlayers(players);
     }
 
-    public void updateGameState(GameStateDiff diff){
-        List<Player> diffPlayers = diff.getPlayerList();
+    public void updateGameState(GameState newState){
+        List<Player> diffPlayers = newState.getPlayers();
         for(int i = 0; i < diffPlayers.size(); i++){
             currentGameState.updatePlayer(diffPlayers.get(i));
+
+            if(diffPlayers.get(i).getName().equals(currentPlayer.getName())){
+                currentPlayer = diffPlayers.get(i);
+                currentPlayer.notifyObservers();
+            }
         }
 
-        List<Route> diffRoutes = diff.getRouteList();
+        List<Route> diffRoutes = newState.getRoutes();
         for(int i = 0; i < diffRoutes.size(); i++){
             currentGameState.updateRoute(diffRoutes.get(i));
         }
 
-        currentGameState.setFaceUpCards(diff.getFaceUpCards());
+        currentGameState.setFaceUpCards(newState.getFaceUpCards());
+        currentGameState.setHistory(newState.getHistory());
 
-        //currentGameState.updateHistory(diff.getHistory());
+        currentGameState.checkForChanges();
     }
 
     public List<String> getAllMessages() {
@@ -338,6 +346,131 @@ public class ClientModelRoot extends Observable {
 
         for(Observer obj : observers) {
             obj.update(this, games);
+        }
+    }
+
+    // METHODS FOR DEMO
+    public void addPointsToPlayer(Player player, int points){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.addPoints(points);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void subtractPointsFromPlayer(Player player, int points){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.subtractPoints(points);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void addTrainTokensToPlayer(Player player, int tokens){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.setTrainTokens(p.getTrainTokens() + tokens);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void subtractTrainTokensFromPlayer(Player player, int tokens){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.setTrainTokens(p.getTrainTokens() - tokens);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void addTrainCardToPlayer(Player player, TrainCard card){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.addTrainCard(card);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void removeTrainCardFromPlayer(Player player, TrainCard card) throws Exception{
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            p.removeTrainCard(card.getColor());
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void addDestinationCardToPlayer(Player player, DestinationCard card){
+        List<Player> players = currentGameState.getPlayers();
+        for(int i = 0; i < players.size(); i++){
+
+            Player p = players.get(i);
+            List<DestinationCard> cards = new ArrayList<>();
+            cards.add(card);
+            p.addDestinationCards(cards);
+            if(p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
+        }
+    }
+
+    public void removeDestinationCardFromPlayer(Player player, DestinationCard card) {
+        List<Player> players = currentGameState.getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+
+            Player p = players.get(i);
+            List<DestinationCard> cards = new ArrayList<>();
+            cards.add(card);
+            p.removeDestinationCards(cards);
+            if (p.getName().equals(player.getName())) {
+
+                if (p.getName().equals(currentPlayer.getName())) {
+                    currentPlayer = p;
+                }
+            }
         }
     }
 }

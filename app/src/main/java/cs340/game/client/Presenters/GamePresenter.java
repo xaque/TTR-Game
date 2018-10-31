@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
+import cs340.game.client.ClientModelRoot;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.GameActivity;
 import cs340.game.shared.City;
@@ -47,32 +48,45 @@ public class GamePresenter implements Observer {
 
     //*************************RUN DEMO************************
     public void runDemo(){
+
+        ClientModelRoot modelRoot = ClientModelRoot.getInstance();
         //Update player points
-        currentPlayer.addPoints(1);
+        modelRoot.addPointsToPlayer(currentPlayer, 1);
+        //currentPlayer.addPoints(1);
         for(Player player : players) {
-            player.addPoints(3);
+            modelRoot.addPointsToPlayer(player, 3);
+            //player.addPoints(3);
         }
         //Add/remove train cards for player
-        currentPlayer.addTrainCard(new TrainCard(Color.PINK));
-        currentPlayer.addTrainCard(new TrainCard(Color.WILD));
-        currentPlayer.addTrainCard(new TrainCard(Color.BLACK));
+        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.PINK));
+        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.WILD));
+        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.BLACK));
+        //currentPlayer.addTrainCard(new TrainCard(Color.PINK));
+        //currentPlayer.addTrainCard(new TrainCard(Color.WILD));
+        //currentPlayer.addTrainCard(new TrainCard(Color.BLACK));
         //Add/remove player destination cards for player
         List<DestinationCard> d = new ArrayList<DestinationCard>();
         d.add(new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
-        currentPlayer.addDestinationCards(d);
+        modelRoot.addDestinationCardToPlayer(currentPlayer, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
+        //currentPlayer.addDestinationCards(d);
         //Update number of train cards for opponents
         for(Player player : players) {
-            player.addTrainCard(new TrainCard(Color.WILD));
-            player.addTrainCard(new TrainCard(Color.BLACK));
+            modelRoot.addTrainCardToPlayer(player, new TrainCard(Color.WILD));
+            modelRoot.addTrainCardToPlayer(player, new TrainCard(Color.BLACK));
+            //player.addTrainCard(new TrainCard(Color.WILD));
+            //player.addTrainCard(new TrainCard(Color.BLACK));
         }
         //Update number of train cars for opponents
-        currentPlayer.subtractTrainTokens(1);
+        modelRoot.subtractTrainTokensFromPlayer(currentPlayer, 1);
+        //currentPlayer.subtractTrainTokens(1);
         for(Player player : players){
-            player.subtractTrainTokens(2);
+            modelRoot.subtractTrainTokensFromPlayer(player, 2);
+            //player.subtractTrainTokens(2);
         }
         //Update number of destination cards for opponents
         for(Player player : players) {
-            player.addDestinationCards(d);
+            modelRoot.addDestinationCardToPlayer(player, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
+            //player.addDestinationCards(d);
         }
         //Update visible cards in the train card deck
         //gameFacade.changeFaceUpCards();

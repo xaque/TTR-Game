@@ -16,6 +16,9 @@ public class GameState extends Observable implements Serializable {
     private List<TrainCard> faceUpCards = new ArrayList<>();
     private GameHistoryActionList history;
 
+    private int TrainCardDeckSize;
+    private int DestinationTicketDeckSize;
+
     private List<Observer> observers = new ArrayList<>();
 
     private boolean isChanged = false;
@@ -87,6 +90,7 @@ public class GameState extends Observable implements Serializable {
     public void checkForChanges(){
         if(isChanged){
             notifyObservers();
+            isChanged = false;
         }
     }
 
