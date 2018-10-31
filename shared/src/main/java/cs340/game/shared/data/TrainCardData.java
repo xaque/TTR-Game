@@ -1,16 +1,18 @@
 package cs340.game.shared.data;
 
+import java.util.List;
+
 import cs340.game.shared.CommandType;
 import cs340.game.shared.models.TrainCard;
 
 public class TrainCardData extends Data{
     private String authToken;
-    private TrainCard card;
+    private List<TrainCard> cards;
 
-    public TrainCardData(CommandType commandType, String authToken, TrainCard card){
+    public TrainCardData(CommandType commandType, String authToken, List<TrainCard> cards){
         this.commandType = commandType;
         this.authToken = authToken;
-        this.card = card;
+        this.cards = cards;
     }
 
     public CommandType getCommandType() {
@@ -29,11 +31,11 @@ public class TrainCardData extends Data{
         this.authToken = authToken;
     }
 
-    public TrainCard getCard() {
-        return card;
+    public List<TrainCard> getCards() {
+        return cards;
     }
 
-    public void setCard(TrainCard card) {
-        this.card = card;
+    public void setCard(List<TrainCard> cards) {
+        this.cards = cards;
     }
 }
