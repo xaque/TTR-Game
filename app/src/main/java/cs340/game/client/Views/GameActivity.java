@@ -59,6 +59,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView turn4;
     private ImageView turn5;
 
+    private TextView destinationsLeft;
+
     private Canvas canvas;
     private Paint paint = new Paint();
     private ImageView map;
@@ -151,6 +153,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         turn3 = findViewById(R.id.turn3);
         turn4 = findViewById(R.id.turn4);
         turn5 = findViewById(R.id.turn5);
+        destinationsLeft = findViewById(R.id.destinations_left);
 
         //Initialize the canvas stuff
         setPaints();
@@ -202,6 +205,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void updateTrainsLeft(String trainsLeft) {
         this.trainsLeft.setText(trainsLeft);
     }
+
+    public void updateDestinationsLeft(String destinationsLeft){ this.destinationsLeft.setText(destinationsLeft); }
 
     public void changeTurn(int turn) {
         resetTurn();

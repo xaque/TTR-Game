@@ -1,6 +1,7 @@
 package cs340.game.client.Presenters;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,10 +24,17 @@ public class DrawTrainsPresenter implements Observer {
         gameState = gameFacade.getCurrentGame();
         faceUps = gameState.getFaceUpCards();
 
+        updateCardsLeft(gameState.getTrainCardDeckSize());
         //Get cards left in deck
 
         setFaceUps(faceUps);
 
+        gameFacade.addObserver(this);
+
+    }
+
+    public void updateCardsLeft(int cards) {
+        view.updateCardsLeft(Integer.toString(cards));
     }
 
     public void setFaceUps(List<TrainCard> cards) {
@@ -37,6 +45,12 @@ public class DrawTrainsPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-
+        Objects.requireNonNull(view.getActivity()).runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                updateCardsLeft(gameState.getTrainCardDeckSize());
+                setFaceUps(gameState.getFaceUpCards());
+            }
+        });
     }
 }

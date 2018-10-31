@@ -13,7 +13,7 @@
         android:contentDescription="@string/cardTab"
         app:layout_constraintStart_toEndOf="@+id/card4"
         app:layout_constraintTop_toBottomOf="@+id/card2"
-        app:srcCompat="@mipmap/wild" />
+        app:srcCompat="@color/white" />
 
     <ImageView
         android:id="@+id/card1"
@@ -24,7 +24,7 @@
         android:contentDescription="@string/cardTab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/yellow" />
+        app:srcCompat="@color/white" />
 
     <ImageView
         android:id="@+id/deck"
@@ -41,7 +41,6 @@
     </ImageView>
 
 
-
     <ImageView
         android:id="@+id/card4"
         android:layout_width="125dp"
@@ -51,7 +50,7 @@
         android:contentDescription="@string/cardTab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card1"
-        app:srcCompat="@mipmap/black" />
+        app:srcCompat="@color/white" />
 
     <ImageView
         android:id="@+id/card2"
@@ -62,7 +61,7 @@
         android:contentDescription="@string/cardTab"
         app:layout_constraintStart_toEndOf="@+id/card1"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/red" />
+        app:srcCompat="@color/white" />
 
     <ImageView
         android:id="@+id/card3"
@@ -73,7 +72,7 @@
         android:contentDescription="@string/cardTab"
         app:layout_constraintStart_toEndOf="@+id/card2"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/purple" />
+        app:srcCompat="@color/white" />
 
     <TextView
         android:id="@+id/decktext"

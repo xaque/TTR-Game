@@ -147,6 +147,10 @@ public class GamePresenter implements Observer {
         view.updateTrainsLeft(Integer.toString(trainsLeft));
     }
 
+    public void updateDestinationsLeft(int destinations){
+        view.updateDestinationsLeft(Integer.toString(destinations));
+    }
+
     public void nextTurn(){
         if( turn < players.size()) {
             turn++;
@@ -176,6 +180,7 @@ public class GamePresenter implements Observer {
             public void run() {
                 updatePoints(currentPlayer.getPoints());
                 updateTrains(currentPlayer.getTrainTokens());
+                updateDestinationsLeft(gameState.getDestinationTicketDeckSize());
             }
         });
 

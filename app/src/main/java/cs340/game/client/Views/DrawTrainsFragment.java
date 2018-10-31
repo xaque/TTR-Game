@@ -82,6 +82,10 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
 
     }
 
+    public void updateCardsLeft(String cards) {
+        cardsLeft.setText(cards);
+    }
+
     public void setCard(int cardNumber, Color color) {
         int imageID = getImageID(color);
 
