@@ -1,15 +1,14 @@
 package cs340.game.client;
 
-import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.data.LobbyPollerData;
+import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.LobbyPollerResults;
-import cs340.game.shared.models.GameList;
 
 /**
  * This Class has the purpose of frequently checking with the server to see if anything has changed
@@ -63,7 +62,7 @@ public class Poller implements Runnable{
      */
     public void getLobbyUpdates(int lastSequenceNumber){
 
-        LobbyPollerData pollerData = new LobbyPollerData(CommandType.LOBBY_POLL, lastSequenceNumber);
+        LobbyPollerData pollerData = new LobbyPollerData(lastSequenceNumber);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
@@ -95,7 +94,7 @@ public class Poller implements Runnable{
     public void getGameUpdates(int lastSequenceNumber){
 
         Player currentPlayer = modelRoot.getCurrentPlayer();
-        GamePollerData pollerData = new GamePollerData(CommandType.GAME_POLL, lastSequenceNumber, currentPlayer.getAuthToken());
+        GamePollerData pollerData = new GamePollerData(lastSequenceNumber, currentPlayer.getAuthToken());
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         GamePollerResults results = (GamePollerResults)communicator.send(CommonData.POLLER_URI, pollerData);

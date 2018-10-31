@@ -5,7 +5,6 @@ import java.util.List;
 import cs340.game.server.DB.DestinationCardDeck;
 import cs340.game.server.DB.GameCommandLog;
 import cs340.game.shared.GameHistoryAction;
-import cs340.game.shared.ServerException;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.User;

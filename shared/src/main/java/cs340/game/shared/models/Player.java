@@ -1,5 +1,6 @@
 package cs340.game.shared.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -7,7 +8,7 @@ import java.util.Observer;
 
 import cs340.game.shared.Color;
 
-public class Player extends Observable{
+public class Player extends Observable implements Serializable {
 
     private String name;
     private String authToken;

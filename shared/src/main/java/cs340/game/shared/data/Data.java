@@ -9,7 +9,7 @@ import cs340.game.shared.CommandType;
  * Client to the Server
  */
 public abstract class Data implements Serializable {
-    private CommandType commandType;
+    protected CommandType commandType;
 
     public CommandType getCommandType() {
         return commandType;

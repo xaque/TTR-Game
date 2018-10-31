@@ -5,10 +5,10 @@ import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.GameCommandLog;
 import cs340.game.server.Models.ServerGameState;
 import cs340.game.shared.GameHistoryActionList;
+import cs340.game.shared.data.Data;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.Results;
-import cs340.game.shared.data.Data;
 
 public class GamePollerCommand implements iCommand {
     public Results execute(Data data) {

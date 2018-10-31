@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,11 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.R;
-import cs340.game.client.AppLayerFacade;
-import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.ChatPresenter;
-import cs340.game.shared.models.Game;
-import cs340.game.shared.models.GameList;
 
 public class ChatFragment extends Fragment {
 

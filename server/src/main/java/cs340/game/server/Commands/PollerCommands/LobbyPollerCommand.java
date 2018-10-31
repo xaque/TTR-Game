@@ -2,11 +2,11 @@ package cs340.game.server.Commands.PollerCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.LobbyCommandLog;
+import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyPollerData;
+import cs340.game.shared.models.GameList;
 import cs340.game.shared.results.LobbyPollerResults;
 import cs340.game.shared.results.Results;
-import cs340.game.shared.data.Data;
-import cs340.game.shared.models.GameList;
 
 public class LobbyPollerCommand implements iCommand {
 

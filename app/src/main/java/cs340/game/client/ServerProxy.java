@@ -39,7 +39,7 @@ public class ServerProxy {
 
     public Results DrawDestinationCard(String authToken){
 
-        TrainCardData cardData = new TrainCardData(CommandType.DRAW_DESTINATION_CARD, authToken, null);
+        DestinationCardData cardData = new DestinationCardData(CommandType.DRAW_DESTINATION_CARD, authToken, null);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);
@@ -59,7 +59,7 @@ public class ServerProxy {
 
     public Results SendChat(String authToken, String message){
 
-        ChatData chatData = new ChatData(CommandType.CHAT, authToken, message);
+        ChatData chatData = new ChatData(authToken, message);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, chatData);
