@@ -12,13 +12,14 @@ import cs340.game.shared.results.Results;
 public class GamePollerCommand implements iCommand {
     public Results execute(Data data) {
         GamePollerData pData = (GamePollerData)data;
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(pData.getAuthtoken());
+        //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(pData.getAuthtoken());
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername("q");
         GameCommandLog log = game.getCommandLog();
 
         // Check if the Client is up to date
         int currentSequenceNumber = pData.getSequenceNumber();
         if(currentSequenceNumber == log.getLogLength()){
-            return new GamePollerResults(false, null, currentSequenceNumber, "No new data.");
+            //return new GamePollerResults(false, null, currentSequenceNumber, "No new data.");
         }
 
         int newSequenceNumber = log.getLogLength();
@@ -29,6 +30,9 @@ public class GamePollerCommand implements iCommand {
             actions.addAction(log.getGameCommandAtIndex(i));
         }*/
 
+        for(int i = 0; i < game.getCommandLog().getLogLength(); i++){
+            System.out.println(game.getCommandLog().getGameCommandAtIndex(i).getActionMessage());
+        }
         //TODO any errors to keep track of?
         GamePollerResults results = new GamePollerResults(true, game.getGameState(), newSequenceNumber, null);
         return results;

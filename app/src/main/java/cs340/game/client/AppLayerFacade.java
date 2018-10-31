@@ -250,12 +250,13 @@ public class AppLayerFacade{
             return "This game does not have enough players!";
         }
 
+        System.out.println("Game: " + gameName + " User: " + currentUser.getUsername());
         LobbyResults results = (LobbyResults) proxy.StartGame(gameName, currentUser.getUsername());
 
         //if(results.isSuccess()){
             clientModelRoot.startGame(gameName);
         //}else{
-            //presenter.onError(results.getErrorInfo());
+        //    presenter.onError(results.getErrorInfo());
         //    return results.getErrorInfo();
         //}
         InGameFacade inGameFacade = InGameFacade.getInstance();

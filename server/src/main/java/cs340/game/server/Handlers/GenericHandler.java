@@ -13,12 +13,15 @@ import cs340.game.server.Commands.GameCommands.DrawDestinationCardCommand;
 import cs340.game.server.Commands.GameCommands.ReturnDestinationCardCommand;
 import cs340.game.server.Commands.LobbyCommands.CreateGameCommand;
 import cs340.game.server.Commands.LobbyCommands.JoinGameCommand;
+import cs340.game.server.Commands.LobbyCommands.StartGameCommand;
 import cs340.game.server.Commands.LoginCommands.LoginCommand;
 import cs340.game.server.Commands.LoginCommands.RegisterCommand;
+import cs340.game.server.Commands.PollerCommands.GamePollerCommand;
 import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
+import cs340.game.shared.results.GameResults;
 import cs340.game.shared.results.Results;
 
 public class GenericHandler implements HttpHandler {
@@ -64,6 +67,15 @@ public class GenericHandler implements HttpHandler {
                 break;
             case DISCARD_DESTINATION_CARD:
                 cmd = new ReturnDestinationCardCommand();
+                break;
+            case START_GAME:
+                cmd = new StartGameCommand();
+                break;
+            case GAME_POLL:
+                cmd = new GamePollerCommand();
+                break;
+            default:
+                System.out.println("None");
                 break;
         }
         Results r = cmd.execute(data);

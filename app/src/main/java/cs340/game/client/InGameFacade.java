@@ -158,9 +158,9 @@ public class InGameFacade {
 
         GameResults results = (GameResults)proxy.SendChat(currentPlayer.getAuthToken(), message);
 
-        if(!results.isSuccess()) {
-            return results.getErrorInfo();
-        }
+        //if(!results.isSuccess()) {
+        //    return results.getErrorInfo();
+        //}
 
         return null;
     }

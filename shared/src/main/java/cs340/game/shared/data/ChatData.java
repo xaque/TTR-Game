@@ -17,6 +17,10 @@ public class ChatData extends Data {
         this.chatContent = chatContent;
     }
 
+    public CommandType getCommandType() {
+        return commandType;
+    }
+
     public void setCommandType(CommandType commandType) {
         this.commandType = commandType;
     }

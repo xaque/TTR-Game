@@ -87,6 +87,8 @@ public class ClientModelRoot extends Observable {
         }
 
         currentGameState.setFaceUpCards(newState.getFaceUpCards());
+
+        System.out.println(newState.getHistory().getActions().size());
         currentGameState.setHistory(newState.getHistory());
 
         currentGameState.checkForChanges();
