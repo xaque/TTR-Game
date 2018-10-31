@@ -23,13 +23,14 @@ public class GamePollerCommand implements iCommand {
         }
 
         int newSequenceNumber = log.getLogLength();
+        /*
         GameHistoryActionList actions = new GameHistoryActionList();
         for(int i = currentSequenceNumber + 1; i < log.getLogLength(); i++) {
             actions.addAction(log.getGameCommandAtIndex(i));
-        }
+        }*/
 
         //TODO any errors to keep track of?
-        GamePollerResults results = new GamePollerResults(true, actions, newSequenceNumber, null);
+        GamePollerResults results = new GamePollerResults(true, game.getGameState(), newSequenceNumber, null);
         return results;
     }
 }
