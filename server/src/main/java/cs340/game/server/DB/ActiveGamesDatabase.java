@@ -25,7 +25,7 @@ public class ActiveGamesDatabase {
         games = new ArrayList<>();
     }
 
-    private void addGame(ServerGameState game) {
+    public void addGame(ServerGameState game) {
         games.add(game);
     }
 

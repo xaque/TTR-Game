@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.server.DB.ServerGameState;
@@ -47,6 +48,7 @@ public class StartGameCommand implements iCommand {
         }
 
         ServerGameState gameState = new ServerGameState(lobbyData.getGameID(), users);
+        ActiveGamesDatabase.getInstance().addGame(gameState);
 
         LobbyGameDatabase.getInstance().startGame(startingGame);
         return new LobbyResults(true, null);
