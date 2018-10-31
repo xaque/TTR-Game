@@ -156,7 +156,7 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.SendChat(currentPlayer.getAuthToken(), message);
+        GameResults results = (GameResults)proxy.SendChat(currentPlayer.getName(), message);
 
         //if(!results.isSuccess()) {
         //    return results.getErrorInfo();

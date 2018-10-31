@@ -13,7 +13,7 @@ public class GamePollerCommand implements iCommand {
     public Results execute(Data data) {
         GamePollerData pData = (GamePollerData)data;
         //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(pData.getAuthtoken());
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername("q");
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(pData.getAuthtoken());
         GameCommandLog log = game.getCommandLog();
 
         // Check if the Client is up to date

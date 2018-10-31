@@ -95,7 +95,7 @@ public class Poller implements Runnable{
     public void getGameUpdates(int lastSequenceNumber){
 
         Player currentPlayer = modelRoot.getCurrentPlayer();
-        GamePollerData pollerData = new GamePollerData(lastSequenceNumber, currentPlayer.getAuthToken());
+        GamePollerData pollerData = new GamePollerData(lastSequenceNumber, currentPlayer.getName());
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         GamePollerResults results = (GamePollerResults)communicator.send(CommonData.POLLER_URI, pollerData);

@@ -16,11 +16,14 @@ public class ChatCommand implements iCommand {
         System.out.println("Chat Command");
         ChatData chatData = (ChatData)data;
         System.out.println(chatData.getChatContent());
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername("a");
+        System.out.println(chatData.getUsername());
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(chatData.getUsername());
+        //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername("a");
 
         String chatMessage = chatData.getUsername() + ": "  + chatData.getChatContent();
         GameHistoryAction action = new GameHistoryAction(chatMessage, null);
         game.addGameCommand(action);
+        System.out.println("Success");
         //TODO any errors possible here?
         return new GameResults(true, null);
     }
