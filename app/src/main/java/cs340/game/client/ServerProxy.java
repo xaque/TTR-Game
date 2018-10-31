@@ -27,9 +27,9 @@ public class ServerProxy {
         return results;
     }
 
-    public Results DiscardTrainCard(String authToken, TrainCard card){
+    public Results DiscardTrainCard(String authToken, List<TrainCard> cards){
 
-        TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, card);
+        TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, cards);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);

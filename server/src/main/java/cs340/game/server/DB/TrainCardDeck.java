@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import cs340.game.shared.Color;
-import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.TrainCard;
 
 /**

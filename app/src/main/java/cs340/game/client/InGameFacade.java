@@ -85,14 +85,16 @@ public class InGameFacade {
         }
 
         try {
+            List<TrainCard> cardsToDiscard = new ArrayList<>();
             for (int i = 0; i < numberToDiscard; i++) {
 
                 TrainCard card = currentPlayer.getTrainCard(color);
-                GameResults results = (GameResults)proxy.DiscardTrainCard(currentPlayer.getAuthToken(), card);
+                cardsToDiscard.add(card);
+            }
 
-                if(!results.isSuccess()) {
-                    return results.getErrorInfo();
-                }
+            GameResults results = (GameResults)proxy.DiscardTrainCard(currentPlayer.getAuthToken(), cardsToDiscard);
+            if(!results.isSuccess()) {
+                return results.getErrorInfo();
             }
 
             for(int i = 0; i < numberToDiscard; i++){
