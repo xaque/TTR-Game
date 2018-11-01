@@ -153,7 +153,7 @@ public class DestinationsDialog extends DialogFragment {
         destText2.setText(destinationCard2.getCardString());
 
         destCard3 = getDialog().findViewById(R.id.dest_card_3);
-        destCard1.setOnClickListener(new View.OnClickListener() {
+        destCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(selectedDestinationCards.contains(destinationCard3)) {
@@ -171,5 +171,9 @@ public class DestinationsDialog extends DialogFragment {
         destText3.setText(destinationCard3.getCardString());
 
 
+    }
+
+    public void onError(String message) {
+        Toast.makeText(this.getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }
