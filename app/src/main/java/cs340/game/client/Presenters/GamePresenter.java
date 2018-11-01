@@ -45,8 +45,9 @@ public class GamePresenter implements Observer {
 
 
         gameFacade.addObserver(this);
-        currentPlayer.addObserver(this);
-
+        gameFacade.addObserverToGameState(this);
+        gameFacade.addObserverToCurrentPlayer(this);
+        //currentPlayer.addObserver(this);
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isStartOfGame", true);

@@ -32,8 +32,7 @@ public class DrawTrainsPresenter implements Observer {
         setFaceUps(faceUps);
 
         gameFacade.addObserver(this);
-        gameState.addObserver(this);
-
+        gameFacade.addObserverToGameState(this);
     }
 
     public void updateCardsLeft(int cards) {
