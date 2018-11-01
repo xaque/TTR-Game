@@ -73,9 +73,11 @@ public class ClientModelRoot extends Observable {
     public void updateGameState(GameState newState){
         ArrayList<Player> diffPlayers = newState.getPlayers();
         for(int i = 0; i < diffPlayers.size(); i++){
+            System.out.println(diffPlayers.get(i).getName() + " " + diffPlayers.get(i).getTrainCards().size());
             currentGameState.updatePlayer(diffPlayers.get(i));
 
             if(diffPlayers.get(i).getName().equals(currentPlayer.getName())){
+                System.out.println(diffPlayers.get(i).getName() + " ME!");
                 currentPlayer = diffPlayers.get(i);
                 currentPlayer.notifyObservers();
             }

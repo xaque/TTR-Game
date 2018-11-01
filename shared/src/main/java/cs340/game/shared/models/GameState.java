@@ -139,6 +139,7 @@ public class GameState extends Observable implements Serializable {
 
     @Override
     public synchronized void addObserver(Observer o) {
+        System.out.println("Adding Observer");
         observers.add(o);
     }
 
@@ -149,6 +150,7 @@ public class GameState extends Observable implements Serializable {
 
     @Override
     public void notifyObservers(){
+        System.out.println("Notifying Observers");
 
         for (Observer obj : observers) {
             obj.update(this, name);

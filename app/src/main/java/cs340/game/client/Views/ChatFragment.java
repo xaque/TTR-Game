@@ -21,6 +21,7 @@ import java.util.List;
 import cs340.game.R;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.ChatPresenter;
+import cs340.game.shared.GameHistoryAction;
 
 public class ChatFragment extends Fragment {
 
@@ -57,7 +58,12 @@ public class ChatFragment extends Fragment {
     }
 
     public void updateUI() {
-        ArrayList<String> messageList = InGameFacade.getInstance().getAllMessages();
+        ArrayList<GameHistoryAction> actions = InGameFacade.getInstance().getCurrentGame().getHistory().getActions();
+        ArrayList<String> messageList = new ArrayList<>();
+        for(int i = 0; i < actions.size(); i++){
+            messageList.add(actions.get(i).getActionMessage());
+        }
+
         messageAdapter = new MessageAdapter(messageList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -21,7 +21,7 @@ public class ChatPresenter implements Observer {
 
     public ChatPresenter(ChatFragment view) {
         this.view = view;
-        facade.addObserver(this);
+        facade.addObserverToGameState(this);
     }
 
 
@@ -37,8 +37,10 @@ public class ChatPresenter implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         System.out.println("update()");
-        System.out.println("This is the list of games");
-        System.out.println(o.toString());
+        System.out.println("This is the list of chats");
+        for(int i = 0; i < facade.getCurrentGame().getHistory().getSize(); i++){
+            System.out.println(facade.getCurrentGame().getHistory().getActions().get(i).getActionMessage());
+        }
         view.getActivity().runOnUiThread(new Runnable() {
 
             @Override

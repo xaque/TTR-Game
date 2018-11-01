@@ -108,8 +108,6 @@ public class Poller implements Runnable{
             // The most recent sequence number passed from the server
             int newSequenceNumber = results.getSequenceNumber();
             modelRoot.setGameSequenceNumber(newSequenceNumber);
-
-            System.out.println(modelRoot.getGames().toString());
         }else{
             System.out.println("Not Success");
         }
