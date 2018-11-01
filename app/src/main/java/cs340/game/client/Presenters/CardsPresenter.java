@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.CardsFragment;
+import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.TrainCard;
 
@@ -15,16 +16,16 @@ public class CardsPresenter implements Observer {
 
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private Player currentPlayer;
-
+    private GameState gameState;
 
     public CardsPresenter(CardsFragment cardsFragment) {
         view = cardsFragment;
 
         currentPlayer = gameFacade.getCurrentPlayer();
+        gameState = gameFacade.getCurrentGame();
 
-
-        currentPlayer.addObserver(this);
-
+        //currentPlayer.addObserver(this);
+        gameState.addObserver(this);
     }
 
     public void updateHand(){
@@ -37,6 +38,7 @@ public class CardsPresenter implements Observer {
         int purples=0;
         int oranges=0;
         int wilds=0;
+        System.out.println(currentPlayer.getTrainCards().size() + " CARDS");
 
         for(TrainCard card : currentPlayer.getTrainCards()) {
             switch(card.getColor()) {

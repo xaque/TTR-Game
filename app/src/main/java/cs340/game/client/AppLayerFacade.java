@@ -262,6 +262,7 @@ public class AppLayerFacade{
         InGameFacade inGameFacade = InGameFacade.getInstance();
         inGameFacade.setupCurrentGameState(getCurrentGame());
         inGameFacade.initializeCurrentPlayer(currentUser);
+        inGameFacade.preloadGameState();
 
         clientModelRoot.setUserState(UserState.IN_GAME);
 

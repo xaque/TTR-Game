@@ -6,12 +6,15 @@ import java.util.Observer;
 
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
+import cs340.game.shared.CommonData;
+import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
+import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.GameResults;
 
 /**
@@ -214,5 +217,35 @@ public class InGameFacade {
 
     public void removeObserverFromCurrentPlayer(Observer o){
         clientModelRoot.removeObserverFromCurrentPlayer(o);
+    }
+
+    public void preloadGameState(){
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Player currentPlayer = clientModelRoot.getCurrentPlayer();
+                GamePollerData pollerData = new GamePollerData(0, currentPlayer.getName());
+
+                ClientCommunicator communicator = ClientCommunicator.getInstance();
+                GamePollerResults results = (GamePollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
+
+                if(results.isSuccess()) {
+                    System.out.println("Success");
+                    GameState newState = results.getData();
+
+                    clientModelRoot.updateGameState(newState);
+                    // The most recent sequence number passed from the server
+                    int newSequenceNumber = results.getSequenceNumber();
+                    clientModelRoot.setGameSequenceNumber(newSequenceNumber);
+                }else{
+                    System.out.println("Not Success");
+                }
+            }
+        });
+        thread.start();
+        while(thread.isAlive()){
+            //wait
+        }
     }
 }
