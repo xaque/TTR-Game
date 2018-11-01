@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.server.Commands.iCommand;
@@ -23,7 +24,7 @@ public class ReturnDestinationCardCommand implements iCommand {
         DestinationCardData destinationCardData = (DestinationCardData)data;
         String authToken = destinationCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
-        List<DestinationCard> returnedCards = destinationCardData.getCards();
+        ArrayList<DestinationCard> returnedCards = destinationCardData.getCards();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");

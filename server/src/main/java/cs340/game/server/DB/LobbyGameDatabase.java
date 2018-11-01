@@ -10,7 +10,7 @@ import cs340.game.shared.models.Game;
  */
 
 public class LobbyGameDatabase {
-    private List<Game> lobbyGameList;
+    private ArrayList<Game> lobbyGameList;
 
     private static LobbyGameDatabase instance;
 

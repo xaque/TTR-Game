@@ -3,6 +3,7 @@ package cs340.game.client.Presenters;
 
 import android.os.AsyncTask;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -59,14 +60,14 @@ public class GameLobbyPresenter implements Observer {
         view.onError(message);
     }
 
-    private void populatePlayerList(List<String> players) {
+    private void populatePlayerList(ArrayList<String> players) {
         this.view.clearPlayerList();
         for(int i=0; i<players.size(); i++) {
             this.view.setPlayer(i, players.get(i));
         }
     }
 
-    private void checkPlayers(List<String> players) {
+    private void checkPlayers(ArrayList<String> players) {
         if(players.size() < 2){
             view.disableButton();
         } else {

@@ -99,7 +99,7 @@ public class InGameFacade {
         }
 
         try {
-            List<TrainCard> cardsToDiscard = new ArrayList<>();
+            ArrayList<TrainCard> cardsToDiscard = new ArrayList<>();
             for (int i = 0; i < numberToDiscard; i++) {
 
                 TrainCard card = currentPlayer.getTrainCard(color);
@@ -129,7 +129,7 @@ public class InGameFacade {
 
         if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
-            List<DestinationCard> newCards = new ArrayList<>();
+            ArrayList<DestinationCard> newCards = new ArrayList<>();
             DestinationCard card1 = new DestinationCard(City.DENVER, City.KANSAS_CITY, 5);
             DestinationCard card2 = new DestinationCard(City.DENVER, City.OKLAHOMA_CITY, 4);
             DestinationCard card3 = new DestinationCard(City.SALT_LAKE_CITY, City.ATLANTA, 9);
@@ -148,7 +148,7 @@ public class InGameFacade {
         return null;
     }
 
-    public String discardDestinationCards(List<DestinationCard> cards){
+    public String discardDestinationCards(ArrayList<DestinationCard> cards){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -181,7 +181,7 @@ public class InGameFacade {
         return null;
     }
 
-    public List<String> getAllMessages() { return clientModelRoot.getAllMessages(); }
+    public ArrayList<String> getAllMessages() { return clientModelRoot.getAllMessages(); }
 
     // Getters
     public Player getCurrentPlayer(){

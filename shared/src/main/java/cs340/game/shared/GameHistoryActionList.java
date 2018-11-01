@@ -1,5 +1,6 @@
 package cs340.game.shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,15 +8,15 @@ import java.util.List;
  * Created by Stephen on 10/23/2018.
  */
 
-public class GameHistoryActionList {
+public class GameHistoryActionList implements Serializable {
 
-    private List<GameHistoryAction> actions;
+    private ArrayList<GameHistoryAction> actions;
 
     public GameHistoryActionList() {
         actions = new ArrayList<>();
     }
 
-    public List<GameHistoryAction> getActions() {
+    public ArrayList<GameHistoryAction> getActions() {
         return actions;
     }
 

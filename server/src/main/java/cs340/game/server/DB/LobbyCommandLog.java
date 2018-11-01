@@ -10,7 +10,7 @@ import cs340.game.shared.models.Game;
  */
 
 public class LobbyCommandLog {
-    private List<Game> lobbyCommands;
+    private ArrayList<Game> lobbyCommands;
 
     private static LobbyCommandLog instance;
 
@@ -29,7 +29,7 @@ public class LobbyCommandLog {
         lobbyCommands.add(game);
     }
 
-    /*public List<Game> getLobbyCommands() {
+    /*public ArrayList<Game> getLobbyCommands() {
         return lobbyCommands;
     }*/
 

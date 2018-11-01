@@ -20,7 +20,7 @@ import cs340.game.shared.models.DestinationCard;
  * Cards will drawn from the beginning of the list and discarded to the end of the list.
  */
 public class DestinationCardDeck {
-    private List<DestinationCard> cards;
+    private ArrayList<DestinationCard> cards;
     private int size;
 
 
@@ -55,7 +55,7 @@ public class DestinationCardDeck {
 
     public void shuffle(int howManyTimes) {
         Random rand = new Random();
-        List<DestinationCard> shuffledList = new ArrayList<>();
+        ArrayList<DestinationCard> shuffledList = new ArrayList<>();
         for(int i = 0; i < howManyTimes; i++) {
             while (this.cards.size() != 0) {
                 int index = rand.nextInt(this.cards.size());
@@ -70,7 +70,7 @@ public class DestinationCardDeck {
         }
     }
 
-    public List<DestinationCard> drawCards() {
+    public ArrayList<DestinationCard> drawCards() {
         int numberOfDrawnCards;
         if(this.size >= 3) {
             numberOfDrawnCards = 3;
@@ -79,7 +79,7 @@ public class DestinationCardDeck {
             numberOfDrawnCards = this.size;
         }
         //TODO contingency if deck is empty? (size = 0)
-        List<DestinationCard> drawnCards = new ArrayList<>();
+        ArrayList<DestinationCard> drawnCards = new ArrayList<>();
         for(int i = 0; i < numberOfDrawnCards; i++) {
             if(this.cards.size() == 0){
                 return drawnCards;
@@ -91,7 +91,7 @@ public class DestinationCardDeck {
         return drawnCards;
     }
 
-    public void returnCards(List<DestinationCard> returnedCards) {
+    public void returnCards(ArrayList<DestinationCard> returnedCards) {
         this.cards.addAll(returnedCards);
         this.size += returnedCards.size();
     }

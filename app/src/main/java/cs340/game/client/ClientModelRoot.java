@@ -25,7 +25,7 @@ public class ClientModelRoot extends Observable {
     // public void deleteObserver(Observer o)
     // public void notifyObservers()
 
-    private List<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     // Start Singleton
     private static ClientModelRoot instance;
@@ -47,7 +47,7 @@ public class ClientModelRoot extends Observable {
     private User currentUser;
     private Game currentGame;
     private GameList games = new GameList();
-    private List<String> messages;
+    private ArrayList<String> messages;
 
     private Thread pollerThread;
     private int lobbySequenceNumber;
@@ -57,9 +57,9 @@ public class ClientModelRoot extends Observable {
     private GameState currentGameState;
 
     public void InitializeGameState(Game game){
-        List<String> users = game.getPlayers();
-        List<Player> players = new ArrayList<>();
-        List<String> messages = new ArrayList<>();
+        ArrayList<String> users = game.getPlayers();
+        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<String> messages = new ArrayList<>();
         for(int i = 0; i < users.size(); i++){
             String user = users.get(i);
             Player player = new Player(user);
@@ -71,7 +71,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void updateGameState(GameState newState){
-        List<Player> diffPlayers = newState.getPlayers();
+        ArrayList<Player> diffPlayers = newState.getPlayers();
         for(int i = 0; i < diffPlayers.size(); i++){
             currentGameState.updatePlayer(diffPlayers.get(i));
 
@@ -81,7 +81,7 @@ public class ClientModelRoot extends Observable {
             }
         }
 
-        List<Route> diffRoutes = newState.getRoutes();
+        ArrayList<Route> diffRoutes = newState.getRoutes();
         for(int i = 0; i < diffRoutes.size(); i++){
             currentGameState.updateRoute(diffRoutes.get(i));
         }
@@ -94,7 +94,7 @@ public class ClientModelRoot extends Observable {
         currentGameState.checkForChanges();
     }
 
-    public List<String> getAllMessages() {
+    public ArrayList<String> getAllMessages() {
         if(messages == null) {
             messages = new ArrayList<>();
         }
@@ -233,14 +233,14 @@ public class ClientModelRoot extends Observable {
 
         System.out.println("Adding games: " + newGames.size());
         boolean changed = false;
-        List<Game> _newGames = newGames.GetGames();
+        ArrayList<Game> _newGames = newGames.GetGames();
         for(int i = 0; i < _newGames.size(); i++){
 
             Game newGame = _newGames.get(i);
             String gameName = newGame.getName();
             if(games.gameExists(gameName)){
 
-                List<String> newPlayers = newGame.getPlayers();
+                ArrayList<String> newPlayers = newGame.getPlayers();
                 if(addNewPlayersToGame(gameName, newPlayers)){
 
                     changed = true;
@@ -259,7 +259,7 @@ public class ClientModelRoot extends Observable {
             }
         }
 
-        List<Game> listOfGames = games.GetGames();
+        ArrayList<Game> listOfGames = games.GetGames();
         for(int i = 0; i < listOfGames.size(); i++){
             Game game = listOfGames.get(i);
             if(game.isGameStarted() && game.playerExistsInGame(currentUser.getUsername())){
@@ -288,7 +288,7 @@ public class ClientModelRoot extends Observable {
      *                   game
      * @return true if at least one player was added to the game, false otherwise
      */
-    private boolean addNewPlayersToGame(String gameName, List<String> newPlayers){
+    private boolean addNewPlayersToGame(String gameName, ArrayList<String> newPlayers){
 
         boolean playerAdded = false;
         Game currentGame = games.getGame(gameName);
@@ -351,7 +351,7 @@ public class ClientModelRoot extends Observable {
 
     // METHODS FOR DEMO
     public void addPointsToPlayer(Player player, int points){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -368,7 +368,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void subtractPointsFromPlayer(Player player, int points){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -385,7 +385,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void addTrainTokensToPlayer(Player player, int tokens){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -402,7 +402,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void subtractTrainTokensFromPlayer(Player player, int tokens){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -419,7 +419,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void addTrainCardToPlayer(Player player, TrainCard card){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -436,7 +436,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void removeTrainCardFromPlayer(Player player, TrainCard card) throws Exception{
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
@@ -453,11 +453,11 @@ public class ClientModelRoot extends Observable {
     }
 
     public void addDestinationCardToPlayer(Player player, DestinationCard card){
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for(int i = 0; i < players.size(); i++){
 
             Player p = players.get(i);
-            List<DestinationCard> cards = new ArrayList<>();
+            ArrayList<DestinationCard> cards = new ArrayList<>();
             cards.add(card);
             if(p.getName().equals(player.getName())) {
 
@@ -472,11 +472,11 @@ public class ClientModelRoot extends Observable {
     }
 
     public void removeDestinationCardFromPlayer(Player player, DestinationCard card) {
-        List<Player> players = currentGameState.getPlayers();
+        ArrayList<Player> players = currentGameState.getPlayers();
         for (int i = 0; i < players.size(); i++) {
 
             Player p = players.get(i);
-            List<DestinationCard> cards = new ArrayList<>();
+            ArrayList<DestinationCard> cards = new ArrayList<>();
             cards.add(card);
             if (p.getName().equals(player.getName())) {
 

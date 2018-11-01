@@ -23,7 +23,7 @@ public class GamePresenter implements Observer {
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
     private Player currentPlayer;
-    private List<Player> players;
+    private ArrayList<Player> players;
     private int turn;
 
     private int[] coords = {225, 34, 260, 23, 297, 18, 330, 18, 366, 26, 400, 38};
@@ -65,7 +65,7 @@ public class GamePresenter implements Observer {
         //currentPlayer.addTrainCard(new TrainCard(Color.WILD));
         //currentPlayer.addTrainCard(new TrainCard(Color.BLACK));
         //Add/remove player destination cards for player
-        List<DestinationCard> d = new ArrayList<DestinationCard>();
+        ArrayList<DestinationCard> d = new ArrayList<DestinationCard>();
         d.add(new DestinationCard(City.HELENA, City.CALGARY, 8));
         modelRoot.addDestinationCardToPlayer(currentPlayer, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
         //currentPlayer.addDestinationCards(d);
@@ -105,7 +105,7 @@ public class GamePresenter implements Observer {
 
     //************UPDATE UI FUNCTIONS**********************
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(ArrayList<Player> players) {
         for(int i=1; i <= 5; i++) {
             if(i <= players.size()){
                 setPlayer(i, players.get(i-1));

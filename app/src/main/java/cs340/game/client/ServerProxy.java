@@ -30,7 +30,7 @@ public class ServerProxy {
 
     public Results DrawFaceUpTrainCard(String authToken, TrainCard card){
 
-        List<TrainCard> cardList = new ArrayList<>();
+        ArrayList<TrainCard> cardList = new ArrayList<>();
         cardList.add(card);
         TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_FACE_UP, authToken, cardList, null);
 
@@ -40,7 +40,7 @@ public class ServerProxy {
         return results;
     }
 
-    public Results DiscardTrainCard(String authToken, List<TrainCard> cards){
+    public Results DiscardTrainCard(String authToken, ArrayList<TrainCard> cards){
 
         TrainCardData cardData = new TrainCardData(CommandType.DISCARD_TRAIN_CARD, authToken, cards, null);
 
@@ -60,7 +60,7 @@ public class ServerProxy {
         return results;
     }
 
-    public Results DiscardDestinationCards(String authToken, List<DestinationCard> cards){
+    public Results DiscardDestinationCards(String authToken, ArrayList<DestinationCard> cards){
 
         DestinationCardData cardData = new DestinationCardData(CommandType.DISCARD_DESTINATION_CARD, authToken, cards);
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.R;
@@ -41,7 +42,7 @@ public class DestinationsFragment extends Fragment {
     }
 
     public void updateUI() {
-        List<DestinationCard> destinationList = InGameFacade.getInstance().getCurrentPlayer().getDestinationCards();
+        ArrayList<DestinationCard> destinationList = InGameFacade.getInstance().getCurrentPlayer().getDestinationCards();
         destinationAdapter = new DestinationAdapter(destinationList);
         destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         destinationsRecyclerView.setAdapter(destinationAdapter);
@@ -76,9 +77,9 @@ public class DestinationsFragment extends Fragment {
 
     private class DestinationAdapter extends RecyclerView.Adapter<DestinationHolder> {
 
-        private List<DestinationCard> mDestinations;
+        private ArrayList<DestinationCard> mDestinations;
 
-        private DestinationAdapter(List<DestinationCard> destinations) {
+        private DestinationAdapter(ArrayList<DestinationCard> destinations) {
             mDestinations = destinations;
         }
 

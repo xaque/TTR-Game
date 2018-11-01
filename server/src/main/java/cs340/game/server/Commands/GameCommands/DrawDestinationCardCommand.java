@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.server.Commands.iCommand;
@@ -26,7 +27,7 @@ public class DrawDestinationCardCommand implements iCommand {
             ServerException ex = new ServerException("You are not in an active game.");
             return new DestinationCardResults(false, null, ex.getMessage());
         }
-        List<DestinationCard> drawnCards = game.drawDestinationCards(username);
+        ArrayList<DestinationCard> drawnCards = game.drawDestinationCards(username);
 
         String actionMessage = username + " drew " + Integer.toString(drawnCards.size()) + " Destination cards.";
         GameHistoryAction action = new GameHistoryAction(actionMessage, null);

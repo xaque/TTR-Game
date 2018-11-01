@@ -11,7 +11,7 @@ import cs340.game.shared.models.User;
  */
 
 public class UserDatabase {
-    private List<User> userList;
+    private ArrayList<User> userList;
     private static UserDatabase instance;
 
     private UserDatabase() {

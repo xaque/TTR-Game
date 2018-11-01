@@ -1,5 +1,6 @@
 package cs340.game.client.Presenters;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
@@ -15,7 +16,7 @@ public class DrawTrainsPresenter implements Observer {
     private DrawTrainsFragment view;
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
-    private List<TrainCard> faceUps;
+    private ArrayList<TrainCard> faceUps;
 
 
     public DrawTrainsPresenter(DrawTrainsFragment drawTrainsFragment) {
@@ -37,7 +38,7 @@ public class DrawTrainsPresenter implements Observer {
         view.updateCardsLeft(Integer.toString(cards));
     }
 
-    public void setFaceUps(List<TrainCard> cards) {
+    public void setFaceUps(ArrayList<TrainCard> cards) {
         for(int i=1; i<=cards.size(); i++) {
             view.setCard(i, cards.get(i-1).getColor());
         }

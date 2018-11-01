@@ -1,5 +1,6 @@
 package cs340.game.shared.results;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.shared.models.DestinationCard;
@@ -10,10 +11,10 @@ import cs340.game.shared.models.DestinationCard;
 
 public class DestinationCardResults implements Results{
     boolean success;
-    List<DestinationCard> cards;
+    ArrayList<DestinationCard> cards;
     String errorInfo;
 
-    public DestinationCardResults(boolean success, List<DestinationCard> cards, String errorInfo) {
+    public DestinationCardResults(boolean success, ArrayList<DestinationCard> cards, String errorInfo) {
         this.success = success;
         this.cards = cards;
         this.errorInfo = errorInfo;
@@ -27,11 +28,11 @@ public class DestinationCardResults implements Results{
         this.success = success;
     }
 
-    public List<DestinationCard> getCards() {
+    public ArrayList<DestinationCard> getCards() {
         return cards;
     }
 
-    public void setCards(List<DestinationCard> cards) {
+    public void setCards(ArrayList<DestinationCard> cards) {
         this.cards = cards;
     }
 

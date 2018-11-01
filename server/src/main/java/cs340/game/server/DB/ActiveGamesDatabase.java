@@ -10,7 +10,7 @@ import cs340.game.shared.models.Player;
  */
 
 public class ActiveGamesDatabase {
-    private List<ServerGameState> games;
+    private ArrayList<ServerGameState> games;
 
     private static ActiveGamesDatabase instance;
 

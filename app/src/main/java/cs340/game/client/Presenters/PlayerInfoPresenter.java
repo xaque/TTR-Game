@@ -1,5 +1,6 @@
 package cs340.game.client.Presenters;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,7 +14,7 @@ public class PlayerInfoPresenter implements Observer {
     private PlayerInfoFragment view;
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
-    private List<Player> players;
+    private ArrayList<Player> players;
 
     public PlayerInfoPresenter(PlayerInfoFragment playerInfoFragment){
         view = playerInfoFragment;

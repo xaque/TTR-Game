@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.server.Commands.iCommand;
@@ -23,7 +24,7 @@ public class DiscardTrainCardsCommand implements iCommand {
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
-        List<TrainCard> discardedCards = trainCardData.getCards();
+        ArrayList<TrainCard> discardedCards = trainCardData.getCards();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");

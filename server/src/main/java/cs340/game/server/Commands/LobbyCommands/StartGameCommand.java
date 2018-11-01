@@ -40,8 +40,8 @@ public class StartGameCommand implements iCommand {
             return new LobbyResults(false, ex.getMessage());
         }
 
-        List<String> usernames = startingGame.getPlayers();
-        List<User> users = new ArrayList<>();
+        ArrayList<String> usernames = startingGame.getPlayers();
+        ArrayList<User> users = new ArrayList<>();
         for(int i = 0; i < usernames.size(); i++) {
             User user = UserDatabase.getInstance().getUserByUsername(usernames.get(i));
             users.add(user);

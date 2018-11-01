@@ -1,5 +1,6 @@
 package cs340.game.shared.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.shared.CommandType;
@@ -7,9 +8,9 @@ import cs340.game.shared.models.DestinationCard;
 
 public class DestinationCardData extends Data{
     private String authToken;
-    private List<DestinationCard> cards; // should be null to draw, should be list to return to deck
+    private ArrayList<DestinationCard> cards; // should be null to draw, should be list to return to deck
 
-    public DestinationCardData(CommandType commandType, String authToken, List<DestinationCard> cards){
+    public DestinationCardData(CommandType commandType, String authToken, ArrayList<DestinationCard> cards){
         this.commandType = commandType;
         this.authToken = authToken;
         this.cards = cards;
@@ -31,11 +32,11 @@ public class DestinationCardData extends Data{
         this.authToken = authToken;
     }
 
-    public List<DestinationCard> getCards() {
+    public ArrayList<DestinationCard> getCards() {
         return cards;
     }
 
-    public void setCards(List<DestinationCard> cards) {
+    public void setCards(ArrayList<DestinationCard> cards) {
         this.cards = cards;
     }
 }

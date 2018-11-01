@@ -57,7 +57,7 @@ public class ChatFragment extends Fragment {
     }
 
     public void updateUI() {
-        List<String> messageList = InGameFacade.getInstance().getAllMessages();
+        ArrayList<String> messageList = InGameFacade.getInstance().getAllMessages();
         messageAdapter = new MessageAdapter(messageList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -91,9 +91,9 @@ public class ChatFragment extends Fragment {
 
     private class MessageAdapter extends RecyclerView.Adapter<MessageHolder> {
 
-        private List<String> mMessages;
+        private ArrayList<String> mMessages;
 
-        private MessageAdapter(List<String> messages) {
+        private MessageAdapter(ArrayList<String> messages) {
             mMessages = messages;
         }
 

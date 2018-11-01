@@ -13,10 +13,10 @@ public class Game implements Serializable{
     private static final int MAX_GAME_SIZE = 5;
 
     private String name;
-    private List<String> players = new ArrayList<>();
+    private ArrayList<String> players = new ArrayList<>();
     private boolean gameStarted = false;
 
-    private List<Route> routes = new ArrayList<>();
+    private ArrayList<Route> routes = new ArrayList<>();
 
     public Game(String gameName, String originalUser){
 
@@ -81,7 +81,7 @@ public class Game implements Serializable{
         this.name = name;
     }
 
-    public List<String> getPlayers(){
+    public ArrayList<String> getPlayers(){
         return players;
     }
 
@@ -104,7 +104,7 @@ public class Game implements Serializable{
         }
 
         Game game = (Game) o;
-        List<String> otherPlayers = new ArrayList<>();
+        ArrayList<String> otherPlayers = new ArrayList<>();
         if(players.size() != otherPlayers.size()){
             return false;
         }

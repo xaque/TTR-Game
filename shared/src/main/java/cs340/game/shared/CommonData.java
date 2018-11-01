@@ -5,7 +5,7 @@ package cs340.game.shared;
  */
 public class CommonData {
     //TODO change to server address for client to be able to access it
-    public static final String HOSTNAME = "10.37.108.191";//"10.24.211.177";//"localhost";
+    public static final String HOSTNAME = "192.168.1.142";//"10.37.108.191";//"10.24.211.177";//"localhost";
     public static final int PORT_NUMBER = 1923;
     public static final int MAX_WAITING_CONNECTIONS = 10;
 

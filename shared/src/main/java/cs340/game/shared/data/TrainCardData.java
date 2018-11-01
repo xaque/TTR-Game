@@ -1,5 +1,6 @@
 package cs340.game.shared.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.shared.CommandType;
@@ -7,10 +8,10 @@ import cs340.game.shared.models.TrainCard;
 
 public class TrainCardData extends Data{
     private String authToken;
-    private List<TrainCard> cards;
+    private ArrayList<TrainCard> cards;
     private Integer faceUpPosition;
 
-    public TrainCardData(CommandType commandType, String authToken, List<TrainCard> cards, Integer faceUpPosition){
+    public TrainCardData(CommandType commandType, String authToken, ArrayList<TrainCard> cards, Integer faceUpPosition){
         this.commandType = commandType;
         this.authToken = authToken;
         this.cards = cards;
@@ -33,11 +34,11 @@ public class TrainCardData extends Data{
         this.authToken = authToken;
     }
 
-    public List<TrainCard> getCards() {
+    public ArrayList<TrainCard> getCards() {
         return cards;
     }
 
-    public void setCards(List<TrainCard> cards) {
+    public void setCards(ArrayList<TrainCard> cards) {
         this.cards = cards;
     }
 

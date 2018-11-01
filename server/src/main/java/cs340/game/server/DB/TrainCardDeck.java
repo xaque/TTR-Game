@@ -12,9 +12,9 @@ import cs340.game.shared.models.TrainCard;
  */
 
 public class TrainCardDeck {
-    private List<TrainCard> cards;
-    private List<TrainCard> faceUpCards;
-    private List<TrainCard> discardPile;
+    private ArrayList<TrainCard> cards;
+    private ArrayList<TrainCard> faceUpCards;
+    private ArrayList<TrainCard> discardPile;
     private int size;
 
     public TrainCardDeck() {
@@ -41,7 +41,7 @@ public class TrainCardDeck {
 
     public void shuffle(int howManyTimes) {
         Random rand = new Random();
-        List<TrainCard> shuffledList = new ArrayList<>();
+        ArrayList<TrainCard> shuffledList = new ArrayList<>();
         for(int i = 0; i < howManyTimes; i++) {
             while (this.cards.size() != 0) {
                 int index = rand.nextInt(this.cards.size());
@@ -66,8 +66,8 @@ public class TrainCardDeck {
         }
     }
 
-    public List<TrainCard> drawStartingCards() {
-        List<TrainCard> drawnCards = new ArrayList<>();
+    public ArrayList<TrainCard> drawStartingCards() {
+        ArrayList<TrainCard> drawnCards = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
             if(this.cards.size() == 0){
                 return drawnCards;
@@ -98,7 +98,7 @@ public class TrainCardDeck {
         return drawnCard;
     }
 
-    public void discardCards(List<TrainCard> cardsToDiscard) {
+    public void discardCards(ArrayList<TrainCard> cardsToDiscard) {
         discardPile.addAll(cardsToDiscard);
     }
 
@@ -106,7 +106,7 @@ public class TrainCardDeck {
         return this.size;
     }
 
-    public List<TrainCard> getFaceUpCards() {
+    public ArrayList<TrainCard> getFaceUpCards() {
         return this.faceUpCards;
     }
 }

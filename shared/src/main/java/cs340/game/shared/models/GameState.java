@@ -12,11 +12,11 @@ import cs340.game.shared.GameHistoryActionList;
 public class GameState extends Observable implements Serializable {
 
     private String name;
-    private List<Route> routes;
-    private List<Player> players;
-    private List<TrainCard> faceUpCards;
+    private ArrayList<Route> routes;
+    private ArrayList<Player> players;
+    private ArrayList<TrainCard> faceUpCards;
     private GameHistoryActionList history;
-    private List<Observer> observers;
+    private ArrayList<Observer> observers;
     private boolean isChanged;
     private int trainCardDeckSize;
 
@@ -50,7 +50,7 @@ public class GameState extends Observable implements Serializable {
         destinationTicketDeckSize = 0;
     }
 
-    public GameState(String name, List<Player> players){
+    public GameState(String name, ArrayList<Player> players){
         this.name = name;
         this.players = players;
         routes = new ArrayList<>();
@@ -70,11 +70,11 @@ public class GameState extends Observable implements Serializable {
         this.name = name;
     }
 
-    public List<Route> getRoutes() {
+    public ArrayList<Route> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<Route> routes) {
+    public void setRoutes(ArrayList<Route> routes) {
         this.routes = routes;
     }
 
@@ -88,11 +88,11 @@ public class GameState extends Observable implements Serializable {
         isChanged = true;
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
 
@@ -106,11 +106,11 @@ public class GameState extends Observable implements Serializable {
         isChanged = true;
     }
 
-    public List<TrainCard> getFaceUpCards() {
+    public ArrayList<TrainCard> getFaceUpCards() {
         return faceUpCards;
     }
 
-    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+    public void setFaceUpCards(ArrayList<TrainCard> faceUpCards) {
         this.faceUpCards = faceUpCards;
     }
 

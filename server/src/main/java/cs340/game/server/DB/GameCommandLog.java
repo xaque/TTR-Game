@@ -7,7 +7,7 @@ import cs340.game.shared.GameHistoryAction;
 
 public class GameCommandLog {
 
-    private List<GameHistoryAction> gameActions;
+    private ArrayList<GameHistoryAction> gameActions;
 
     public GameCommandLog() {gameActions = new ArrayList<>();}
 

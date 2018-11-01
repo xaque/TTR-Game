@@ -1,10 +1,12 @@
 package cs340.game.shared;
 
+import java.io.Serializable;
+
 /**
  * Created by Stephen on 10/23/2018.
  */
 
-public class GameHistoryAction {
+public class GameHistoryAction implements Serializable {
     //TODO add a CommandType or similar identifier?
     //TODO change mapChange to GameStateDiff, implement all necessary changes in Commands
     private String actionMessage;

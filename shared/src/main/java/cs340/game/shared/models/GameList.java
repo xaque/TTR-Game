@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class GameList implements Serializable{
 
-    private List<Game> games;
+    private ArrayList<Game> games;
 
     public GameList(){
 
         games = new ArrayList<>();
     }
 
-    public List<Game> GetGames() {
+    public ArrayList<Game> GetGames() {
         return games;
     }
 
@@ -77,7 +77,7 @@ public class GameList implements Serializable{
         }
 
         GameList gameList = (GameList) o;
-        List<Game> otherGames = gameList.GetGames();
+        ArrayList<Game> otherGames = gameList.GetGames();
         for(int i = 0; i < games.size(); i++){
 
             boolean gameExists = false;

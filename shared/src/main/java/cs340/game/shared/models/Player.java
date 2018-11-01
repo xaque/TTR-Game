@@ -16,10 +16,10 @@ public class Player extends Observable implements Serializable {
     private int trainTokens;
     private int points;
 
-    private List<TrainCard> trainCards = new ArrayList<>();
-    private List<DestinationCard> destinationCards = new ArrayList<>();
+    private ArrayList<TrainCard> trainCards = new ArrayList<>();
+    private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
 
-    private List<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public Player(String name, String authToken){
         this.name = name;
@@ -89,11 +89,11 @@ public class Player extends Observable implements Serializable {
         notifyObservers();
     }
 
-    public List<TrainCard> getTrainCards() {
+    public ArrayList<TrainCard> getTrainCards() {
         return trainCards;
     }
 
-    public void setTrainCards(List<TrainCard> trainCards) {
+    public void setTrainCards(ArrayList<TrainCard> trainCards) {
         this.trainCards = trainCards;
         notifyObservers();
     }
@@ -141,20 +141,20 @@ public class Player extends Observable implements Serializable {
         throw new Exception("The player does not have this card!");
     }
 
-    public void removeDestinationCards(List<DestinationCard> _cards) {//throws Exception{
+    public void removeDestinationCards(ArrayList<DestinationCard> _cards) {//throws Exception{
         destinationCards.removeAll(_cards);
         //throw new Exception("The player does not have this card!");
     }
 
-    public List<DestinationCard> getDestinationCards() {
+    public ArrayList<DestinationCard> getDestinationCards() {
         return destinationCards;
     }
 
-    public void setDestinationCards(List<DestinationCard> destinationCards) {
+    public void setDestinationCards(ArrayList<DestinationCard> destinationCards) {
         this.destinationCards = destinationCards;
     }
 
-    public void addDestinationCards(List<DestinationCard> newCards){
+    public void addDestinationCards(ArrayList<DestinationCard> newCards){
         destinationCards.addAll(newCards);
         notifyObservers();
     }

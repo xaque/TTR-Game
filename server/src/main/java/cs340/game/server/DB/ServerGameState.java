@@ -16,7 +16,7 @@ public class ServerGameState {
     private DestinationCardDeck destinationCardDeck;
     private TrainCardDeck trainCardDeck;
 
-    public ServerGameState(String name, List<User> users) {
+    public ServerGameState(String name, ArrayList<User> users) {
         //Create Players from Users
         ArrayList<Player> players = new ArrayList<>();
         for(int i = 0; i < users.size(); i++) {
@@ -32,13 +32,13 @@ public class ServerGameState {
         this.destinationCardDeck = new DestinationCardDeck();
         this.trainCardDeck = new TrainCardDeck();
         for(Player player : players) {
-            List<DestinationCard> drawnDestinationCards = destinationCardDeck.drawCards();
+            ArrayList<DestinationCard> drawnDestinationCards = destinationCardDeck.drawCards();
             player.addDestinationCards(drawnDestinationCards);
             String actionMessage = player.getName() + " drew " + Integer.toString(drawnDestinationCards.size()) + " Destination cards.";
             GameHistoryAction action = new GameHistoryAction(actionMessage, null);
             gameState.addHistoryAction(action);
 
-            List<TrainCard> drawnTrainCards = trainCardDeck.drawStartingCards();
+            ArrayList<TrainCard> drawnTrainCards = trainCardDeck.drawStartingCards();
             for(TrainCard card : drawnTrainCards) {
                 player.addTrainCard(card);
             }
@@ -59,13 +59,13 @@ public class ServerGameState {
         this.gameState = gameState;
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return this.gameState.getPlayers();
     }
 
-    public List<DestinationCard> drawDestinationCards(String username) {
-        List<DestinationCard> drawnCards = this.destinationCardDeck.drawCards();
-        List<Player> players = this.gameState.getPlayers();
+    public ArrayList<DestinationCard> drawDestinationCards(String username) {
+        ArrayList<DestinationCard> drawnCards = this.destinationCardDeck.drawCards();
+        ArrayList<Player> players = this.gameState.getPlayers();
         for(int i = 0; i < players.size(); i++) {
             if(players.get(i).getName().equals(username)) {
                 players.get(i).addDestinationCards(drawnCards);
@@ -75,8 +75,8 @@ public class ServerGameState {
         return drawnCards;
     }
 
-    public void returnDestinationCards(List<DestinationCard> cards, String username) {
-        List<Player> players = this.gameState.getPlayers();
+    public void returnDestinationCards(ArrayList<DestinationCard> cards, String username) {
+        ArrayList<Player> players = this.gameState.getPlayers();
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getName().equals(username)) {
                 players.get(i).removeDestinationCards(cards);
@@ -88,7 +88,7 @@ public class ServerGameState {
 
     public TrainCard drawTrainCardFromDeck(String username) {
         TrainCard drawnCard = this.trainCardDeck.drawCardFromDeck();
-        List<Player> players = this.gameState.getPlayers();
+        ArrayList<Player> players = this.gameState.getPlayers();
         for(Player player: players) {
             if(player.getName().equals(username)) {
                 player.addTrainCard(drawnCard);
@@ -100,7 +100,7 @@ public class ServerGameState {
 
     public TrainCard drawTrainCardFaceUp(int position, String username) {
         TrainCard drawnCard = this.trainCardDeck.drawFaceUpCard(position);
-        List<Player> players = this.gameState.getPlayers();
+        ArrayList<Player> players = this.gameState.getPlayers();
         for(Player player: players) {
             if(player.getName().equals(username)) {
                 player.addTrainCard(drawnCard);
@@ -110,9 +110,9 @@ public class ServerGameState {
         return drawnCard;
     }
 
-    public void discardTrainCards(List<TrainCard> cardsToDiscard, String username) {
-        List<Player> players = this.gameState.getPlayers();
-        List<TrainCard> discardedCards = new ArrayList<>();
+    public void discardTrainCards(ArrayList<TrainCard> cardsToDiscard, String username) {
+        ArrayList<Player> players = this.gameState.getPlayers();
+        ArrayList<TrainCard> discardedCards = new ArrayList<>();
         try {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getName().equals(username)) {
