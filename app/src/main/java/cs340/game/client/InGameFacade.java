@@ -75,6 +75,22 @@ public class InGameFacade {
         return null;
     }
 
+    public String drawFaceUpTrainCard(TrainCard card){
+
+        Player currentPlayer = clientModelRoot.getCurrentPlayer();
+
+        //GameResults results = (GameResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card);
+
+        //if(results.isSuccess()) {
+        // TODO This will be added to the player's hand through the Poller
+        clientModelRoot.addTrainCardToPlayer(currentPlayer, card);
+        //}else{
+        //    return results.getErrorInfo();
+        //}
+
+        return null;
+    }
+
     public String discardTrainCards(Color color, int numberToDiscard){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();

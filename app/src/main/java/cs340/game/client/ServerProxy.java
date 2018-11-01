@@ -1,6 +1,7 @@
 package cs340.game.client;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs340.game.shared.CommandType;
@@ -20,6 +21,18 @@ public class ServerProxy {
     public Results DrawTrainCard(String authToken){
 
         TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_DECK, authToken,null, null);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results DrawFaceUpTrainCard(String authToken, TrainCard card){
+
+        List<TrainCard> cardList = new ArrayList<>();
+        cardList.add(card);
+        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_FACE_UP, authToken, cardList, null);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);
