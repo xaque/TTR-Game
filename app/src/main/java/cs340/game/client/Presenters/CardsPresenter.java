@@ -23,7 +23,7 @@ public class CardsPresenter implements Observer {
 
         currentPlayer = gameFacade.getCurrentPlayer();
         gameState = gameFacade.getCurrentGame();
-
+        updateHand();
         //currentPlayer.addObserver(this);
         gameState.addObserver(this);
     }
