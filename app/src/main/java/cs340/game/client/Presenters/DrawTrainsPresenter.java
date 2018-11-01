@@ -48,13 +48,35 @@ public class DrawTrainsPresenter implements Observer {
 
     public void drawCard(int index) {
         ArrayList<TrainCard> newList = gameState.getFaceUpCards();
-        newList.set(index, new TrainCard(Color.WILD));
+        TrainCard newCard;
+        switch(index) {
+            case 0:
+                newCard = new TrainCard(Color.WHITE);
+                break;
+            case 1:
+                newCard = new TrainCard(Color.WILD);
+                break;
+            case 2:
+                newCard = new TrainCard(Color.BLUE);
+                break;
+            case 3:
+                newCard = new TrainCard(Color.WILD);
+                break;
+            case 4:
+                newCard = new TrainCard(Color.PINK);
+                break;
+            default:
+                newCard = new TrainCard(Color.ORANGE);
+                break;
+
+        }
+        newList.set(index, newCard);
         gameState.setFaceUpCards(newList);
     }
 
     @Override
     public void update(Observable observable, Object o) {
-        Objects.requireNonNull(view.getActivity()).runOnUiThread(new Runnable(){
+        view.getTheActivity().runOnUiThread(new Runnable(){
             @Override
             public void run() {
                 updateCardsLeft(gameState.getTrainCardDeckSize());

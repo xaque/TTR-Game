@@ -1,6 +1,7 @@
 package cs340.game.client.Views;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Rect;
@@ -32,6 +33,9 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
     private ImageView card5;
     private ImageView deck;
     private TextView cardsLeft;
+    private Activity activity;
+
+    private int selectedId;
 
     private DrawTrainsPresenter presenter;
 
@@ -46,6 +50,8 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
+                if(selectedId != 5)
+                    presenter.drawCard(selectedId);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -78,8 +84,20 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
         card5.setOnClickListener(this);
         deck.setOnClickListener(this);
 
+        selectedId = 5;
+
         presenter = new DrawTrainsPresenter(this);
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
+
+    public Activity getTheActivity() {
+        return this.activity;
     }
 
     public void updateCardsLeft(String cards) {
@@ -157,15 +175,31 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            case R.id.card1:
+                selectedId = 0;
+                break;
+            case R.id.card2:
+                selectedId = 1;
+                break;
+            case R.id.card3:
+                selectedId = 2;
+                break;
+            case R.id.card4:
+                selectedId = 3;
+                break;
+            case R.id.card5:
+                selectedId = 4;
+                break;
             case R.id.deck:
                 //Testing
+                selectedId = 5;
                 InGameFacade.getInstance().drawTrainCardFromDeck();
                 presenter.drawCard(3);
-            default:
-                unselectCards();
-                selectCard(view.getId());
                 break;
         }
+
+        unselectCards();
+        selectCard(view.getId());
 
 
 
