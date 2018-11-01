@@ -16,6 +16,11 @@ public class DestinationCard implements Serializable {
         pointValue = _pointValue;
     }
 
+    public String getCardString() {
+        return (new StringBuilder()).append(city1).append(" - ").append(city2)
+                .append(" (").append(pointValue).append(")").toString();
+    }
+
     public City getCity1() {
         return city1;
     }

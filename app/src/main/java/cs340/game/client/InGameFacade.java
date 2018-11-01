@@ -124,6 +124,10 @@ public class InGameFacade {
         return null;
     }
 
+    public ArrayList<DestinationCard> getDestinationCardsFromCurrentPlayer() {
+        return getCurrentPlayer().getDestinationCards();
+    }
+
     public String drawDestinationCards(){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();

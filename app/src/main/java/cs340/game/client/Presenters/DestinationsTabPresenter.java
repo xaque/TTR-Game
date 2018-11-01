@@ -6,11 +6,11 @@ import java.util.Observer;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.DestinationsFragment;
 
-public class DestinationsPresenter implements Observer {
+public class DestinationsTabPresenter implements Observer {
     private DestinationsFragment view;
     private InGameFacade facade = InGameFacade.getInstance();
 
-    public DestinationsPresenter(DestinationsFragment destinationsFragment) {
+    public DestinationsTabPresenter(DestinationsFragment destinationsFragment) {
         view = destinationsFragment;
 
         facade.getCurrentPlayer().addObserver(this);

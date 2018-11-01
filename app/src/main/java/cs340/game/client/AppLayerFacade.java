@@ -18,7 +18,7 @@ import cs340.game.shared.results.LoginResults;
  * Handles communication with the ClientModelRoot object. Meant to limit dependencies between the
  * Presenters and the Models.
  */
-public class AppLayerFacade{
+public class AppLayerFacade {
 
     // Start Singleton
     private static AppLayerFacade instance;

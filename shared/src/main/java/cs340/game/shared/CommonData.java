@@ -7,8 +7,8 @@ public class CommonData {
     //TODO change to server address for client to be able to access it
     //public static final String HOSTNAME = "192.168.1.142";//Zack
     //public static final String HOSTNAME = "10.37.108.191";
-    //public static final String HOSTNAME = "10.24.211.177";
-    public static final String HOSTNAME = "192.168.56.1";//Tyler
+    public static final String HOSTNAME = "10.24.203.81";//DJ
+    //public static final String HOSTNAME = "192.168.56.1";//Tyler
     //public static final String HOSTNAME = "192.168.1.206";//Tanner
     public static final int PORT_NUMBER = 1923;
     public static final int MAX_WAITING_CONNECTIONS = 10;

@@ -1,6 +1,7 @@
 package cs340.game.client.Views;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,23 +16,23 @@ import java.util.List;
 
 import cs340.game.R;
 import cs340.game.client.InGameFacade;
-import cs340.game.client.Presenters.DestinationsPresenter;
+import cs340.game.client.Presenters.DestinationsTabPresenter;
 import cs340.game.shared.models.DestinationCard;
 
 public class DestinationsFragment extends Fragment {
 
-    private DestinationsPresenter presenter;
+    private DestinationsTabPresenter presenter;
 
     private RecyclerView destinationsRecyclerView;
     private DestinationAdapter destinationAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.dest_tab, container, false);
         destinationsRecyclerView = v.findViewById(R.id.destinations_reyclerview);
 
-        presenter = new DestinationsPresenter(this);
+        presenter = new DestinationsTabPresenter(this);
         return v;
     }
 

@@ -1,5 +1,7 @@
 package cs340.game.client.Presenters;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,6 +10,7 @@ import java.util.Observer;
 import cs340.game.client.AppLayerFacade;
 import cs340.game.client.ClientModelRoot;
 import cs340.game.client.InGameFacade;
+import cs340.game.client.Views.DestinationsDialog;
 import cs340.game.client.Views.GameActivity;
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
@@ -43,6 +46,13 @@ public class GamePresenter implements Observer {
 
         gameFacade.addObserver(this);
         currentPlayer.addObserver(this);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isStartOfGame", true);
+        DestinationsDialog destinationsDialog = new DestinationsDialog();
+        destinationsDialog.setArguments(bundle);
+        destinationsDialog.show(view.getActivityContext().getSupportFragmentManager(),"Game Activity");
     }
 
 

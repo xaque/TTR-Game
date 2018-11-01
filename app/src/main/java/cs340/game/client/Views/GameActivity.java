@@ -179,6 +179,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         imageView.setImageBitmap(mutableBitmap);
     }
 
+    public GameActivity getActivityContext() {
+        return this;
+    }
+
     public void setPaints(){
         red.setColor(ResourcesCompat.getColor(
                 getResources(), R.color.red, null)
@@ -338,7 +342,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 drawTrainsDialog.show(getSupportFragmentManager(), "draw trains");
                 break;
             case R.id.draw_destinations_button:
-                Toast.makeText(this, "You clicked DRAW DESTINATIONS. Nice job!", Toast.LENGTH_SHORT).show();
+                DestinationsDialog destinationsDialog = new DestinationsDialog();
+                destinationsDialog.show(getSupportFragmentManager(), "draw destinations");
                 break;
             case R.id.place_trains_button:
                 Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
