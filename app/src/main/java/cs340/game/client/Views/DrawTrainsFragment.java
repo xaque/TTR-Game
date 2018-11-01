@@ -160,6 +160,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
             case R.id.deck:
                 //Testing
                 InGameFacade.getInstance().drawTrainCardFromDeck();
+                presenter.drawCard(3);
             default:
                 unselectCards();
                 selectCard(view.getId());

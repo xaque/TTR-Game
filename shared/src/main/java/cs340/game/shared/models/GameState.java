@@ -112,6 +112,7 @@ public class GameState extends Observable implements Serializable {
 
     public void setFaceUpCards(ArrayList<TrainCard> faceUpCards) {
         this.faceUpCards = faceUpCards;
+        notifyObservers();
     }
 
     public GameHistoryActionList getHistory() {

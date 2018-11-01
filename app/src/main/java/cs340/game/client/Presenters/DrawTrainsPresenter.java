@@ -8,6 +8,7 @@ import java.util.Observer;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.DrawTrainsFragment;
+import cs340.game.shared.Color;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.TrainCard;
 
@@ -31,6 +32,7 @@ public class DrawTrainsPresenter implements Observer {
         setFaceUps(faceUps);
 
         gameFacade.addObserver(this);
+        gameState.addObserver(this);
 
     }
 
@@ -42,6 +44,12 @@ public class DrawTrainsPresenter implements Observer {
         for(int i=1; i<=cards.size(); i++) {
             view.setCard(i, cards.get(i-1).getColor());
         }
+    }
+
+    public void drawCard(int index) {
+        ArrayList<TrainCard> newList = gameState.getFaceUpCards();
+        newList.set(index, new TrainCard(Color.WILD));
+        gameState.setFaceUpCards(newList);
     }
 
     @Override
