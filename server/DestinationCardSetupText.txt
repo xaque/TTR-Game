@@ -5,9 +5,9 @@ Chicago,New_Orleans,7
 Calgary,Salt_Lake_City,7
 Helena,Los_Angeles,8
 Duluth,Houston,8
-Sault_St._Marie,Nashville,8
+Sault_St_Marie,Nashville,8
 Montreal,Atlanta,9
-Sault_St._Marie,Oklahoma_City,9
+Sault_St_Marie,Oklahoma_City,9
 Seattle,Los_Angeles,9
 Chicago,Santa_Fe,9
 Duluth,El_Paso,10

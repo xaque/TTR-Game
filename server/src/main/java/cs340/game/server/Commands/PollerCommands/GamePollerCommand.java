@@ -13,8 +13,12 @@ import cs340.game.shared.results.Results;
 public class GamePollerCommand implements iCommand {
     public Results execute(Data data) {
         GamePollerData pData = (GamePollerData)data;
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(pData.getAuthtoken());
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(pData.getAuthtoken());
         GameState gameState = game.getGameState();
+
+        for(int i = 0; i < gameState.getHistory().getSize(); i++){
+            System.out.println(gameState.getHistory().getActions().get(i).getActionMessage());
+        }
 
         // Check if the Client is up to date
         int currentSequenceNumber = pData.getSequenceNumber();

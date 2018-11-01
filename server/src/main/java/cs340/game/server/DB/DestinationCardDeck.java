@@ -25,8 +25,10 @@ public class DestinationCardDeck {
 
 
     public DestinationCardDeck() {
+        cards = new ArrayList<>();
+
         try {
-            FileReader fileReader = new FileReader("DestinationCardSetupText.txt");
+            FileReader fileReader = new FileReader("server/DestinationCardSetupText.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             while((line = bufferedReader.readLine()) != null) {
@@ -46,6 +48,9 @@ public class DestinationCardDeck {
         catch(IOException ex) {
             System.out.println("Cannot read from DestinationCardSetupText file.");
         }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void shuffle(int howManyTimes) {
@@ -57,7 +62,10 @@ public class DestinationCardDeck {
                 DestinationCard removedCard = this.cards.remove(index);
                 shuffledList.add(removedCard);
             }
-            this.cards = shuffledList;
+            //this.cards = shuffledList;
+            for(int j = 0; j < shuffledList.size(); j++){
+                this.cards.add(shuffledList.get(j));
+            }
             shuffledList.clear();
         }
     }
@@ -73,6 +81,9 @@ public class DestinationCardDeck {
         //TODO contingency if deck is empty? (size = 0)
         List<DestinationCard> drawnCards = new ArrayList<>();
         for(int i = 0; i < numberOfDrawnCards; i++) {
+            if(this.cards.size() == 0){
+                return drawnCards;
+            }
             DestinationCard drawnCard = this.cards.remove(0);
             this.size -= 1;
             drawnCards.add(drawnCard);

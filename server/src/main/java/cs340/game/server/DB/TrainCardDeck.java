@@ -18,7 +18,11 @@ public class TrainCardDeck {
     private int size;
 
     public TrainCardDeck() {
-        for(int i = 0; i < 12; i++) {
+        cards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        discardPile = new ArrayList<>();
+
+        for (int i = 0; i < 12; i++) {
             cards.add(new TrainCard(Color.RED));
             cards.add(new TrainCard(Color.YELLOW));
             cards.add(new TrainCard(Color.GREEN));
@@ -44,13 +48,19 @@ public class TrainCardDeck {
                 TrainCard removedCard = this.cards.remove(index);
                 shuffledList.add(removedCard);
             }
-            this.cards = shuffledList;
+            //this.cards = shuffledList;
+            for(int j = 0; j < shuffledList.size(); j++){
+                this.cards.add(shuffledList.get(j));
+            }
             shuffledList.clear();
         }
     }
 
     public void initializeFaceUpCards() {
         for(int i = 0; i < 5; i++) {
+            if(this.cards.size() == 0){
+                return;
+            }
             this.faceUpCards.add(this.cards.remove(0));
             this.size -= 1;
         }
@@ -59,6 +69,9 @@ public class TrainCardDeck {
     public List<TrainCard> drawStartingCards() {
         List<TrainCard> drawnCards = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
+            if(this.cards.size() == 0){
+                return drawnCards;
+            }
             TrainCard drawnCard = this.cards.remove(0);
             this.size -= 1;
             drawnCards.add(drawnCard);

@@ -111,7 +111,7 @@ public class Poller implements Runnable{
 
             System.out.println(modelRoot.getGames().toString());
         }else{
-            //System.out.println("Not Success");
+            System.out.println("Not Success");
         }
     }
 
