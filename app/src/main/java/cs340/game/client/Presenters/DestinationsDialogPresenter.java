@@ -21,7 +21,7 @@ public class DestinationsDialogPresenter implements Observer {
     public DestinationsDialogPresenter(DestinationsDialog destinationsFragment) {
         view = destinationsFragment;
 
-        facade.getCurrentPlayer().addObserver(this);
+        facade.addObserverToCurrentPlayer(this);
         gameActivity = view.getActivity();
     }
 

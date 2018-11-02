@@ -33,6 +33,7 @@ public class DrawTrainsPresenter implements Observer {
 
         gameFacade.addObserver(this);
         gameFacade.addObserverToGameState(this);
+        gameFacade.addObserverToCurrentPlayer(this);
     }
 
     public void updateCardsLeft(int cards) {

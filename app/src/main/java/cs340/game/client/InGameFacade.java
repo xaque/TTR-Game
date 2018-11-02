@@ -161,7 +161,7 @@ public class InGameFacade {
 
         GameResults results = (GameResults)proxy.DiscardDestinationCards(currentPlayer.getAuthToken(), cards);
 
-        if(results.isSuccess()){
+        /*if(results.isSuccess()){
             try {
                 currentPlayer.removeDestinationCards(cards);
             }catch (Exception e){
@@ -169,7 +169,7 @@ public class InGameFacade {
             }
         }else{
             return results.getErrorInfo();
-        }
+        }*/
 
         return null;
     }
