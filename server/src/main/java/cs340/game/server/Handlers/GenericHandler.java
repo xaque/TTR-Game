@@ -34,7 +34,7 @@ public class GenericHandler implements HttpHandler {
         Data data = null;
         try {
             data = Serializer.deserializeData(raw);
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return data;
