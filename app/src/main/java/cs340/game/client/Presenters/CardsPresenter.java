@@ -14,20 +14,27 @@ public class CardsPresenter implements Observer {
 
     private CardsFragment view;
 
-    private InGameFacade gameFacade = InGameFacade.getInstance();
     private Player currentPlayer;
-    private GameState gameState;
 
+    /**
+     * The constructor; It initializes the numbers of cards displayed, and
+     * adds the presenter to the list of observers in the gameState.
+     *
+     * @param cardsFragment     The view associated with this presenter
+     */
     public CardsPresenter(CardsFragment cardsFragment) {
         view = cardsFragment;
 
+        InGameFacade gameFacade = InGameFacade.getInstance();
         currentPlayer = gameFacade.getCurrentPlayer();
-        gameState = gameFacade.getCurrentGame();
+        GameState gameState = gameFacade.getCurrentGame();
         updateHand();
-        //currentPlayer.addObserver(this);
         gameState.addObserver(this);
     }
 
+    /**
+     *
+     */
     public void updateHand(){
         int reds=0;
         int blues=0;
@@ -38,7 +45,6 @@ public class CardsPresenter implements Observer {
         int purples=0;
         int oranges=0;
         int wilds=0;
-        System.out.println(currentPlayer.getTrainCards().size() + " CARDS");
 
         for(TrainCard card : currentPlayer.getTrainCards()) {
             switch(card.getColor()) {
@@ -84,17 +90,13 @@ public class CardsPresenter implements Observer {
         view.setWild_count(Integer.toString(wilds));
     }
 
-
-
-
-
+    /**
+     *
+     * @param observable
+     * @param o
+     */
     @Override
     public void update(Observable observable, Object o) {
-        Objects.requireNonNull(view.getActivity()).runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                updateHand();
-            }
-        });
+        view.update();
     }
 }

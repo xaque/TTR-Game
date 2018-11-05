@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import cs340.game.R;
 import cs340.game.client.Presenters.CardsPresenter;
 
@@ -84,6 +86,15 @@ public class CardsFragment extends Fragment {
 
     public void setWild_count(String count) {
         this.wild_count.setText(count);
+    }
+    
+    public void update() {
+        Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                presenter.updateHand();
+            }
+        });
     }
 
 }
