@@ -30,7 +30,6 @@ public class Player extends Observable implements Serializable {
 
     public Player(String name) {
         this.name = name;
-        this.authToken = null;
         this.points = 0;
         this.trainTokens = 45;
     }

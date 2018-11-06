@@ -77,7 +77,9 @@ public class ClientModelRoot extends Observable {
 
             if(diffPlayers.get(i).getName().equals(currentPlayer.getName())){
                 System.out.println(diffPlayers.get(i).getName() + " ME!");
+                String currentAuthToken = currentPlayer.getAuthToken();
                 currentPlayer = diffPlayers.get(i);
+                currentPlayer.setAuthToken(currentAuthToken);
                 currentPlayer.notifyObservers();
             }
         }
@@ -123,7 +125,7 @@ public class ClientModelRoot extends Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
 
-        if(this.currentPlayer == null) {
+        if(currentPlayer.getAuthToken() != null) {
             this.currentPlayer = currentPlayer;
         }
     }

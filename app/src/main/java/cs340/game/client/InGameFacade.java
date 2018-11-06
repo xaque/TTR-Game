@@ -178,7 +178,8 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DiscardDestinationCards(currentPlayer.getName()/*currentPlayer.getAuthToken()*/, cards);
+        System.out.println("AUTH TOKEN" + currentPlayer.getAuthToken());
+        GameResults results = (GameResults)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
 
         if(results.isSuccess()){
             try {
