@@ -25,7 +25,8 @@ public class ReturnDestinationCardCommand implements iCommand {
         String authToken = destinationCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
         ArrayList<DestinationCard> returnedCards = destinationCardData.getCards();
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
+        //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");
             return new DestinationCardResults(false, null, ex.getMessage());

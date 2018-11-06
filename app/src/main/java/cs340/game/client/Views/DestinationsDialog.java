@@ -55,7 +55,7 @@ public class DestinationsDialog extends DialogFragment {
             isStartOfGame = (boolean)savedInstanceState.get("startOfGame");
         }
 
-        builder.setMessage("Pick at most 1 Destination Card to discard.")
+        builder.setMessage("Pick at least 2 Destination Card to keep.")
                 .setTitle(R.string.drawDestinations);
 
         builder.setPositiveButton(R.string.ok, null);
@@ -80,7 +80,7 @@ public class DestinationsDialog extends DialogFragment {
                                 submitDestinationCardSelection();
                                 dialog.dismiss();
                             } else {
-                                Toast.makeText(getActivity(), "You must select at least 2 destination cards to keep at the beginning of the game.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "You must select at most 1 destination cards to discard at the beginning of the game.", Toast.LENGTH_LONG).show();
                             }
 //                        } else {
 //                            if (selectedDestinationCards.size() >= 1) {
