@@ -19,6 +19,8 @@ public class GameState extends Observable implements Serializable {
     private ArrayList<Observer> observers;
     private boolean isChanged;
     private int trainCardDeckSize;
+    private String currentTurn;
+    private boolean oneTrainCardDrawn;
 
     public int getTrainCardDeckSize() {
         return trainCardDeckSize;
@@ -48,6 +50,7 @@ public class GameState extends Observable implements Serializable {
         isChanged = false;
         trainCardDeckSize = 0;
         destinationTicketDeckSize = 0;
+        oneTrainCardDrawn = false;
     }
 
     public GameState(String name, ArrayList<Player> players){
@@ -60,6 +63,7 @@ public class GameState extends Observable implements Serializable {
         isChanged = false;
         trainCardDeckSize = 0;
         destinationTicketDeckSize = 0;
+        oneTrainCardDrawn = false;
     }
 
     public String getGameName() {
@@ -130,6 +134,22 @@ public class GameState extends Observable implements Serializable {
     /*public void updateHistory(GameHistoryActionList newHistory){
         this.history.getActions().addAll(newHistory.getActions());
     }*/
+
+    public String getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(String currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
+    public boolean isOneTrainCardDrawn() {
+        return oneTrainCardDrawn;
+    }
+
+    public void setOneTrainCardDrawn(boolean oneTrainCardDrawn) {
+        this.oneTrainCardDrawn = oneTrainCardDrawn;
+    }
 
     public void checkForChanges(){
         if(isChanged){

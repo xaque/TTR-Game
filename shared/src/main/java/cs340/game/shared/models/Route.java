@@ -61,6 +61,10 @@ public class Route implements Serializable {
         this.playerOnRoute = playerOnRoute;
     }
 
+    public boolean isClaimed(){
+        return !playerOnRoute.isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

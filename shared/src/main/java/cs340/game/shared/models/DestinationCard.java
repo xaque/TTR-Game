@@ -9,11 +9,13 @@ public class DestinationCard implements Serializable {
     private City city1;
     private City city2;
     private int pointValue;
+    private boolean completed;
 
     public DestinationCard(City _city1, City _city2, int _pointValue){
         city1 = _city1;
         city2 = _city2;
         pointValue = _pointValue;
+        completed = false;
     }
 
     public String getCardString() {
@@ -43,5 +45,13 @@ public class DestinationCard implements Serializable {
 
     public void setPointValue(int pointValue) {
         this.pointValue = pointValue;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

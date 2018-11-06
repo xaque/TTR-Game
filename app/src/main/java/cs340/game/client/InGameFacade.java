@@ -76,11 +76,20 @@ public class InGameFacade {
         //}else{
         //    return results.getErrorInfo();
         //}
+        GameState gameState = getCurrentGame();
+        gameState.setOneTrainCardDrawn(!gameState.isOneTrainCardDrawn());
 
         return null;
     }
 
     public String drawFaceUpTrainCard(TrainCard card){
+
+        GameState gameState = getCurrentGame();
+        if(card.getColor() == Color.WILD){
+            if(gameState.isOneTrainCardDrawn()){
+                return "You cannot draw a locomotive because you already drew a card, select another train card to draw!";
+            }
+        }
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -92,6 +101,9 @@ public class InGameFacade {
         //}else{
         //    return results.getErrorInfo();
         //}
+        if(card.getColor() != Color.WILD){
+            gameState.setOneTrainCardDrawn(!gameState.isOneTrainCardDrawn());
+        }
 
         return null;
     }
@@ -131,6 +143,11 @@ public class InGameFacade {
     }
 
     public String drawDestinationCards(){
+
+        GameState gameState = getCurrentGame();
+        if(gameState.isOneTrainCardDrawn()){
+            return "You cannot draw a destination card because you have already drawn a train card, select another train card to draw!";
+        }
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
@@ -179,6 +196,15 @@ public class InGameFacade {
     // ROUTES
     public String claimRoute(Route route){
 
+        GameState gameState = getCurrentGame();
+        if(gameState.isOneTrainCardDrawn()){
+            return "You cannot claim a route because you have already drawn a train card, select another train card to draw!";
+        }
+
+        if(!canClaimRoute(route)){
+            return "You cannot claim this route!";
+        }
+
         Player currentPlayer = getCurrentPlayer();
         if(!currentPlayer.hasSufficientCards(route.getColor(), route.getLength())){
             return "You do not have enough cards to claim this route!";
@@ -191,6 +217,10 @@ public class InGameFacade {
 
     public String claimGreyRoute(Route route, Color color){
 
+        if(!canClaimRoute(route)){
+            return "You cannot claim this route!";
+        }
+
         Player currentPlayer = getCurrentPlayer();
         if(!currentPlayer.hasSufficientCards(color, route.getLength())){
             return "You do not have enough cards of this color to claim this route!";
@@ -199,6 +229,39 @@ public class InGameFacade {
         ClaimRouteResults results = (ClaimRouteResults)proxy.ClaimGreyRoute(currentPlayer.getName(), route, color);
 
         return null;
+    }
+
+    private boolean canClaimRoute(Route route){
+
+        GameState gameState = getCurrentGame();
+        List<Route> routes = gameState.getRoutes();
+        int routeCount = 0;
+        boolean secondRouteClaimed = false;
+        String playerThatClaimedRoute = "";
+        for(int i = 0; i < routes.size(); i++){
+            if(route.equals(routes.get(i))){
+                routeCount++;
+                secondRouteClaimed = (secondRouteClaimed || routes.get(i).isClaimed());
+                if(secondRouteClaimed){
+                    playerThatClaimedRoute = routes.get(i).getPlayerOnRoute();
+                }
+            }
+        }
+
+        if(routeCount > 1) {
+            if ((secondRouteClaimed && (gameState.getPlayers().size() < 4))
+                    || getCurrentPlayer().getName().equals(playerThatClaimedRoute)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isCurrentPlayersTurn(){
+        String currentPlayerName = getCurrentPlayer().getName();
+        String playerWithCurrentTurn = getCurrentGame().getCurrentTurn();
+        return currentPlayerName.equals(playerWithCurrentTurn);
     }
 
     // CHAT
