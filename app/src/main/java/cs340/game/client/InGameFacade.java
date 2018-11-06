@@ -189,6 +189,18 @@ public class InGameFacade {
         return null;
     }
 
+    public String claimGreyRoute(Route route, Color color){
+
+        Player currentPlayer = getCurrentPlayer();
+        if(!currentPlayer.hasSufficientCards(color, route.getLength())){
+            return "You do not have enough cards of this color to claim this route!";
+        }
+
+        ClaimRouteResults results = (ClaimRouteResults)proxy.ClaimGreyRoute(currentPlayer.getName(), route, color);
+
+        return null;
+    }
+
     // CHAT
     public String sendMessage(String message){
 

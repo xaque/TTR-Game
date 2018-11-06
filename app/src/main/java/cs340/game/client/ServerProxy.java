@@ -4,6 +4,7 @@ package cs340.game.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs340.game.shared.Color;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.ChatData;
@@ -75,6 +76,16 @@ public class ServerProxy {
     public Results ClaimRoute(String username, Route route){
 
         ClaimRouteData data = new ClaimRouteData(username, route);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, data);
+
+        return results;
+    }
+
+    public Results ClaimGreyRoute(String username, Route route, Color color){
+
+        ClaimRouteData data = new ClaimRouteData(username, route, color);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, data);
