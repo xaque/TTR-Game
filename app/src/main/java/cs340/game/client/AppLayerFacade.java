@@ -36,7 +36,13 @@ public class AppLayerFacade {
     }
     // End Singleton
 
+    /**
+     * A reference to the ServerProxy instance, a class that is a proxy for communication to the server.
+     */
     private ServerProxy proxy = new ServerProxy();
+    /**
+     * A reference to the ClientModelRoot instance, a singleton class that holds all model data for the client.
+     */
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
 
     // LOBBY
@@ -47,6 +53,13 @@ public class AppLayerFacade {
      * @param presenter the Presenter that will be notified of the success of this method
      * @param username the username of the user to be logged in
      * @param password the password of the user to be logged in
+     * @pre presenter != null
+     * @pre username != null
+     * @pre password != null
+     * @pre Current User = null
+     * @post logs in the newly created user
+     * @post starts the poller
+     * @post the return String will be null if there was not an error encountered on the server
      */
     public String Login(MainActivityPresenter presenter, String username, String password){
 
@@ -88,6 +101,14 @@ public class AppLayerFacade {
      * @param presenter the Presenter that will be notified of the success of this method
      * @param username the username of the user to be registered and then logged in
      * @param password the password of the user to be registered and then logged in
+     * @pre presenter != null
+     * @pre username != null
+     * @pre password != null
+     * @pre Current User = null
+     * @post create a new user with the username and password passed in
+     * @post logs in the newly created user
+     * @post starts the poller
+     * @post the return String will be null if there was not an error encountered on the server
      */
     public String Register(MainActivityPresenter presenter, String username, String password){
 
@@ -125,6 +146,8 @@ public class AppLayerFacade {
      * Logs the player out. Part of this process is setting the current user to null and stopping
      * the Poller so it does not continue looking for updates when there is nothing to update.
      * @see Poller
+     * @post the Current User = null
+     * @post the poller is stopped
      */
     public void Logout(){
 
@@ -141,6 +164,13 @@ public class AppLayerFacade {
      * @see ServerProxy
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game the will be created
+     * @pre the Current User is not null
+     * @pre presenter != null
+     * @pre a current game does not have the name passed in
+     * @pre gameName != null
+     * @post a game with the name passed in is created
+     * @post the Current User is in the game created
+     * @post the return String will be null if there was not an error encountered on the server
      */
     public String CreateGame(GameListPresenter presenter, String gameName){
 
@@ -185,6 +215,13 @@ public class AppLayerFacade {
      * @see ServerProxy
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game to which the user will be added
+     * @pre the Current User is not null
+     * @pre presenter != null
+     * @pre a game with the name passed in must exist
+     * @pre the Current User is not already in the game
+     * @pre the game has less than 5 players
+     * @post the player is in the game
+     * @post the return String will be null if there was not an error encountered on the server
      */
     public String JoinGame(GameListPresenter presenter, String gameName){
 
@@ -230,6 +267,14 @@ public class AppLayerFacade {
      * a game.
      * @param presenter the Presenter that will be notified of the success of this method
      * @param gameName the name of the game that will be started
+     * @pre the Current User is not null
+     * @pre presenter != null
+     * @pre a game with the name passed in must exist
+     * @pre the Current User must have already joined the game that is being started
+     * @pre the game being started must have at least 2 players in it
+     * @post the game is started
+     * @post the GameState and Players are initialized
+     * @post the return String will be null if there was not an error encountered on the server
      */
     public String StartGame(GameLobbyPresenter presenter, String gameName){
 
@@ -286,6 +331,12 @@ public class AppLayerFacade {
         return clientModelRoot.getGame(gameName);
     }
 
+    /**
+     * Retrieve a list of all games from the server.
+     * @return a list of all of the games in the lobby from the server
+     * @pre this is only to be called as the Game Lobby View is initialized
+     * @post all games are loaded into the lobby from the server
+     */
     public GameList getAllGames(){
         GameList games = clientModelRoot.getGames();
         if(games.size() == 0){
@@ -323,6 +374,11 @@ public class AppLayerFacade {
         return games;
     }
 
+    /**
+     * Retrieve all games from the server so that they appear immediately on the screen.
+     * @pre this is only to be called as the Game Lobby View is initialized
+     * @post all games are loaded into the lobby from the server
+     */
     private void preLoadGames(){
 
         LobbyPollerData pollerData = new LobbyPollerData(0);
