@@ -12,8 +12,10 @@ import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Game;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
+import cs340.game.shared.models.Route;
 import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
+import cs340.game.shared.results.ClaimRouteResults;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.GameResults;
 
@@ -170,6 +172,19 @@ public class InGameFacade {
         }else{
             return results.getErrorInfo();
         }*/
+
+        return null;
+    }
+
+    // ROUTES
+    public String claimRoute(Route route){
+
+        Player currentPlayer = getCurrentPlayer();
+        if(!currentPlayer.hasSufficientCards(route.getColor(), route.getLength())){
+            return "You do not have enough cards to claim this route!";
+        }
+
+        ClaimRouteResults results = (ClaimRouteResults)proxy.ClaimRoute(currentPlayer.getName(), route);
 
         return null;
     }

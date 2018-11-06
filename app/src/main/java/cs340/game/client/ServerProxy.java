@@ -7,11 +7,13 @@ import java.util.List;
 import cs340.game.shared.CommandType;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.ChatData;
+import cs340.game.shared.data.ClaimRouteData;
 import cs340.game.shared.data.DestinationCardData;
 import cs340.game.shared.data.LobbyData;
 import cs340.game.shared.data.LoginData;
 import cs340.game.shared.data.TrainCardData;
 import cs340.game.shared.models.DestinationCard;
+import cs340.game.shared.models.Route;
 import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 import cs340.game.shared.results.Results;
@@ -66,6 +68,16 @@ public class ServerProxy {
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);
+
+        return results;
+    }
+
+    public Results ClaimRoute(String username, Route route){
+
+        ClaimRouteData data = new ClaimRouteData(username, route);
+
+        ClientCommunicator communicator = ClientCommunicator.getInstance();
+        Results results = communicator.send(CommonData.GAME_URI, data);
 
         return results;
     }
