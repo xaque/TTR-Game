@@ -13,12 +13,21 @@ public class Route implements Serializable {
     private Color color;
     private int length;
     private String playerOnRoute;
+    private int[] coordinates;
 
     public boolean connectsToCity(City city){
         boolean hasCity1 = (city1 == city);
         boolean hasCity2 = (city2 == city);
 
         return (hasCity1 || hasCity2);
+    }
+
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(int[] coordinates) {
+        this.coordinates = coordinates;
     }
 
     public City getCity1() {
