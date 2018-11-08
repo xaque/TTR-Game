@@ -67,12 +67,12 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        //GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
+        GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
 
         //if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
-            TrainCard newCard = new TrainCard(Color.BLUE);
-            clientModelRoot.addTrainCardToPlayer(currentPlayer, newCard);
+            //TrainCard newCard = new TrainCard(Color.BLUE);
+            //clientModelRoot.addTrainCardToPlayer(currentPlayer, newCard);
         //}else{
         //    return results.getErrorInfo();
         //}
@@ -93,11 +93,11 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        //GameResults results = (GameResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card);
+        GameResults results = (GameResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card);
 
         //if(results.isSuccess()) {
         // TODO This will be added to the player's hand through the Poller
-        clientModelRoot.addTrainCardToPlayer(currentPlayer, card);
+        //clientModelRoot.addTrainCardToPlayer(currentPlayer, card);
         //}else{
         //    return results.getErrorInfo();
         //}
@@ -155,7 +155,7 @@ public class InGameFacade {
 
         if(results.isSuccess()) {
             // TODO This will be added to the player's hand through the Poller
-            ArrayList<DestinationCard> newCards = new ArrayList<>();
+            /*ArrayList<DestinationCard> newCards = new ArrayList<>();
             DestinationCard card1 = new DestinationCard(City.DENVER, City.KANSAS_CITY, 5);
             DestinationCard card2 = new DestinationCard(City.DENVER, City.OKLAHOMA_CITY, 4);
             DestinationCard card3 = new DestinationCard(City.SALT_LAKE_CITY, City.ATLANTA, 9);
@@ -166,7 +166,7 @@ public class InGameFacade {
 
             currentPlayer.addDestinationCards(newCards);
 
-            currentPlayer.notifyObservers();
+            currentPlayer.notifyObservers();*/
         }else{
             return results.getErrorInfo();
         }
@@ -195,6 +195,11 @@ public class InGameFacade {
     }
 
     // ROUTES
+    /**
+     * Communicates with the server to claim a route.
+     * @param route the Route to be claimed
+     * @return null if the action was a success or an error message if the action failed
+     */
     public String claimRoute(Route route){
 
         GameState gameState = getCurrentGame();
@@ -202,7 +207,7 @@ public class InGameFacade {
             return "You cannot claim a route because you have already drawn a train card, select another train card to draw!";
         }
 
-        if(!canClaimRoute(route)){
+        if(!canClaimDoubleRoute(route)){
             return "You cannot claim this route!";
         }
 
@@ -216,9 +221,15 @@ public class InGameFacade {
         return null;
     }
 
+    /**
+     * Communicates with the server to claim a grey route.
+     * @param route the Route to be claimed
+     * @param color the color to be used to claim the Route
+     * @return null if the action was a success or an error message if the action failed
+     */
     public String claimGreyRoute(Route route, Color color){
 
-        if(!canClaimRoute(route)){
+        if(!canClaimDoubleRoute(route)){
             return "You cannot claim this route!";
         }
 
@@ -232,7 +243,49 @@ public class InGameFacade {
         return null;
     }
 
-    private boolean canClaimRoute(Route route){
+    /**
+     * Gets a list of all of the possible routes that the current player can claim.
+     * The criteria for this is:
+     *  1. The route is not claimed.
+     *  2. The player has sufficient cards to claim the route.
+     *  3. The double route rules do not apply.
+     * @return a list of all of the routes that the current player is capable of claiming
+     */
+    public List<Route> getClaimableRoutes(){
+
+        List<Route> routes = clientModelRoot.getCurrentGameState().getRoutes();
+        List<Route> claimableRoutes = new ArrayList<>();
+        for(int i = 0; i < routes.size(); i++){
+
+            Route route = routes.get(i);
+            String playerOnRoute = route.getPlayerOnRoute();
+
+            if(playerOnRoute.isEmpty()){
+
+                Color color = route.getColor();
+                int length = route.getLength();
+                if(getCurrentPlayer().hasSufficientCards(color, length)){
+
+                    if(canClaimDoubleRoute(route)) {
+
+                        claimableRoutes.add(route);
+                    }
+                }
+            }
+        }
+
+        return claimableRoutes;
+    }
+
+    /**
+     * Checks if the double route rules apply to a route for the current player.
+     * These rules are:
+     *  1. If there are less than 4 players, only one of the two routes can be claimed.
+     *  2. If a player has already claimed one of the routes, they cannot claim the second route.
+     * @param route the Route in question
+     * @return true if the current player can claim the route passed in, false otherwise
+     */
+    private boolean canClaimDoubleRoute(Route route){
 
         GameState gameState = getCurrentGame();
         List<Route> routes = gameState.getRoutes();
@@ -259,6 +312,10 @@ public class InGameFacade {
         return true;
     }
 
+    /**
+     * Checks if it is the current player's turn.
+     * @return true if it is the current player's turn, false otherwise
+     */
     public boolean isCurrentPlayersTurn(){
         String currentPlayerName = getCurrentPlayer().getName();
         String playerWithCurrentTurn = getCurrentGame().getCurrentTurn();
@@ -266,6 +323,11 @@ public class InGameFacade {
     }
 
     // CHAT
+    /**
+     * Communicates with the server to send a chat to the rest of the players in the game.
+     * @param message the chat the current player wants to send
+     * @return null if the action was a success or an error message if the action failed
+     */
     public String sendMessage(String message){
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
@@ -314,6 +376,11 @@ public class InGameFacade {
         clientModelRoot.removeObserverFromCurrentPlayer(o);
     }
 
+    /**
+     * Sends a request to the server to preload the state of the game. The reason for this is so that
+     * when the game starts and everything is initialized, the information that the player sees in the
+     * view is correct.
+     */
     public void preloadGameState(){
 
         Thread thread = new Thread(new Runnable() {
