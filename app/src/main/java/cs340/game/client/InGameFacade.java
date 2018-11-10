@@ -96,7 +96,6 @@ public class InGameFacade {
         GameResults results = (GameResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card);
 
         //if(results.isSuccess()) {
-        // TODO This will be added to the player's hand through the Poller
         //clientModelRoot.addTrainCardToPlayer(currentPlayer, card);
         //}else{
         //    return results.getErrorInfo();
@@ -154,8 +153,7 @@ public class InGameFacade {
         GameResults results = (GameResults)proxy.DrawDestinationCard(currentPlayer.getAuthToken());
 
         if(results.isSuccess()) {
-            // TODO This will be added to the player's hand through the Poller
-            /*ArrayList<DestinationCard> newCards = new ArrayList<>();
+            ArrayList<DestinationCard> newCards = new ArrayList<>();
             DestinationCard card1 = new DestinationCard(City.DENVER, City.KANSAS_CITY, 5);
             DestinationCard card2 = new DestinationCard(City.DENVER, City.OKLAHOMA_CITY, 4);
             DestinationCard card3 = new DestinationCard(City.SALT_LAKE_CITY, City.ATLANTA, 9);
@@ -166,7 +164,7 @@ public class InGameFacade {
 
             currentPlayer.addDestinationCards(newCards);
 
-            currentPlayer.notifyObservers();*/
+            currentPlayer.notifyObservers();
         }else{
             return results.getErrorInfo();
         }
@@ -179,17 +177,17 @@ public class InGameFacade {
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
         System.out.println("AUTH TOKEN" + currentPlayer.getAuthToken());
-        GameResults results = (GameResults)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
+        DestinationCard results = (DestinationCard)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
 
-        if(results.isSuccess()){
+        /*if(results.isSuccess()){
             try {
-                currentPlayer.removeDestinationCards(cards);
+                //currentPlayer.removeDestinationCards(cards);
             }catch (Exception e){
                 return e.getMessage();
             }
         }else{
             return results.getErrorInfo();
-        }
+        }*/
 
         return null;
     }

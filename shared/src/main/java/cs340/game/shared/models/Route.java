@@ -15,6 +15,15 @@ public class Route implements Serializable {
     private String playerOnRoute;
     private int[] coordinates;
 
+    public Route(City city1, City city2, Color color, int length, int[] coordinates){
+        this.city1 = city1;
+        this.city2 = city2;
+        this.color = color;
+        this.length = length;
+        this.coordinates = coordinates;
+        this.playerOnRoute = "";
+    }
+
     public boolean connectsToCity(City city){
         boolean hasCity1 = (city1 == city);
         boolean hasCity2 = (city2 == city);
