@@ -21,9 +21,16 @@ import cs340.game.shared.models.DestinationCard;
  */
 public class DestinationCardDeck {
     private ArrayList<DestinationCard> cards;
-    private int size;
+    private int size; //maintains the current size of the deck
 
 
+    /**
+     * Constructor for a DestinationCardDeck. Initializes all cards by reading info from
+     * server/DestinationCardSetupText.txt.
+     * @pre None
+     * @post deck initialized with all cards, size 30
+     * @exception cs340.game.shared.ServerException thrown if text file cannot be accessed
+     */
     public DestinationCardDeck() {
         cards = new ArrayList<>();
 
@@ -53,6 +60,12 @@ public class DestinationCardDeck {
         }
     }
 
+    /**
+     * Shuffles the deck by randomizing the order of the cards
+     * @param howManyTimes number of times to shuffle the deck
+     * @pre None
+     * @post None
+     */
     public void shuffle(int howManyTimes) {
         Random rand = new Random();
         ArrayList<DestinationCard> shuffledList = new ArrayList<>();
@@ -70,6 +83,13 @@ public class DestinationCardDeck {
         }
     }
 
+    /**
+     * Draws cards from the deck - 3 if possible, but if the deck is too small, draws the remaining
+     * cards.
+     * @return a list of DestinationCards - length of 3 or less
+     * @pre None
+     * @post None
+     */
     public ArrayList<DestinationCard> drawCards() {
         int numberOfDrawnCards;
         if(this.size >= 3) {
@@ -91,6 +111,10 @@ public class DestinationCardDeck {
         return drawnCards;
     }
 
+    /**
+     * Puts the returned/discarded cards back in the deck. Increases deck size accordingly
+     * @param returnedCards
+     */
     public void returnCards(ArrayList<DestinationCard> returnedCards) {
         this.cards.addAll(returnedCards);
         this.size += returnedCards.size();

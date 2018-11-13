@@ -23,7 +23,7 @@ public class ClaimRouteData extends Data{
 
     /**
      * This constructor is to be used when the player is claiming a grey route.
-     * @param username the username of teh player claiming the route
+     * @param username the username of the player claiming the route
      * @param route the Route to be claimed
      * @param color the Color that the player has chosen to use for the Route
      */
