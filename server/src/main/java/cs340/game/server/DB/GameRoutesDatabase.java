@@ -225,7 +225,8 @@ public class GameRoutesDatabase {
         int routeIndex;
         for(routeIndex = 0; routeIndex < unclaimedRoutes.size(); routeIndex++) {
             if(unclaimedRoutes.get(routeIndex).connectsToCity(routeToClaim.getCity1()) &&
-                    unclaimedRoutes.get(routeIndex).connectsToCity(routeToClaim.getCity2())) {
+                    unclaimedRoutes.get(routeIndex).connectsToCity(routeToClaim.getCity2()) &&
+                    unclaimedRoutes.get(routeIndex).getColor().equals(routeToClaim.getColor())) {
                 routeIsUnclaimed = true;
                 break;
             }
@@ -235,17 +236,21 @@ public class GameRoutesDatabase {
             Route claimedRoute = unclaimedRoutes.remove(routeIndex);
             claimedRoute.setPlayerOnRoute(username);
             claimedRoutes.add(claimedRoute);
-
-            if(routeToClaim.getCity1() == null) {
-                Color routeColor = routeToClaim.getColor();
-                for(int i = 0; i < routeToClaim.getLength(); i++) {
-
-                }
-            }
-            //TODO where is logic for 2/3 player games regarding routes with two options? Should the double route be "claimed"?
         }
         else {
             throw new ServerException("This route has already been claimed.");
+        }
+    }
+
+    public void claimDoubleRoute(Route claimedRoute) {
+        int routeIndex;
+        for(routeIndex = 0; routeIndex < unclaimedRoutes.size(); routeIndex++) {
+            if(unclaimedRoutes.get(routeIndex).connectsToCity(claimedRoute.getCity1()) &&
+                    unclaimedRoutes.get(routeIndex).connectsToCity(claimedRoute.getCity2())) {
+                Route claimedDoubleRoute = unclaimedRoutes.remove(routeIndex);
+                claimedDoubleRoute.setPlayerOnRoute("DOUBLE_ROUTE");
+                claimedRoutes.add(claimedDoubleRoute);
+            }
         }
     }
 

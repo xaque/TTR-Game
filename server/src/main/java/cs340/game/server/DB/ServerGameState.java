@@ -150,6 +150,9 @@ public class ServerGameState {
 
     public void claimRoute(Route routeToClaim, String username) throws ServerException{
         gameRoutesDatabase.claimRoute(routeToClaim, username);
+        if(gameState.getPlayers().size() <= 3 && routeToClaim.isDoubleRoute()) {
+            gameRoutesDatabase.claimDoubleRoute(routeToClaim);
+        }
         ArrayList<Player> players = this.gameState.getPlayers();
         for (Player player : players) {
             if (player.getName().equals(username)) {
