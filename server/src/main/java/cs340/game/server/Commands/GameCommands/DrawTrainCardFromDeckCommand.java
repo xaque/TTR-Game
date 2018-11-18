@@ -29,9 +29,16 @@ public class DrawTrainCardFromDeckCommand implements iCommand {
 
         TrainCard drawnCard = game.drawTrainCardFromDeck(username);
 
-        String actionMessage = username + " drew a " + drawnCard.getColor().toString() + " face up Train card.";
+        String actionMessage = username + " drew a Train card from the deck.";
         GameHistoryAction action = new GameHistoryAction(actionMessage, null);
         game.addGameCommand(action);
+
+        if(game.getGameState().isOneTrainCardDrawn()) {
+            game.endTurn();
+        }
+        else {
+            game.getGameState().setOneTrainCardDrawn(true);
+        }
 
         return new TrainCardResults(true, drawnCard, null);
     }

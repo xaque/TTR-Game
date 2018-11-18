@@ -19,6 +19,7 @@ public class ClaimRouteData extends Data{
         this.commandType = CommandType.CLAIM_ROUTE;
         this.username = username;
         this.route = route;
+        this.color = null;
     }
 
     /**

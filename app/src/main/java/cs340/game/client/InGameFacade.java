@@ -316,7 +316,7 @@ public class InGameFacade {
      */
     public boolean isCurrentPlayersTurn(){
         String currentPlayerName = getCurrentPlayer().getName();
-        String playerWithCurrentTurn = getCurrentGame().getCurrentTurn();
+        String playerWithCurrentTurn = getCurrentGame().getCurrentTurnPlayer();
         return currentPlayerName.equals(playerWithCurrentTurn);
     }
 

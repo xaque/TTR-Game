@@ -2,6 +2,7 @@ package cs340.game.server.Commands.LobbyCommands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
@@ -40,10 +41,15 @@ public class StartGameCommand implements iCommand {
             return new LobbyResults(false, ex.getMessage());
         }
 
+        //randomize starting player order
+        Random rand = new Random();
         ArrayList<String> usernames = startingGame.getPlayers();
         ArrayList<User> users = new ArrayList<>();
-        for(int i = 0; i < usernames.size(); i++) {
-            User user = UserDatabase.getInstance().getUserByUsername(usernames.get(i));
+        int index;
+        while(usernames.size() > 0) {
+            index = rand.nextInt(usernames.size());
+            String usernameToRemove = usernames.remove(index);
+            User user = UserDatabase.getInstance().getUserByUsername(usernameToRemove);
             users.add(user);
         }
 

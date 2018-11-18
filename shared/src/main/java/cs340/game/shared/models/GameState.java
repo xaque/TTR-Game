@@ -2,7 +2,6 @@ package cs340.game.shared.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,8 +18,11 @@ public class GameState extends Observable implements Serializable {
     private ArrayList<Observer> observers;
     private boolean isChanged;
     private int trainCardDeckSize;
-    private String currentTurn;
+    private String currentTurnPlayer;
     private boolean oneTrainCardDrawn;
+    private boolean finalRound;
+    private String lastPlayerInFinalRound;
+    private boolean gameOver;
 
     public int getTrainCardDeckSize() {
         return trainCardDeckSize;
@@ -50,7 +52,11 @@ public class GameState extends Observable implements Serializable {
         isChanged = false;
         trainCardDeckSize = 0;
         destinationTicketDeckSize = 0;
+        currentTurnPlayer = this.players.get(0).getName();
         oneTrainCardDrawn = false;
+        finalRound = false;
+        lastPlayerInFinalRound = null;
+        gameOver = false;
     }
 
     public GameState(String name, ArrayList<Player> players){
@@ -63,7 +69,11 @@ public class GameState extends Observable implements Serializable {
         isChanged = false;
         trainCardDeckSize = 0;
         destinationTicketDeckSize = 0;
+        currentTurnPlayer = this.players.get(0).getName();
         oneTrainCardDrawn = false;
+        finalRound = false;
+        lastPlayerInFinalRound = null;
+        gameOver = false;
     }
 
     public String getGameName() {
@@ -94,6 +104,15 @@ public class GameState extends Observable implements Serializable {
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public Player getPlayerByName(String name) {
+        for(Player player: this.players) {
+            if(player.getName().equals(name)) {
+                return player;
+            }
+        }
+        return null;
     }
 
     public void setPlayers(ArrayList<Player> players) {
@@ -135,12 +154,37 @@ public class GameState extends Observable implements Serializable {
         this.history.getActions().addAll(newHistory.getActions());
     }*/
 
-    public String getCurrentTurn() {
-        return currentTurn;
+    public boolean isFinalRound() {
+        return this.finalRound;
     }
 
-    public void setCurrentTurn(String currentTurn) {
-        this.currentTurn = currentTurn;
+    public void setFinalRound(boolean finalRound) {
+        this.finalRound = finalRound;
+    }
+
+    public String getLastPlayerInFinalRound() {
+        return this.lastPlayerInFinalRound;
+    }
+
+    public void setLastPlayerInFinalRound(String name) {
+        this.lastPlayerInFinalRound = name;
+    }
+
+    public void nextPlayerTurn() {
+        int currentPlayerIndex = this.players.indexOf(this.currentTurnPlayer);
+        currentPlayerIndex++;
+        if(currentPlayerIndex == this.players.size()) {
+            currentPlayerIndex = 0;
+        }
+        this.currentTurnPlayer = this.players.get(currentPlayerIndex).getName();
+    }
+
+    public String getCurrentTurnPlayer() {
+        return currentTurnPlayer;
+    }
+
+    public void setCurrentTurnPlayer(String currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
     }
 
     public boolean isOneTrainCardDrawn() {
@@ -149,6 +193,14 @@ public class GameState extends Observable implements Serializable {
 
     public void setOneTrainCardDrawn(boolean oneTrainCardDrawn) {
         this.oneTrainCardDrawn = oneTrainCardDrawn;
+    }
+
+    public boolean isGameOver() {
+        return this.gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
     public void checkForChanges(){

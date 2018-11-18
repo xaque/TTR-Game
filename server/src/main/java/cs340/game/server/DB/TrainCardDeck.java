@@ -78,13 +78,13 @@ public class TrainCardDeck {
      * @pre Deck must be initialized with the constructor
      * @post this.faceUpCards has 5 cards and drawFaceUpCard is now available to call
      */
-    public void initializeFaceUpCards() {
+    public void resetFaceUpCards() {
+        discardCards(this.faceUpCards);
         for(int i = 0; i < 5; i++) {
             if(this.cards.size() == 0){
                 return;
             }
-            this.faceUpCards.add(this.cards.remove(0));
-            this.size -= 1;
+            this.faceUpCards.add(drawCardFromDeck());
         }
     }
 
@@ -139,6 +139,28 @@ public class TrainCardDeck {
         TrainCard drawnCard = faceUpCards.get(position);
         faceUpCards.set(position, replacementCard);
         return drawnCard;
+    }
+
+    public boolean checkFaceUpLocomotives() {
+        boolean cardsReset = false;
+        boolean tooManyLocomotives;
+        do {
+            int faceUpLocomotiveCount = 0;
+            for (TrainCard card : this.faceUpCards) {
+                if (card.getColor() == Color.WILD) {
+                    faceUpLocomotiveCount++;
+                }
+            }
+            if (faceUpLocomotiveCount >= 3) {
+                tooManyLocomotives = true;
+                resetFaceUpCards();
+                cardsReset = true;
+            }
+            else {
+                tooManyLocomotives = false;
+            }
+        }while(tooManyLocomotives);
+        return cardsReset;
     }
 
     /**

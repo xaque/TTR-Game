@@ -13,13 +13,15 @@ public class Route implements Serializable {
     private Color color;
     private int length;
     private String playerOnRoute;
+    private boolean isDoubleRoute;
     private int[] coordinates;
 
-    public Route(City city1, City city2, Color color, int length, int[] coordinates){
+    public Route(City city1, City city2, Color color, int length, boolean isDoubleRoute, int[] coordinates){
         this.city1 = city1;
         this.city2 = city2;
         this.color = color;
         this.length = length;
+        this.isDoubleRoute = isDoubleRoute;
         this.coordinates = coordinates;
         this.playerOnRoute = "";
     }
@@ -77,6 +79,10 @@ public class Route implements Serializable {
 
     public void setPlayerOnRoute(String playerOnRoute) {
         this.playerOnRoute = playerOnRoute;
+    }
+
+    public boolean isDoubleRoute() {
+        return this.isDoubleRoute;
     }
 
     public boolean isClaimed(){
