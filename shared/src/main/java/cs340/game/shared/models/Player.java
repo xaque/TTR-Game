@@ -158,6 +158,7 @@ public class Player extends Observable implements Serializable {
     }
 
     public void addDestinationCards(ArrayList<DestinationCard> newCards){
+        System.out.println("Added " + Integer.toString(newCards.size()) + " destCards.");
         destinationCards.addAll(newCards);
         notifyObservers();
     }

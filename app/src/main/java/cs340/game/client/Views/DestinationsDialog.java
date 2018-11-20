@@ -114,6 +114,10 @@ public class DestinationsDialog extends DialogFragment {
         while (destinationCards == null) {
             destinationCards = presenter.getDestinationCards_StartOfGame();
         }
+        while (destinationCards.size() < 3) {
+            System.out.println(destinationCards.size());
+            destinationCards = presenter.getDestinationCards_StartOfGame();
+        }
         destinationCard1 = destinationCards.get(0);
         destinationCard2 = destinationCards.get(1);
         destinationCard3 = destinationCards.get(2);
