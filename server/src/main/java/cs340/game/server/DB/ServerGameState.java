@@ -86,13 +86,15 @@ public class ServerGameState {
 
     public void returnDestinationCards(ArrayList<DestinationCard> cards, String username) {
         ArrayList<Player> players = this.gameState.getPlayers();
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getName().equals(username)) {
-                players.get(i).removeDestinationCards(cards);
-                break;
+        if(cards != null) {
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getName().equals(username)) {
+                    players.get(i).removeDestinationCards(cards);
+                    break;
+                }
             }
+            this.destinationCardDeck.returnCards(cards);
         }
-        this.destinationCardDeck.returnCards(cards);
     }
 
     public TrainCard drawTrainCardFromDeck(String username) {

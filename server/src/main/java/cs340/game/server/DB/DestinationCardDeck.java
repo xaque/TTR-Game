@@ -116,8 +116,10 @@ public class DestinationCardDeck {
      * @param returnedCards
      */
     public void returnCards(ArrayList<DestinationCard> returnedCards) {
-        this.cards.addAll(returnedCards);
-        this.size += returnedCards.size();
+        if(returnedCards != null) {
+            this.cards.addAll(returnedCards);
+            this.size += returnedCards.size();
+        }
     }
 
     public int getSize() {

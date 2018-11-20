@@ -19,6 +19,8 @@ public class Player extends Observable implements Serializable {
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
 
+    private boolean hasDiscardedInitialDestinationCards;
+
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public Player(String name, String authToken){
@@ -26,12 +28,14 @@ public class Player extends Observable implements Serializable {
         this.authToken = authToken;
         this.points = 0;
         this.trainTokens = 45;
+        this.hasDiscardedInitialDestinationCards = false;
     }
 
     public Player(String name) {
         this.name = name;
         this.points = 0;
         this.trainTokens = 45;
+        this.hasDiscardedInitialDestinationCards = false;
     }
 
     public String getName() {
@@ -156,6 +160,14 @@ public class Player extends Observable implements Serializable {
     public void addDestinationCards(ArrayList<DestinationCard> newCards){
         destinationCards.addAll(newCards);
         notifyObservers();
+    }
+
+    public boolean hasDiscardedInitialDestinationCards() {
+        return this.hasDiscardedInitialDestinationCards;
+    }
+
+    public void setHasDiscardedInitialDestinationCards(boolean val) {
+        this.hasDiscardedInitialDestinationCards = val;
     }
 
     @Override

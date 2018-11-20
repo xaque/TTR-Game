@@ -12,6 +12,7 @@ import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.DestinationCardData;
 import cs340.game.shared.models.DestinationCard;
+import cs340.game.shared.models.Player;
 import cs340.game.shared.results.DestinationCardResults;
 import cs340.game.shared.results.Results;
 
@@ -34,9 +35,24 @@ public class ReturnDestinationCardCommand implements iCommand {
         try {
             game.returnDestinationCards(returnedCards, username);
 
+            if(returnedCards == null) {
+                returnedCards = new ArrayList<>();
+            }
             String actionMessage = username + " returned " + Integer.toString(returnedCards.size()) + " Destination cards to the deck.";
             GameHistoryAction action = new GameHistoryAction(actionMessage, null);
             game.addGameCommand(action);
+
+            for(Player player : game.getPlayers()) {
+                if(player.getName().equals(username)) {
+                    if(player.hasDiscardedInitialDestinationCards()) {
+                        game.endTurn();
+                    }
+                    else {
+                        player.setHasDiscardedInitialDestinationCards(true);
+                    }
+                    break;
+                }
+            }
             return new DestinationCardResults(true, null, null);
         }
         catch(Exception exception) {
