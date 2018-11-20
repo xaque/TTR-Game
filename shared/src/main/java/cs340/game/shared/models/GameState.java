@@ -23,6 +23,7 @@ public class GameState extends Observable implements Serializable {
     private boolean finalRound;
     private String lastPlayerInFinalRound;
     private boolean gameOver;
+    private String longestTrackPlayerName;
 
     public int getTrainCardDeckSize() {
         return trainCardDeckSize;
@@ -96,6 +97,7 @@ public class GameState extends Observable implements Serializable {
         for(int i = 0; i < routes.size(); i++){
             if(newRoute.equals(routes.get(i))){
                 routes.set(i, newRoute);
+                //TODO is there connection between how routes are managed in the server and the routes that are passed back to the client?
             }
         }
 
@@ -170,13 +172,14 @@ public class GameState extends Observable implements Serializable {
         this.lastPlayerInFinalRound = name;
     }
 
-    public void nextPlayerTurn() {
+    public String nextPlayerTurn() {
         int currentPlayerIndex = this.players.indexOf(this.currentTurnPlayer);
         currentPlayerIndex++;
         if(currentPlayerIndex == this.players.size()) {
             currentPlayerIndex = 0;
         }
         this.currentTurnPlayer = this.players.get(currentPlayerIndex).getName();
+        return this.currentTurnPlayer;
     }
 
     public String getCurrentTurnPlayer() {

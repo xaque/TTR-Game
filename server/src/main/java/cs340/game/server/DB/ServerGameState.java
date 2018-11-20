@@ -144,10 +144,6 @@ public class ServerGameState {
         }
     }
 
-    public void checkFaceUpLocomotives() {
-
-    }
-
     public void claimRoute(Route routeToClaim, String username) throws ServerException{
         gameRoutesDatabase.claimRoute(routeToClaim, username);
         if(gameState.getPlayers().size() <= 3 && routeToClaim.isDoubleRoute()) {
@@ -186,9 +182,15 @@ public class ServerGameState {
         }
         else if(gameState.isFinalRound() && gameState.getLastPlayerInFinalRound().equals(gameState.getCurrentTurnPlayer())) {
             //TODO add code to change state of the game to done so that the ending screen can be displayed
+            //TODO add points from completed routes
+            ArrayList<String> longestTrackPlayerName = gameRoutesDatabase.calculateLongestTrackPlayerNames(gameState.getPlayers());
             gameState.setGameOver(true);
+            return;
         }
         gameState.setOneTrainCardDrawn(false);
-        gameState.nextPlayerTurn();
+        String nextPlayerName = gameState.nextPlayerTurn();
+        String actionMessage = playerEndingTurn.getName() + "'s turn has ended. " + nextPlayerName + "'s turn!";
+        GameHistoryAction action = new GameHistoryAction(actionMessage, null);
+        addGameCommand(action);
     }
 }

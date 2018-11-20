@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
 import cs340.game.shared.ServerException;
+import cs340.game.shared.models.Player;
 import cs340.game.shared.models.Route;
 
 /**
@@ -231,7 +232,6 @@ public class GameRoutesDatabase {
                 break;
             }
         }
-
         if(routeIsUnclaimed) {
             Route claimedRoute = unclaimedRoutes.remove(routeIndex);
             claimedRoute.setPlayerOnRoute(username);
@@ -252,6 +252,89 @@ public class GameRoutesDatabase {
                 claimedRoutes.add(claimedDoubleRoute);
             }
         }
+    }
+
+    public ArrayList<String> calculateLongestTrackPlayerNames(ArrayList<Player> players) {
+        ArrayList<String> longestTrackPlayerNames = new ArrayList<>();
+        int longestTrackLength = 0;
+        ArrayList<Route> playerRoutes = new ArrayList<>();
+        ArrayList<Route> routeWorkingList = new ArrayList<>();
+        int trackLength;
+        for(Player player : players) {
+            playerRoutes.clear();
+            for(Route route : claimedRoutes) {
+                if(route.getPlayerOnRoute().equals(player.getName())) {
+                    playerRoutes.add(route);
+                }
+            }
+            for(Route route : playerRoutes) {
+                routeWorkingList.add(route);
+            }
+            for(int i = 0; i < playerRoutes.size(); i++) {
+                Route startingRoute = playerRoutes.get(i);
+                //City terminus = startingRoute.getCity1();
+                City connector = startingRoute.getCity2();
+                trackLength = startingRoute.getLength();
+                routeWorkingList.remove(startingRoute);
+                trackLength += getContinuedTrackLength(connector, routeWorkingList);
+                if(trackLength > longestTrackLength) {
+                    longestTrackPlayerNames.clear();
+                    longestTrackPlayerNames.add(player.getName());
+                    longestTrackLength = trackLength;
+                }
+                else if(trackLength == longestTrackLength) {
+                    if(!longestTrackPlayerNames.contains(player.getName())) {
+                        longestTrackPlayerNames.add(player.getName());
+                    }
+                }
+
+                //terminus = startingRoute.getCity2();
+                connector = startingRoute.getCity1();
+                trackLength = startingRoute.getLength();
+                trackLength += getContinuedTrackLength(connector, routeWorkingList);
+                if(trackLength > longestTrackLength) {
+                    longestTrackPlayerNames.clear();
+                    longestTrackPlayerNames.add(player.getName());
+                    longestTrackLength = trackLength;
+                }
+                else if(trackLength == longestTrackLength) {
+                    if(!longestTrackPlayerNames.contains(player.getName())) {
+                        longestTrackPlayerNames.add(player.getName());
+                    }
+                }
+                routeWorkingList.add(i, startingRoute);
+            }
+        }
+        return longestTrackPlayerNames;
+    }
+
+    public int getContinuedTrackLength(City connector, ArrayList<Route> remainingRoutes) {
+        Route connectingRoute;
+        City newConnector;
+        int trackLength;
+        int maxTrackLength = 0;
+        for(int i = 0; i < remainingRoutes.size(); i++) {
+            connectingRoute = null;
+            newConnector = null;
+            if(remainingRoutes.get(i).getCity1().equals(connector)) {
+                connectingRoute = remainingRoutes.get(i);
+                newConnector = connectingRoute.getCity2();
+            }
+            else if(remainingRoutes.get(i).getCity2().equals(connector)) {
+                connectingRoute = remainingRoutes.get(i);
+                newConnector = connectingRoute.getCity1();
+            }
+            if(connectingRoute != null) {
+                trackLength = connectingRoute.getLength();
+                remainingRoutes.remove(connectingRoute);
+                trackLength += getContinuedTrackLength(newConnector, remainingRoutes);
+                remainingRoutes.add(i, connectingRoute);
+                if(trackLength > maxTrackLength) {
+                    maxTrackLength = trackLength;
+                }
+            }
+        }
+        return maxTrackLength;
     }
 
 }
