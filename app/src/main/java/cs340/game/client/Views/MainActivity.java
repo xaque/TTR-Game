@@ -10,12 +10,13 @@ import android.widget.Toast;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.MainActivityPresenter;
+import cs340.game.shared.CommonData;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MainActivityPresenter presenter;
 
-    private EditText username, password;
+    private EditText username, password, ip;
     private Button login, register;
 
     @Override
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login_button);
         register = (Button) findViewById(R.id.register_button);
+
+        ip = (EditText) findViewById(R.id.ip);
 
         login.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String user = username.getText().toString();
         String pw = password.getText().toString();
+        String ipa = ip.getText().toString();
         switch(v.getId()) {
             case R.id.login_button:
                 presenter.login(user, pw);
@@ -68,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 presenter.register(user, pw);
                 break;
         }
+
+        if(!ipa.equals("")){
+            CommonData.HOSTNAME = ipa;
+        }
+
     }
 
     @Override

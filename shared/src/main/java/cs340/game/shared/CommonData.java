@@ -9,7 +9,8 @@ public class CommonData {
     //public static final String HOSTNAME = "10.37.108.191";
     //public static final String HOSTNAME = "10.24.203.81";//DJ
     //public static final String HOSTNAME = "192.168.56.1";//Tyler
-    public static final String HOSTNAME = "192.168.1.206";//Tanner
+    public static String HOSTNAME = "10.25.107.60";//Tyler
+    //public static String HOSTNAME = "192.168.1.206";//Tanner
     public static final int PORT_NUMBER = 1923;
     public static final int MAX_WAITING_CONNECTIONS = 10;
 
@@ -17,4 +18,8 @@ public class CommonData {
     public static final String LOBBY_URI = "/lobby";
     public static final String POLLER_URI = "/poller";
     public static final String GAME_URI = "/game";
+
+    public void setHostname(String ipaddress) {
+        this.HOSTNAME = ipaddress;
+    }
 }
