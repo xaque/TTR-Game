@@ -183,9 +183,11 @@ public class ServerGameState {
             addGameCommand(action);
         }
         else if(gameState.isFinalRound() && gameState.getLastPlayerInFinalRound().equals(gameState.getCurrentTurnPlayer())) {
-            //TODO add code to change state of the game to done so that the ending screen can be displayed
-            //TODO add points from completed routes
-            ArrayList<String> longestTrackPlayerName = gameRoutesDatabase.calculateLongestTrackPlayerNames(gameState.getPlayers());
+            gameRoutesDatabase.determineCompletedDestinationCards(gameState.getPlayers());
+
+            ArrayList<String> longestTrackPlayerNames = gameRoutesDatabase.calculateLongestTrackPlayerNames(gameState.getPlayers());
+            gameState.setLongestTrackPlayerNames(longestTrackPlayerNames);
+
             gameState.setGameOver(true);
             return;
         }

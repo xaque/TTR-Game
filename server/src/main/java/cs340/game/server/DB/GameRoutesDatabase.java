@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
 import cs340.game.shared.ServerException;
+import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.Route;
 
@@ -252,6 +253,67 @@ public class GameRoutesDatabase {
                 claimedRoutes.add(claimedDoubleRoute);
             }
         }
+    }
+
+    public void determineCompletedDestinationCards(ArrayList<Player> players) {
+        ArrayList<DestinationCard> cards;
+        ArrayList<Route> playerClaimedRoutes = new ArrayList<>();
+        boolean routeCompleted;
+        City terminus1;
+        City terminus2;
+        for(Player player : players) {
+            for(Route route : claimedRoutes) {
+                if(route.getPlayerOnRoute().equals(player.getName())) {
+                    playerClaimedRoutes.add(route);
+                }
+            }
+            cards = player.getDestinationCards();
+            for(DestinationCard card : cards) {
+                terminus1 = card.getCity1();
+                terminus2 = card.getCity2();
+                routeCompleted = continueDetermineCompletedDestinationCards(terminus1, terminus2, playerClaimedRoutes);
+                if(routeCompleted) {
+                    player.addDestinationCardRoutePoints(card.getPointValue());
+                }
+                else {
+                    player.subtractDestinationCardRoutePoints(card.getPointValue());
+                }
+            }
+        }
+    }
+
+    public boolean continueDetermineCompletedDestinationCards(City connector, City endTerminus, ArrayList<Route> remainingRoutes) {
+        City newConnector = null;
+        boolean success;
+        Route route;
+        for(int i = 0; i < remainingRoutes.size(); i++) {
+            route = remainingRoutes.get(i);
+            if(route.getCity1().equals(connector)) {
+                newConnector = route.getCity2();
+            }
+            else if(route.getCity2().equals(connector)) {
+                newConnector = route.getCity1();
+            }
+
+            if(newConnector != null) {
+                if(newConnector.equals(endTerminus)) {
+                    return true;
+                }
+                else {
+                    remainingRoutes.remove(route);
+                    success = continueDetermineCompletedDestinationCards(newConnector, endTerminus, remainingRoutes);
+                    remainingRoutes.add(i, route);
+                }
+
+                if(success) {
+                    return true;
+                }
+                else {
+                    newConnector = null;
+                }
+            }
+        }
+        return false;
     }
 
     public ArrayList<String> calculateLongestTrackPlayerNames(ArrayList<Player> players) {

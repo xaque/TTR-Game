@@ -15,6 +15,7 @@ public class Player extends Observable implements Serializable {
 
     private int trainTokens;
     private int points;
+    private int destinationCardRoutePoints;
 
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Player extends Observable implements Serializable {
         this.name = name;
         this.authToken = authToken;
         this.points = 0;
+        this.destinationCardRoutePoints = 0;
         this.trainTokens = 45;
         this.hasDiscardedInitialDestinationCards = false;
     }
@@ -34,6 +36,7 @@ public class Player extends Observable implements Serializable {
     public Player(String name) {
         this.name = name;
         this.points = 0;
+        this.destinationCardRoutePoints = 0;
         this.trainTokens = 45;
         this.hasDiscardedInitialDestinationCards = false;
     }
@@ -61,6 +64,18 @@ public class Player extends Observable implements Serializable {
     public void setPoints(int points) {
         this.points = points;
         notifyObservers();
+    }
+
+    public int getDestinationCardRoutePoints() {
+        return this.destinationCardRoutePoints;
+    }
+
+    public void addDestinationCardRoutePoints(int points) {
+        this.destinationCardRoutePoints += points;
+    }
+
+    public void subtractDestinationCardRoutePoints(int points) {
+        this.destinationCardRoutePoints -= points;
     }
 
     public void addPoints(int pointsToAdd){

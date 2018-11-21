@@ -23,7 +23,7 @@ public class GameState extends Observable implements Serializable {
     private boolean finalRound;
     private String lastPlayerInFinalRound;
     private boolean gameOver;
-    private String longestTrackPlayerName;
+    private ArrayList<String> longestTrackPlayerNames;
 
     public int getTrainCardDeckSize() {
         return trainCardDeckSize;
@@ -196,6 +196,14 @@ public class GameState extends Observable implements Serializable {
 
     public void setOneTrainCardDrawn(boolean oneTrainCardDrawn) {
         this.oneTrainCardDrawn = oneTrainCardDrawn;
+    }
+
+    public ArrayList<String> getLongestTrackPlayerNames() {
+        return this.longestTrackPlayerNames;
+    }
+
+    public void setLongestTrackPlayerNames(ArrayList<String> names) {
+        this.longestTrackPlayerNames = names;
     }
 
     public boolean isGameOver() {
