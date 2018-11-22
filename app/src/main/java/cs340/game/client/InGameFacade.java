@@ -69,8 +69,7 @@ public class InGameFacade {
 
         GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
 
-        //if(results.isSuccess()) {
-            // TODO This will be added to the player's hand through the Poller
+        //if(results.isSuccess()) {         // TODO This will be added to the player's hand through the Poller
             //TrainCard newCard = new TrainCard(Color.BLUE);
             //clientModelRoot.addTrainCardToPlayer(currentPlayer, newCard);
         //}else{

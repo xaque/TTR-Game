@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.InGameFacade;
+import cs340.game.client.Presenters.DrawTrainStates.DrawTrainsState;
+import cs340.game.client.Presenters.DrawTrainStates.NoCardsDrawn;
 import cs340.game.client.Views.DrawTrainsFragment;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.GameState;
@@ -18,6 +20,7 @@ public class DrawTrainsPresenter implements Observer {
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
     private ArrayList<TrainCard> faceUps;
+    private DrawTrainsState state;
 
 
     public DrawTrainsPresenter(DrawTrainsFragment drawTrainsFragment) {
@@ -25,6 +28,7 @@ public class DrawTrainsPresenter implements Observer {
 
         gameState = gameFacade.getCurrentGame();
         faceUps = gameState.getFaceUpCards();
+        state = new NoCardsDrawn(this);
 
         updateCardsLeft(gameState.getTrainCardDeckSize());
         //Get cards left in deck
@@ -46,32 +50,49 @@ public class DrawTrainsPresenter implements Observer {
         }
     }
 
+    public void ok_clicked(int index){
+        TrainCard newCard;
+        if(index != 5){
+            newCard = faceUps.get(index);
+            if(newCard.getColor() == Color.WILD){
+                state.drawLocomotive(newCard);
+            } else {
+                state.drawFaceUpCard(newCard);
+            }
+        } else {
+            state.drawFromDeck();
+        }
+
+    }
+
+    public void back_clicked() {
+        state.back();
+    }
+
     public void drawCard(int index) {
         ArrayList<TrainCard> newList = gameState.getFaceUpCards();
         TrainCard newCard;
-        switch(index) {
-            case 0:
-                newCard = new TrainCard(Color.WHITE);
-                break;
-            case 1:
-                newCard = new TrainCard(Color.WILD);
-                break;
-            case 2:
-                newCard = new TrainCard(Color.BLUE);
-                break;
-            case 3:
-                newCard = new TrainCard(Color.WILD);
-                break;
-            case 4:
-                newCard = new TrainCard(Color.PINK);
-                break;
-            default:
-                newCard = new TrainCard(Color.ORANGE);
-                break;
+        newCard = faceUps.get(index);
+        gameFacade.drawFaceUpTrainCard(newCard);
 
-        }
         newList.set(index, newCard);
         gameState.setFaceUpCards(newList);
+    }
+
+    public void drawFromDeck(){
+
+    }
+
+    public void setState(DrawTrainsState newState){
+        this.state = newState;
+    }
+
+    public void onError(String message) {
+        view.onError(message);
+    }
+
+    public void closeDialog(){
+        view.closeDialog();
     }
 
     @Override

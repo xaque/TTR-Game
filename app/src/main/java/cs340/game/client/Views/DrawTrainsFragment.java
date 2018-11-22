@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,22 +48,40 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
         builder.setMessage(R.string.draw_train)
                 .setTitle(R.string.drawTrains);
 
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
-                if(selectedId != 5)
-                    presenter.drawCard(selectedId);
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-            }
-        });
+        builder.setPositiveButton(R.string.ok, null);
+
+        builder.setNegativeButton(R.string.cancel, null);
 
         builder.setView(R.layout.draw_trains_dialog);
 
-        return builder.create();
+        final AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+
+                Button ok_button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                ok_button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        // User clicked OK button
+                        presenter.ok_clicked(selectedId);
+                    }
+                });
+
+                Button back_button = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                back_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.back_clicked();
+                    }
+                });
+            }
+        });
+
+        return dialog;
     }
 
     @Override
@@ -98,6 +117,10 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
 
     public Activity getTheActivity() {
         return this.activity;
+    }
+
+    public void closeDialog(){
+        getDialog().dismiss();
     }
 
     public void updateCardsLeft(String cards) {
@@ -169,7 +192,6 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
     public void selectCard(int id){
         ImageView card = getDialog().findViewById(id);
         card.setColorFilter(android.graphics.Color.argb(90, 0, 0, 0));
-        //I'll need a way to tag which card has been selected. But that can wait
     }
 
     @Override
@@ -191,10 +213,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
                 selectedId = 4;
                 break;
             case R.id.deck:
-                //Testing
                 selectedId = 5;
-                InGameFacade.getInstance().drawTrainCardFromDeck();
-                presenter.drawCard(3);
                 break;
         }
 
@@ -203,6 +222,10 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
 
 
 
+    }
+
+    public void onError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
 

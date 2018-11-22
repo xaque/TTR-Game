@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.AppLayerFacade;
+import cs340.game.client.Presenters.Tasks.CreateGameTask;
+import cs340.game.client.Presenters.Tasks.JoinGameTask;
 import cs340.game.client.Views.GameListActivity;
 
 /**
@@ -70,67 +72,5 @@ public class GameListPresenter implements Observer {
                 view.updateUI();
             }
         });
-    }
-}
-
-class CreateGameTask extends AsyncTask<Void, Void, String> {
-
-    private GameListPresenter presenter;
-    private final String gameName;
-    private String result;
-    private AppLayerFacade facade = AppLayerFacade.getInstance();
-
-
-    public CreateGameTask(GameListPresenter presenter, String gameName) {
-        this.presenter = presenter;
-        this.gameName = gameName;
-    }
-
-    @Override
-    protected String doInBackground(Void... voids) {
-        try{
-            result = facade.CreateGame(presenter, gameName);
-        } catch (Exception e){
-            return e.getMessage();
-        }
-        return result;
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        if (result != null) {
-            presenter.onError(result);
-        }
-    }
-}
-
-class JoinGameTask extends AsyncTask<Void, Void, String> {
-
-    private GameListPresenter presenter;
-    private final String gameName;
-    private String result;
-    private AppLayerFacade facade = AppLayerFacade.getInstance();
-
-
-    public JoinGameTask(GameListPresenter presenter, String gameName) {
-        this.presenter = presenter;
-        this.gameName = gameName;
-    }
-
-    @Override
-    protected String doInBackground(Void... voids) {
-        try{
-            result = facade.JoinGame(presenter, gameName);
-        } catch (Exception e){
-            return e.getMessage();
-        }
-        return result;
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        if (result != null) {
-            presenter.onError(result);
-        }
     }
 }
