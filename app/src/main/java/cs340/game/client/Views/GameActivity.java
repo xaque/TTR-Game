@@ -346,9 +346,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 destinationsDialog.show(getSupportFragmentManager(), "draw destinations");
                 break;
             case R.id.place_trains_button:
-                presenter.placeRoutes();
-                //Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
+                ClaimRouteDialog claimRouteDialog = new ClaimRouteDialog();
+                claimRouteDialog.show(getSupportFragmentManager(), "claim route");
                 break;
+                //presenter.placeRoutes();
+                //Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
             case R.id.turn_order:
                 PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
                 playerInfoFragment.show(getSupportFragmentManager(), "player info");

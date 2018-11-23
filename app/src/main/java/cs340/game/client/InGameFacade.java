@@ -248,10 +248,10 @@ public class InGameFacade {
      *  3. The double route rules do not apply.
      * @return a list of all of the routes that the current player is capable of claiming
      */
-    public List<Route> getClaimableRoutes(){
+    public ArrayList<Route> getClaimableRoutes(){
 
         List<Route> routes = clientModelRoot.getCurrentGameState().getRoutes();
-        List<Route> claimableRoutes = new ArrayList<>();
+        ArrayList<Route> claimableRoutes = new ArrayList<>();
         for(int i = 0; i < routes.size(); i++){
 
             Route route = routes.get(i);
