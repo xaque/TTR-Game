@@ -52,7 +52,9 @@ public class DrawTrainsPresenter implements Observer {
 
     public void ok_clicked(int index){
         TrainCard newCard;
-        if(index != 5){
+        if(index == -1){
+            onError("Please select a card");
+        }else if(index != 5){
             newCard = faceUps.get(index);
             if(newCard.getColor() == Color.WILD){
                 state.drawLocomotive(newCard);
@@ -62,25 +64,11 @@ public class DrawTrainsPresenter implements Observer {
         } else {
             state.drawFromDeck();
         }
-
+        view.unselectCards();
     }
 
     public void back_clicked() {
         state.back();
-    }
-
-    public void drawCard(int index) {
-        ArrayList<TrainCard> newList = gameState.getFaceUpCards();
-        TrainCard newCard;
-        newCard = faceUps.get(index);
-        gameFacade.drawFaceUpTrainCard(newCard);
-
-        newList.set(index, newCard);
-        gameState.setFaceUpCards(newList);
-    }
-
-    public void drawFromDeck(){
-
     }
 
     public void setState(DrawTrainsState newState){

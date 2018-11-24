@@ -103,7 +103,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
         card5.setOnClickListener(this);
         deck.setOnClickListener(this);
 
-        selectedId = 5;
+        selectedId = -1;
 
         presenter = new DrawTrainsPresenter(this);
 
@@ -187,6 +187,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
         card5.setColorFilter(android.graphics.Color.argb(0,0,0,0));
         ImageView deck = getDialog().findViewById(R.id.deck);
         deck.setColorFilter(android.graphics.Color.argb(0,0,0,0));
+        selectedId = -1;
     }
 
     public void selectCard(int id){
@@ -196,6 +197,8 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+        unselectCards();
+        
         switch(view.getId()){
             case R.id.card1:
                 selectedId = 0;
@@ -217,7 +220,6 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
                 break;
         }
 
-        unselectCards();
         selectCard(view.getId());
 
 
