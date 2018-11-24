@@ -122,4 +122,13 @@
 
     <string name="turnLight">turn light</string>
 
+
+    <!--GAME OVER-->
+    <string name="game_over">GAME OVER</string>
+    <string name="the_winner_is">The winner is:</string>
+    <string name="WINNER">WINNER</string>
+    <string name="dest_points">+DC</string>
+    <string name="dest_lost">-DC</string>
+    <string name="longest_path">Longest Path</string>
+
 </resources>

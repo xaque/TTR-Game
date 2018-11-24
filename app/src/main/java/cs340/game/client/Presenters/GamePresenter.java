@@ -155,50 +155,6 @@ public class GamePresenter implements Observer {
     }
 
 
-    //*************************RUN DEMO************************
-    public void runDemo(){
-
-        ClientModelRoot modelRoot = ClientModelRoot.getInstance();
-        //Update player points
-        modelRoot.addPointsToPlayer(currentPlayer, 1);
-        //currentPlayer.addPoints(1);
-        for(Player player : players) {
-            modelRoot.addPointsToPlayer(player, 3);
-            //player.addPoints(3);
-        }
-        //Add/remove train cards for player
-        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.PINK));
-        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.WILD));
-        modelRoot.addTrainCardToPlayer(currentPlayer, new TrainCard(Color.BLACK));
-        //Add/remove player destination cards for player
-        ArrayList<DestinationCard> d = new ArrayList<DestinationCard>();
-        d.add(new DestinationCard(City.HELENA, City.CALGARY, 8));
-        modelRoot.addDestinationCardToPlayer(currentPlayer, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
-        //currentPlayer.addDestinationCards(d);
-        //Update number of train cards for opponents
-        for(Player player : players) {
-            modelRoot.addTrainCardToPlayer(player, new TrainCard(Color.WILD));
-            modelRoot.addTrainCardToPlayer(player, new TrainCard(Color.BLACK));
-            //player.addTrainCard(new TrainCard(Color.WILD));
-            //player.addTrainCard(new TrainCard(Color.BLACK));
-        }
-        //Update number of train cars for opponents
-        modelRoot.subtractTrainTokensFromPlayer(currentPlayer, 1);
-        //currentPlayer.subtractTrainTokens(1);
-        for(Player player : players){
-            modelRoot.subtractTrainTokensFromPlayer(player, 2);
-            //player.subtractTrainTokens(2);
-        }
-        //Update number of destination cards for opponents
-        for(Player player : players) {
-            modelRoot.addDestinationCardToPlayer(player, new DestinationCard(City.SALT_LAKE_CITY, City.CALGARY, 8));
-            //player.addDestinationCards(d);
-        }
-        //view.placeRoute("yellow", coords1);
-        //change turn indicator
-        nextTurn();
-    }
-
     public void placeRoutes() {
         List<int[]> routes = new ArrayList<int[]>();
         routes.add(atlanta_chareston);
@@ -383,6 +339,10 @@ public class GamePresenter implements Observer {
 
     private void onLeaveGameResponse(boolean isLeaveSuccess) {
         view.onLeaveGameResponse(isLeaveSuccess);
+    }
+
+    public void onGameEnd(){
+        view.onGameEnd();
     }
 
     public void onError(String message) {

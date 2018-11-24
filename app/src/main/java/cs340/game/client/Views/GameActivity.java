@@ -134,9 +134,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         playerInfoButton = findViewById(R.id.turn_order);
         playerInfoButton.setOnClickListener(this);
 
-        FloatingActionButton demoButton = findViewById(R.id.demoButton);
-        demoButton.setOnClickListener(this);
-
         //Initialize all the text views and stuff
 
         points = (TextView) findViewById(R.id.score);
@@ -355,10 +352,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
                 playerInfoFragment.show(getSupportFragmentManager(), "player info");
                 break;
-            case R.id.demoButton:
-                presenter.runDemo();
-                break;
         }
+    }
+
+    public void onGameEnd(){
+        startActivity(new Intent(this, GameOverActivity.class));
+        this.finish();
     }
 
 }

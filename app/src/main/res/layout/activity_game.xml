@@ -287,17 +287,6 @@
             app:srcCompat="@mipmap/wild" />
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/demoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/map"
-        app:layout_constraintStart_toEndOf="@+id/leftSide"
-        app:srcCompat="@mipmap/wild" />
-
     <TextView
         android:id="@+id/destinations_left"
         android:layout_width="wrap_content"
