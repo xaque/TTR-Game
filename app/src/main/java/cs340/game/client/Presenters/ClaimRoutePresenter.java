@@ -13,6 +13,7 @@ import cs340.game.client.Views.ClaimRouteDialog;
 import cs340.game.client.Views.GameActivity;
 import cs340.game.shared.City;
 import cs340.game.shared.Color;
+import cs340.game.shared.models.Player;
 import cs340.game.shared.models.Route;
 
 public class ClaimRoutePresenter implements Observer {
@@ -55,15 +56,20 @@ public class ClaimRoutePresenter implements Observer {
             //prompt select color
             view.promptSelectColor();
         } else {
-            //TODO: set player color
-            context.placeRoute(Color.RED, claimedRoute.getCoordinates());
+            Color player_color = getPlayerColor();
+            context.placeRoute(player_color, claimedRoute.getCoordinates());
 
             ClaimRouteTask claimRouteTask = new ClaimRouteTask(this, claimedRoute);
             claimRouteTask.execute();
             view.closeDialog();
         }
+    }
 
-
+    public Color getPlayerColor(){
+        ArrayList<Player> players = facade.getCurrentGame().getPlayers();
+        int num = players.indexOf(facade.getCurrentPlayer());
+        Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK, Color.GREEN, Color.BLUE};
+        return colors[num];
     }
 
     public Color[] getAvailableColors(){
@@ -74,8 +80,8 @@ public class ClaimRoutePresenter implements Observer {
     public void claimGrayRoute(Color color){
         GameActivity context = (GameActivity) view.getActivity();
 
-        //TODO: set player color
-        context.placeRoute(Color.RED, claimedRoute.getCoordinates());
+        Color player_color = getPlayerColor();
+        context.placeRoute(player_color, claimedRoute.getCoordinates());
 
         ClaimGrayRouteTask claimGrayRouteTask = new ClaimGrayRouteTask(this, claimedRoute, color);
         claimGrayRouteTask.execute();
