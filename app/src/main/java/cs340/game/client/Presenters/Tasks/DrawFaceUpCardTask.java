@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DrawTrainsPresenter;
+import cs340.game.shared.Color;
 import cs340.game.shared.models.TrainCard;
 
 public class DrawFaceUpCardTask extends AsyncTask<Void, Void, String> {
@@ -34,6 +35,12 @@ public class DrawFaceUpCardTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         if (result != null) {
             presenter.onError(result);
+        } else {
+            if (drawnCard.getColor() == Color.WILD){
+                presenter.getState().drawLocomotiveSuccess();
+            } else {
+                presenter.getState().drawFaceUpSuccess();
+            }
         }
     }
 }

@@ -21,20 +21,29 @@ public class NoCardsDrawn implements DrawTrainsState {
     public void drawFaceUpCard(TrainCard newCard, int index) {
         DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, newCard, index);
         drawFaceUpCardTask.execute();
-        context.setState(new OneCardDrawn(context));
     }
 
     @Override
     public void drawFromDeck() {
         DrawFromDeckTask drawFromDeckTask = new DrawFromDeckTask(context);
         drawFromDeckTask.execute();
-        context.setState(new OneCardDrawn(context));
     }
 
     @Override
     public void drawLocomotive(TrainCard locomotive, int index) {
         DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, locomotive, index);
         drawFaceUpCardTask.execute();
+    }
+
+    public void drawFaceUpSuccess(){
+        context.setState(new OneCardDrawn(context));
+    }
+
+    public void drawFromDeckSuccess(){
+        context.setState(new OneCardDrawn(context));
+    }
+
+    public void drawLocomotiveSuccess(){
         context.closeDialog();
     }
 

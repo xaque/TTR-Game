@@ -55,7 +55,7 @@ public class DestinationsDialog extends DialogFragment {
             isStartOfGame = (boolean)savedInstanceState.get("startOfGame");
         }
 
-        builder.setMessage("Pick at least 2 Destination Card to keep.")
+        builder.setMessage("Pick at most 1 Destination Card to discard.")
                 .setTitle(R.string.drawDestinations);
 
         builder.setPositiveButton(R.string.ok, null);

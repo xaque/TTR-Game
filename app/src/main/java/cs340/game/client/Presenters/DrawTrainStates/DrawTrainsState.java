@@ -9,5 +9,8 @@ public interface DrawTrainsState {
     public void drawFromDeck();
     public void drawLocomotive(TrainCard locomotive, int index);
     public void back();
+    public void drawFaceUpSuccess();
+    public void drawFromDeckSuccess();
+    public void drawLocomotiveSuccess();
 
 }

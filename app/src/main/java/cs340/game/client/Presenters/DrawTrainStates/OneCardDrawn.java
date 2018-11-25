@@ -20,19 +20,29 @@ public class OneCardDrawn implements DrawTrainsState {
     public void drawFaceUpCard(TrainCard card, int index) {
         DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, card, index);
         drawFaceUpCardTask.execute();
-        context.closeDialog();
     }
 
     @Override
     public void drawFromDeck() {
         DrawFromDeckTask drawFromDeckTask = new DrawFromDeckTask(context);
         drawFromDeckTask.execute();
-        context.closeDialog();
     }
 
     @Override
     public void drawLocomotive(TrainCard locomotive, int index) {
         context.onError("You can't pick a locomotive if you've drawn a card already!");
+    }
+
+    public void drawFaceUpSuccess(){
+        context.closeDialog();
+    }
+
+    public void drawFromDeckSuccess(){
+        context.closeDialog();
+    }
+
+    public void drawLocomotiveSuccess(){
+
     }
 
     @Override

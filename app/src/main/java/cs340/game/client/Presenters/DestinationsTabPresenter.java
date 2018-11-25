@@ -14,6 +14,7 @@ public class DestinationsTabPresenter implements Observer {
         view = destinationsFragment;
 
         facade.getCurrentPlayer().addObserver(this);
+        view.updateUI();
     }
 
     @Override

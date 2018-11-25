@@ -30,6 +30,8 @@ public class DrawFromDeckTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         if (result != null) {
             presenter.onError(result);
+        } else {
+            presenter.getState().drawFromDeckSuccess();
         }
     }
 }

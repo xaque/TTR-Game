@@ -7,23 +7,16 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import cs340.game.client.AppLayerFacade;
-import cs340.game.client.ClientModelRoot;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.DestinationsDialog;
 import cs340.game.client.Views.GameActivity;
-import cs340.game.shared.City;
 import cs340.game.shared.Color;
-import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
-import cs340.game.shared.models.TrainCard;
 
 public class GamePresenter implements Observer {
 
     private GameActivity view;
-    private AppLayerFacade facade = AppLayerFacade.getInstance();
-    private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
     private Player currentPlayer;
     private ArrayList<Player> players;
@@ -132,6 +125,7 @@ public class GamePresenter implements Observer {
 
     public GamePresenter(GameActivity view) {
         this.view = view;
+        InGameFacade gameFacade = InGameFacade.getInstance();
         gameState = gameFacade.getCurrentGame();
         currentPlayer = gameFacade.getCurrentPlayer();
         players = gameState.getPlayers();

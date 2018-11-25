@@ -75,6 +75,10 @@ public class DrawTrainsPresenter implements Observer {
         this.state = newState;
     }
 
+    public DrawTrainsState getState(){
+        return state;
+    }
+
     public void onError(String message) {
         view.onError(message);
     }

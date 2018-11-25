@@ -104,6 +104,7 @@ public class ClaimRouteDialog extends DialogFragment {
     }
 
     public void onError(String message) {
+        selectedId = -1;
         Toast.makeText(this.getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
