@@ -110,7 +110,7 @@ public class Poller implements Runnable{
             int newSequenceNumber = results.getSequenceNumber();
             modelRoot.setGameSequenceNumber(newSequenceNumber);
         }else{
-            System.out.println("Not Success");
+            System.out.println("Not Success: " + results.getErrorInfo());
         }
     }
 

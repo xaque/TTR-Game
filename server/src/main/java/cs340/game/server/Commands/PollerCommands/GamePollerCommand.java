@@ -24,15 +24,15 @@ public class GamePollerCommand implements iCommand {
         int currentSequenceNumber = pData.getSequenceNumber();
         System.out.println(currentSequenceNumber);
         System.out.println(Integer.toString(gameState.getHistory().getSize()));
-        if(currentSequenceNumber == gameState.getHistory().getSize()){
+        /*if(currentSequenceNumber == gameState.getHistory().getSize()){
             System.out.println("here");
             return new GamePollerResults(false, null, currentSequenceNumber, "No new data.");
         }
-        else {
+        else {*/
             System.out.println("there");
             int newSequenceNumber = gameState.getHistory().getSize();
             return new GamePollerResults(true, gameState, newSequenceNumber, null);
-        }
+        //}
         //TODO any errors to keep track of?
     }
 }

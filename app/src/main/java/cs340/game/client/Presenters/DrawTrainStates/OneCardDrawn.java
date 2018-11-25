@@ -17,8 +17,8 @@ public class OneCardDrawn implements DrawTrainsState {
 
 
     @Override
-    public void drawFaceUpCard(TrainCard card) {
-        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, card);
+    public void drawFaceUpCard(TrainCard card, int index) {
+        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, card, index);
         drawFaceUpCardTask.execute();
         context.closeDialog();
     }
@@ -31,7 +31,7 @@ public class OneCardDrawn implements DrawTrainsState {
     }
 
     @Override
-    public void drawLocomotive(TrainCard locomotive) {
+    public void drawLocomotive(TrainCard locomotive, int index) {
         context.onError("You can't pick a locomotive if you've drawn a card already!");
     }
 

@@ -10,18 +10,20 @@ public class DrawFaceUpCardTask extends AsyncTask<Void, Void, String> {
     private DrawTrainsPresenter presenter;
     private String result;
     private TrainCard drawnCard;
+    private int faceUpPosition;
     private InGameFacade facade = InGameFacade.getInstance();
 
 
-    public DrawFaceUpCardTask(DrawTrainsPresenter presenter, TrainCard card) {
+    public DrawFaceUpCardTask(DrawTrainsPresenter presenter, TrainCard card, int index) {
         this.presenter = presenter;
         this.drawnCard = card;
+        this.faceUpPosition = index;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         try{
-            result = facade.drawFaceUpTrainCard(drawnCard);
+            result = facade.drawFaceUpTrainCard(drawnCard, this.faceUpPosition);
         } catch (Exception e){
             return e.getMessage();
         }

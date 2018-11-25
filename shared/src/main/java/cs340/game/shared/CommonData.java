@@ -8,9 +8,9 @@ public class CommonData {
     //public static final String HOSTNAME = "192.168.1.142";//Zack
     //public static final String HOSTNAME = "10.37.108.191";
     //public static final String HOSTNAME = "10.24.203.81";//DJ
-    public static String HOSTNAME = "192.168.56.1";//Tyler
+    //public static String HOSTNAME = "192.168.56.1";//Tyler
     //public static String HOSTNAME = "10.25.107.60";//Tyler
-    //public static String HOSTNAME = "192.168.1.206";//Tanner
+    public static String HOSTNAME = "192.168.1.206";//Tanner
     public static final int PORT_NUMBER = 1923;
     public static final int MAX_WAITING_CONNECTIONS = 10;
 

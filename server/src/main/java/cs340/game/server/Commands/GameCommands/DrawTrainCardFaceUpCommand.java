@@ -19,10 +19,12 @@ import cs340.game.shared.results.TrainCardResults;
 
 public class DrawTrainCardFaceUpCommand implements iCommand {
     public Results execute(Data data) {
+
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
         int position = trainCardData.getFaceUpPosition();
+
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");

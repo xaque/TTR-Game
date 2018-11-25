@@ -18,6 +18,7 @@ import cs340.game.shared.models.User;
 import cs340.game.shared.results.ClaimRouteResults;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.GameResults;
+import cs340.game.shared.results.TrainCardResults;
 
 /**
  * Handles communication with the ClientModelRoot object. Meant to limit dependencies between the
@@ -53,7 +54,6 @@ public class InGameFacade {
         clientModelRoot.setCurrentPlayer(currentPlayer);
     }
 
-
     public void addObserver(Observer o){
         clientModelRoot.addObserver(o);
     }
@@ -67,21 +67,19 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
+        TrainCardResults results = (TrainCardResults)proxy.DrawTrainCard(currentPlayer.getAuthToken());
 
-        //if(results.isSuccess()) {         // TODO This will be added to the player's hand through the Poller
-            //TrainCard newCard = new TrainCard(Color.BLUE);
-            //clientModelRoot.addTrainCardToPlayer(currentPlayer, newCard);
-        //}else{
-        //    return results.getErrorInfo();
-        //}
+        if(!results.isSuccess()) {
+            return results.getErrorInfo();
+        }
+
         GameState gameState = getCurrentGame();
         gameState.setOneTrainCardDrawn(!gameState.isOneTrainCardDrawn());
 
         return null;
     }
 
-    public String drawFaceUpTrainCard(TrainCard card){
+    public String drawFaceUpTrainCard(TrainCard card, int position){
 
         GameState gameState = getCurrentGame();
         if(card.getColor() == Color.WILD){
@@ -92,13 +90,12 @@ public class InGameFacade {
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card);
+        System.out.println("CURRENT AUTH TOKEN: " + currentPlayer.getAuthToken());
+        TrainCardResults results = (TrainCardResults)proxy.DrawFaceUpTrainCard(currentPlayer.getAuthToken(), card, position);
 
-        //if(results.isSuccess()) {
-        //clientModelRoot.addTrainCardToPlayer(currentPlayer, card);
-        //}else{
-        //    return results.getErrorInfo();
-        //}
+        if(!results.isSuccess()) {
+            return results.getErrorInfo();
+        }
         if(card.getColor() != Color.WILD){
             gameState.setOneTrainCardDrawn(!gameState.isOneTrainCardDrawn());
         }
@@ -121,7 +118,7 @@ public class InGameFacade {
                 cardsToDiscard.add(card);
             }
 
-            GameResults results = (GameResults)proxy.DiscardTrainCard(currentPlayer.getAuthToken(), cardsToDiscard);
+            TrainCardResults results = (TrainCardResults)proxy.DiscardTrainCard(currentPlayer.getAuthToken(), cardsToDiscard);
             if(!results.isSuccess()) {
                 return results.getErrorInfo();
             }

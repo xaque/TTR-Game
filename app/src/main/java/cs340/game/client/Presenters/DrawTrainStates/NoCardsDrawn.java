@@ -18,8 +18,8 @@ public class NoCardsDrawn implements DrawTrainsState {
     }
 
     @Override
-    public void drawFaceUpCard(TrainCard newCard) {
-        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, newCard);
+    public void drawFaceUpCard(TrainCard newCard, int index) {
+        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, newCard, index);
         drawFaceUpCardTask.execute();
         context.setState(new OneCardDrawn(context));
     }
@@ -32,8 +32,8 @@ public class NoCardsDrawn implements DrawTrainsState {
     }
 
     @Override
-    public void drawLocomotive(TrainCard locomotive) {
-        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, locomotive);
+    public void drawLocomotive(TrainCard locomotive, int index) {
+        DrawFaceUpCardTask drawFaceUpCardTask = new DrawFaceUpCardTask(context, locomotive, index);
         drawFaceUpCardTask.execute();
         context.closeDialog();
     }

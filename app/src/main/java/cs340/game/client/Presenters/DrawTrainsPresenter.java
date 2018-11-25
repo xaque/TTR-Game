@@ -57,9 +57,9 @@ public class DrawTrainsPresenter implements Observer {
         }else if(index != 5){
             newCard = faceUps.get(index);
             if(newCard.getColor() == Color.WILD){
-                state.drawLocomotive(newCard);
+                state.drawLocomotive(newCard, index);
             } else {
-                state.drawFaceUpCard(newCard);
+                state.drawFaceUpCard(newCard, index);
             }
         } else {
             state.drawFromDeck();

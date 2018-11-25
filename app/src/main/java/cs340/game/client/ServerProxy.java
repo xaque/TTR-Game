@@ -31,11 +31,11 @@ public class ServerProxy {
         return results;
     }
 
-    public Results DrawFaceUpTrainCard(String authToken, TrainCard card){
+    public Results DrawFaceUpTrainCard(String authToken, TrainCard card, int position){
 
         ArrayList<TrainCard> cardList = new ArrayList<>();
         cardList.add(card);
-        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_FACE_UP, authToken, cardList, null);
+        TrainCardData cardData = new TrainCardData(CommandType.DRAW_TRAIN_CARD_FACE_UP, authToken, cardList, position);
 
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         Results results = communicator.send(CommonData.GAME_URI, cardData);
