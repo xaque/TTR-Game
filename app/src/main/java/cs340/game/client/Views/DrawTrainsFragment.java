@@ -227,7 +227,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
     }
 
     public void onError(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
 

@@ -1,7 +1,5 @@
 package cs340.game.client.Presenters;
 
-import android.app.Activity;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,7 +18,6 @@ public class ClaimRoutePresenter implements Observer {
 
     private ClaimRouteDialog view;
     private InGameFacade facade = InGameFacade.getInstance();
-    private Activity gameActivity;
     private ArrayList<Route> routes;
     private Route claimedRoute;
 
@@ -28,7 +25,6 @@ public class ClaimRoutePresenter implements Observer {
         view = claimRouteDialog;
 
         facade.addObserverToCurrentPlayer(this);
-        gameActivity = view.getActivity();
     }
 
 
@@ -43,29 +39,26 @@ public class ClaimRoutePresenter implements Observer {
         routes.add(route2);
 
         //This is what it's supposed to be
-        routes = facade.getClaimableRoutes();
+        //routes = facade.getClaimableRoutes();
         return routes;
     }
 
     public void claimRoute(int index) {
         claimedRoute = routes.get(index);
         Color routeColor = claimedRoute.getColor();
-        GameActivity context = (GameActivity) view.getActivity();
 
         if(routeColor == Color.WILD){
             //prompt select color
+            //This will then trigger the claimGrayRoute function
             view.promptSelectColor();
         } else {
             Color player_color = getPlayerColor();
-            context.placeRoute(player_color, claimedRoute.getCoordinates());
-
-            ClaimRouteTask claimRouteTask = new ClaimRouteTask(this, claimedRoute);
+            ClaimRouteTask claimRouteTask = new ClaimRouteTask(this, claimedRoute, player_color);
             claimRouteTask.execute();
-            view.closeDialog();
         }
     }
 
-    public Color getPlayerColor(){
+    private Color getPlayerColor(){
         ArrayList<Player> players = facade.getCurrentGame().getPlayers();
         int num = players.indexOf(facade.getCurrentPlayer());
         Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK, Color.GREEN, Color.BLUE};
@@ -73,19 +66,24 @@ public class ClaimRoutePresenter implements Observer {
     }
 
     public Color[] getAvailableColors(){
+        //Todo: It would be nice if I could get this from a facade call
         Color[] colors = {Color.RED, Color.BLACK, Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.WHITE, Color.YELLOW };
         return colors;
     }
 
     public void claimGrayRoute(Color color){
-        GameActivity context = (GameActivity) view.getActivity();
-
         Color player_color = getPlayerColor();
-        context.placeRoute(player_color, claimedRoute.getCoordinates());
-
-        ClaimGrayRouteTask claimGrayRouteTask = new ClaimGrayRouteTask(this, claimedRoute, color);
+        ClaimGrayRouteTask claimGrayRouteTask = new ClaimGrayRouteTask(this, claimedRoute, color, player_color);
         claimGrayRouteTask.execute();
+    }
 
+    public void placeRoute(Color player_color, int[] route){
+        GameActivity context = (GameActivity) view.getActivity();
+        assert context != null;
+        context.placeRoute(player_color, route);
+    }
+
+    public void closeDialog(){
         view.closeDialog();
     }
 

@@ -11,11 +11,13 @@ public class ClaimGrayRouteTask extends AsyncTask<Void, Void, String> {
     private ClaimRoutePresenter presenter;
     private Route route;
     private Color color;
+    private Color player_color;
     private InGameFacade facade = InGameFacade.getInstance();
 
-    public ClaimGrayRouteTask(ClaimRoutePresenter presenter, Route route, Color color) {
+    public ClaimGrayRouteTask(ClaimRoutePresenter presenter, Route route, Color color, Color player_color) {
         this.route = route;
         this.color = color;
+        this.player_color = player_color;
         this.presenter = presenter;
     }
 
@@ -34,6 +36,9 @@ public class ClaimGrayRouteTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         if (result != null) {
             presenter.onError(result);
+        } else {
+            presenter.placeRoute(player_color, route.getCoordinates());
+            presenter.closeDialog();
         }
     }
 }
