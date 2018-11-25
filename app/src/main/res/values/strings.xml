@@ -122,6 +122,7 @@
 
     <string name="turnLight">turn light</string>
 
+    <string name="claimRoute">Claim a route</string>
 
     <!--GAME OVER-->
     <string name="game_over">GAME OVER</string>

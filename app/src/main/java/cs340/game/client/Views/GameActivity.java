@@ -29,6 +29,7 @@ import java.util.Objects;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.GamePresenter;
+import cs340.game.shared.Color;
 import cs340.game.shared.models.Player;
 
 
@@ -299,24 +300,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public Paint getPaint(String color) {
+    public Paint getPaint(Color color) {
         switch(color) {
-            case "red":
+            case RED:
                 return red;
-            case "blue":
+            case BLUE:
                 return blue;
-            case "green":
+            case GREEN:
                 return green;
-            case "yellow":
+            case YELLOW:
                 return yellow;
-            case "black":
+            case BLACK:
                 return black;
             default:
                 return red;
         }
     }
 
-    public void placeRoute(String color, int[] coords) {
+    public void placeRoute(Color color, int[] coords) {
 
         Canvas canvas = new Canvas(mutableBitmap);
 
@@ -328,6 +329,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < size; i= i+2){
             canvas.drawCircle(coords[i], coords[i+1], RADIUS, paint);
         }
+
+
     }
 
 
@@ -343,10 +346,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 destinationsDialog.show(getSupportFragmentManager(), "draw destinations");
                 break;
             case R.id.place_trains_button:
+                //presenter.placeRoutes();
                 ClaimRouteDialog claimRouteDialog = new ClaimRouteDialog();
                 claimRouteDialog.show(getSupportFragmentManager(), "claim route");
                 break;
-                //presenter.placeRoutes();
                 //Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
             case R.id.turn_order:
                 PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();

@@ -266,7 +266,7 @@ public class GamePresenter implements Observer {
         routes.add(montreal_ny);
 
         for(int[] route : routes) {
-            view.placeRoute("yellow", route);
+            view.placeRoute(Color.YELLOW, route);
         }
 
 

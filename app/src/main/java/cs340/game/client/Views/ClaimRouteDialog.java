@@ -1,6 +1,7 @@
 package cs340.game.client.Views;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -35,16 +37,17 @@ public class ClaimRouteDialog extends DialogFragment {
     private RecyclerView routesRecyclerView;
     private ClaimRouteDialog.RouteAdapter routeAdapter;
 
+    private int selectedId;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         presenter = new ClaimRoutePresenter(this);
-        //presenter.drawDestinationCards();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         builder.setMessage("Pick the route you want to claim.")
-                .setTitle(R.string.drawDestinations);
+                .setTitle(R.string.claimRoute);
 
         builder.setPositiveButton(R.string.ok, null);
 
@@ -69,8 +72,12 @@ public class ClaimRouteDialog extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         // User clicked OK button
-//                        if(isStartOfGame) {
-                        dialog.dismiss();
+                        if(selectedId == -1){
+                            dialog.dismiss();
+                        } else {
+                            presenter.claimRoute(selectedId);
+                            //dialog.dismiss();
+                        }
 
                     }
                 });
@@ -82,7 +89,7 @@ public class ClaimRouteDialog extends DialogFragment {
 
     public void updateUI() {
         ArrayList<Route> routeList = presenter.getClaimableRoutes();
-        routeAdapter = new ClaimRouteDialog.RouteAdapter(routeList);
+        routeAdapter = new ClaimRouteDialog.RouteAdapter(routeList, this);
         routesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         routesRecyclerView.setAdapter(routeAdapter);
     }
@@ -92,37 +99,40 @@ public class ClaimRouteDialog extends DialogFragment {
         super.onStart();
 
         routesRecyclerView = getDialog().findViewById(R.id.routes_reyclerview);
-
-
+        selectedId = -1;
+        updateUI();
     }
 
     public void onError(String message) {
         Toast.makeText(this.getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
-    public int getResourceColor(Color color){
-        switch(color){
-            case RED:
-                return R.id.red;
-            case YELLOW:
-                return R.id.yellow;
-            case GREEN:
-                return R.id.green;
-            case BLUE:
-                return R.id.blue;
-            case BLACK:
-                return R.id.black;
-            case WHITE:
-                return R.id.white;
-            case PINK:
-                return R.id.purple;
-            case ORANGE:
-                return R.id.orange;
-            case WILD:
-                return R.id.wild;
-            default:
-                return R.id.red;
-        }
+    public void routeClick(int route_position){
+        String message = "Clicked on route " + Integer.toString(route_position);
+        selectedId = route_position;
+        Toast.makeText(this.getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void promptSelectColor(){
+        AlertDialog.Builder b = new AlertDialog.Builder(this.getActivity());
+        b.setTitle("Pick the color cards you want to use");
+        final String[] colors = {"Red", "Black", "Blue", "Green", "Orange", "Pink", "White", "Yellow" };
+        final Color[] types = presenter.getAvailableColors();
+        b.setItems(colors, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.claimGrayRoute(types[which]);
+                dialog.dismiss();
+            }
+
+        });
+
+        b.show();
+    }
+
+    public void closeDialog(){
+        getDialog().dismiss();
     }
 
     private class RouteHolder extends RecyclerView.ViewHolder {
@@ -134,7 +144,7 @@ public class ClaimRouteDialog extends DialogFragment {
         private TextView value;
         private Color color;
 
-        private RouteHolder(View itemView) {
+        private RouteHolder(View itemView, final ClaimRouteDialog context) {
             super(itemView);
 
             destinationListItem = itemView.findViewById(R.id.destination_item);
@@ -142,17 +152,28 @@ public class ClaimRouteDialog extends DialogFragment {
             city2 = itemView.findViewById(R.id.city2);
             value = itemView.findViewById(R.id.value);
 
+            destinationListItem.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+
+                    context.routeClick(getAdapterPosition());
+                }
+            });
+
+
+
         }
 
         private void bindDestination(Route route) {
             this.route = route;
             city1.setText(route.getCity1().toString());
             city2.setText(route.getCity2().toString());
-            value.setText(Integer.toString(route.getLength()));
-            color = route.getColor();
-            int resourceColor = getResourceColor(color);
-            int textColor = ResourcesCompat.getColor(getResources(), resourceColor, null);
-            value.setTextColor(textColor);
+
+            String length = Integer.toString(route.getLength());
+            length += " " + route.getColor().toString();
+
+            value.setText(length);
 
         }
     }
@@ -160,9 +181,11 @@ public class ClaimRouteDialog extends DialogFragment {
     private class RouteAdapter extends RecyclerView.Adapter<ClaimRouteDialog.RouteHolder> {
 
         private ArrayList<Route> mRoutes;
+        private ClaimRouteDialog context;
 
-        private RouteAdapter(ArrayList<Route> routes) {
+        private RouteAdapter(ArrayList<Route> routes, ClaimRouteDialog context) {
             mRoutes = routes;
+            this.context = context;
         }
 
         @NonNull
@@ -170,7 +193,7 @@ public class ClaimRouteDialog extends DialogFragment {
         public ClaimRouteDialog.RouteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             View view = layoutInflater.inflate(R.layout.destination_list_item, parent, false);
-            return new ClaimRouteDialog.RouteHolder(view);
+            return new ClaimRouteDialog.RouteHolder(view, context);
         }
 
         @Override
