@@ -14,12 +14,14 @@ public class PlayerInfoPresenter implements Observer {
     private PlayerInfoFragment view;
     private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameState gameState;
+    private Player currentPlayer;
     private ArrayList<Player> players;
 
     public PlayerInfoPresenter(PlayerInfoFragment playerInfoFragment){
         view = playerInfoFragment;
         gameState = gameFacade.getCurrentGame();
         players = gameState.getPlayers();
+        currentPlayer = gameFacade.getCurrentPlayer();
 
         setPlayers();
     }

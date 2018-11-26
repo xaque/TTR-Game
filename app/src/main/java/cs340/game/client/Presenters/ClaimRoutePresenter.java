@@ -39,7 +39,7 @@ public class ClaimRoutePresenter implements Observer {
         routes.add(route2);
 
         //This is what it's supposed to be
-        //routes = facade.getClaimableRoutes();
+        routes = facade.getClaimableRoutes();
         return routes;
     }
 

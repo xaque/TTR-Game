@@ -45,6 +45,7 @@ public class DrawTrainsPresenter implements Observer {
     }
 
     public void setFaceUps(ArrayList<TrainCard> cards) {
+        faceUps = cards;
         for(int i=1; i<=cards.size(); i++) {
             view.setCard(i, cards.get(i-1).getColor());
         }
