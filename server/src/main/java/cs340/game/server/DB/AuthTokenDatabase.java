@@ -59,7 +59,7 @@ public class AuthTokenDatabase {
 
     public String getUsernameByAuthToken(String authToken) {
         for(Map.Entry<String, String> entry : authTokenMap.entrySet()) {
-            if(entry.getValue() == authToken) {
+            if(entry.getValue().equals(authToken)) {
                 return entry.getKey();
             }
         }

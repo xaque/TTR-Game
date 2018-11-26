@@ -33,6 +33,7 @@ public class UserDatabase {
     public String addUser(User user) {
         userList.add(user);
         String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+        user.setAuthToken(authToken);
         return authToken;
     }
 
