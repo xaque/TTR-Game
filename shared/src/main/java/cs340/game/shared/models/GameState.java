@@ -214,6 +214,10 @@ public class GameState extends Observable implements Serializable {
         this.gameOver = gameOver;
     }
 
+    public void setChanged(boolean changed){
+        isChanged = changed;
+    }
+
     public void checkForChanges(){
         if(isChanged){
             notifyObservers();

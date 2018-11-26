@@ -23,6 +23,7 @@ public class DrawTrainCardFaceUpCommand implements iCommand {
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        System.out.println("USERNAME: " + username + " AUTH TOKEN: " + authToken);
         int position = trainCardData.getFaceUpPosition();
 
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);

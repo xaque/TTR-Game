@@ -29,6 +29,7 @@ public class LoginCommand implements iCommand {
         // if a valid username-password combination is entered
         if(userDB.containsUser(user)) {
             String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+            System.out.println("NEW AUTH TOKEN: " + authToken);
             return new LoginResults(true, authToken, null);
         }
         // if a valid username is entered but with the wrong password

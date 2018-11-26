@@ -94,6 +94,36 @@ public class ClientModelRoot extends Observable {
         System.out.println(newState.getHistory().getActions().size());
         currentGameState.setHistory(newState.getHistory());
 
+        if(!currentGameState.isFinalRound() && newState.isFinalRound()){
+            currentGameState.setFinalRound(true);
+            currentGameState.setLastPlayerInFinalRound(newState.getLastPlayerInFinalRound());
+            currentGameState.setChanged(true);
+        }
+
+        if(!currentGameState.isGameOver() && newState.isGameOver()){
+            currentGameState.setGameOver(true);
+            currentGameState.setChanged(true);
+        }
+
+        String currentTurn = currentGameState.getCurrentTurnPlayer();
+        String newTurn = newState.getCurrentTurnPlayer();
+        if(!currentTurn.equals(newTurn)){
+            currentGameState.setCurrentTurnPlayer(newTurn);
+            currentGameState.setChanged(true);
+        }
+
+        if(currentGameState.getTrainCardDeckSize() != newState.getTrainCardDeckSize()){
+            currentGameState.setTrainCardDeckSize(newState.getTrainCardDeckSize());
+            currentGameState.setChanged(true);
+        }
+
+        if(currentGameState.getDestinationTicketDeckSize() != newState.getDestinationTicketDeckSize()){
+            currentGameState.setDestinationTicketDeckSize(newState.getDestinationTicketDeckSize());
+            currentGameState.setChanged(true);
+        }
+
+        currentGameState.setLongestTrackPlayerNames(newState.getLongestTrackPlayerNames());
+
         currentGameState.checkForChanges();
     }
 
