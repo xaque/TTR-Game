@@ -109,7 +109,10 @@ public class ClientModelRoot extends Observable {
         String newTurn = newState.getCurrentTurnPlayer();
         if(!currentTurn.equals(newTurn)){
             currentGameState.setCurrentTurnPlayer(newTurn);
+            currentGameState.setTurnChanged(true);
             currentGameState.setChanged(true);
+        }else{
+            currentGameState.setTurnChanged(false);
         }
 
         if(currentGameState.getTrainCardDeckSize() != newState.getTrainCardDeckSize()){

@@ -23,6 +23,7 @@ public class GameState extends Observable implements Serializable {
     private boolean finalRound;
     private String lastPlayerInFinalRound;
     private boolean gameOver;
+    private boolean turnChanged;
     private ArrayList<String> longestTrackPlayerNames;
 
     public int getTrainCardDeckSize() {
@@ -58,6 +59,7 @@ public class GameState extends Observable implements Serializable {
         finalRound = false;
         lastPlayerInFinalRound = null;
         gameOver = false;
+        turnChanged = false;
     }
 
     public GameState(String name, ArrayList<Player> players){
@@ -75,6 +77,7 @@ public class GameState extends Observable implements Serializable {
         finalRound = false;
         lastPlayerInFinalRound = null;
         gameOver = false;
+        turnChanged = false;
     }
 
     public String getGameName() {
@@ -212,6 +215,14 @@ public class GameState extends Observable implements Serializable {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+
+    public void setTurnChanged(boolean changed){
+        turnChanged = changed;
+    }
+
+    public boolean hasTurnChanged(){
+        return turnChanged;
     }
 
     public void setChanged(boolean changed){
