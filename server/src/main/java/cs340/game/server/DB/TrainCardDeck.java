@@ -80,6 +80,7 @@ public class TrainCardDeck {
      */
     public void resetFaceUpCards() {
         discardCards(this.faceUpCards);
+        this.faceUpCards.clear();
         for(int i = 0; i < 5; i++) {
             if(this.cards.size() == 0){
                 return;
@@ -143,9 +144,10 @@ public class TrainCardDeck {
 
     public boolean checkFaceUpLocomotives() {
         boolean cardsReset = false;
+        int faceUpLocomotiveCount;
         boolean tooManyLocomotives;
         do {
-            int faceUpLocomotiveCount = 0;
+            faceUpLocomotiveCount = 0;
             for (TrainCard card : this.faceUpCards) {
                 if (card.getColor() == Color.WILD) {
                     faceUpLocomotiveCount++;
