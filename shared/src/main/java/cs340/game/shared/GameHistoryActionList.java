@@ -25,6 +25,6 @@ public class GameHistoryActionList implements Serializable {
     }
 
     public void addAction(GameHistoryAction action) {
-        actions.add(action);
+        actions.add(0, action);
     }
 }
