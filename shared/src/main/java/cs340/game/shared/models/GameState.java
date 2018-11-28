@@ -176,7 +176,13 @@ public class GameState extends Observable implements Serializable {
     }
 
     public String nextPlayerTurn() {
-        int currentPlayerIndex = this.players.indexOf(this.currentTurnPlayer);
+        int currentPlayerIndex = -1;
+        for(int i = 0; i < players.size(); i++) {
+            if(players.get(i).getName().equals(this.currentTurnPlayer)) {
+                currentPlayerIndex = i;
+                break;
+            }
+        }
         currentPlayerIndex++;
         if(currentPlayerIndex == this.players.size()) {
             currentPlayerIndex = 0;
