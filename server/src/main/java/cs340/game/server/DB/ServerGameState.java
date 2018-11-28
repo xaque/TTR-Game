@@ -81,6 +81,7 @@ public class ServerGameState {
                 break;
             }
         }
+        updateDeckSizes();
         return drawnCards;
     }
 
@@ -95,6 +96,7 @@ public class ServerGameState {
             }
             this.destinationCardDeck.returnCards(cards);
         }
+        updateDeckSizes();
     }
 
     public TrainCard drawTrainCardFromDeck(String username) {
@@ -106,6 +108,7 @@ public class ServerGameState {
                 break;
             }
         }
+        updateDeckSizes();
         return drawnCard;
     }
 
@@ -118,6 +121,7 @@ public class ServerGameState {
                 break;
             }
         }
+        updateDeckSizes();
         return drawnCard;
     }
 
@@ -139,6 +143,7 @@ public class ServerGameState {
                 }
             }
             this.trainCardDeck.discardCards(discardedCards);
+            updateDeckSizes();
         }
         catch(Exception ex) {
             ServerException exception = new ServerException(ex.getMessage());
