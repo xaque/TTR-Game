@@ -186,6 +186,14 @@ public class Player extends Observable implements Serializable {
         this.hasDiscardedInitialDestinationCards = val;
     }
 
+    public ArrayList<Observer> getObservers(){
+        return observers;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
+    }
+
     @Override
     public synchronized void addObserver(Observer o) {
         observers.add(o);

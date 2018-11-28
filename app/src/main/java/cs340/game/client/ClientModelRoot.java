@@ -78,8 +78,12 @@ public class ClientModelRoot extends Observable {
             if(diffPlayers.get(i).getName().equals(currentPlayer.getName())){
                 System.out.println(diffPlayers.get(i).getName() + " ME!");
                 String currentAuthToken = currentPlayer.getAuthToken();
+                ArrayList<Observer> currObservers = currentPlayer.getObservers();
+
                 currentPlayer = diffPlayers.get(i);
+
                 currentPlayer.setAuthToken(currentAuthToken);
+                currentPlayer.setObservers(currObservers);
                 currentPlayer.notifyObservers();
             }
         }
@@ -126,6 +130,8 @@ public class ClientModelRoot extends Observable {
         }
 
         currentGameState.setLongestTrackPlayerNames(newState.getLongestTrackPlayerNames());
+
+        System.out.println("Current turn: " + currentGameState.getCurrentTurnPlayer());
 
         currentGameState.checkForChanges();
     }
