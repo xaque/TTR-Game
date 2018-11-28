@@ -16,6 +16,7 @@ import cs340.game.shared.models.Player;
 
 public class GamePresenter implements Observer {
 
+    private InGameFacade gameFacade = InGameFacade.getInstance();
     private GameActivity view;
     private GameState gameState;
     private Player currentPlayer;
@@ -125,7 +126,6 @@ public class GamePresenter implements Observer {
 
     public GamePresenter(GameActivity view) {
         this.view = view;
-        InGameFacade gameFacade = InGameFacade.getInstance();
         gameState = gameFacade.getCurrentGame();
         currentPlayer = gameFacade.getCurrentPlayer();
         players = gameState.getPlayers();
@@ -337,6 +337,10 @@ public class GamePresenter implements Observer {
 
     public void onGameEnd(){
         view.onGameEnd();
+    }
+
+    public boolean isPlayersTurn(){
+        return gameFacade.isCurrentPlayersTurn();
     }
 
     public void onError(String message) {

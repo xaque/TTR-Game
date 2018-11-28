@@ -66,6 +66,8 @@ public class DrawTrainsPresenter implements Observer {
             state.drawFromDeck();
         }
         view.unselectCards();
+        int cardsLeft = gameFacade.getCurrentGame().getTrainCardDeckSize();
+        updateCardsLeft(cardsLeft);
     }
 
     public void back_clicked() {

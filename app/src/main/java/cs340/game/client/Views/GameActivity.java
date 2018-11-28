@@ -336,6 +336,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if(!presenter.isPlayersTurn()){
+            onError("It's not your turn!");
+        }
+
         switch(view.getId()){
             case R.id.draw_trains_button:
                 DrawTrainsFragment drawTrainsDialog = new DrawTrainsFragment();
