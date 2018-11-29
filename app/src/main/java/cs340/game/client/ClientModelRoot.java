@@ -84,6 +84,7 @@ public class ClientModelRoot extends Observable {
 
                 currentPlayer.setAuthToken(currentAuthToken);
                 currentPlayer.setObservers(currObservers);
+                System.out.println("Notifying currentPlayer Observers");
                 currentPlayer.notifyObservers();
             }
         }
@@ -134,6 +135,7 @@ public class ClientModelRoot extends Observable {
 
         System.out.println("Current turn: " + currentGameState.getCurrentTurnPlayer());
 
+        System.out.println("Notifying currentGameState Observers");
         currentGameState.checkForChanges();
     }
 
