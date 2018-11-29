@@ -1,12 +1,15 @@
 package cs340.game.client.Presenters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.InGameFacade;
+import cs340.game.client.ViewInterface.IView;
 import cs340.game.client.Views.CardsFragment;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
@@ -14,7 +17,7 @@ import cs340.game.shared.models.TrainCard;
 
 public class CardsPresenter implements Observer {
 
-    private CardsFragment view;
+    private IView view;
     private Player currentPlayer;
     private int handCount;
 
@@ -24,12 +27,11 @@ public class CardsPresenter implements Observer {
      *
      * @param cardsFragment     The view associated with this presenter
      */
-    public CardsPresenter(CardsFragment cardsFragment) {
+    public CardsPresenter(IView cardsFragment) {
         view = cardsFragment;
 
         InGameFacade gameFacade = InGameFacade.getInstance();
         currentPlayer = gameFacade.getCurrentPlayer();
-        GameState gameState = gameFacade.getCurrentGame();
         handCount = 0;
         currentPlayer.addObserver(this);
     }
@@ -37,7 +39,7 @@ public class CardsPresenter implements Observer {
     /**
      *
      */
-    public Map<String, String> updateHand(){
+    public Map<String, String> updateHand(List<TrainCard> trainCards){
         int reds=0;
         int blues=0;
         int yellows=0;
@@ -48,8 +50,8 @@ public class CardsPresenter implements Observer {
         int oranges=0;
         int wilds=0;
 
-        for(int i = 0; i < currentPlayer.getTrainCards().size(); i++) {
-            switch(currentPlayer.getTrainCards().get(i).getColor()) {
+        for(int i = 0; i < trainCards.size(); i++) {
+            switch(trainCards.get(i).getColor()) {
                 case RED:
                     reds++;
                     break;
@@ -105,9 +107,16 @@ public class CardsPresenter implements Observer {
      */
     @Override
     public void update(Observable observable, Object o) {
-        if(currentPlayer.getTrainCards().size() != handCount) {
-            handCount = currentPlayer.getTrainCards().size();
-            view.update(updateHand());
+        List<TrainCard> trainCards;
+        if(observable instanceof Player) {
+            Player player = (Player)observable;
+            trainCards = player.getTrainCards();
+        } else {
+            trainCards = currentPlayer.getTrainCards();
+        }
+        if(trainCards.size() != handCount) {
+            handCount = trainCards.size();
+            view.update(updateHand(trainCards));
         }
     }
 }

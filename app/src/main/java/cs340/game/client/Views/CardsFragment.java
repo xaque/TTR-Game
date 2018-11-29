@@ -105,6 +105,7 @@ public class CardsFragment extends Fragment implements IView {
                     setPurple_count(hand.get("purple"));
                     setWhite_count(hand.get("white"));
                     setWild_count(hand.get("wild"));
+                    setYellow_count(hand.get("yellow"));
                 }
             });
         }
