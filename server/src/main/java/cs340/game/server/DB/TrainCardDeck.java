@@ -82,9 +82,6 @@ public class TrainCardDeck {
         discardCards(this.faceUpCards);
         this.faceUpCards.clear();
         for(int i = 0; i < 5; i++) {
-            if(this.cards.size() == 0){
-                return;
-            }
             this.faceUpCards.add(drawCardFromDeck());
         }
     }
@@ -116,20 +113,30 @@ public class TrainCardDeck {
      * @post if deck is size 1 when this is called, deck is replaced with shuffled discard pile
      */
     public TrainCard drawCardFromDeck() {
-        TrainCard drawnCard = this.cards.remove(0);
-        this.size -= 1;
+        TrainCard drawnCard;
+        //check if deck has size 0 - this means discardPile is empty, so all cards have been drawn
+        if(this.size > 0) {
+            drawnCard = this.cards.remove(0);
+            this.size -= 1;
+        }
+        else {
+            return null;
+        }
+
+        //check if deck has been depleted by drawing, then refill with discardPile
         if(this.size == 0) {
             cards = discardPile;
             this.size = discardPile.size();
             discardPile = null;
             shuffle(5);
         }
+
         return drawnCard;
     }
 
     /**
      * Removes the faceUp card at position position. Replaces this card with the top card of the
-     * deck.
+     * deck. If the deck is empty, replaces the drawn card with null.
      * @param position the location of the face up card to draw
      * @return the TrainCard from the given position
      * @pre deck has been initialized by calling the constructor
@@ -146,8 +153,10 @@ public class TrainCardDeck {
         boolean cardsReset = false;
         int faceUpLocomotiveCount;
         boolean tooManyLocomotives;
+        int repetitionsInCaseOfSparseDeck = 0; // sets a limit on how many times the cards can be reset, in case a deck is too small to have 3 non-locomotives
         do {
             faceUpLocomotiveCount = 0;
+            repetitionsInCaseOfSparseDeck++;
             for (TrainCard card : this.faceUpCards) {
                 if (card.getColor() == Color.WILD) {
                     faceUpLocomotiveCount++;
@@ -161,7 +170,7 @@ public class TrainCardDeck {
             else {
                 tooManyLocomotives = false;
             }
-        }while(tooManyLocomotives);
+        }while(tooManyLocomotives && (repetitionsInCaseOfSparseDeck < 50));
         return cardsReset;
     }
 
