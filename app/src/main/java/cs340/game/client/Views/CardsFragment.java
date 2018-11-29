@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Map;
 import java.util.Objects;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.CardsPresenter;
+import cs340.game.client.ViewInterface.IView;
 
-public class CardsFragment extends Fragment {
+public class CardsFragment extends Fragment implements IView {
 
     private CardsPresenter presenter;
 
@@ -87,14 +89,29 @@ public class CardsFragment extends Fragment {
     public void setWild_count(String count) {
         this.wild_count.setText(count);
     }
-    
-    public void update() {
-        Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                presenter.updateHand();
-            }
-        });
+
+    @Override
+    public void update(Object data) {
+        if(data instanceof Map) {
+            final Map<String, String> hand = (Map<String, String>) data;
+            Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setRed_count(hand.get("red"));
+                    setBlack_count(hand.get("black"));
+                    setBlue_count(hand.get("blue"));
+                    setGreen_count(hand.get("green"));
+                    setOrange_count(hand.get("orange"));
+                    setPurple_count(hand.get("purple"));
+                    setWhite_count(hand.get("white"));
+                    setWild_count(hand.get("wild"));
+                }
+            });
+        }
     }
 
+    @Override
+    public void onError(String message) {
+
+    }
 }
