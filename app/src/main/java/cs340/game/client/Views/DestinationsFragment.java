@@ -13,13 +13,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cs340.game.R;
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DestinationsTabPresenter;
+import cs340.game.client.ViewInterface.IView;
 import cs340.game.shared.models.DestinationCard;
 
-public class DestinationsFragment extends Fragment {
+public class DestinationsFragment extends Fragment implements IView {
 
     private DestinationsTabPresenter presenter;
 
@@ -39,14 +41,32 @@ public class DestinationsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        presenter.update(null, null);
+    }
+//
+//    public void updateUI() {
+//        ArrayList<DestinationCard> destinationList = InGameFacade.getInstance().getCurrentPlayer().getDestinationCards();
+//        destinationAdapter = new DestinationAdapter(destinationList);
+//        destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+//        destinationsRecyclerView.setAdapter(destinationAdapter);
+//    }
+
+    @Override
+    public void update(Object obj) {
+        final ArrayList<DestinationCard> destinationList = (ArrayList<DestinationCard>) obj;
+        destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                destinationAdapter = new DestinationAdapter(destinationList);
+                destinationsRecyclerView.setAdapter(destinationAdapter);
+            }
+        });
     }
 
-    public void updateUI() {
-        ArrayList<DestinationCard> destinationList = InGameFacade.getInstance().getCurrentPlayer().getDestinationCards();
-        destinationAdapter = new DestinationAdapter(destinationList);
-        destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        destinationsRecyclerView.setAdapter(destinationAdapter);
+    @Override
+    public void onError(String message) {
+
     }
 
     private class DestinationHolder extends RecyclerView.ViewHolder {
