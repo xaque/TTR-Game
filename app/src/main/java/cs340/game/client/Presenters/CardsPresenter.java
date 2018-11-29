@@ -30,6 +30,8 @@ public class CardsPresenter implements Observer {
         GameState gameState = gameFacade.getCurrentGame();
         updateHand();
         gameFacade.addObserver(this);
+        gameState.addObserver(this);
+        currentPlayer.addObserver(this);
     }
 
     /**
@@ -46,8 +48,9 @@ public class CardsPresenter implements Observer {
         int oranges=0;
         int wilds=0;
 
-        for(TrainCard card : currentPlayer.getTrainCards()) {
-            switch(card.getColor()) {
+        System.out.println("PLAYER HAS: " + currentPlayer.getTrainCards().size() + " TRAIN CARDS");
+        for(int i = 0; i < currentPlayer.getTrainCards().size(); i++) {
+            switch(currentPlayer.getTrainCards().get(i).getColor()) {
                 case RED:
                     reds++;
                     break;
@@ -75,7 +78,9 @@ public class CardsPresenter implements Observer {
                 case YELLOW:
                     yellows++;
                     break;
-
+                default:
+                    System.out.println("CARD HAS NO COLOR");
+                    break;
             }
         }
 
