@@ -160,7 +160,18 @@ public class Player extends Observable implements Serializable {
     }
 
     public void removeDestinationCards(ArrayList<DestinationCard> _cards) {//throws Exception{
-        destinationCards.removeAll(_cards);
+        for(int i = 0; i < _cards.size(); i++) {
+            DestinationCard card = _cards.get(i);
+            for(int j = 0; j < destinationCards.size(); j++) {
+                DestinationCard cardFromHand = destinationCards.get(j);
+                if(card.getCity1().equals(cardFromHand.getCity1())
+                        && card.getCity2().equals(cardFromHand.getCity2())) {
+                    destinationCards.remove(j);
+                    i++;
+                    j = 0;
+                }
+            }
+        }
         //throw new Exception("The player does not have this card!");
     }
 

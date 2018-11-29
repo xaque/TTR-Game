@@ -16,6 +16,7 @@ import cs340.game.shared.models.Route;
 import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 import cs340.game.shared.results.ClaimRouteResults;
+import cs340.game.shared.results.DestinationCardResults;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.GameResults;
 import cs340.game.shared.results.TrainCardResults;
@@ -173,17 +174,17 @@ public class InGameFacade {
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
         System.out.println("AUTH TOKEN" + currentPlayer.getAuthToken());
-        DestinationCard results = (DestinationCard)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
+        DestinationCardResults results = (DestinationCardResults)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
 
-        /*if(results.isSuccess()){
+        if(results.isSuccess()){
             try {
-                //currentPlayer.removeDestinationCards(cards);
+                currentPlayer.removeDestinationCards(cards);
             }catch (Exception e){
                 return e.getMessage();
             }
         }else{
             return results.getErrorInfo();
-        }*/
+        }
 
         return null;
     }

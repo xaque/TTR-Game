@@ -43,13 +43,6 @@ public class DestinationsFragment extends Fragment implements IView {
         super.onResume();
         presenter.update(null, null);
     }
-//
-//    public void updateUI() {
-//        ArrayList<DestinationCard> destinationList = InGameFacade.getInstance().getCurrentPlayer().getDestinationCards();
-//        destinationAdapter = new DestinationAdapter(destinationList);
-//        destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//        destinationsRecyclerView.setAdapter(destinationAdapter);
-//    }
 
     @Override
     public void update(Object obj) {
