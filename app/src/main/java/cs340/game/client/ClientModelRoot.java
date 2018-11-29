@@ -89,9 +89,10 @@ public class ClientModelRoot extends Observable {
         }
 
         ArrayList<Route> diffRoutes = newState.getRoutes();
-        for(int i = 0; i < diffRoutes.size(); i++){
+        currentGameState.setRoutes(diffRoutes);
+        /*for(int i = 0; i < diffRoutes.size(); i++){
             currentGameState.updateRoute(diffRoutes.get(i));
-        }
+        }*/
 
         currentGameState.setFaceUpCards(newState.getFaceUpCards());
 

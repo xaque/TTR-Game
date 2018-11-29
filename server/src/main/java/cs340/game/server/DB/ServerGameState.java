@@ -38,6 +38,7 @@ public class ServerGameState {
         this.destinationCardDeck = new DestinationCardDeck();
         this.trainCardDeck = new TrainCardDeck();
         this.gameRoutesDatabase = new GameRoutesDatabase();
+        this.gameState.setRoutes(gameRoutesDatabase.getUnclaimedRoutes());
 
         for(Player player : players) {
             ArrayList<DestinationCard> drawnDestinationCards = destinationCardDeck.drawCards();

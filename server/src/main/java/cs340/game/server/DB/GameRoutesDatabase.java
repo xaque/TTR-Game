@@ -399,4 +399,7 @@ public class GameRoutesDatabase {
         return maxTrackLength;
     }
 
+    public ArrayList<Route> getUnclaimedRoutes() {
+        return unclaimedRoutes;
+    }
 }

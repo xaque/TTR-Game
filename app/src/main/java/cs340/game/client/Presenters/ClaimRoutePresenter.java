@@ -31,15 +31,16 @@ public class ClaimRoutePresenter implements Observer {
     public ArrayList<Route> getClaimableRoutes(){
         routes = new ArrayList<>();
 
-        int[] coords = {327, 174, 363, 173, 400, 172, 436, 171, 471, 171, 507, 170};
+        /*int[] coords = {327, 174, 363, 173, 400, 172, 436, 171, 471, 171, 507, 170};
         int[] denver_kc1 = {390, 330, 425, 330, 461, 325, 496, 314};
         Route route1 = new Route(City.HELENA, City.DULUTH, Color.PINK, 1, false, coords);
         Route route2 = new Route(City.DENVER, City.KANSAS_CITY, Color.WILD, 1, false, denver_kc1);
         routes.add(route1);
-        routes.add(route2);
+        routes.add(route2);*/
 
         //This is what it's supposed to be
         routes = facade.getClaimableRoutes();
+        System.out.println(routes.size());
         return routes;
     }
 

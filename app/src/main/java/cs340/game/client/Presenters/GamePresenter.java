@@ -362,6 +362,7 @@ public class GamePresenter implements Observer {
 
                 if(gameState.isGameOver()){
                     onGameEnd();
+                    System.out.println("GAME OVER");
                 }
             }
         });

@@ -104,7 +104,7 @@ public class DestinationsDialog extends DialogFragment {
 
     public void submitDestinationCardSelection() {
       //  presenter.acceptDestinationCards(selectedDestinationCards);
-        presenter.discardDestinationCards(destinationCards);
+        presenter.discardDestinationCards(selectedDestinationCards);
     }
 
     @Override

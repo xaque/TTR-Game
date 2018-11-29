@@ -248,6 +248,7 @@ public class InGameFacade {
     public ArrayList<Route> getClaimableRoutes(){
 
         List<Route> routes = clientModelRoot.getCurrentGameState().getRoutes();
+        System.out.println("ROUTE SIZE: " + routes.size());
         ArrayList<Route> claimableRoutes = new ArrayList<>();
         for(int i = 0; i < routes.size(); i++){
 
@@ -260,8 +261,12 @@ public class InGameFacade {
                 int length = route.getLength();
                 if(getCurrentPlayer().hasSufficientCards(color, length)){
 
-                    if(canClaimDoubleRoute(route)) {
+                    if(route.isDoubleRoute()) {
+                        if (canClaimDoubleRoute(route)) {
 
+                            claimableRoutes.add(route);
+                        }
+                    }else{
                         claimableRoutes.add(route);
                     }
                 }
