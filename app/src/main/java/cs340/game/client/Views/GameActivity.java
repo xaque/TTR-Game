@@ -239,7 +239,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         turn5.setVisibility(View.INVISIBLE);
     }
 
-
     public void onLeaveGameResponse(boolean isLeaveSuccess) {
         startActivity(new Intent(this, GameListActivity.class));
         this.finish();
@@ -333,12 +332,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     @Override
     public void onClick(View view) {
         boolean canBeClicked = true;
         if(!presenter.isPlayersTurn()){
-            onError("It's not your turn!");
             canBeClicked = false;
         }
 
@@ -347,12 +344,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 if(canBeClicked) {
                     DrawTrainsFragment drawTrainsDialog = new DrawTrainsFragment();
                     drawTrainsDialog.show(getSupportFragmentManager(), "draw trains");
+                } else {
+                    onError("It's not your turn!");
                 }
                 break;
             case R.id.draw_destinations_button:
                 if(canBeClicked) {
                     DestinationsDialog destinationsDialog = new DestinationsDialog();
                     destinationsDialog.show(getSupportFragmentManager(), "draw destinations");
+                } else {
+                    onError("It's not your turn!");
                 }
                 break;
             case R.id.place_trains_button:
@@ -360,9 +361,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 if(canBeClicked) {
                     ClaimRouteDialog claimRouteDialog = new ClaimRouteDialog();
                     claimRouteDialog.show(getSupportFragmentManager(), "claim route");
+                } else {
+                    onError("It's not your turn!");
                 }
                 break;
-            //Toast.makeText(this, "You clicked PLACE TRAINS. Nice job!", Toast.LENGTH_SHORT).show();
             case R.id.turn_order:
                 PlayerInfoFragment playerInfoFragment = new PlayerInfoFragment();
                 playerInfoFragment.show(getSupportFragmentManager(), "player info");

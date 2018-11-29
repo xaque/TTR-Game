@@ -109,9 +109,8 @@ public class ClaimRouteDialog extends DialogFragment {
     }
 
     public void routeClick(int route_position){
-        String message = "Clicked on route " + Integer.toString(route_position);
         selectedId = route_position;
-        Toast.makeText(this.getActivity(), message, Toast.LENGTH_SHORT).show();
+        presenter.claimRoute(selectedId);
     }
 
     public void promptSelectColor(){
