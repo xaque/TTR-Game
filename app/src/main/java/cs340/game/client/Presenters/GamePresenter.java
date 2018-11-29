@@ -356,6 +356,10 @@ public class GamePresenter implements Observer {
                 updateTrains(currentPlayer.getTrainTokens());
                 updateDestinationsLeft(gameState.getDestinationTicketDeckSize());
 
+                //if(gameState.newRouteExists()){
+                //    view.placeRoute(gameState.getNewRouteOwner(), gameState.getNewRoute());
+                //}
+
                 if(gameState.hasTurnChanged()){
                     nextTurn();
                 }

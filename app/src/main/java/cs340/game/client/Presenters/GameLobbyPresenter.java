@@ -85,7 +85,6 @@ public class GameLobbyPresenter implements Observer {
             public void run() {
                 if(facade.getCurrentGame().isGameStarted()){
                     onStartGameResponse(true);
-                    //startGame(facade.getCurrentGame().getName());
                 }
                 populatePlayerList(AppLayerFacade.getInstance().getCurrentGame().getPlayers());
                 checkPlayers(AppLayerFacade.getInstance().getCurrentGame().getPlayers());
