@@ -170,7 +170,7 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
             case RED:
                 return R.mipmap.red;
             default:
-                return R.mipmap.red;
+                return R.color.black;
         }
     }
 

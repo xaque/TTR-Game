@@ -53,9 +53,19 @@ public class DrawTrainsPresenter implements Observer {
 
     public void ok_clicked(int index){
         TrainCard newCard;
-        if(index == -1){
+        if(index != 5 && index > faceUps.size()-1){
+            onError("Not a real card");
+        }
+        else if(index != 5 && faceUps.size() == 0){
+            onError("No face up cards");
+        }
+        else if(index == 5 && gameFacade.getCurrentGame().getTrainCardDeckSize() == 0){
+            onError("No cards in deck");
+        }
+        else if(index == -1){
             onError("Please select a card");
-        }else if(index != 5){
+        }
+        else if(index != 5){
             newCard = faceUps.get(index);
             if(newCard.getColor() == Color.WILD){
                 state.drawLocomotive(newCard, index);
