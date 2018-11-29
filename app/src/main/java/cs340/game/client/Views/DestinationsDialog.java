@@ -31,7 +31,7 @@ public class DestinationsDialog extends DialogFragment {
     private DestinationCard destinationCard3;
 
 
-    private boolean isStartOfGame;
+    private static boolean isStartOfGame = true;
 
     private DestinationsDialogPresenter presenter;
     private ConstraintLayout destCard1;
@@ -50,13 +50,15 @@ public class DestinationsDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         selectedDestinationCards = new ArrayList<>();
-        isStartOfGame = false;
-        if(savedInstanceState != null && savedInstanceState.containsKey("startOfGame")) {
-            isStartOfGame = (boolean)savedInstanceState.get("startOfGame");
-        }
 
-        builder.setMessage("Pick at most 1 Destination Card to discard.")
-                .setTitle(R.string.drawDestinations);
+        if(isStartOfGame) {
+            builder.setMessage("Pick at most 1 Destination Card to discard.")
+                    .setTitle(R.string.drawDestinations);
+        }
+        else {
+            builder.setMessage("Pick at most 2 Destination Card to discard.")
+                    .setTitle(R.string.drawDestinations);
+        }
 
         builder.setPositiveButton(R.string.ok, null);
 
@@ -75,21 +77,22 @@ public class DestinationsDialog extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         // User clicked OK button
-//                        if(isStartOfGame) {
+                        if(isStartOfGame) {
                             if(selectedDestinationCards.size() <= 1) {
+                                isStartOfGame = false;
                                 submitDestinationCardSelection();
                                 dialog.dismiss();
                             } else {
                                 Toast.makeText(getActivity(), "You must select at most 1 destination cards to discard at the beginning of the game.", Toast.LENGTH_LONG).show();
                             }
-//                        } else {
-//                            if (selectedDestinationCards.size() >= 1) {
-//                                submitDestinationCardSelection();
-//                                dialog.dismiss();
-//                            } else {
-//                                Toast.makeText(getActivity(), "You must select at least 1 destination card to keep.", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
+                        } else {
+                            if (selectedDestinationCards.size() <= 2) {
+                                submitDestinationCardSelection();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(getActivity(), "You must select at most 2 destination cards to discard.", Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
                 });
             }
@@ -103,7 +106,7 @@ public class DestinationsDialog extends DialogFragment {
     }
 
     public void submitDestinationCardSelection() {
-      //  presenter.acceptDestinationCards(selectedDestinationCards);
+        //  presenter.acceptDestinationCards(selectedDestinationCards);
         presenter.discardDestinationCards(selectedDestinationCards);
     }
 
