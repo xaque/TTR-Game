@@ -164,8 +164,12 @@ public class DestinationsDialog extends DialogFragment implements IView {
             while (destinationCards.size() < 3) {
                 destinationCards = presenter.getDestinationCards_StartOfGame();
             }
-            setDestinationCards(destinationCards);
+        } else {
+            while(destinationCards.size() < 3) {
+                destinationCards = presenter.getDrawnDestinationCards();
+            }
         }
+        setDestinationCards(destinationCards);
     }
 
     public void setDestinationCards(ArrayList<DestinationCard> destinationCards) {

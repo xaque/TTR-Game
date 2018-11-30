@@ -46,16 +46,18 @@ public class DestinationsFragment extends Fragment implements IView {
 
     @Override
     public void update(Object obj) {
-        final ArrayList<DestinationCard> destinationList = (ArrayList<DestinationCard>) obj;
-        final Context context = this.getContext();
-        Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                destinationAdapter = new DestinationAdapter(destinationList);
-                destinationsRecyclerView.setAdapter(destinationAdapter);
-            }
-        });
+        if(obj instanceof ArrayList) {
+            final ArrayList<DestinationCard> destinationList = (ArrayList<DestinationCard>) obj;
+            final Context context = this.getContext();
+            Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    destinationAdapter = new DestinationAdapter(destinationList);
+                    destinationsRecyclerView.setAdapter(destinationAdapter);
+                }
+            });
+        }
     }
 
     @Override

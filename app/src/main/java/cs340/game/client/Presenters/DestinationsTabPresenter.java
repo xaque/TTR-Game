@@ -23,16 +23,13 @@ public class DestinationsTabPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        ArrayList<DestinationCard> destinationCards;
         if(observable instanceof Player) {
             Player currentPlayer = (Player)observable;
-            destinationCards = currentPlayer.getDestinationCards();
-        } else {
-            destinationCards = InGameFacade.getInstance().getDestinationCardsFromCurrentPlayer();
-        }
-        if(destinationCards.size() != cardCount) {
-            cardCount = destinationCards.size();
-            view.update(destinationCards);
+            ArrayList<DestinationCard> destinationCards = currentPlayer.getDestinationCards();
+            if(destinationCards.size() != cardCount) {
+                cardCount = destinationCards.size();
+                view.update(destinationCards);
+            }
         }
     }
 }

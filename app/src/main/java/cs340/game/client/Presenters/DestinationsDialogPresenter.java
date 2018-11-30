@@ -21,23 +21,23 @@ public class DestinationsDialogPresenter implements Observer {
     private DestinationsDialog view;
     private InGameFacade facade = InGameFacade.getInstance();
     private Activity gameActivity;
-    private int cardCount;
+    private ArrayList<DestinationCard> drawnDestinationCards;
 
     public DestinationsDialogPresenter(DestinationsDialog destinationsFragment) {
         view = destinationsFragment;
 
         facade.addObserverToCurrentPlayer(this);
         gameActivity = view.getActivity();
-        cardCount = 0;
+        drawnDestinationCards = new ArrayList<>();
     }
 
     @Override
     public void update(Observable observable, Object o) {
         if(observable instanceof Player) {
             Player player = (Player) observable;
-            if(player.getDrawnDestinationCards().size() > cardCount) {
-                cardCount = player.getDrawnDestinationCards().size();
-                view.update(player.getDrawnDestinationCards());
+            if(player.getDrawnDestinationCards().size() > drawnDestinationCards.size()) {
+                drawnDestinationCards = player.getDrawnDestinationCards();
+               // view.update(player.getDrawnDestinationCards());
             }
         }
     }
@@ -50,8 +50,8 @@ public class DestinationsDialogPresenter implements Observer {
         return facade.getDestinationCardsFromCurrentPlayer();
     }
 
-    public List<DestinationCard> getDrawnDestinationCards() {
-        return facade.getDrawnDestinationCards();
+    public ArrayList<DestinationCard> getDrawnDestinationCards() {
+        return drawnDestinationCards;
     }
 
     public void submitDestinationCardSelection(ArrayList<DestinationCard> selectedCards) {
@@ -69,7 +69,7 @@ public class DestinationsDialogPresenter implements Observer {
     }
 
     public void clearDrawnDestinationCards() {
-        cardCount = 0;
+        drawnDestinationCards = new ArrayList<>();
         facade.clearDrawnDestinationCards();
     }
 
