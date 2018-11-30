@@ -102,6 +102,10 @@ public class GameOverActivity extends AppCompatActivity {
         presenter = new GameOverPresenter(this);
     }
 
+    public void setWinner(String name) {
+        winner.setText(name);
+    }
+
     public void hidePlayer(int playerNumber){
         switch(playerNumber){
             case 1:

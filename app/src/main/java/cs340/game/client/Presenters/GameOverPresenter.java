@@ -22,8 +22,38 @@ public class GameOverPresenter {
         gameState = gameFacade.getCurrentGame();
         players = gameState.getPlayers();
         longestRoutesPlayerNames = gameState.getLongestTrackPlayerNames();
-
+        String winner = calculateWinner();
+        view.setWinner(winner);
         setPlayers();
+    }
+
+    public String calculateWinner(){
+        int winningScore = 0;
+        Player winningPlayer = players.get(0);
+
+        for(Player player : players){
+            int playerScore = 0;
+            int dest = player.getDestinationCardRoutePoints();
+            int points = player.getPoints();
+            int lp =0;
+            if(longestRoutesPlayerNames.contains(player.getName())){
+                lp = 10;
+            }
+            playerScore = dest + points + lp;
+
+            if(playerScore > winningScore){
+                winningScore = playerScore;
+                winningPlayer = player;
+            }
+        }
+
+        return winningPlayer.getName();
+    }
+
+    public void setWinner() {
+        String name = "WINNER";
+        //name = gameFacade.getWinner();
+        view.setWinner(name);
     }
 
     public void setPlayers() {
@@ -42,6 +72,7 @@ public class GameOverPresenter {
 
         //These values are not right....
         int dest = player.getDestinationCardRoutePoints();
+
         int points = player.getPoints();
         int lp;
         if(longestRoutesPlayerNames.contains(player.getName())) {
