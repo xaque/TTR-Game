@@ -13,6 +13,7 @@ import cs340.game.client.Views.GameActivity;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
+import cs340.game.shared.models.Route;
 
 public class GamePresenter implements Observer {
 
@@ -356,9 +357,16 @@ public class GamePresenter implements Observer {
                 updateTrains(currentPlayer.getTrainTokens());
                 updateDestinationsLeft(gameState.getDestinationTicketDeckSize());
 
-                //if(gameState.newRouteExists()){
-                //    view.placeRoute(gameState.getNewRouteOwner(), gameState.getNewRoute());
-                //}
+//                if(gameState.newRouteExists()){
+//                    view.placeRoute(gameState.getNewRouteOwner(), gameState.getNewRoute());
+//                }
+                for(int i = 0; i < gameState.getRoutes().size(); i++){
+                    Route route = gameState.getRoutes().get(i);
+                    if(route.isClaimed()){
+                        String playerName = route.getPlayerOnRoute();
+                        view.placeRoute(getPlayerColor(playerName), route.getCoordinates());
+                    }
+                }
 
                 if(gameState.hasTurnChanged()){
                     nextTurn();
@@ -370,6 +378,12 @@ public class GamePresenter implements Observer {
                 }
             }
         });
+    }
 
+    private Color getPlayerColor(String playerName){
+        ArrayList<Player> players = gameState.getPlayers();
+        int num = players.indexOf(playerName);
+        Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK, Color.GREEN, Color.BLUE};
+        return colors[num];
     }
 }
