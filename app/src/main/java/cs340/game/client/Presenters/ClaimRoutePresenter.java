@@ -47,7 +47,7 @@ public class ClaimRoutePresenter implements Observer {
     }
 
     public void claimRoute(int index) {
-        claimedRoute = routes.get(index);
+        claimedRoute = filteredRoutes.get(index);
         Color routeColor = claimedRoute.getColor();
 
         if(routeColor == Color.WILD){
