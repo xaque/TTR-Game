@@ -19,6 +19,7 @@ public class ClaimRoutePresenter implements Observer {
     private ClaimRouteDialog view;
     private InGameFacade facade = InGameFacade.getInstance();
     private ArrayList<Route> routes;
+    private ArrayList<Route> filteredRoutes;
     private Route claimedRoute;
 
     public ClaimRoutePresenter(ClaimRouteDialog claimRouteDialog) {
@@ -40,6 +41,7 @@ public class ClaimRoutePresenter implements Observer {
 
         //This is what it's supposed to be
         routes = facade.getClaimableRoutes();
+        filteredRoutes = routes;
         System.out.println(routes.size());
         return routes;
     }
@@ -82,6 +84,10 @@ public class ClaimRoutePresenter implements Observer {
         GameActivity context = (GameActivity) view.getActivity();
         assert context != null;
         context.placeRoute(player_color, route);
+    }
+
+    public void setFilteredRoutes(ArrayList<Route> filteredRoutes){
+        this.filteredRoutes = filteredRoutes;
     }
 
     public void closeDialog(){

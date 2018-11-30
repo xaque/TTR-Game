@@ -266,6 +266,7 @@ public class ClaimRouteDialog extends DialogFragment {
                 @Override
                 protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                     filteredRoutes = (ArrayList<Route>) filterResults.values;
+                    presenter.setFilteredRoutes(filteredRoutes);
                     notifyDataSetChanged();
                 }
             };
