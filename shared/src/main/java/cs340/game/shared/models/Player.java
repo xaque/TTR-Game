@@ -120,15 +120,27 @@ public class Player extends Observable implements Serializable {
 
     public boolean hasSufficientCards(Color colorNeeded, int numberNeeded){
 
-        int count = 0;
-        for(int i = 0; i < trainCards.size(); i++){
-            TrainCard card = trainCards.get(i);
-            if(card.getColor() == colorNeeded || card.getColor() == Color.WILD){
-                count++;
+        if(colorNeeded == Color.WILD){
+            Color[] colors = {Color.BLACK, Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.RED, Color.WHITE, Color.YELLOW};
+            boolean hasSufficientCards;
+            for(int i = 0; i < colors.length; i++){
+                hasSufficientCards = hasSufficientCards(colors[i], numberNeeded);
+                if(hasSufficientCards){
+                    return true;
+                }
             }
-        }
+            return false;
+        }else {
+            int count = 0;
+            for (int i = 0; i < trainCards.size(); i++) {
+                TrainCard card = trainCards.get(i);
+                if (card.getColor() == colorNeeded || card.getColor() == Color.WILD) {
+                    count++;
+                }
+            }
 
-        return (count >= numberNeeded);
+            return (count >= numberNeeded);
+        }
     }
 
     public void addTrainCard(TrainCard newCard){
