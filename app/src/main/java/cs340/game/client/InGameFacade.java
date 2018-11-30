@@ -326,11 +326,18 @@ public class InGameFacade {
         int highestPoints = 0;
         ArrayList<Player> players = getCurrentGame().getPlayers();
 
+        int totalPoints;
         for(int i = 0; i < players.size(); i++){
 
-            if(players.get(i).getPoints() > highestPoints){
+            totalPoints = players.get(i).getPoints();
+            totalPoints += players.get(i).getDestinationCardRoutePointsWon();
+            totalPoints -= players.get(i).getDestinationCardRoutePointsLost();
+            if(getCurrentGame().getLongestTrackPlayerNames().contains(players.get(i).getName())) {
+                totalPoints += 10;
+            }
+            if(totalPoints > highestPoints){
 
-                highestPoints = players.get(i).getPoints();
+                highestPoints = totalPoints;
                 playerWithHighestPoints = players.get(i);
             }
         }
