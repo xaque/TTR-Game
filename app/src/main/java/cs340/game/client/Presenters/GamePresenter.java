@@ -159,6 +159,8 @@ public class GamePresenter implements Observer {
         Map<String, Object> data = new HashMap<>();
         data.put("playerName", currentPlayer.getName());
         data.put("players", players);
+        setTurn(gameState);
+        data.put("turn", turn);
         view.setUp(data);
     }
 

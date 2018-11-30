@@ -262,6 +262,7 @@ public class GameActivity extends AppCompatActivity implements IView, View.OnCli
                 hidePlayer(i+1);
             }
         }
+        changeTurn((int)data.get("turn"));
     }
 
     public void setPlayer(int playerNumber, Player player){
