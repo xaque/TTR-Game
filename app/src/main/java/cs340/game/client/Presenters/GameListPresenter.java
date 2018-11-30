@@ -62,9 +62,6 @@ public class GameListPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("update()");
-        System.out.println("This is the list of games");
-        System.out.println(o.toString());
         view.runOnUiThread(new Runnable() {
 
             @Override

@@ -102,12 +102,14 @@ public class DrawTrainsPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        view.getTheActivity().runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                updateCardsLeft(gameState.getTrainCardDeckSize());
-                setFaceUps(gameState.getFaceUpCards());
-            }
-        });
+        if(false) {
+            view.getTheActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    updateCardsLeft(gameState.getTrainCardDeckSize());
+                    setFaceUps(gameState.getFaceUpCards());
+                }
+            });
+        }
     }
 }

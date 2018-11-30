@@ -1,6 +1,5 @@
 package cs340.game.client;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
@@ -139,11 +138,23 @@ public class InGameFacade {
         return getCurrentPlayer().getDestinationCards();
     }
 
-    public ArrayList<DestinationCard> drawDestinationCards(){
+    public ArrayList<DestinationCard> getDrawnDestinationCards() {
+        return getCurrentPlayer().getDrawnDestinationCards();
+    }
+
+    public void acceptDestinationCards(ArrayList<DestinationCard> cards) {
+        getCurrentPlayer().addDestinationCards(cards);
+    }
+
+    public void clearDrawnDestinationCards() {
+        getCurrentPlayer().setDrawnDestinationCards(new ArrayList<DestinationCard>());
+    }
+
+    public String drawDestinationCards(){
 
         GameState gameState = getCurrentGame();
         if(gameState.isOneTrainCardDrawn()){
-            //return "You cannot draw a destination card because you have already drawn a train card, select another train card to draw!";
+            return "You cannot draw a destination card because you have already drawn a train card, select another train card to draw!";
         }
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
@@ -151,13 +162,13 @@ public class InGameFacade {
         DestinationCardResults results = (DestinationCardResults)proxy.DrawDestinationCard(currentPlayer.getAuthToken());
 
         if(results.isSuccess()) {
-
+            currentPlayer.setDrawnDestinationCards(results.getCards());
             currentPlayer.notifyObservers();
-            return results.getCards();
         }else{
-            //return results.getErrorInfo();
-            return null;
+            return results.getErrorInfo();
         }
+
+        return null;
     }
 
     public String discardDestinationCards(ArrayList<DestinationCard> cards){
@@ -167,13 +178,7 @@ public class InGameFacade {
         System.out.println("AUTH TOKEN" + currentPlayer.getAuthToken());
         DestinationCardResults results = (DestinationCardResults)proxy.DiscardDestinationCards(/*currentPlayer.getName()*/currentPlayer.getAuthToken(), cards);
 
-        if(results.isSuccess()){
-            try {
-                currentPlayer.removeDestinationCards(cards);
-            }catch (Exception e){
-                return e.getMessage();
-            }
-        }else{
+        if(!results.isSuccess()){
             return results.getErrorInfo();
         }
 

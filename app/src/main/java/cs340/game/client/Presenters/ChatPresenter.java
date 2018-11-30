@@ -17,12 +17,13 @@ import cs340.game.client.Views.ChatFragment;
 public class ChatPresenter implements Observer {
 
     private ChatFragment view;
-
     private InGameFacade facade = InGameFacade.getInstance();
+    private int messageCount;
 
     public ChatPresenter(ChatFragment view) {
         this.view = view;
         facade.addObserverToGameState(this);
+        messageCount = 0;
     }
 
 
@@ -37,18 +38,16 @@ public class ChatPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("update()");
-        System.out.println("This is the list of chats");
-        for(int i = 0; i < facade.getCurrentGame().getHistory().getSize(); i++){
-            System.out.println(facade.getCurrentGame().getHistory().getActions().get(i).getActionMessage());
-        }
-        view.getActivity().runOnUiThread(new Runnable() {
+        if(facade.getCurrentGame().getHistory().getSize() > messageCount) {
+            messageCount = facade.getCurrentGame().getHistory().getSize();
+            view.getActivity().runOnUiThread(new Runnable() {
 
-            @Override
-            public void run() {
-                view.updateUI();
-            }
-        });
+                @Override
+                public void run() {
+                    view.updateUI();
+                }
+            });
+        }
     }
 }
 

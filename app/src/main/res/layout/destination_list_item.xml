@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/city1"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
         android:text="@string/dash"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/city1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
         android:text="@string/city2"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/dash"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
         android:text="@string/colon"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/city2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
         android:text="@string/eight"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/colon"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

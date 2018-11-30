@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -19,9 +20,10 @@ import java.util.Objects;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.DestinationsDialogPresenter;
+import cs340.game.client.ViewInterface.IView;
 import cs340.game.shared.models.DestinationCard;
 
-public class DestinationsDialog extends DialogFragment {
+public class DestinationsDialog extends DialogFragment implements IView {
 
     private ArrayList<DestinationCard> selectedDestinationCards;
     private ArrayList<DestinationCard> destinationCards;
@@ -31,7 +33,7 @@ public class DestinationsDialog extends DialogFragment {
     private DestinationCard destinationCard3;
 
 
-    private static boolean isStartOfGame = true;
+    private static boolean isStartOfGame = false;
 
     private DestinationsDialogPresenter presenter;
     private ConstraintLayout destCard1;
@@ -40,6 +42,14 @@ public class DestinationsDialog extends DialogFragment {
     private TextView destText2;
     private ConstraintLayout destCard3;
     private TextView destText3;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) {
+            isStartOfGame = (boolean)savedInstanceState.get("isStartOfGame");
+        }
+    }
 
     @NonNull
     @Override
@@ -50,12 +60,13 @@ public class DestinationsDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         selectedDestinationCards = new ArrayList<>();
+        destinationCards = new ArrayList<>();
 
         if(isStartOfGame) {
             builder.setMessage("Pick at most 1 Destination Card to discard.")
                     .setTitle(R.string.drawDestinations);
-        }
-        else {
+        } else {
+            presenter.drawDestinationCards();
             builder.setMessage("Pick at most 2 Destination Card to discard.")
                     .setTitle(R.string.drawDestinations);
         }
@@ -101,25 +112,22 @@ public class DestinationsDialog extends DialogFragment {
         return dialog;
     }
 
-    public void updateUI() {
-
-    }
-
     public void submitDestinationCardSelection() {
-        //  presenter.acceptDestinationCards(selectedDestinationCards);
-        presenter.discardDestinationCards(selectedDestinationCards);
+        presenter.submitDestinationCardSelection(selectedDestinationCards);
     }
 
     @Override
     public void onStart(){
         super.onStart();
 
-        while (destinationCards == null) {
-            destinationCards = presenter.getDestinationCards_StartOfGame();
-        }
-        while (destinationCards.size() < 3) {
-            System.out.println(destinationCards.size());
-            destinationCards = presenter.getDestinationCards_StartOfGame();
+        if(isStartOfGame) {
+            while (destinationCards == null) {
+                destinationCards = presenter.getDestinationCards_StartOfGame();
+            }
+        } else {
+            while (destinationCards.size() < 3) {
+                destinationCards = (ArrayList<DestinationCard>) presenter.getDrawnDestinationCards();
+            }
         }
         destinationCard1 = destinationCards.get(0);
         destinationCard2 = destinationCards.get(1);
@@ -180,6 +188,18 @@ public class DestinationsDialog extends DialogFragment {
         destText3.setText(destinationCard3.getCardString());
 
 
+    }
+
+    @Override
+    public void update(Object data) {
+        if(data != null) {
+            Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
     }
 
     public void onError(String message) {

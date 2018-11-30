@@ -20,6 +20,8 @@ public class Player extends Observable implements Serializable {
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
 
+    private ArrayList<DestinationCard> drawnDestinationCards = new ArrayList<>();
+
     private boolean hasDiscardedInitialDestinationCards;
 
     private ArrayList<Observer> observers = new ArrayList<>();
@@ -173,6 +175,14 @@ public class Player extends Observable implements Serializable {
             }
         }
         //throw new Exception("The player does not have this card!");
+    }
+
+    public ArrayList<DestinationCard> getDrawnDestinationCards() {
+        return drawnDestinationCards;
+    }
+
+    public void setDrawnDestinationCards(ArrayList<DestinationCard> destinationCards) {
+        this.drawnDestinationCards = destinationCards;
     }
 
     public ArrayList<DestinationCard> getDestinationCards() {
