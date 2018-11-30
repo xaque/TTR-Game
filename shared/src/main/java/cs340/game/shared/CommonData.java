@@ -7,7 +7,7 @@ public class CommonData {
     //TODO change to server address for client to be able to access it
     //public static final String HOSTNAME = "192.168.1.142";//Zack
     //public static final String HOSTNAME = "10.37.108.191";
-    public static String HOSTNAME = "192.168.11.125";//DJ
+    public static String HOSTNAME = "10.24.207.112";//DJ
     //public static String HOSTNAME = "192.168.56.1";//Tyler
     //public static String HOSTNAME = "10.25.107.60";//Tyler
     //public static String HOSTNAME = "192.168.1.206";//"10.24.195.85";//"192.168.1.206";//Tanner

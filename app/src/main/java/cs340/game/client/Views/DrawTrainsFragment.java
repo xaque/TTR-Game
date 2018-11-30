@@ -81,6 +81,8 @@ public class DrawTrainsFragment extends DialogFragment implements View.OnClickLi
             }
         });
 
+        dialog.setCanceledOnTouchOutside(false);
+
         return dialog;
     }
 

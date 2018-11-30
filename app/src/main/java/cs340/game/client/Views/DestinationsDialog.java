@@ -98,6 +98,8 @@ public class DestinationsDialog extends DialogFragment implements IView {
             }
         });
 
+        dialog.setCanceledOnTouchOutside(false);
+
         return dialog;
     }
 
