@@ -134,7 +134,15 @@ public class GamePresenter implements Observer {
         view.setPlayerName(currentPlayer.getName());
         setPlayers(players);
 
-        turn = 1;
+        // This will set the marker to the right position
+        String currentTurn = gameState.getCurrentTurnPlayer();
+        for(int i = 0; i < players.size(); i++){
+            String name = players.get(i).getName();
+            if(name.equals(currentTurn)){
+                turn = i + 1;
+            }
+        }
+        //turn = 1;
 
 
         gameFacade.addObserver(this);
