@@ -172,6 +172,7 @@ public class ServerGameState {
             gameRoutesDatabase.claimDoubleRoute(routeToClaim);
         }
 
+        routeToClaim.setPlayerOnRoute(username);
         gameState.addClaimedRoute(routeToClaim);
 
         ArrayList<Player> players = this.gameState.getPlayers();

@@ -105,7 +105,7 @@ public class Poller implements Runnable{
             GameState newState = results.getData();
 
             modelRoot.updateGameState(newState);
-            System.out.println(Integer.toString(newState.getPlayerByName("a").getDestinationCards().size()));
+            //System.out.println(Integer.toString(newState.getPlayerByName("a").getDestinationCards().size()));
             // The most recent sequence number passed from the server
             int newSequenceNumber = results.getSequenceNumber();
             modelRoot.setGameSequenceNumber(newSequenceNumber);

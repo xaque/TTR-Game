@@ -327,15 +327,9 @@ public class GamePresenter implements Observer {
                 setTurn(state);
                 data.put("turn", turn);
             }
-            List<Route> claimedRoutes = new ArrayList<>();
-            for(int i = 0; i < state.getRoutes().size(); i++) {
-                if(state.getRoutes().get(i).isClaimed()) {
-                    claimedRoutes.add(state.getRoutes().get(i));
-                }
-            }
-            if(claimedRoutes.size() > claimedRoutesCount) {
-                claimedRoutesCount = claimedRoutes.size();
-                data.put("routes", claimedRoutes);
+            if(state.getClaimedRoutes().size() > claimedRoutesCount) {
+                claimedRoutesCount = state.getClaimedRoutes().size();
+                data.put("routes", state.getClaimedRoutes());
             }
         } else if(observable instanceof Player) {
             Player player = (Player) observable;
