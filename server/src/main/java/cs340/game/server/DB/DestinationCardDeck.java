@@ -5,8 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Collections;
 
 import cs340.game.shared.City;
 import cs340.game.shared.models.DestinationCard;
@@ -21,8 +20,6 @@ import cs340.game.shared.models.DestinationCard;
  */
 public class DestinationCardDeck {
     private ArrayList<DestinationCard> cards;
-    private int size; //maintains the current size of the deck
-
 
     /**
      * Constructor for a DestinationCardDeck. Initializes all cards by reading info from
@@ -46,8 +43,7 @@ public class DestinationCardDeck {
                 DestinationCard card = new DestinationCard(city1, city2, points);
                 this.cards.add(card);
             }
-            this.size = 30; // initial deck has 30 cards
-            shuffle(5);
+            shuffle();
         }
         catch(FileNotFoundException ex) {
             System.out.println("Cannot find the DestinationCardSetupText file to initialize DestinationCardDeck.");
@@ -62,25 +58,11 @@ public class DestinationCardDeck {
 
     /**
      * Shuffles the deck by randomizing the order of the cards
-     * @param howManyTimes number of times to shuffle the deck
      * @pre None
      * @post None
      */
-    public void shuffle(int howManyTimes) {
-        Random rand = new Random();
-        ArrayList<DestinationCard> shuffledList = new ArrayList<>();
-        for(int i = 0; i < howManyTimes; i++) {
-            while (this.cards.size() != 0) {
-                int index = rand.nextInt(this.cards.size());
-                DestinationCard removedCard = this.cards.remove(index);
-                shuffledList.add(removedCard);
-            }
-            //this.cards = shuffledList;
-            for(int j = 0; j < shuffledList.size(); j++){
-                this.cards.add(shuffledList.get(j));
-            }
-            shuffledList.clear();
-        }
+    public void shuffle() {
+        Collections.shuffle(this.cards);
     }
 
     /**
@@ -92,20 +74,19 @@ public class DestinationCardDeck {
      */
     public ArrayList<DestinationCard> drawCards() {
         int numberOfDrawnCards;
-        if(this.size >= 3) {
+        if(getSize() >= 3) {
             numberOfDrawnCards = 3;
         }
         else {
-            numberOfDrawnCards = this.size;
+            numberOfDrawnCards = getSize();
         }
         //TODO contingency if deck is empty? (size = 0)
         ArrayList<DestinationCard> drawnCards = new ArrayList<>();
         for(int i = 0; i < numberOfDrawnCards; i++) {
-            if(this.cards.size() == 0){
+            if(getSize() == 0){
                 return drawnCards;
             }
             DestinationCard drawnCard = this.cards.remove(0);
-            this.size -= 1;
             drawnCards.add(drawnCard);
         }
         return drawnCards;
@@ -118,11 +99,11 @@ public class DestinationCardDeck {
     public void returnCards(ArrayList<DestinationCard> returnedCards) {
         if(returnedCards != null) {
             this.cards.addAll(returnedCards);
-            this.size += returnedCards.size();
+            shuffle();
         }
     }
 
     public int getSize() {
-        return this.size;
+        return this.cards.size();
     }
 }

@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="10sp"
                 android:textAlignment="center"
-                android:text="Denver - New York (18)"/>
+                android:text=""/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="10sp"
                 android:textAlignment="center"
-                android:text="Los Angeles - Miami (26)"/>
+                android:text=""/>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="10sp"
                 android:textAlignment="center"
-                android:text="Winnipeg - Boston (24)"/>
+                android:text=""/>
 
         </android.support.constraint.ConstraintLayout>
 

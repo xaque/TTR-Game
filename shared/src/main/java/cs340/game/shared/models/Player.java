@@ -169,8 +169,7 @@ public class Player extends Observable implements Serializable {
                 if(card.getCity1().equals(cardFromHand.getCity1())
                         && card.getCity2().equals(cardFromHand.getCity2())) {
                     destinationCards.remove(j);
-                    i++;
-                    j = 0;
+                    break;
                 }
             }
         }
