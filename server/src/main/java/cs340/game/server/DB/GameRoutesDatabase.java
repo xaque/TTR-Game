@@ -273,10 +273,10 @@ public class GameRoutesDatabase {
                 terminus2 = card.getCity2();
                 routeCompleted = continueDetermineCompletedDestinationCards(terminus1, terminus2, playerClaimedRoutes);
                 if(routeCompleted) {
-                    player.addDestinationCardRoutePoints(card.getPointValue());
+                    player.addDestinationCardRoutePointsWon(card.getPointValue());
                 }
                 else {
-                    player.subtractDestinationCardRoutePoints(card.getPointValue());
+                    player.addDestinationCardRoutePointsLost(card.getPointValue());
                 }
             }
         }

@@ -15,7 +15,8 @@ public class Player extends Observable implements Serializable {
 
     private int trainTokens;
     private int points;
-    private int destinationCardRoutePoints;
+    private int destinationCardRoutePointsWon;
+    private int destinationCardRoutePointsLost;
 
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
@@ -30,7 +31,8 @@ public class Player extends Observable implements Serializable {
         this.name = name;
         this.authToken = authToken;
         this.points = 0;
-        this.destinationCardRoutePoints = 0;
+        this.destinationCardRoutePointsWon = 0;
+        this.destinationCardRoutePointsLost = 0;
         this.trainTokens = 45;
         this.hasDiscardedInitialDestinationCards = false;
     }
@@ -38,7 +40,8 @@ public class Player extends Observable implements Serializable {
     public Player(String name) {
         this.name = name;
         this.points = 0;
-        this.destinationCardRoutePoints = 0;
+        this.destinationCardRoutePointsWon = 0;
+        this.destinationCardRoutePointsLost = 0;
         this.trainTokens = 45;
         this.hasDiscardedInitialDestinationCards = false;
     }
@@ -68,16 +71,20 @@ public class Player extends Observable implements Serializable {
         notifyObservers();
     }
 
-    public int getDestinationCardRoutePoints() {
-        return this.destinationCardRoutePoints;
+    public int getDestinationCardRoutePointsWon() {
+        return this.destinationCardRoutePointsWon;
     }
 
-    public void addDestinationCardRoutePoints(int points) {
-        this.destinationCardRoutePoints += points;
+    public int getDestinationCardRoutePointsLost() {
+        return this.destinationCardRoutePointsLost;
     }
 
-    public void subtractDestinationCardRoutePoints(int points) {
-        this.destinationCardRoutePoints -= points;
+    public void addDestinationCardRoutePointsWon(int points) {
+        this.destinationCardRoutePointsWon += points;
+    }
+
+    public void addDestinationCardRoutePointsLost(int points) {
+        this.destinationCardRoutePointsLost += points;
     }
 
     public void addPoints(int pointsToAdd){
