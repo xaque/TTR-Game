@@ -32,9 +32,6 @@ public class DestinationsDialog extends DialogFragment implements IView {
     private DestinationCard destinationCard2;
     private DestinationCard destinationCard3;
 
-
-    private static boolean isStartOfGame = false;
-
     private DestinationsDialogPresenter presenter;
     private ConstraintLayout destCard1;
     private TextView destText1;
@@ -43,26 +40,17 @@ public class DestinationsDialog extends DialogFragment implements IView {
     private ConstraintLayout destCard3;
     private TextView destText3;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            isStartOfGame = (boolean)savedInstanceState.get("isStartOfGame");
-        }
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         presenter = new DestinationsDialogPresenter(this);
-        //presenter.drawDestinationCards();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         selectedDestinationCards = new ArrayList<>();
         destinationCards = new ArrayList<>();
 
-        if(isStartOfGame) {
+        if(presenter.isStartOfGame()) {
             builder.setMessage("Pick at most 1 Destination Card to discard.")
                     .setTitle(R.string.drawDestinations);
         } else {
@@ -88,9 +76,9 @@ public class DestinationsDialog extends DialogFragment implements IView {
                     @Override
                     public void onClick(View v) {
                         // User clicked OK button
-                        if(isStartOfGame) {
+                        if(presenter.isStartOfGame()) {
                             if(selectedDestinationCards.size() <= 1) {
-                                isStartOfGame = false;
+                                presenter.setStartOfGame(false);
                                 submitDestinationCardSelection();
                                 dialog.dismiss();
                             } else {
@@ -120,8 +108,8 @@ public class DestinationsDialog extends DialogFragment implements IView {
     public void onStart(){
         super.onStart();
 
-        if(isStartOfGame) {
-            while (destinationCards == null) {
+        if(presenter.isStartOfGame()) {
+            while (destinationCards.size() < 3) {
                 destinationCards = presenter.getDestinationCards_StartOfGame();
             }
         } else {

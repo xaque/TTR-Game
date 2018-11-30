@@ -76,6 +76,14 @@ public class DestinationsDialogPresenter implements Observer {
         DrawDestinationCardsTask drawDestinationCardsTask = new DrawDestinationCardsTask(this);
         drawDestinationCardsTask.execute();
     }
+
+    public boolean isStartOfGame() {
+        return facade.isStartOfGame();
+    }
+
+    public void setStartOfGame(boolean set) {
+        facade.setStartOfGame(set);
+    }
 }
 
 

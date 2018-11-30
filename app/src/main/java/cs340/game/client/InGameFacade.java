@@ -30,7 +30,9 @@ public class InGameFacade {
     // Start Singleton
     private static InGameFacade instance;
 
-    private InGameFacade(){}
+    private InGameFacade(){
+        isStartOfGame = true;
+    }
 
     public static InGameFacade getInstance() {
 
@@ -45,6 +47,16 @@ public class InGameFacade {
 
     private ServerProxy proxy = new ServerProxy();
     private ClientModelRoot clientModelRoot = ClientModelRoot.getInstance();
+
+    private boolean isStartOfGame;
+
+    public boolean isStartOfGame() {
+        return isStartOfGame;
+    }
+
+    public void setStartOfGame(boolean startOfGame) {
+        isStartOfGame = startOfGame;
+    }
 
     public void setupCurrentGameState(Game game){
         clientModelRoot.InitializeGameState(game);
