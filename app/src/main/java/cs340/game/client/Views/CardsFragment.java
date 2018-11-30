@@ -91,6 +91,11 @@ public class CardsFragment extends Fragment implements IView {
     }
 
     @Override
+    public void setUp(Object data) {
+
+    }
+
+    @Override
     public void update(Object data) {
         if(data instanceof Map) {
             final Map<String, String> hand = (Map<String, String>) data;

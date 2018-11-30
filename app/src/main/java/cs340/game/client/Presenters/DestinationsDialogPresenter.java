@@ -69,6 +69,7 @@ public class DestinationsDialogPresenter implements Observer {
     }
 
     public void clearDrawnDestinationCards() {
+        cardCount = 0;
         facade.clearDrawnDestinationCards();
     }
 

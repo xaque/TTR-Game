@@ -1,5 +1,6 @@
 package cs340.game.client.Views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -39,18 +40,18 @@ public class DestinationsFragment extends Fragment implements IView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        presenter.update(null, null);
+    public void setUp(Object data) {
+
     }
 
     @Override
     public void update(Object obj) {
         final ArrayList<DestinationCard> destinationList = (ArrayList<DestinationCard>) obj;
-        destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        final Context context = this.getContext();
         Objects.requireNonNull(this.getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                destinationsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                 destinationAdapter = new DestinationAdapter(destinationList);
                 destinationsRecyclerView.setAdapter(destinationAdapter);
             }

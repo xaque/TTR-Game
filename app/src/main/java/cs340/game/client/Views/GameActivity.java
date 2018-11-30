@@ -23,20 +23,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.GamePresenter;
+import cs340.game.client.ViewInterface.IView;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.Player;
+import cs340.game.shared.models.Route;
 
 
 /**
  * Created by Tyler on 9/27/2018.
  */
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements IView, View.OnClickListener {
 
     private GamePresenter presenter;
 
@@ -48,6 +52,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ConstraintLayout playerInfoButton;
 
     private ChatFragment chatFragment;
+    private TextView playerName;
     private TextView player1;
     private TextView player2;
     private TextView player3;
@@ -136,10 +141,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         //Initialize all the text views and stuff
 
-        points = (TextView) findViewById(R.id.score);
+        points = findViewById(R.id.score);
         trainsLeft = findViewById(R.id.trains_left);
         map = findViewById(R.id.map);
 
+
+        playerName = findViewById(R.id.playerName);
         player1 = findViewById(R.id.first_player);
         player2 = findViewById(R.id.second_player);
         player3 = findViewById(R.id.third_player);
@@ -243,6 +250,78 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         this.finish();
     }
 
+    @Override
+    public void setUp(Object obj) {
+        Map<String, Object> data = (Map<String, Object>)obj;
+        playerName.setText((String)data.get("playerName"));
+        List<Player> players = (ArrayList<Player>)data.get("players");
+        for(int i = 0; i < 5; i++) {
+            if(i < players.size()) {
+                setPlayer(i+1, players.get(i));
+            } else {
+                hidePlayer(i+1);
+            }
+        }
+    }
+
+    public void setPlayer(int playerNumber, Player player){
+        String name = player.getName();
+        //String color = player.getColor;
+
+        switch(playerNumber) {
+            case 1:
+                player1.setText(name);
+                break;
+            case 2:
+                player2.setText(name);
+                break;
+            case 3:
+                player3.setText(name);
+                break;
+            case 4:
+                player4.setText(name);
+                break;
+            case 5:
+                player5.setText(name);
+                break;
+        }
+    }
+
+    @Override
+    public void update(Object obj) {
+        final Map<String, Object> data = (Map<String, Object>) obj;
+        Objects.requireNonNull(this.getActivityContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(data.containsKey("gameOver")) {
+                    onGameEnd();
+                    return;
+                }
+                if(data.containsKey("points")) {
+                    updatePoints((String)data.get("points"));
+                }
+                if(data.containsKey("trains")) {
+                    updateTrainsLeft((String)data.get("trains"));
+                }
+                if(data.containsKey("destinationDeck")) {
+                    updateDestinationsLeft((String)data.get("destinationDeck"));
+                }
+                if(data.containsKey("leaveGame")) {
+                    onLeaveGameResponse((Boolean)data.get("leaveGame"));
+                }
+                if(data.containsKey("turn")) {
+                    changeTurn((Integer)data.get("turn"));
+                }
+                if(data.containsKey("routes")) {
+                    List<Route> routes = (List<Route>)data.get("routes");
+                    for(Route route : routes) {
+                        placeRoute(route.getColor(), route.getCoordinates());
+                    }
+                }
+            }
+        });
+    }
+
     public void onError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -251,31 +330,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         presenter.leaveGame();
 
         return true;
-    }
-
-    public void setPlayerName(String name){
-        TextView playerName = findViewById(R.id.playerName);
-        playerName.setText(name);
-    }
-
-    public void setPlayer1(String name){
-        player1.setText(name);
-    }
-
-    public void setPlayer2(String name) {
-        player2.setText(name);
-    }
-
-    public void setPlayer3(String name) {
-        player3.setText(name);
-    }
-
-    public void setPlayer4(String name) {
-        player4.setText(name);
-    }
-
-    public void setPlayer5(String name) {
-        player5.setText(name);
     }
 
     public void hidePlayer(int playerNumber) {

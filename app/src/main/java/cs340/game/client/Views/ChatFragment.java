@@ -51,12 +51,6 @@ public class ChatFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
-    }
-
     public void updateUI() {
         ArrayList<GameHistoryAction> actions = InGameFacade.getInstance().getCurrentGame().getHistory().getActions();
         ArrayList<String> messageList = new ArrayList<>();

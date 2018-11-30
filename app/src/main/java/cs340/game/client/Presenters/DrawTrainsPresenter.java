@@ -22,6 +22,9 @@ public class DrawTrainsPresenter implements Observer {
     private ArrayList<TrainCard> faceUps;
     private DrawTrainsState state;
 
+    private int trainDeckSize;
+    private List<TrainCard> faceUpCards;
+
 
     public DrawTrainsPresenter(DrawTrainsFragment drawTrainsFragment) {
         view = drawTrainsFragment;
@@ -30,14 +33,15 @@ public class DrawTrainsPresenter implements Observer {
         faceUps = gameState.getFaceUpCards();
         state = new NoCardsDrawn(this);
 
+        trainDeckSize = 0;
+        faceUpCards = new ArrayList<>();
+
         updateCardsLeft(gameState.getTrainCardDeckSize());
         //Get cards left in deck
 
         setFaceUps(faceUps);
 
-        gameFacade.addObserver(this);
         gameFacade.addObserverToGameState(this);
-        gameFacade.addObserverToCurrentPlayer(this);
     }
 
     public void updateCardsLeft(int cards) {
@@ -80,6 +84,18 @@ public class DrawTrainsPresenter implements Observer {
         updateCardsLeft(cardsLeft);
     }
 
+    public boolean changedFaceUpCards(List<TrainCard> trainCards) {
+        if(trainCards.size() != faceUpCards.size()) {
+            return true;
+        }
+        for(int i = 0; i < faceUpCards.size(); i++) {
+            if(trainCards.get(i).getColor() != faceUpCards.get(i).getColor()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void back_clicked() {
         state.back();
     }
@@ -102,14 +118,26 @@ public class DrawTrainsPresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        if(false) {
-            view.getTheActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    updateCardsLeft(gameState.getTrainCardDeckSize());
-                    setFaceUps(gameState.getFaceUpCards());
-                }
-            });
+        if(observable instanceof GameState) {
+            final GameState state = (GameState) observable;
+            boolean changed = false;
+            if(state.getTrainCardDeckSize() != trainDeckSize) {
+                trainDeckSize = state.getTrainCardDeckSize();
+                changed = true;
+            }
+            if(changedFaceUpCards(state.getFaceUpCards())) {
+                faceUpCards = state.getFaceUpCards();
+                changed = true;
+            }
+            if(changed) {
+                view.getTheActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateCardsLeft(state.getTrainCardDeckSize());
+                        setFaceUps(state.getFaceUpCards());
+                    }
+                });
+            }
         }
     }
 }

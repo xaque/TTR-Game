@@ -3,7 +3,9 @@ package cs340.game.client.Presenters;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +25,10 @@ public class GamePresenter implements Observer {
     private Player currentPlayer;
     private ArrayList<Player> players;
     private int turn;
+    private int points;
+    private int trains;
+    private int destDeckCount;
+    private int claimedRoutesCount;
 
     private int[] calgary_winnipeg = {223, 34, 257, 22, 294, 19, 330, 19, 366, 26, 400, 36};
     private int[] vancouver_calgary = {96, 53, 131, 50, 168, 44};
@@ -131,32 +137,30 @@ public class GamePresenter implements Observer {
         currentPlayer = gameFacade.getCurrentPlayer();
         players = gameState.getPlayers();
 
-        view.setPlayerName(currentPlayer.getName());
-        setPlayers(players);
+        setUpView();
 
         // This will set the marker to the right position
-        String currentTurn = gameState.getCurrentTurnPlayer();
-        for(int i = 0; i < players.size(); i++){
-            String name = players.get(i).getName();
-            if(name.equals(currentTurn)){
-                turn = i + 1;
-            }
-        }
-        //turn = 1;
+        setTurn(gameState);
+
+        points = 0;
+        trains = 45;
+        destDeckCount = 0;
+        claimedRoutesCount = 0;
 
 
-        gameFacade.addObserver(this);
-        gameFacade.addObserverToGameState(this);
-        gameFacade.addObserverToCurrentPlayer(this);
-        //currentPlayer.addObserver(this);
+        gameState.addObserver(this);
+        currentPlayer.addObserver(this);
 
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isStartOfGame", true);
         DestinationsDialog destinationsDialog = new DestinationsDialog();
-        destinationsDialog.setArguments(bundle);
         destinationsDialog.show(view.getActivityContext().getSupportFragmentManager(),"Game Activity");
     }
 
+    public void setUpView() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("playerName", currentPlayer.getName());
+        data.put("players", players);
+        view.setUp(data);
+    }
 
     public void placeRoutes() {
         List<int[]> routes = new ArrayList<int[]>();
@@ -280,61 +284,6 @@ public class GamePresenter implements Observer {
 
     //************UPDATE UI FUNCTIONS**********************
 
-    public void setPlayers(ArrayList<Player> players) {
-        for(int i=1; i <= 5; i++) {
-            if(i <= players.size()){
-                setPlayer(i, players.get(i-1));
-            }
-            else {
-                view.hidePlayer(i);
-            }
-        }
-    }
-
-    public void setPlayer(int playerNumber, Player player){
-        String name = player.getName();
-        //String color = player.getColor;
-
-        switch(playerNumber) {
-            case 1:
-                view.setPlayer1(name);
-                break;
-            case 2:
-                view.setPlayer2(name);
-                break;
-            case 3:
-                view.setPlayer3(name);
-                break;
-            case 4:
-                view.setPlayer4(name);
-                break;
-            case 5:
-                view.setPlayer5(name);
-                break;
-        }
-    }
-
-    public void updatePoints(int points){
-        view.updatePoints(Integer.toString(points));
-    }
-
-    public void updateTrains(int trainsLeft) {
-        view.updateTrainsLeft(Integer.toString(trainsLeft));
-    }
-
-    public void updateDestinationsLeft(int destinations){
-        view.updateDestinationsLeft(Integer.toString(destinations));
-    }
-
-    public void nextTurn(){
-        if( turn < players.size()) {
-            turn++;
-        } else {
-            turn = 1;
-        }
-        view.changeTurn(turn);
-    }
-
     public void leaveGame() {
         //facade.LeaveGame()
         onLeaveGameResponse(true);
@@ -342,10 +291,6 @@ public class GamePresenter implements Observer {
 
     private void onLeaveGameResponse(boolean isLeaveSuccess) {
         view.onLeaveGameResponse(isLeaveSuccess);
-    }
-
-    public void onGameEnd(){
-        view.onGameEnd();
     }
 
     public boolean isPlayersTurn(){
@@ -356,36 +301,86 @@ public class GamePresenter implements Observer {
         view.onError(message);
     }
 
+    public void setTurn(GameState state) {
+        String currentTurn = state.getCurrentTurnPlayer();
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).getName().equals(currentTurn)){
+                turn = i + 1;
+                return;
+            }
+        }
+    }
+
     @Override
     public void update(Observable observable, Object o) {
-        view.runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                updatePoints(currentPlayer.getPoints());
-                updateTrains(currentPlayer.getTrainTokens());
-                updateDestinationsLeft(gameState.getDestinationTicketDeckSize());
-
-//                if(gameState.newRouteExists()){
-//                    view.placeRoute(gameState.getNewRouteOwner(), gameState.getNewRoute());
-//                }
-                for(int i = 0; i < gameState.getRoutes().size(); i++){
-                    Route route = gameState.getRoutes().get(i);
-                    if(route.isClaimed()){
-                        String playerName = route.getPlayerOnRoute();
-                        view.placeRoute(getPlayerColor(playerName), route.getCoordinates());
-                    }
-                }
-
-                if(gameState.hasTurnChanged()){
-                    nextTurn();
-                }
-
-                if(gameState.isGameOver()){
-                    onGameEnd();
-                    System.out.println("GAME OVER");
+        Map<String, Object> data = new HashMap<>();
+        if(observable instanceof GameState) {
+            GameState state = (GameState) observable;
+            if (state.isGameOver()) {
+                data.put("gameOver", true);
+            }
+            if(state.getDestinationTicketDeckSize() != destDeckCount) {
+                destDeckCount = state.getDestinationTicketDeckSize();
+                data.put("destinationDeck", Integer.toString(state.getDestinationTicketDeckSize()));
+            }
+            if(!state.getCurrentTurnPlayer().equals(players.get(turn - 1).getName())) {
+                setTurn(state);
+                data.put("turn", turn);
+            }
+            List<Route> claimedRoutes = new ArrayList<>();
+            for(int i = 0; i < state.getRoutes().size(); i++) {
+                if(state.getRoutes().get(i).isClaimed()) {
+                    claimedRoutes.add(state.getRoutes().get(i));
                 }
             }
-        });
+            if(claimedRoutes.size() > claimedRoutesCount) {
+                claimedRoutesCount = claimedRoutes.size();
+                data.put("routes", claimedRoutes);
+            }
+        } else if(observable instanceof Player) {
+            Player player = (Player) observable;
+            if(player.getPoints() != points) {
+                points = player.getPoints();
+                data.put("points", Integer.toString(player.getPoints()));
+            }
+            if(player.getTrainTokens() != trains) {
+                trains = player.getTrainTokens();
+                data.put("trains", Integer.toString(player.getTrainTokens()));
+            }
+        }
+
+        if(!data.isEmpty()) {
+            view.update(data);
+        }
+
+//        view.runOnUiThread(new Runnable(){
+//            @Override
+//            public void run() {
+//                updatePoints(currentPlayer.getPoints());
+//                updateTrains(currentPlayer.getTrainTokens());
+//                updateDestinationsLeft(gameState.getDestinationTicketDeckSize());
+//
+////                if(gameState.newRouteExists()){
+////                    view.placeRoute(gameState.getNewRouteOwner(), gameState.getNewRoute());
+////                }
+//                for(int i = 0; i < gameState.getRoutes().size(); i++){
+//                    Route route = gameState.getRoutes().get(i);
+//                    if(route.isClaimed()){
+//                        String playerName = route.getPlayerOnRoute();
+//                        view.placeRoute(getPlayerColor(playerName), route.getCoordinates());
+//                    }
+//                }
+//
+//                if(gameState.hasTurnChanged()){
+//                    nextTurn();
+//                }
+//
+//                if(gameState.isGameOver()){
+//                    onGameEnd();
+//                    System.out.println("GAME OVER");
+//                }
+//            }
+//        });
     }
 
     private Color getPlayerColor(String playerName){
