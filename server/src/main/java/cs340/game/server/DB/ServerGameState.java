@@ -171,6 +171,9 @@ public class ServerGameState {
         if(gameState.getPlayers().size() <= 3 && routeToClaim.isDoubleRoute()) {
             gameRoutesDatabase.claimDoubleRoute(routeToClaim);
         }
+
+        gameState.addClaimedRoute(routeToClaim);
+
         ArrayList<Player> players = this.gameState.getPlayers();
         for (Player player : players) {
             if (player.getName().equals(username)) {

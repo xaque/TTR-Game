@@ -49,7 +49,7 @@ public class ClaimRouteCommand implements iCommand {
 
             String city1 = claimRouteData.getRoute().getCity1().toString();
             String city2 = claimRouteData.getRoute().getCity2().toString();
-            String actionMessage = username + "claimed route between " + city1 + " and " + city2 + ".";
+            String actionMessage = username + " claimed route between " + city1 + " and " + city2 + ".";
             GameHistoryAction action = new GameHistoryAction(actionMessage, null);
             game.addGameCommand(action);
             game.endTurn();

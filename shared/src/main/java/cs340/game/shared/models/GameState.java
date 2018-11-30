@@ -12,6 +12,7 @@ public class GameState extends Observable implements Serializable {
 
     private String name;
     private ArrayList<Route> routes;
+    private ArrayList<Route> claimedRoutes;
     private ArrayList<Player> players;
     private ArrayList<TrainCard> faceUpCards;
     private GameHistoryActionList history;
@@ -47,6 +48,7 @@ public class GameState extends Observable implements Serializable {
     public GameState(String name){
         this.name = name;
         routes = new ArrayList<>();
+        claimedRoutes = new ArrayList<>();
         players = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         history = new GameHistoryActionList();
@@ -66,6 +68,7 @@ public class GameState extends Observable implements Serializable {
         this.name = name;
         this.players = players;
         routes = new ArrayList<>();
+        claimedRoutes = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         history = new GameHistoryActionList();
         observers = new ArrayList<>();
@@ -105,6 +108,18 @@ public class GameState extends Observable implements Serializable {
         }
 
         isChanged = true;
+    }
+
+    public ArrayList<Route> getClaimedRoutes() {
+        return claimedRoutes;
+    }
+
+    public void setClaimedRoutes(ArrayList<Route> routes) {
+        this.claimedRoutes = routes;
+    }
+
+    public void addClaimedRoute(Route route) {
+        claimedRoutes.add(route);
     }
 
     public ArrayList<Player> getPlayers() {
