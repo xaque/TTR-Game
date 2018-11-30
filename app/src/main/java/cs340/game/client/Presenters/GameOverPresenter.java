@@ -45,7 +45,7 @@ public class GameOverPresenter {
         int dest = player.getDestinationCardRoutePoints();
         int points = player.getPoints();
         int lp;
-        if(player.getName().equals(longestRoutesPlayerNames.get(0))) {
+        if(longestRoutesPlayerNames.contains(player.getName())) {
             lp = 10;
         } else {
             lp = 0;
