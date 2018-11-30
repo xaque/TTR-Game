@@ -418,4 +418,8 @@ public class InGameFacade {
             //wait
         }
     }
+
+    public void stopPoller() {
+        clientModelRoot.stopPoller();
+    }
 }
