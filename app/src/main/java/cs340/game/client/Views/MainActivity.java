@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String user = username.getText().toString();
         String pw = password.getText().toString();
         String ipa = ip.getText().toString();
+        if (!isValidIP(ipa)){
+            onError("Invalid IP address.");
+            return;
+        }
         switch(v.getId()) {
             case R.id.login_button:
                 presenter.login(user, pw);
@@ -77,6 +81,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             CommonData.HOSTNAME = ipa;
         }
 
+    }
+
+    private boolean isValidIP(String ipa){
+        String[] parts = ipa.split("\\.");
+        if (parts.length != 4){
+            return false;
+        }
+        for (String part : parts){
+            int p;
+            try {
+                p = Integer.parseInt(part);
+            }
+            catch(NumberFormatException e){
+                return false;
+            }
+            if (p < 1 || p > 255){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
