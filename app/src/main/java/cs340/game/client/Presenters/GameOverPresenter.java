@@ -21,7 +21,6 @@ public class GameOverPresenter {
 
         gameState = gameFacade.getCurrentGame();
         players = gameState.getPlayers();
-        gameFacade.stopPoller();
         longestRoutesPlayerNames = gameState.getLongestTrackPlayerNames();
 
         setPlayers();
