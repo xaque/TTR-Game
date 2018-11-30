@@ -1,5 +1,6 @@
 package cs340.game.client;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
@@ -138,35 +139,25 @@ public class InGameFacade {
         return getCurrentPlayer().getDestinationCards();
     }
 
-    public String drawDestinationCards(){
+    public ArrayList<DestinationCard> drawDestinationCards(){
 
         GameState gameState = getCurrentGame();
         if(gameState.isOneTrainCardDrawn()){
-            return "You cannot draw a destination card because you have already drawn a train card, select another train card to draw!";
+            //return "You cannot draw a destination card because you have already drawn a train card, select another train card to draw!";
         }
 
         Player currentPlayer = clientModelRoot.getCurrentPlayer();
 
-        GameResults results = (GameResults)proxy.DrawDestinationCard(currentPlayer.getAuthToken());
+        DestinationCardResults results = (DestinationCardResults)proxy.DrawDestinationCard(currentPlayer.getAuthToken());
 
         if(results.isSuccess()) {
-            ArrayList<DestinationCard> newCards = new ArrayList<>();
-            DestinationCard card1 = new DestinationCard(City.DENVER, City.KANSAS_CITY, 5);
-            DestinationCard card2 = new DestinationCard(City.DENVER, City.OKLAHOMA_CITY, 4);
-            DestinationCard card3 = new DestinationCard(City.SALT_LAKE_CITY, City.ATLANTA, 9);
-
-            newCards.add(card1);
-            newCards.add(card2);
-            newCards.add(card3);
-
-            currentPlayer.addDestinationCards(newCards);
 
             currentPlayer.notifyObservers();
+            return results.getCards();
         }else{
-            return results.getErrorInfo();
+            //return results.getErrorInfo();
+            return null;
         }
-
-        return null;
     }
 
     public String discardDestinationCards(ArrayList<DestinationCard> cards){
