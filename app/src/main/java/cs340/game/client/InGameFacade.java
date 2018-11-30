@@ -320,6 +320,23 @@ public class InGameFacade {
         return true;
     }
 
+    public Player getPlayerWithHighestPoints(){
+
+        Player playerWithHighestPoints = null;
+        int highestPoints = 0;
+        ArrayList<Player> players = getCurrentGame().getPlayers();
+
+        for(int i = 0; i < players.size(); i++){
+
+            if(players.get(i).getPoints() > highestPoints){
+
+                highestPoints = players.get(i).getPoints();
+                playerWithHighestPoints = players.get(i);
+            }
+        }
+        return playerWithHighestPoints;
+    }
+
     /**
      * Checks if it is the current player's turn.
      * @return true if it is the current player's turn, false otherwise
