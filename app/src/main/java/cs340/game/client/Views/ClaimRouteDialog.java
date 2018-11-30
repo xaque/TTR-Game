@@ -11,15 +11,20 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import cs340.game.R;
@@ -36,6 +41,7 @@ public class ClaimRouteDialog extends DialogFragment {
 
     private RecyclerView routesRecyclerView;
     private ClaimRouteDialog.RouteAdapter routeAdapter;
+    private EditText routeQuery;
 
     private int selectedId;
 
@@ -99,6 +105,27 @@ public class ClaimRouteDialog extends DialogFragment {
         super.onStart();
 
         routesRecyclerView = getDialog().findViewById(R.id.routes_reyclerview);
+
+        updateUI();
+
+        routeQuery = getDialog().findViewById(R.id.routeQuery);
+        routeQuery.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                routeAdapter.getFilter().filter(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         selectedId = -1;
         updateUI();
     }
@@ -181,10 +208,12 @@ public class ClaimRouteDialog extends DialogFragment {
     private class RouteAdapter extends RecyclerView.Adapter<ClaimRouteDialog.RouteHolder> {
 
         private ArrayList<Route> mRoutes;
+        private ArrayList<Route> filteredRoutes;
         private ClaimRouteDialog context;
 
         private RouteAdapter(ArrayList<Route> routes, ClaimRouteDialog context) {
             mRoutes = routes;
+            filteredRoutes = routes;
             this.context = context;
         }
 
@@ -198,16 +227,50 @@ public class ClaimRouteDialog extends DialogFragment {
 
         @Override
         public void onBindViewHolder(ClaimRouteDialog.RouteHolder holder, int position) {
-            Route route = mRoutes.get(position);
+            Route route = filteredRoutes.get(position);
             holder.bindDestination(route);
         }
 
         @Override
         public int getItemCount() {
-            if(mRoutes == null) {
+            if(filteredRoutes == null) {
                 return 0;
             }
-            return mRoutes.size();
+            return filteredRoutes.size();
+        }
+
+        public Filter getFilter(){
+            return new Filter(){
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    String charString = charSequence.toString();
+                    if(charString.isEmpty()){
+                        filteredRoutes = mRoutes;
+                    } else {
+                        ArrayList<Route> filteredList = new ArrayList<>();
+                        for (Route route : mRoutes) {
+                            //name match condition
+                            if (route.getCity1().toString().toLowerCase().contains(charString.toLowerCase()) || route.getCity2().toString().toLowerCase().contains(charString.toLowerCase())) {
+                                filteredList.add(route);
+                            }
+                        }
+
+                        filteredRoutes = filteredList;
+                    }
+
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = filteredRoutes;
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    filteredRoutes = (ArrayList<Route>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
         }
     }
+
+
 }
