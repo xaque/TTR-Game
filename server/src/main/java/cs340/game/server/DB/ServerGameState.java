@@ -137,8 +137,22 @@ public class ServerGameState {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getName().equals(username)) {
                     for (int j = 0; j < cardsToDiscard.size(); j++) {
-                        players.get(i).removeTrainCard(cardsToDiscard.get(j).getColor());
-                        discardedCards.add(cardsToDiscard.get(j));
+
+                        boolean cardAdded = false;
+                        ArrayList<TrainCard> trainCards = players.get(i).getTrainCards();
+                        for(int k = 0; k < trainCards.size(); k++) {
+
+                            if(trainCards.get(k).getColor() == cardsToDiscard.get(j).getColor()) {
+                                players.get(i).removeTrainCard(cardsToDiscard.get(j).getColor());
+                                discardedCards.add(cardsToDiscard.get(j));
+                                cardAdded = true;
+                                break;
+                            }
+                        }
+                        if(!cardAdded) {
+                            players.get(i).removeTrainCard(Color.WILD);
+                            discardedCards.add(new TrainCard(Color.WILD));
+                        }
                     }
                     break;
                 }
