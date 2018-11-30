@@ -33,13 +33,14 @@ public class GameOverPresenter {
 
         for(Player player : players){
             int playerScore = 0;
-            int dest = player.getDestinationCardRoutePoints();
+            int dest = player.getDestinationCardRoutePointsWon();
+            int lost = player.getDestinationCardRoutePointsLost();
             int points = player.getPoints();
             int lp =0;
             if(longestRoutesPlayerNames.contains(player.getName())){
                 lp = 10;
             }
-            playerScore = dest + points + lp;
+            playerScore = dest + points + lp - lost;
 
             if(playerScore > winningScore){
                 winningScore = playerScore;
@@ -48,12 +49,6 @@ public class GameOverPresenter {
         }
 
         return winningPlayer.getName();
-    }
-
-    public void setWinner() {
-        String name = "WINNER";
-        //name = gameFacade.getWinner();
-        view.setWinner(name);
     }
 
     public void setPlayers() {
@@ -71,7 +66,8 @@ public class GameOverPresenter {
         String name = player.getName();
 
         //These values are not right....
-        int dest = player.getDestinationCardRoutePoints();
+        int dest = player.getDestinationCardRoutePointsWon();
+        int lost = player.getDestinationCardRoutePointsLost();
 
         int points = player.getPoints();
         int lp;
@@ -85,19 +81,19 @@ public class GameOverPresenter {
 
         switch(playerNumber) {
             case 1:
-                view.setPlayer1(name, Integer.toString(score), Integer.toString(dest), Integer.toString(points), Integer.toString(lp));
+                view.setPlayer1(name, Integer.toString(score), Integer.toString(dest), Integer.toString(lost), Integer.toString(lp));
                 break;
             case 2:
-                view.setPlayer2(name, Integer.toString(score), Integer.toString(dest), Integer.toString(points), Integer.toString(lp));
+                view.setPlayer2(name, Integer.toString(score), Integer.toString(dest), Integer.toString(lost), Integer.toString(lp));
                 break;
             case 3:
-                view.setPlayer3(name, Integer.toString(score), Integer.toString(dest), Integer.toString(points), Integer.toString(lp));
+                view.setPlayer3(name, Integer.toString(score), Integer.toString(dest), Integer.toString(lost), Integer.toString(lp));
                 break;
             case 4:
-                view.setPlayer4(name, Integer.toString(score), Integer.toString(dest), Integer.toString(points), Integer.toString(lp));
+                view.setPlayer4(name, Integer.toString(score), Integer.toString(dest), Integer.toString(lost), Integer.toString(lp));
                 break;
             case 5:
-                view.setPlayer5(name, Integer.toString(score), Integer.toString(dest), Integer.toString(points), Integer.toString(lp));
+                view.setPlayer5(name, Integer.toString(score), Integer.toString(dest), Integer.toString(lost), Integer.toString(lp));
                 break;
         }
     }
