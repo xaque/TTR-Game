@@ -315,7 +315,8 @@ public class GameActivity extends AppCompatActivity implements IView, View.OnCli
                 if(data.containsKey("routes")) {
                     List<Route> routes = (List<Route>)data.get("routes");
                     for(Route route : routes) {
-                        placeRoute(route.getColor(), route.getCoordinates());
+                        Color playerColor = getPlayerColor(route.getPlayerOnRoute());
+                        placeRoute(playerColor, route.getCoordinates());
                     }
                 }
             }
@@ -383,6 +384,21 @@ public class GameActivity extends AppCompatActivity implements IView, View.OnCli
         }
 
 
+    }
+
+    private Color getPlayerColor(String playerName){
+        int index = 0;
+        if(playerName.equals(player2.getText().toString())) {
+            index = 1;
+        } else if(playerName.equals(player3.getText().toString())) {
+            index = 2;
+        } else if(playerName.equals(player4.getText().toString())) {
+            index = 3;
+        } else if(playerName.equals(player5.getText().toString())) {
+            index = 4;
+        }
+        Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK, Color.GREEN, Color.BLUE};
+        return colors[index];
     }
 
     @Override
