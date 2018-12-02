@@ -1,7 +1,6 @@
 package cs340.game.client.Presenters;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
 import java.util.ArrayList;

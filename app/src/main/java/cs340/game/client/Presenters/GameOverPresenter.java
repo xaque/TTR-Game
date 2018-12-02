@@ -1,7 +1,6 @@
 package cs340.game.client.Presenters;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Views.GameOverActivity;

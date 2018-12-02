@@ -9,7 +9,6 @@ import cs340.game.client.Presenters.Tasks.ClaimGrayRouteTask;
 import cs340.game.client.Presenters.Tasks.ClaimRouteTask;
 import cs340.game.client.Views.ClaimRouteDialog;
 import cs340.game.client.Views.GameActivity;
-import cs340.game.shared.City;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.Route;

@@ -4,8 +4,6 @@ package cs340.game.client.Views;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -17,11 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
 import cs340.game.R;
-import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DrawTrainsPresenter;
 import cs340.game.shared.Color;
 

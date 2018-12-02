@@ -1,7 +1,5 @@
 package cs340.game.client.Presenters.DrawTrainStates;
 
-import android.os.AsyncTask;
-
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DrawTrainsPresenter;
 import cs340.game.client.Presenters.Tasks.DrawFaceUpCardTask;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
-import cs340.game.shared.City;
 import cs340.game.shared.Color;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.GamePollerData;

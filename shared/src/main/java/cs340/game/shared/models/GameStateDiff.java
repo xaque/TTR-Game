@@ -2,7 +2,6 @@ package cs340.game.shared.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /*
 For now, perhaps we don't really do a diff, but give the whole state of the game.

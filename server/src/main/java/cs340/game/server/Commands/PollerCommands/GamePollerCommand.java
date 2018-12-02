@@ -2,7 +2,6 @@ package cs340.game.server.Commands.PollerCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
-import cs340.game.server.DB.GameCommandLog;
 import cs340.game.server.DB.ServerGameState;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.GamePollerData;

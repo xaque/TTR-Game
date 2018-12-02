@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import cs340.game.R;
-import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DestinationsTabPresenter;
 import cs340.game.client.ViewInterface.IView;
 import cs340.game.shared.models.DestinationCard;

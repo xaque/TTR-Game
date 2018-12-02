@@ -2,11 +2,8 @@ package cs340.game.client.Presenters.Tasks;
 
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
-
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.DestinationsDialogPresenter;
-import cs340.game.shared.models.DestinationCard;
 
 public class DrawDestinationCardsTask extends AsyncTask<Void, Void, String> {
 

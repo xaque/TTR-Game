@@ -1,7 +1,6 @@
 package cs340.game.shared.data;
 
 import cs340.game.shared.CommandType;
-import cs340.game.shared.models.GameState;
 
 /**
  * Created by Stephen on 10/28/2018.

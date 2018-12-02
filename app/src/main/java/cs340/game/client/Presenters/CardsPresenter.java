@@ -1,17 +1,13 @@
 package cs340.game.client.Presenters;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.ViewInterface.IView;
-import cs340.game.client.Views.CardsFragment;
-import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.models.TrainCard;
 

@@ -1,6 +1,5 @@
 package cs340.game.shared.results;
 
-import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.models.GameState;
 
 /**

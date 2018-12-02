@@ -25,7 +25,6 @@ import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
-import cs340.game.shared.results.GameResults;
 import cs340.game.shared.results.Results;
 
 public class GenericHandler implements HttpHandler {

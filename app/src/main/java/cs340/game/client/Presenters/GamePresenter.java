@@ -1,7 +1,5 @@
 package cs340.game.client.Presenters;
 
-import android.os.Bundle;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +13,6 @@ import cs340.game.client.Views.GameActivity;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.GameState;
 import cs340.game.shared.models.Player;
-import cs340.game.shared.models.Route;
 
 public class GamePresenter implements Observer {
 

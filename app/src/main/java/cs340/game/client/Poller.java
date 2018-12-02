@@ -1,12 +1,10 @@
 package cs340.game.client;
 
 import cs340.game.shared.CommonData;
-import cs340.game.shared.GameHistoryActionList;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.data.LobbyPollerData;
 import cs340.game.shared.models.GameList;
 import cs340.game.shared.models.GameState;
-import cs340.game.shared.models.GameStateDiff;
 import cs340.game.shared.models.Player;
 import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.LobbyPollerResults;

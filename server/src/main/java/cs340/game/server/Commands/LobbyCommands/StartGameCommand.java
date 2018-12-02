@@ -1,7 +1,6 @@
 package cs340.game.server.Commands.LobbyCommands;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import cs340.game.server.Commands.iCommand;

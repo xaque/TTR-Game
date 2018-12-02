@@ -2,7 +2,6 @@ package cs340.game.client;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cs340.game.shared.Color;
 import cs340.game.shared.CommandType;

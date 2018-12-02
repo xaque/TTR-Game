@@ -1,8 +1,6 @@
 package cs340.game.client.Presenters;
 
 
-import android.os.AsyncTask;
-
 import java.util.Observable;
 import java.util.Observer;
 

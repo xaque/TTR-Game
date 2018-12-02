@@ -2,7 +2,6 @@ package cs340.game.shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Stephen on 10/23/2018.

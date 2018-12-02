@@ -1,12 +1,9 @@
 package cs340.game.client.Presenters;
 
 
-import android.os.AsyncTask;
-
 import java.util.Observable;
 import java.util.Observer;
 
-import cs340.game.client.AppLayerFacade;
 import cs340.game.client.Presenters.Tasks.LoginTask;
 import cs340.game.client.Presenters.Tasks.RegisterTask;
 import cs340.game.client.Views.MainActivity;

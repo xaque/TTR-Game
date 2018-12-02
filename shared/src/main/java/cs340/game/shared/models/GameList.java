@@ -2,7 +2,6 @@ package cs340.game.shared.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A container that holds a List of games along with methods to handle the games that it contains.

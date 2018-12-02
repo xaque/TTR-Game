@@ -1,7 +1,5 @@
 package cs340.game.shared.results;
 
-import java.util.List;
-
 import cs340.game.shared.models.TrainCard;
 
 /**

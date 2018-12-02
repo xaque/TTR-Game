@@ -1,13 +1,11 @@
 package cs340.game.client.Views;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,17 +20,12 @@ import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import cs340.game.R;
-import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.ClaimRoutePresenter;
-import cs340.game.client.Presenters.DestinationsDialogPresenter;
 import cs340.game.shared.Color;
-import cs340.game.shared.models.DestinationCard;
 import cs340.game.shared.models.Route;
 
 public class ClaimRouteDialog extends DialogFragment {

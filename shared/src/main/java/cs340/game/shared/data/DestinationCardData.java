@@ -1,7 +1,6 @@
 package cs340.game.shared.data;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cs340.game.shared.CommandType;
 import cs340.game.shared.models.DestinationCard;

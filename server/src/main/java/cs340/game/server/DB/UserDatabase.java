@@ -1,7 +1,6 @@
 package cs340.game.server.DB;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cs340.game.shared.models.User;
 

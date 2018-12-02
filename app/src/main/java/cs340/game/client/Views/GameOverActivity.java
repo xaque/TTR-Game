@@ -3,14 +3,11 @@ package cs340.game.client.Views;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import cs340.game.R;
 import cs340.game.client.Presenters.GameOverPresenter;
-import cs340.game.client.Presenters.MainActivityPresenter;
 
 public class GameOverActivity extends AppCompatActivity {
 

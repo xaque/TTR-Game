@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import cs340.game.client.InGameFacade;
 import cs340.game.client.Presenters.ClaimRoutePresenter;
-import cs340.game.client.Views.ClaimRouteDialog;
 import cs340.game.shared.Color;
 import cs340.game.shared.models.Route;
 

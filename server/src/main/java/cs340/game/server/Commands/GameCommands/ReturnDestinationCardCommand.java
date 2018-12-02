@@ -1,7 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
