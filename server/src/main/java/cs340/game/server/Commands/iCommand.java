@@ -1,5 +1,6 @@
 package cs340.game.server.Commands;
 
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.results.Results;
 
@@ -13,5 +14,5 @@ public interface iCommand {
      * @return Results object, contains success boolean, potential error message, and any info to
      *          return to the client
      */
-    Results execute(Data data);
+    Results execute(Data data, DAOFactory daoFactory);
 }

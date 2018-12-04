@@ -3,6 +3,7 @@ package cs340.game.server.Commands.LoginCommands;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.UserDatabase;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;
@@ -22,7 +23,7 @@ public class LoginCommand implements iCommand {
      * @param data cast to LoginData type, contains player's username and password
      * @return Results object containing authToken if login is successful or error message if user does not exist
      */
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
         UserDatabase userDB = UserDatabase.getInstance();

@@ -23,11 +23,36 @@ import cs340.game.server.Commands.LoginCommands.RegisterCommand;
 import cs340.game.server.Commands.PollerCommands.GamePollerCommand;
 import cs340.game.server.Commands.PollerCommands.LobbyPollerCommand;
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.Factories.DAOFactory;
+import cs340.game.server.Factories.FlatFileDAOFactory;
+import cs340.game.server.Factories.InMemoryDAOFactory;
+import cs340.game.server.Factories.SQLDAOFactory;
+import cs340.game.shared.CommonData;
 import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.results.Results;
 
 public class GenericHandler implements HttpHandler {
+
+    private final DAOFactory daoFactory;
+
+    public GenericHandler(){
+        switch (CommonData.PERSISTENCE_TYPE){
+            case "sqlite":
+                this.daoFactory = new SQLDAOFactory();
+                break;
+            case "file":
+                this.daoFactory = new FlatFileDAOFactory();
+                break;
+            case "memory":
+                this.daoFactory = new InMemoryDAOFactory();
+                break;
+            default:
+                this.daoFactory = new InMemoryDAOFactory();
+                break;
+        }
+    }
+
     private Data getExchangeData(HttpExchange httpExchange){
         Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");
         String raw = s.hasNext() ? s.next() : "";
@@ -96,7 +121,7 @@ public class GenericHandler implements HttpHandler {
                 System.out.println("None");
                 break;
         }
-        Results r = cmd.execute(data);
+        Results r = cmd.execute(data, this.daoFactory);
 
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         OutputStreamWriter osw = new OutputStreamWriter(httpExchange.getResponseBody());

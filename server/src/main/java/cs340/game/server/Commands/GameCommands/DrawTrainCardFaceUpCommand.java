@@ -4,6 +4,7 @@ import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.ServerGameState;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.Color;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
@@ -18,7 +19,7 @@ import cs340.game.shared.results.TrainCardResults;
  */
 
 public class DrawTrainCardFaceUpCommand implements iCommand {
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
 
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();

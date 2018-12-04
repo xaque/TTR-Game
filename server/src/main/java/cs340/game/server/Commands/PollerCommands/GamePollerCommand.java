@@ -3,6 +3,7 @@ package cs340.game.server.Commands.PollerCommands;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.ServerGameState;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.GamePollerData;
 import cs340.game.shared.models.GameState;
@@ -10,7 +11,7 @@ import cs340.game.shared.results.GamePollerResults;
 import cs340.game.shared.results.Results;
 
 public class GamePollerCommand implements iCommand {
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         GamePollerData pData = (GamePollerData)data;
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(pData.getAuthtoken());
         GameState gameState = game.getGameState();

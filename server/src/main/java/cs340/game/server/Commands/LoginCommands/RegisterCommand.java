@@ -2,6 +2,7 @@ package cs340.game.server.Commands.LoginCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.UserDatabase;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LoginData;
@@ -21,7 +22,7 @@ public class RegisterCommand implements iCommand{
      * @param data cast to LoginData, contains username and password
      * @return Results object with success of registering and authToken, or error message stating the given username is taken
      */
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
 

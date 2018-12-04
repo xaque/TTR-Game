@@ -2,6 +2,7 @@ package cs340.game.server.Commands.LobbyCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.LobbyGameDatabase;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
@@ -20,7 +21,7 @@ public class JoinGameCommand implements iCommand {
      * @param data cast to type LobbyData, contains player username and gameID of desired game to join.
      * @return Results object stating success of creating the game and a potential error message
      */
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         LobbyData lobbyData = (LobbyData)data;
         Game game = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
         if(game.GetGameSize() == 5) {

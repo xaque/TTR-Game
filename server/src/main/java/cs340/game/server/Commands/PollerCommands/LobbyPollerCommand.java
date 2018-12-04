@@ -2,6 +2,7 @@ package cs340.game.server.Commands.PollerCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.LobbyCommandLog;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyPollerData;
 import cs340.game.shared.models.GameList;
@@ -17,7 +18,7 @@ public class LobbyPollerCommand implements iCommand {
      * @return Results object with boolean stating whether new information was polled, a GameList
      *          of any new info, and an error message if there is no new info
      */
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
 
         LobbyPollerData pData = (LobbyPollerData)data;
 

@@ -9,6 +9,7 @@ import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.server.DB.ServerGameState;
 import cs340.game.server.DB.UserDatabase;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
@@ -22,7 +23,7 @@ import cs340.game.shared.results.Results;
  */
 
 public class StartGameCommand implements iCommand {
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         LobbyData lobbyData = (LobbyData)data;
         Game startingGame = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
 

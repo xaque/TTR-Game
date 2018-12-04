@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.ServerGameState;
+import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.ClaimRouteData;
@@ -19,7 +20,7 @@ import cs340.game.shared.results.Results;
  */
 
 public class ClaimRouteCommand implements iCommand {
-    public Results execute(Data data) {
+    public Results execute(Data data, DAOFactory daoFactory) {
         ClaimRouteData claimRouteData = (ClaimRouteData)data;
         String username = claimRouteData.getUsername();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(username);
