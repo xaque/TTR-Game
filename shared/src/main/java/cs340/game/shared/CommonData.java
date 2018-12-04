@@ -19,7 +19,18 @@ public class CommonData {
     public static final String POLLER_URI = "/poller";
     public static final String GAME_URI = "/game";
 
+    public static String PERSISTENCE_TYPE = "";
+    public static int COMMANDS_BETWEEN_CHECKPOINTS = 0;
+
     public void setHostname(String ipaddress) {
         this.HOSTNAME = ipaddress;
+    }
+
+    public void setPersistenceType(String persistenceType){
+        this.PERSISTENCE_TYPE = persistenceType;
+    }
+
+    public void setCommandsBetweenCheckpoints(int commandsBetweenCheckpoints){
+        this.COMMANDS_BETWEEN_CHECKPOINTS = commandsBetweenCheckpoints;
     }
 }

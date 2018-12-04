@@ -9,6 +9,11 @@ public class Main {
             CommonData.HOSTNAME = args[0];
         }
 
+        if(args.length == 4){
+            CommonData.PERSISTENCE_TYPE = args[2];
+            CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[3]);
+        }
+
         new ServerCommunicator().run();
     }
 }
