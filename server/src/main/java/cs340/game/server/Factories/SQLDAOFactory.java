@@ -4,6 +4,8 @@ import cs340.game.server.DAOs.CommandDAO;
 import cs340.game.server.DAOs.CommandSQLDAO;
 import cs340.game.server.DAOs.GameDAO;
 import cs340.game.server.DAOs.GameSQLDAO;
+import cs340.game.server.DAOs.LobbyDAO;
+import cs340.game.server.DAOs.LobbySQLDAO;
 import cs340.game.server.DAOs.UserDAO;
 import cs340.game.server.DAOs.UserSQLDAO;
 
@@ -19,6 +21,11 @@ public class SQLDAOFactory implements DAOFactory{
     public GameDAO getGameDAO() {
 
         return new GameSQLDAO();
+    }
+
+    @Override
+    public LobbyDAO getLobbyDAO() {
+        return new LobbySQLDAO();
     }
 
     @Override
