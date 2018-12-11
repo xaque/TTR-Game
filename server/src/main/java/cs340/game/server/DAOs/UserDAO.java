@@ -6,8 +6,9 @@ import cs340.game.shared.models.User;
 
 public interface UserDAO {
 
-    public void registerUser(String userName, String password);
-    public void checkForUser(String userName);
-    public void validateLogin(String userName, String password);
+    public void addUser(String userName, String password);
+    public boolean containsUser(User user);
+    public boolean containsUsername(String username);
+    public User getUserByUsername(String username);
     public ArrayList<User> getAllUsers();
 }
