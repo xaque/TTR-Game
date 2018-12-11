@@ -6,8 +6,8 @@ import cs340.game.shared.models.Game;
 
 public interface LobbyDAO {
 
-    public void addGame(String gameName, Game game);
-    public void updateGame(String gameName, Game game);
-    public Game getGame(String gameName);
-    public ArrayList<Game> getAllGames();
+    void addGame(Game game);
+    void addPlayerToGame(String username, Game game);
+    Game getGame(String gameName);
+    void startGame(Game game);
 }

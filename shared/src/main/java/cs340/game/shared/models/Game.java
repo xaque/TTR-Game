@@ -15,12 +15,16 @@ public class Game implements Serializable{
     private ArrayList<String> players = new ArrayList<>();
     private boolean gameStarted = false;
 
-    private ArrayList<Route> routes = new ArrayList<>();
-
     public Game(String gameName, String originalUser){
 
         name = gameName;
         players.add(originalUser);
+    }
+
+    public Game(String gameName, boolean started, ArrayList<String> players) {
+        this.name = gameName;
+        this.gameStarted = started;
+        this.players = players;
     }
 
     public void AddPlayer(String user){

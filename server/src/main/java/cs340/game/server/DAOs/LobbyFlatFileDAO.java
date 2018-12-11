@@ -7,12 +7,12 @@ import cs340.game.shared.models.Game;
 public class LobbyFlatFileDAO implements LobbyDAO {
 
     @Override
-    public void addGame(String gameName, Game game) {
+    public void addGame(Game game) {
 
     }
 
     @Override
-    public void updateGame(String gameName, Game game) {
+    public void addPlayerToGame(String username, Game game) {
 
     }
 
@@ -22,7 +22,7 @@ public class LobbyFlatFileDAO implements LobbyDAO {
     }
 
     @Override
-    public ArrayList<Game> getAllGames() {
-        return null;
+    public void startGame(Game game) {
+
     }
 }
