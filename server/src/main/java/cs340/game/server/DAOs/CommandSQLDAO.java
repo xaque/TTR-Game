@@ -1,5 +1,6 @@
 package cs340.game.server.DAOs;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -9,7 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import cs340.game.server.DB.SQLiteConnectionProxy;
+import cs340.game.shared.Base64;
+import cs340.game.shared.Serializer;
 import cs340.game.shared.data.Data;
 
 public class CommandSQLDAO implements CommandDAO{
@@ -17,14 +22,16 @@ public class CommandSQLDAO implements CommandDAO{
     @Override
     public void addCommand(String gameName, Data data) {
 
-        // TODO serialized data
         String serializedData = "";
+        try {
+            serializedData = Serializer.serializeData(data);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
         try {
-            // TODO create BLOB correctly
-            byte[] byteArray = serializedData.getBytes("UTF-8");
-            Blob blobData = null;
-            blobData.setBytes(1, byteArray);
+            byte[] decodedByte = Base64.decode(serializedData, 0);
+            Blob blobData = new SerialBlob(decodedByte);
 
             PreparedStatement stmt = null;
             try {
@@ -45,7 +52,7 @@ public class CommandSQLDAO implements CommandDAO{
                 }
             }
         }
-        catch(SQLException | UnsupportedEncodingException ex) {
+        catch(SQLException ex) {
             ex.printStackTrace();
         }
     }
