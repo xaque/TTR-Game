@@ -106,6 +106,68 @@ public class UserSQLDAO implements UserDAO{
         }
     }
 
+    public String getGameNameByUsername(String username) {
+        try {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String gameName = null;
+            try {
+                String getGameNameStr = "SELECT * FROM User WHERE username=?";
+                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getGameNameStr);
+                stmt.setString(1, username);
+
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    gameName = rs.getString(4);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
+            return gameName;
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getGameNameByAuthToken(String authToken) {
+        try {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String gameName = null;
+            try {
+                String getGameNameStr = "SELECT * FROM User WHERE authToken=?";
+                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getGameNameStr);
+                stmt.setString(1, authToken);
+
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    gameName = rs.getString(4);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
+            return gameName;
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     public void createUserTable() {
         try {
             Statement stmt = null;
@@ -113,7 +175,8 @@ public class UserSQLDAO implements UserDAO{
                 stmt = SQLiteConnectionProxy.getConn().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS User ( username TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
-                "authToken TEXT NOT NULL UNIQUE)");
+                "authToken TEXT NOT NULL UNIQUE," +
+                "gameName TEXT)");
             }
             finally {
                 if(stmt != null) {

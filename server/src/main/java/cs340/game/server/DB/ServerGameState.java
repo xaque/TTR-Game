@@ -1,5 +1,6 @@
 package cs340.game.server.DB;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cs340.game.shared.Color;
@@ -14,7 +15,7 @@ import cs340.game.shared.models.Route;
 import cs340.game.shared.models.TrainCard;
 import cs340.game.shared.models.User;
 
-public class ServerGameState {
+public class ServerGameState implements Serializable{
     private GameState gameState;
     private DestinationCardDeck destinationCardDeck;
     private TrainCardDeck trainCardDeck;

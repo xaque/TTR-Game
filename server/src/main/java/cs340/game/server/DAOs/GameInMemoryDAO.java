@@ -17,7 +17,12 @@ public class GameInMemoryDAO implements GameDAO{
     }
 
     @Override
-    public ServerGameState getGame(String gameName) {
+    public ServerGameState getGameByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public ServerGameState getGameByAuthToken(String authToken) {
         return null;
     }
 

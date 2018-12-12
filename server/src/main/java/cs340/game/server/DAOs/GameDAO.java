@@ -8,6 +8,7 @@ public interface GameDAO {
 
     public void addGame(String gameName, ServerGameState game);
     public void updateGame(String gameName, ServerGameState game);
-    public ServerGameState getGame(String gameName);
+    public ServerGameState getGameByUsername(String username);
+    public ServerGameState getGameByAuthToken(String authToken);
     public ArrayList<ServerGameState> getAllGames();
 }
