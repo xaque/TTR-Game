@@ -41,16 +41,18 @@ public class Main {
         ArrayList<ServerGameState> games = gameDAO.getAllGames();
         GenericHandler handler = new GenericHandler();
 
-        for(int i = 0; i < games.size(); i++) {
-            ActiveGamesDatabase.getInstance().addGame(games.get(i));
+        if(games != null) {
+            for (int i = 0; i < games.size(); i++) {
+                ActiveGamesDatabase.getInstance().addGame(games.get(i));
 
-            String gameName = games.get(i).getGameState().getGameName();
-            ArrayList<Data> commandsToRun = commandDAO.getCommandsForGame(gameName);
-            for(int j = 0; j < commandsToRun.size(); j++){
-                handler.runCommand(commandsToRun.get(j));
+                String gameName = games.get(i).getGameState().getGameName();
+                ArrayList<Data> commandsToRun = commandDAO.getCommandsForGame(gameName);
+                for (int j = 0; j < commandsToRun.size(); j++) {
+                    handler.runCommand(commandsToRun.get(j));
+                }
+
+                commandDAO.clearCommandsForGame(gameName);
             }
-
-            commandDAO.clearCommandsForGame(gameName);
         }
     }
 
