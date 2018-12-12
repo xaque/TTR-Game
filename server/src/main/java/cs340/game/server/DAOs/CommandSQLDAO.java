@@ -19,6 +19,19 @@ import cs340.game.shared.data.Data;
 
 public class CommandSQLDAO implements CommandDAO{
 
+    private static CommandSQLDAO instance;
+
+    private CommandSQLDAO() {
+        createCommandTable();
+    }
+
+    public static CommandSQLDAO getInstance() {
+        if(instance == null) {
+            instance = new CommandSQLDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addCommand(String gameName, Data data) {
 

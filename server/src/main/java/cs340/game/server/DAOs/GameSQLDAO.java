@@ -15,6 +15,19 @@ import cs340.game.shared.Serializer;
 
 public class GameSQLDAO implements GameDAO{
 
+    private static GameSQLDAO instance;
+
+    private GameSQLDAO() {
+        createGameTable();
+    }
+
+    public static GameSQLDAO getInstance() {
+        if(instance == null) {
+            instance = new GameSQLDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addGame(String gameName, ServerGameState game) {
         String serializedGame = "";
@@ -101,13 +114,13 @@ public class GameSQLDAO implements GameDAO{
 
     @Override
     public ServerGameState getGameByUsername(String username) {
-        String gameName = new UserSQLDAO().getGameNameByUsername(username);
+        String gameName = UserSQLDAO.getInstance().getGameNameByUsername(username);
         return getGame(gameName);
     }
 
     @Override
     public ServerGameState getGameByAuthToken(String authToken) {
-        String gameName = new UserSQLDAO().getGameNameByAuthToken(authToken);
+        String gameName = UserSQLDAO.getInstance().getGameNameByAuthToken(authToken);
         return getGame(gameName);
     }
 

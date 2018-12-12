@@ -9,6 +9,19 @@ import cs340.game.shared.models.User;
 
 public class UserSQLDAO implements UserDAO{
 
+    private static UserSQLDAO instance;
+
+    private UserSQLDAO() {
+        createUserTable();
+    }
+
+    public static UserSQLDAO getInstance() {
+        if(instance == null) {
+            instance = new UserSQLDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addUser(String userName, String password) {
         String authToken = UUID.randomUUID().toString();

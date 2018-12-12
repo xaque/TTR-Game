@@ -13,24 +13,21 @@ public class SQLDAOFactory implements DAOFactory{
 
     @Override
     public CommandDAO getCommandDAO() {
-
-        return new CommandSQLDAO();
+        return CommandSQLDAO.getInstance();
     }
 
     @Override
     public GameDAO getGameDAO() {
-
-        return new GameSQLDAO();
+        return GameSQLDAO.getInstance();
     }
 
     @Override
     public LobbyDAO getLobbyDAO() {
-        return new LobbySQLDAO();
+        return LobbySQLDAO.getInstance();
     }
 
     @Override
     public UserDAO getUserDAO() {
-
-        return new UserSQLDAO();
+        return UserSQLDAO.getInstance();
     }
 }

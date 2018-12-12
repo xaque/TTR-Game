@@ -8,6 +8,19 @@ import cs340.game.shared.models.Game;
 
 public class LobbySQLDAO implements LobbyDAO {
 
+    private static LobbySQLDAO instance;
+
+    private LobbySQLDAO() {
+        createLobbyTable();
+    }
+
+    public static LobbySQLDAO getInstance() {
+        if(instance == null) {
+            instance = new LobbySQLDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addGame(Game game) {
         try {
@@ -157,7 +170,26 @@ public class LobbySQLDAO implements LobbyDAO {
         }
     }
 
-    public void createUserTable() {
+    public void clearLobbyTable() {
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.getConn().createStatement();
+
+                stmt.executeUpdate("DELETE FROM LobbyGame");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+            }
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void createLobbyTable() {
         try {
             Statement stmt = null;
             try {
