@@ -23,10 +23,6 @@ public class DrawTrainCardFromDeckCommand implements iCommand {
         String authToken = trainCardData.getAuthToken();
         String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
-        if(game == null) {
-            ServerException ex = new ServerException("You are not in an active game.");
-            return new TrainCardResults(false, null, ex.getMessage());
-        }
 
         TrainCard drawnCard = game.drawTrainCardFromDeck(username);
 

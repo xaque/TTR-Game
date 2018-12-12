@@ -62,12 +62,12 @@ public class StartGameCommand implements iCommand {
         while(usernames.size() > 0) {
             index = rand.nextInt(usernames.size());
             String usernameToRemove = usernames.remove(index);
-            User user = UserDatabase.getInstance().getUserByUsername(usernameToRemove);
+            User user = userDAO.getUserByUsername(usernameToRemove);
             users.add(user);
         }
 
         ServerGameState gameState = new ServerGameState(lobbyData.getGameID(), users);
-        //ActiveGamesDatabase.getInstance().addGame(gameState);
+        ActiveGamesDatabase.getInstance().addGame(gameState);
 
         GameDAO gameDAO = daoFactory.getGameDAO();
         gameDAO.addGame(lobbyData.getGameID(), gameState);

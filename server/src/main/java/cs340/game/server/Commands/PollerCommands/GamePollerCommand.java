@@ -13,7 +13,7 @@ import cs340.game.shared.results.Results;
 public class GamePollerCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         GamePollerData pData = (GamePollerData)data;
-        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(pData.getAuthtoken());
+        ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(pData.getUsername());
         GameState gameState = game.getGameState();
 
         for(int i = 0; i < gameState.getHistory().getSize(); i++){
