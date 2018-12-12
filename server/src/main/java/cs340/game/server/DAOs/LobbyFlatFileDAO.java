@@ -4,25 +4,56 @@ import java.util.ArrayList;
 
 import cs340.game.shared.models.Game;
 
-public class LobbyFlatFileDAO implements LobbyDAO {
+public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
+    private static final String filename = "lobby.fdb";
+    private ArrayList<Game> lobbyGameList;
+
+    public LobbyFlatFileDAO(){
+        if (!loadDB()){
+            lobbyGameList = new ArrayList<>();
+        }
+    }
 
     @Override
     public void addGame(Game game) {
-
+        lobbyGameList.add(game);
+        updateDB();
     }
 
     @Override
     public void addPlayerToGame(String username, Game game) {
-
+        game.AddPlayer(username);
+        updateDB();
     }
 
     @Override
     public Game getGame(String gameName) {
+        for (Game g : lobbyGameList){
+            if (g.getName().equals(gameName)){
+                return g;
+            }
+        }
         return null;
     }
 
     @Override
     public void startGame(Game game) {
+        //TODO need to validate here?
+        game.setGameStarted(true);
+        updateDB();
+    }
 
+    @Override
+    protected boolean updateDB() {
+        return super.writeObjectToFile(filename, lobbyGameList);
+    }
+
+    @Override
+    protected boolean loadDB() {
+        lobbyGameList = super.readObjectFromFile(filename, lobbyGameList.getClass());
+        if (lobbyGameList == null){
+            return false;
+        }
+        return true;
     }
 }

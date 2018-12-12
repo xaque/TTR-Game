@@ -1,7 +1,5 @@
 package cs340.game.server.Commands.LobbyCommands;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DAOs.LobbyDAO;
 import cs340.game.server.DAOs.UserDAO;

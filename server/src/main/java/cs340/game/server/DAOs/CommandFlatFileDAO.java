@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 import cs340.game.shared.data.Data;
 
-public class CommandFlatFileDAO implements CommandDAO{
+public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
+    private static final String name_prefix = "command";
+    private static final String name_extension = "fdb";
+    private String filename;
+
+    public CommandFlatFileDAO(){
+
+    }
 
     @Override
     public void addCommand(String gameName, Data data) {
@@ -24,5 +31,15 @@ public class CommandFlatFileDAO implements CommandDAO{
     @Override
     public int getNextSequenceNumber(String gameName) {
         return 0;
+    }
+
+    @Override
+    protected boolean updateDB() {
+        return false;
+    }
+
+    @Override
+    protected boolean loadDB() {
+        return false;
     }
 }

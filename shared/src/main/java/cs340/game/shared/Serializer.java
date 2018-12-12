@@ -93,7 +93,7 @@ public class Serializer {
      * @return The serialized string in Base64
      * @throws IOException if serialization fails
      */
-    private static String serializeObject(Serializable obj) throws IOException {
+    public static String serializeObject(Serializable obj) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(obj);
@@ -115,7 +115,7 @@ public class Serializer {
      * @throws IOException if deserialization fails
      * @throws ClassNotFoundException if type not found
      */
-    private static <T> T deserializeObject(String s, Class<T> type) throws IOException, ClassNotFoundException {
+    public static <T> T deserializeObject(String s, Class<T> type) throws IOException, ClassNotFoundException {
         byte[] data = Base64.decode(s, 0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         T obj = type.cast(ois.readObject());
