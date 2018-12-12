@@ -5,12 +5,19 @@ import java.util.ArrayList;
 import cs340.game.shared.data.Data;
 
 public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
-    private static final String name_prefix = "command";
-    private static final String name_extension = "fdb";
-    private String filename;
+    private static final String filename = "command.fdb";
 
-    public CommandFlatFileDAO(){
+    private static CommandFlatFileDAO instance;
 
+    private CommandFlatFileDAO(){
+
+    }
+
+    public static CommandFlatFileDAO getInstance(){
+        if (instance == null){
+            instance = new CommandFlatFileDAO();
+        }
+        return instance;
     }
 
     @Override

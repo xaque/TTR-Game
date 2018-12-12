@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import cs340.game.shared.models.User;
 
 public interface UserDAO {
-
     public void addUser(String userName, String password);
     public boolean containsUser(User user);
     public boolean containsUsername(String username);

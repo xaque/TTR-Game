@@ -9,5 +9,5 @@ dependencies {
     implementation project(':sqlite-jdbc-3.23.1')
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

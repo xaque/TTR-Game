@@ -8,10 +8,19 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
     private static final String filename = "users.fdb";
     private ArrayList<User> users;
 
-    public UserFlatFileDAO(){
+    private static UserFlatFileDAO instance;
+
+    private UserFlatFileDAO(){
         if (!loadDB()){
             users = new ArrayList<>();
         }
+    }
+
+    public static UserFlatFileDAO getInstance(){
+        if (instance == null){
+            instance = new UserFlatFileDAO();
+        }
+        return instance;
     }
 
     @Override

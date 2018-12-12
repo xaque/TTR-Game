@@ -14,23 +14,23 @@ public class FlatFileDAOFactory implements DAOFactory{
     @Override
     public CommandDAO getCommandDAO() {
 
-        return new CommandFlatFileDAO();
+        return CommandFlatFileDAO.getInstance();
     }
 
     @Override
     public GameDAO getGameDAO() {
 
-        return new GameFlatFileDAO();
+        return GameFlatFileDAO.getInstance();
     }
 
     @Override
     public LobbyDAO getLobbyDAO() {
-        return new LobbyFlatFileDAO();
+        return LobbyFlatFileDAO.getInstance();
     }
 
     @Override
     public UserDAO getUserDAO() {
 
-        return new UserFlatFileDAO();
+        return UserFlatFileDAO.getInstance();
     }
 }

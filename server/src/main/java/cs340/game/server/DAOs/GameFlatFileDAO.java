@@ -6,9 +6,17 @@ import cs340.game.server.DB.ServerGameState;
 
 public class GameFlatFileDAO extends FlatFileDAO implements GameDAO{
     private static final String filename = "game.fdb";
+    private static GameFlatFileDAO instance;
 
-    public GameFlatFileDAO(){
+    private GameFlatFileDAO(){
 
+    }
+
+    public static GameFlatFileDAO getInstance(){
+        if (instance == null){
+            instance = new GameFlatFileDAO();
+        }
+        return instance;
     }
 
     @Override
