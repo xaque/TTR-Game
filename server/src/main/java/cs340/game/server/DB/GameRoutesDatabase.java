@@ -1,5 +1,6 @@
 package cs340.game.server.DB;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cs340.game.shared.City;
@@ -13,7 +14,7 @@ import cs340.game.shared.models.Route;
  * Created by Stephen on 11/11/2018.
  */
 
-public class GameRoutesDatabase {
+public class GameRoutesDatabase implements Serializable {
     private ArrayList<Route> unclaimedRoutes;
     private ArrayList<Route> claimedRoutes;
 

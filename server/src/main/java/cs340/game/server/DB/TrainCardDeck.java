@@ -1,5 +1,6 @@
 package cs340.game.server.DB;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import cs340.game.shared.models.TrainCard;
  * The deck of cards is contained in a list. Index 0 of the list contains the top card of the deck.
  * Cards will drawn from the beginning of the list and discarded to the discard pile in this class.
  */
-public class TrainCardDeck {
+public class TrainCardDeck implements Serializable {
     private ArrayList<TrainCard> cards;
     private ArrayList<TrainCard> faceUpCards;
     private ArrayList<TrainCard> discardPile;

@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import cs340.game.server.DB.ServerGameState;
 
 public class GameFlatFileDAO extends FlatFileDAO implements GameDAO{
-    private static final String name_prefix = "game";
-    private static final String name_extension = "fdb";
-    private String filename;
+    private static final String filename = "game.fdb";
 
     public GameFlatFileDAO(){
 

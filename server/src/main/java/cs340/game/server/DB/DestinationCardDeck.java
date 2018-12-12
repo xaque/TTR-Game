@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ import cs340.game.shared.models.DestinationCard;
  * The deck of cards is contained in a list. Index 0 of the list contains the top card of the deck.
  * Cards will drawn from the beginning of the list and discarded to the end of the list.
  */
-public class DestinationCardDeck {
+public class DestinationCardDeck implements Serializable {
     private ArrayList<DestinationCard> cards;
 
     /**
