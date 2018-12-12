@@ -31,8 +31,9 @@ public class LoginCommand implements iCommand {
         UserDAO userDAO = daoFactory.getUserDAO();
         // if a valid username-password combination is entered
         if(userDAO.containsUser(user)) {
-            // TODO create way of getting and storing auth tokens
-            String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+            // No more need for authToken database - UserDAO will generate authToken
+            //String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+            String authToken = userDAO.getUserByUsername(user.getUsername()).getAuthToken();
             System.out.println("NEW AUTH TOKEN: " + authToken);
             return new LoginResults(true, authToken, null);
         }

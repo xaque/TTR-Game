@@ -8,13 +8,13 @@ import cs340.game.shared.CommandType;
 
 public class GamePollerData extends Data{
     private int sequenceNumber;
-    private String authtoken;
+    private String username;
 
-    public GamePollerData(int sequenceNumber, String authtoken){
+    public GamePollerData(int sequenceNumber, String username){
         //commandType should always be GAME_POLL
         this.commandType = CommandType.GAME_POLL;
         this.sequenceNumber = sequenceNumber;
-        this.authtoken = authtoken;
+        this.username = username;
     }
 
     public CommandType getCommandType() {
@@ -33,11 +33,11 @@ public class GamePollerData extends Data{
         this.sequenceNumber = sequenceNumber;
     }
 
-    public String getAuthtoken() {
-        return authtoken;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthtoken(String authtoken) {
-        this.authtoken = authtoken;
+    public void setUsername(String authtoken) {
+        this.username = authtoken;
     }
 }
