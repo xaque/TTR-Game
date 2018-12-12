@@ -20,4 +20,9 @@ public class CommandInMemoryDAO implements CommandDAO{
     public ArrayList<Data> getCommandsForGame(String gameName) {
         return null;
     }
+
+    @Override
+    public int getNextSequenceNumber(String gameName) {
+        return 0;
+    }
 }
