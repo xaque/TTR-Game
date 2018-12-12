@@ -1,6 +1,7 @@
 package cs340.game.server.DAOs;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.SQLiteConnectionProxy;
 import cs340.game.shared.Base64;
 import cs340.game.shared.Serializer;
@@ -92,7 +94,50 @@ public class CommandSQLDAO implements CommandDAO{
 
     @Override
     public ArrayList<Data> getCommandsForGame(String gameName) {
-        return null;
+        ArrayList<Data> commandList = new ArrayList<>();
+        try {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            Data resultCommand = null;
+            try {
+                String getCommandsStr = "SELECT * FROM Commands WHERE gameName=?";
+                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getCommandsStr);
+                stmt.setString(1, gameName);
+                if(stmt.executeUpdate() != 1) {
+                    System.out.println("getCommandsForGame failed.");
+                }
+                if (rs.next()) {
+                    SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
+                    InputStream in = blobResult.getBinaryStream();
+                    byte[] array = new byte[in.available()];
+                    in.read(array);
+                    String s = array.toString();
+                    resultCommand = Serializer.deserializeObject(s, Data.class);
+                    commandList.add(resultCommand);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
+            return commandList;
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override

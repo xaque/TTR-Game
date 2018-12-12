@@ -126,7 +126,45 @@ public class GameSQLDAO implements GameDAO{
 
     @Override
     public ArrayList<ServerGameState> getAllGames() {
-        return null;
+        ArrayList<ServerGameState> gameList = new ArrayList<>();
+        try {
+            Statement stmt = null;
+            ResultSet rs = null;
+            ServerGameState resultGame = null;
+            try {
+                rs = stmt.executeQuery("SELECT * FROM ActiveGame");
+                if (rs.next()) {
+                    SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
+                    InputStream in = blobResult.getBinaryStream();
+                    byte[] array = new byte[in.available()];
+                    in.read(array);
+                    String s = array.toString();
+                    resultGame = Serializer.deserializeObject(s, ServerGameState.class);
+                    gameList.add(resultGame);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            }
+            return gameList;
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public void createGameTable() {
