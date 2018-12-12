@@ -22,9 +22,9 @@ public class Main {
             CommonData.HOSTNAME = args[0];
         }
 
-        if(args.length == 4){
-            CommonData.PERSISTENCE_TYPE = args[2];
-            CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[3]);
+        if(args.length == 3){
+            CommonData.PERSISTENCE_TYPE = args[1];
+            CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[2]);
         }
 
         loadAllGameData();
