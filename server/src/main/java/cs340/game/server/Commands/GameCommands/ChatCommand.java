@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
+import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.ServerGameState;
@@ -25,6 +26,10 @@ public class ChatCommand implements iCommand {
         GameHistoryAction action = new GameHistoryAction(chatMessage, null);
         game.addGameCommand(action);
         System.out.println("Success");
+
+        // Update Database
+        CommandHelper.updateGame(daoFactory, game, data);
+
         //TODO any errors possible here?
         return new GameResults(true, null);
     }

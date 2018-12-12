@@ -1,5 +1,6 @@
 package cs340.game.server.Commands.GameCommands;
 
+import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
@@ -54,6 +55,9 @@ public class DrawTrainCardFaceUpCommand implements iCommand {
         else {
             game.getGameState().setOneTrainCardDrawn(true);
         }
+
+        // Update Database
+        CommandHelper.updateGame(daoFactory, game, data);
 
         return new TrainCardResults(true, drawnCard, null);
     }

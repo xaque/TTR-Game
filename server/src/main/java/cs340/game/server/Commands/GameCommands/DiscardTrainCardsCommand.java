@@ -2,6 +2,7 @@ package cs340.game.server.Commands.GameCommands;
 
 import java.util.ArrayList;
 
+import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
@@ -36,6 +37,9 @@ public class DiscardTrainCardsCommand implements iCommand {
         String actionMessage = username + " discarded " + Integer.toString(discardedCards.size()) + " Train cards.";
         GameHistoryAction action = new GameHistoryAction(actionMessage, null);
         game.addGameCommand(action);
+
+        // Update Database
+        CommandHelper.updateGame(daoFactory, game, data);
 
         return new TrainCardResults(true, null, null);
     }

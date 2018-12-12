@@ -65,11 +65,19 @@ public class GenericHandler implements HttpHandler {
         return data;
     }
 
-
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         Data data = getExchangeData(httpExchange);
 
+        Results r = runCommand(data);
+
+        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        OutputStreamWriter osw = new OutputStreamWriter(httpExchange.getResponseBody());
+        osw.write(Serializer.serializeResults(r));
+        osw.close();
+    }
+
+    public Results runCommand(Data data){
         iCommand cmd = null;
         switch (data.getCommandType()){
             case REGISTER:
@@ -123,9 +131,6 @@ public class GenericHandler implements HttpHandler {
         }
         Results r = cmd.execute(data, this.daoFactory);
 
-        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-        OutputStreamWriter osw = new OutputStreamWriter(httpExchange.getResponseBody());
-        osw.write(Serializer.serializeResults(r));
-        osw.close();
+        return r;
     }
 }

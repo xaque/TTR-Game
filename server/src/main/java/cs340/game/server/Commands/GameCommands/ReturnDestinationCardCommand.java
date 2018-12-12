@@ -2,6 +2,7 @@ package cs340.game.server.Commands.GameCommands;
 
 import java.util.ArrayList;
 
+import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
@@ -54,6 +55,10 @@ public class ReturnDestinationCardCommand implements iCommand {
                     break;
                 }
             }
+
+            // Update Database
+            CommandHelper.updateGame(daoFactory, game, data);
+
             return new DestinationCardResults(true, null, null);
         }
         catch(Exception exception) {

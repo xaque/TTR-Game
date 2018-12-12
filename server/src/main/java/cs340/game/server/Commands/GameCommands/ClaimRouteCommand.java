@@ -2,10 +2,14 @@ package cs340.game.server.Commands.GameCommands;
 
 import java.util.ArrayList;
 
+import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.CommandDAO;
+import cs340.game.server.DAOs.GameDAO;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.ServerGameState;
 import cs340.game.server.Factories.DAOFactory;
+import cs340.game.shared.CommonData;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.ClaimRouteData;
@@ -54,6 +58,9 @@ public class ClaimRouteCommand implements iCommand {
             GameHistoryAction action = new GameHistoryAction(actionMessage, null);
             game.addGameCommand(action);
             game.endTurn();
+
+            // Update Database
+            CommandHelper.updateGame(daoFactory, game, data);
 
             return new ClaimRouteResults(true, null);
         }
