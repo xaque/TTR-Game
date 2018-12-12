@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.GameDAO;
+import cs340.game.server.DAOs.LobbyDAO;
+import cs340.game.server.DAOs.UserDAO;
 import cs340.game.server.DB.ActiveGamesDatabase;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.LobbyGameDatabase;
@@ -25,15 +28,25 @@ import cs340.game.shared.results.Results;
 public class StartGameCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         LobbyData lobbyData = (LobbyData)data;
-        Game startingGame = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
+
+        LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
+        Game startingGame = lobbyDAO.getGame(lobbyData.getGameID());
+        //Game startingGame = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
 
         // check if user is logged in with an authtoken
+        UserDAO userDAO = daoFactory.getUserDAO();
+        User u = userDAO.getUserByUsername(lobbyData.getUsername());
+        String authToken = u.getAuthToken();
+        if(authToken.isEmpty()){
+            return new LobbyResults(false, "You are not logged in!");
+        }
+        /*
         try {
             String authToken = AuthTokenDatabase.getInstance().getAuthToken(lobbyData.getUsername());
         }
         catch(ServerException ex) {
             return new LobbyResults(false, ex.getMessage());
-        }
+        }*/
 
         // check if the game to start has at least 2 players
         if(startingGame.GetGameSize() < 2) {
@@ -54,9 +67,13 @@ public class StartGameCommand implements iCommand {
         }
 
         ServerGameState gameState = new ServerGameState(lobbyData.getGameID(), users);
-        ActiveGamesDatabase.getInstance().addGame(gameState);
+        //ActiveGamesDatabase.getInstance().addGame(gameState);
 
-        LobbyGameDatabase.getInstance().startGame(startingGame);
+        GameDAO gameDAO = daoFactory.getGameDAO();
+        gameDAO.addGame(lobbyData.getGameID(), gameState);
+
+        //LobbyGameDatabase.getInstance().startGame(startingGame);
+        lobbyDAO.startGame(startingGame);
         return new LobbyResults(true, null);
     }
 }

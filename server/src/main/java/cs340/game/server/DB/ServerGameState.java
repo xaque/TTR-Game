@@ -3,6 +3,7 @@ package cs340.game.server.DB;
 import java.util.ArrayList;
 
 import cs340.game.shared.Color;
+import cs340.game.shared.CommonData;
 import cs340.game.shared.GameHistoryAction;
 import cs340.game.shared.RoutePointValues;
 import cs340.game.shared.ServerException;
@@ -18,6 +19,7 @@ public class ServerGameState {
     private DestinationCardDeck destinationCardDeck;
     private TrainCardDeck trainCardDeck;
     private GameRoutesDatabase gameRoutesDatabase;
+    private int dbCommandSequenceNumber;
 
     public ServerGameState(String name, ArrayList<User> users) {
         //Create Players from Users
@@ -65,6 +67,18 @@ public class ServerGameState {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public int getDbCommandSequenceNumber() {
+        return dbCommandSequenceNumber;
+    }
+
+    public void incrementDbCommandSequenceNumber() {
+
+        this.dbCommandSequenceNumber++;
+        if(this.dbCommandSequenceNumber == CommonData.COMMANDS_BETWEEN_CHECKPOINTS){
+            this.dbCommandSequenceNumber = 0;
+        }
     }
 
     public ArrayList<Player> getPlayers() {

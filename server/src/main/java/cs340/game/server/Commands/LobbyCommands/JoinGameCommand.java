@@ -1,6 +1,7 @@
 package cs340.game.server.Commands.LobbyCommands;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.LobbyDAO;
 import cs340.game.server.DB.LobbyGameDatabase;
 import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
@@ -23,6 +24,20 @@ public class JoinGameCommand implements iCommand {
      */
     public Results execute(Data data, DAOFactory daoFactory) {
         LobbyData lobbyData = (LobbyData)data;
+
+        LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
+        Game game = lobbyDAO.getGame(lobbyData.getGameID());
+        //Game startingGame = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
+
+        if(game.GetGameSize() == 5){
+            ServerException ex = new ServerException("This game is already full.");
+            return new LobbyResults(false, ex.getMessage());
+        }
+        //LobbyGameDatabase.getInstance().addPlayerToGame(lobbyData.getUsername(), game);
+        lobbyDAO.addPlayerToGame(lobbyData.getUsername(), game);
+        return new LobbyResults(true, null);
+
+        /*
         Game game = LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID());
         if(game.GetGameSize() == 5) {
             ServerException ex = new ServerException("This game is already full.");
@@ -30,6 +45,7 @@ public class JoinGameCommand implements iCommand {
         }
         LobbyGameDatabase.getInstance().addPlayerToGame(lobbyData.getUsername(), game);
         return new LobbyResults(true, null);
+        */
     }
 }
 

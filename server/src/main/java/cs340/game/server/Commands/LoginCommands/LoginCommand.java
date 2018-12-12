@@ -1,6 +1,7 @@
 package cs340.game.server.Commands.LoginCommands;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.UserDAO;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.UserDatabase;
 import cs340.game.server.Factories.DAOFactory;
@@ -26,6 +27,27 @@ public class LoginCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         LoginData loginData = (LoginData)data;
         User user = new User(loginData.getUsername(), loginData.getPassword());
+
+        UserDAO userDAO = daoFactory.getUserDAO();
+        // if a valid username-password combination is entered
+        if(userDAO.containsUser(user)) {
+            // TODO create way of getting and storing auth tokens
+            String authToken = AuthTokenDatabase.getInstance().addUser(user.getUsername());
+            System.out.println("NEW AUTH TOKEN: " + authToken);
+            return new LoginResults(true, authToken, null);
+        }
+        // if a valid username is entered but with the wrong password
+        else if(userDAO.getUserByUsername(user.getUsername()) != null) {
+            ServerException ex = new ServerException("Incorrect password.");
+            return new LoginResults(false, null, ex.getMessage());
+        }
+        // if an invalid username is entered
+        else {
+            ServerException ex = new ServerException("User does not exist.");
+            return new LoginResults(false, null, ex.getMessage());
+        }
+
+        /*
         UserDatabase userDB = UserDatabase.getInstance();
         // if a valid username-password combination is entered
         if(userDB.containsUser(user)) {
@@ -43,5 +65,6 @@ public class LoginCommand implements iCommand {
             ServerException ex = new ServerException("User does not exist.");
             return new LoginResults(false, null, ex.getMessage());
         }
+        */
     }
 }

@@ -1,6 +1,7 @@
 package cs340.game.server.Commands.LoginCommands;
 
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.UserDAO;
 import cs340.game.server.DB.UserDatabase;
 import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
@@ -32,6 +33,18 @@ public class RegisterCommand implements iCommand{
             return new LoginResults(false, null, ex.getMessage());
         }
 
+        UserDAO userDAO = daoFactory.getUserDAO();
+        if(userDAO.containsUser(user)){
+            ServerException ex = new ServerException("A user already exists with this username.");
+            return new LoginResults(false, null, ex.getMessage());
+        }
+
+        userDAO.addUser(user.getUsername(), user.getPassword());
+        User newUser = userDAO.getUserByUsername(user.getUsername());
+        String authToken = newUser.getAuthToken();
+        return new LoginResults(true, authToken, null);
+
+        /*
         UserDatabase userDB = UserDatabase.getInstance();
 
         // check if a user already exists with this username
@@ -41,5 +54,6 @@ public class RegisterCommand implements iCommand{
         }
         String authToken = UserDatabase.getInstance().addUser(user);
         return new LoginResults(true, authToken, null);
+        */
     }
 }

@@ -1,6 +1,10 @@
 package cs340.game.server.Commands.LobbyCommands;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+
 import cs340.game.server.Commands.iCommand;
+import cs340.game.server.DAOs.LobbyDAO;
+import cs340.game.server.DAOs.UserDAO;
 import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.DAO;
 import cs340.game.server.DB.LobbyGameDatabase;
@@ -8,7 +12,7 @@ import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
 import cs340.game.shared.data.LobbyData;
-import cs340.game.shared.models.Game;
+import cs340.game.shared.models.*;
 import cs340.game.shared.results.LobbyResults;
 import cs340.game.shared.results.Results;
 
@@ -28,13 +32,25 @@ public class CreateGameCommand implements iCommand {
         LobbyData lobbyData = (LobbyData)data;
 
         // check if user is logged in with an authToken
-        try {
-            String authToken = AuthTokenDatabase.getInstance().getAuthToken(lobbyData.getUsername());
+        UserDAO userDAO = daoFactory.getUserDAO();
+        User user = userDAO.getUserByUsername(lobbyData.getUsername());
+        String authToken = user.getAuthToken();
+        if(authToken.isEmpty()){
+            return new LobbyResults(false, "You are not logged in!");
         }
-        catch(ServerException ex) {
+
+        LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
+        // check if a game already exists with the entered name
+        if(lobbyDAO.getGame(lobbyData.getGameID()) != null){
+            ServerException ex = new ServerException("There is already a game in the lobby with this name.");
             return new LobbyResults(false, ex.getMessage());
         }
 
+        Game game = new Game(lobbyData.getGameID(), lobbyData.getUsername());
+        lobbyDAO.addGame(game);
+        return new LobbyResults(true, null);
+
+        /*
         // check if a game already exists with the entered name
         if(LobbyGameDatabase.getInstance().getGame(lobbyData.getGameID()) != null) {
             ServerException ex = new ServerException("There is already a game in the lobby with this name.");
@@ -44,5 +60,6 @@ public class CreateGameCommand implements iCommand {
         Game game = new Game(lobbyData.getGameID(), lobbyData.getUsername());
         LobbyGameDatabase.getInstance().addGame(game);
         return new LobbyResults(true, null);
+        */
     }
 }
