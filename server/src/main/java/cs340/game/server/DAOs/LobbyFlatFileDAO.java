@@ -6,7 +6,7 @@ import cs340.game.shared.models.Game;
 
 public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
     private static final String filename = "lobby.fdb";
-    private ArrayList<Game> lobbyGameList;
+    private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private static LobbyFlatFileDAO instance;
 
     private LobbyFlatFileDAO(){
