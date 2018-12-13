@@ -33,7 +33,8 @@ public abstract class FlatFileDAO {
             return false;
         }
 
-        pw.write(b64);
+        pw.print(b64);
+        pw.close();
         return true;
     }
 
