@@ -30,7 +30,7 @@ public class UserSQLDAO implements UserDAO{
             try {
                 String insertUserStr = "INSERT INTO User (username, password, authToken) " +
                         "VALUES (?,?,?)";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(insertUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertUserStr);
 
                 stmt.setString(1, userName);
                 stmt.setString(2, password);
@@ -43,9 +43,11 @@ public class UserSQLDAO implements UserDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -69,7 +71,7 @@ public class UserSQLDAO implements UserDAO{
             User resultUser = null;
             try {
                 String getUserStr = "SELECT * FROM User WHERE username=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUserStr);
                 stmt.setString(1, username);
 
                 rs = stmt.executeQuery();
@@ -86,10 +88,12 @@ public class UserSQLDAO implements UserDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return resultUser;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -104,7 +108,7 @@ public class UserSQLDAO implements UserDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
 
                 stmt.executeUpdate("DELETE FROM User");
             }
@@ -112,9 +116,11 @@ public class UserSQLDAO implements UserDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -126,7 +132,7 @@ public class UserSQLDAO implements UserDAO{
             String gameName = null;
             try {
                 String getGameNameStr = "SELECT * FROM User WHERE username=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getGameNameStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getGameNameStr);
                 stmt.setString(1, username);
 
                 rs = stmt.executeQuery();
@@ -141,10 +147,12 @@ public class UserSQLDAO implements UserDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return gameName;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -157,7 +165,7 @@ public class UserSQLDAO implements UserDAO{
             String gameName = null;
             try {
                 String getGameNameStr = "SELECT * FROM User WHERE authToken=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getGameNameStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getGameNameStr);
                 stmt.setString(1, authToken);
 
                 rs = stmt.executeQuery();
@@ -172,10 +180,12 @@ public class UserSQLDAO implements UserDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return gameName;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -185,7 +195,7 @@ public class UserSQLDAO implements UserDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS User ( username TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
                 "authToken TEXT NOT NULL UNIQUE," +
@@ -195,9 +205,11 @@ public class UserSQLDAO implements UserDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }

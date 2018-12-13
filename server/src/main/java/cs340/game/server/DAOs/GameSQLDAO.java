@@ -44,7 +44,7 @@ public class GameSQLDAO implements GameDAO{
             try {
                 String addGameStr = "INSERT INTO ActiveGame (name, gameState) " +
                         "VALUES (?,?)";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(addGameStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addGameStr);
 
                 stmt.setString(1, gameName);
                 stmt.setBlob(2, blobData);
@@ -56,9 +56,11 @@ public class GameSQLDAO implements GameDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -75,7 +77,7 @@ public class GameSQLDAO implements GameDAO{
             ServerGameState resultGame = null;
             try {
                 String getGameStr = "SELECT * FROM ActiveGame WHERE name=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getGameStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getGameStr);
                 stmt.setString(1, gameName);
 
                 rs = stmt.executeQuery();
@@ -95,18 +97,12 @@ public class GameSQLDAO implements GameDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return resultGame;
         }
-        catch(SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(ClassNotFoundException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(IOException ex) {
+        catch(SQLException | ClassNotFoundException | IOException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -132,6 +128,7 @@ public class GameSQLDAO implements GameDAO{
             ResultSet rs = null;
             ServerGameState resultGame = null;
             try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 rs = stmt.executeQuery("SELECT * FROM ActiveGame");
                 if (rs.next()) {
                     SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
@@ -150,18 +147,12 @@ public class GameSQLDAO implements GameDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return gameList;
         }
-        catch(SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(ClassNotFoundException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(IOException ex) {
+        catch(SQLException | ClassNotFoundException | IOException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -171,7 +162,8 @@ public class GameSQLDAO implements GameDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                SQLiteConnectionProxy.openConnection();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ActiveGame ( name TEXT NOT NULL UNIQUE," +
                         "gameState BLOB NOT NULL)");
             }
@@ -179,9 +171,11 @@ public class GameSQLDAO implements GameDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }

@@ -23,7 +23,7 @@ public class SQLiteConnectionProxy {
         return;
     }
 
-    public Connection openConnection() {
+    public static Connection openConnection() {
         try {
             final String CONNECTION_URL = "jdbc:sqlite:TicketToRideServer.sqlite";
 
@@ -40,7 +40,7 @@ public class SQLiteConnectionProxy {
         }
     }
 
-    public void closeConnection(boolean commit) {
+    public static void closeConnection(boolean commit) {
         try {
             if (commit) {
                 conn.commit();

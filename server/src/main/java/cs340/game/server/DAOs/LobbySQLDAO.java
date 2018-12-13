@@ -28,7 +28,7 @@ public class LobbySQLDAO implements LobbyDAO {
             try {
                 String insertGameStr = "INSERT INTO User (name, gameStarted, playerNumber, player1) " +
                         "VALUES (?,0,1,?)";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(insertGameStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertGameStr);
 
                 stmt.setString(1, game.getName());
                 stmt.setString(2, game.getPlayers().get(0));
@@ -40,9 +40,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -54,7 +56,7 @@ public class LobbySQLDAO implements LobbyDAO {
             String gameName = game.getName();
             try {
                 String getUserStr = "SELECT * FROM LobbyGame WHERE name=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUserStr);
                 stmt.setString(1, gameName);
 
                 rs = stmt.executeQuery();
@@ -69,10 +71,12 @@ public class LobbySQLDAO implements LobbyDAO {
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return null;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -86,7 +90,7 @@ public class LobbySQLDAO implements LobbyDAO {
             String nameOfSQLColumn = "player" + Integer.toString(numberOfPlayers + 1);
             try {
                 String addPlayerString = "UPDATE LobbyGame SET ?=? WHERE name=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(addPlayerString);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addPlayerString);
                 stmt.setString(1, nameOfSQLColumn);
                 stmt.setString(2, username);
                 stmt.setString(3, game.getName());
@@ -99,9 +103,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -115,7 +121,7 @@ public class LobbySQLDAO implements LobbyDAO {
             ArrayList<String> playerNames = new ArrayList<>();
             try {
                 String getUserStr = "SELECT * FROM LobbyGame WHERE name=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUserStr);
                 stmt.setString(1, gameName);
 
                 rs = stmt.executeQuery();
@@ -137,10 +143,12 @@ public class LobbySQLDAO implements LobbyDAO {
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return resultGame;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -152,7 +160,7 @@ public class LobbySQLDAO implements LobbyDAO {
             PreparedStatement stmt = null;
             try {
                 String startGameString = "UPDATE LobbyGame SET gameStarted=1 WHERE name=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(startGameString);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(startGameString);
                 stmt.setString(1, game.getName());
 
                 if(stmt.executeUpdate() != 1) {
@@ -163,9 +171,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -174,7 +184,7 @@ public class LobbySQLDAO implements LobbyDAO {
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
 
                 stmt.executeUpdate("DELETE FROM LobbyGame");
             }
@@ -182,9 +192,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -193,7 +205,7 @@ public class LobbySQLDAO implements LobbyDAO {
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS LobbyGame ( name TEXT NOT NULL UNIQUE," +
                         "gameStarted INTEGER NOT NULL CHECK(gameStarted = 0 OR gameStarted = 1)," +
                         "playerNumber INTEGER NOT NULL" +
@@ -207,9 +219,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }

@@ -52,7 +52,7 @@ public class CommandSQLDAO implements CommandDAO{
             try {
                 String insertUserStr = "INSERT INTO Commands (gameName, sequenceNumber, commandData) " +
                         "VALUES (?,?,?)";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(insertUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertUserStr);
 
                 stmt.setString(1, gameName);
                 stmt.setInt(2, getNextSequenceNumber(gameName));
@@ -65,9 +65,11 @@ public class CommandSQLDAO implements CommandDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -77,7 +79,7 @@ public class CommandSQLDAO implements CommandDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
 
                 stmt.executeUpdate("DELETE FROM Commands WHERE gameName=" + "'" + gameName + "'");
             }
@@ -85,9 +87,11 @@ public class CommandSQLDAO implements CommandDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -101,7 +105,7 @@ public class CommandSQLDAO implements CommandDAO{
             Data resultCommand = null;
             try {
                 String getCommandsStr = "SELECT * FROM Commands WHERE gameName=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getCommandsStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getCommandsStr);
                 stmt.setString(1, gameName);
                 if(stmt.executeUpdate() != 1) {
                     System.out.println("getCommandsForGame failed.");
@@ -123,18 +127,12 @@ public class CommandSQLDAO implements CommandDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             return commandList;
         }
-        catch(SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(ClassNotFoundException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch(IOException ex) {
+        catch(ClassNotFoundException | IOException | SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return null;
         }
@@ -149,7 +147,7 @@ public class CommandSQLDAO implements CommandDAO{
             int maxSequenceNumber = 0;
             try {
                 String getUserStr = "SELECT MAX(sequenceNumber) FROM Commands WHERE gameName=?";
-                stmt = SQLiteConnectionProxy.getConn().prepareStatement(getUserStr);
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUserStr);
                 stmt.setString(1, gameName);
 
                 rs = stmt.executeQuery();
@@ -164,11 +162,13 @@ public class CommandSQLDAO implements CommandDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
             nextSequenceNumber = maxSequenceNumber + 1;
             return nextSequenceNumber;
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
             return -1;
         }
@@ -178,7 +178,7 @@ public class CommandSQLDAO implements CommandDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
 
                 stmt.executeUpdate("DELETE FROM Commands");
             }
@@ -186,9 +186,11 @@ public class CommandSQLDAO implements CommandDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
@@ -197,7 +199,7 @@ public class CommandSQLDAO implements CommandDAO{
         try {
             Statement stmt = null;
             try {
-                stmt = SQLiteConnectionProxy.getConn().createStatement();
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Commands ( gameName TEXT NOT NULL UNIQUE," +
                         "sequenceNumber INTEGER NOT NULL UNIQUE," +
                         "commandData BLOB NOT NULL)");
@@ -206,9 +208,11 @@ public class CommandSQLDAO implements CommandDAO{
                 if(stmt != null) {
                     stmt.close();
                 }
+                SQLiteConnectionProxy.closeConnection(true);
             }
         }
         catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
     }
