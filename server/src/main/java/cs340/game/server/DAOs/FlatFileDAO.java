@@ -40,7 +40,8 @@ public abstract class FlatFileDAO {
     protected <T> T readObjectFromFile(String filename, Class<T> type){
         String b64;
         try {
-            b64 = new Scanner(new File(filename)).useDelimiter("\\Z").next();
+            File file = new File(filename);
+            b64 = new Scanner(file).useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
             return null;

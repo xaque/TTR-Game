@@ -56,7 +56,12 @@ public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
 
     @Override
     protected boolean loadDB() {
-        gamesCommands = super.readObjectFromFile(filename, gamesCommands.getClass());
+        try{
+            gamesCommands = super.readObjectFromFile(filename, gamesCommands.getClass());
+        }
+        catch (Exception e){
+            return false;
+        }
         if (gamesCommands == null){
             return false;
         }

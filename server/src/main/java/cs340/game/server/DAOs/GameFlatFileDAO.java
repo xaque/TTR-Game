@@ -8,7 +8,7 @@ import cs340.game.server.DB.ServerGameState;
 import cs340.game.shared.models.Player;
 
 public class GameFlatFileDAO extends FlatFileDAO implements GameDAO{
-    HashMap<String,ServerGameState> gameStates;
+    HashMap<String,ServerGameState> gameStates = new HashMap<>();
     private static final String filename = "game.fdb";
     private static GameFlatFileDAO instance;
 

@@ -64,7 +64,12 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
 
     @Override
     protected boolean loadDB() {
-        lobbyGameList = super.readObjectFromFile(filename, lobbyGameList.getClass());
+        try{
+            lobbyGameList = super.readObjectFromFile(filename, lobbyGameList.getClass());
+        }
+        catch (Exception e){
+            return false;
+        }
         if (lobbyGameList == null){
             return false;
         }

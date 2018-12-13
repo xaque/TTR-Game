@@ -6,7 +6,7 @@ import cs340.game.shared.models.User;
 
 public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
     private static final String filename = "users.fdb";
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<>();
 
     private static UserFlatFileDAO instance;
 
@@ -71,7 +71,12 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
 
     @Override
     protected boolean loadDB(){
-        users = super.readObjectFromFile(filename, users.getClass());
+        try {
+            users = super.readObjectFromFile(filename, users.getClass());
+        }catch (Exception e){
+            return false;
+        }
+
         if (users == null){
             return false;
         }
