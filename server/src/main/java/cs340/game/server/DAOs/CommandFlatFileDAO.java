@@ -1,16 +1,20 @@
 package cs340.game.server.DAOs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cs340.game.shared.data.Data;
 
 public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
     private static final String filename = "command.fdb";
+    HashMap<String,ArrayList<Data>> gamesCommands;
 
     private static CommandFlatFileDAO instance;
 
     private CommandFlatFileDAO(){
-
+        if (!loadDB()){
+            gamesCommands = new HashMap<>();
+        }
     }
 
     public static CommandFlatFileDAO getInstance(){
@@ -22,36 +26,46 @@ public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
 
     @Override
     public void addCommand(String gameName, Data data) {
-
+        ArrayList<Data> commands = gamesCommands.get(gameName);
+        commands.add(data);
+        gamesCommands.put(gameName, commands);
+        updateDB();
     }
 
     @Override
     public void clearCommandsForGame(String gameName) {
-
+        gamesCommands.put(gameName, new ArrayList<Data>());
+        updateDB();
     }
 
     @Override
     public ArrayList<Data> getCommandsForGame(String gameName) {
-        return null;
+        return gamesCommands.get(gameName);
     }
 
     @Override
     public int getNextSequenceNumber(String gameName) {
-        return 0;
+        //TODO is the next sequence number always sequential like this?
+        return gamesCommands.get(gameName).size();
     }
 
     @Override
     protected boolean updateDB() {
-        return false;
+        return super.writeObjectToFile(filename, gamesCommands);
     }
 
     @Override
     protected boolean loadDB() {
-        return false;
+        gamesCommands = super.readObjectFromFile(filename, gamesCommands.getClass());
+        if (gamesCommands == null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void clearData() {
-
+        super.deleteFile(filename);
+        gamesCommands = new HashMap<>();
     }
 }

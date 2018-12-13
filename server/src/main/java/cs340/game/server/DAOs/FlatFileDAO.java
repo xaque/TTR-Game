@@ -55,4 +55,9 @@ public abstract class FlatFileDAO {
             return null;
         }
     }
+
+    protected void deleteFile(String filename){
+        File file = new File(filename);
+        file.delete();
+    }
 }

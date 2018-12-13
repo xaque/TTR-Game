@@ -1,6 +1,8 @@
 package cs340.game.server.DB;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by Stephen on 12/10/2018.

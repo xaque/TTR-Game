@@ -80,6 +80,21 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
 
     @Override
     public void clearData() {
+        users = new ArrayList<>();
+        deleteFile(filename);
+    }
 
+    public String getGameNameByAuthToken(String authToken) {
+        for (User u : users){
+            if (u.getAuthToken().equals(authToken)){
+                return getGameNameByUsername(u.getUsername());
+            }
+        }
+        return null;
+    }
+
+    public String getGameNameByUsername(String username){
+        //TODO not sure if this is actually used. Just copying it from the UserSQLDAO
+        return null;
     }
 }

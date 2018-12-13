@@ -30,6 +30,7 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
 
     @Override
     public void addPlayerToGame(String username, Game game) {
+        //TODO need to make sure the number of players in the game isnt already max?
         game.AddPlayer(username);
         updateDB();
     }
@@ -46,7 +47,7 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
 
     @Override
     public ArrayList<Game> getAllGames() {
-        return null;
+        return lobbyGameList;
     }
 
     @Override
@@ -72,6 +73,7 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
 
     @Override
     public void clearData() {
-
+        super.deleteFile(filename);
+        lobbyGameList = new ArrayList<>();
     }
 }

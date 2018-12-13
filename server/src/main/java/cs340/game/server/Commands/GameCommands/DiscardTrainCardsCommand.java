@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import cs340.game.server.Commands.CommandHelper;
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DB.ActiveGamesDatabase;
-import cs340.game.server.DB.AuthTokenDatabase;
 import cs340.game.server.DB.ServerGameState;
 import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.GameHistoryAction;

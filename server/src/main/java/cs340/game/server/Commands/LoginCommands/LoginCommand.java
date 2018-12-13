@@ -2,8 +2,6 @@ package cs340.game.server.Commands.LoginCommands;
 
 import cs340.game.server.Commands.iCommand;
 import cs340.game.server.DAOs.UserDAO;
-import cs340.game.server.DB.AuthTokenDatabase;
-import cs340.game.server.DB.UserDatabase;
 import cs340.game.server.Factories.DAOFactory;
 import cs340.game.shared.ServerException;
 import cs340.game.shared.data.Data;
