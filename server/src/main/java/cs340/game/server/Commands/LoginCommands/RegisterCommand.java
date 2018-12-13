@@ -34,7 +34,7 @@ public class RegisterCommand implements iCommand{
         }
 
         UserDAO userDAO = daoFactory.getUserDAO();
-        if(userDAO.containsUser(user)){
+        if(userDAO.containsUsername(user.getUsername())){
             ServerException ex = new ServerException("A user already exists with this username.");
             return new LoginResults(false, null, ex.getMessage());
         }

@@ -38,7 +38,7 @@ public class LoginCommand implements iCommand {
             return new LoginResults(true, authToken, null);
         }
         // if a valid username is entered but with the wrong password
-        else if(userDAO.getUserByUsername(user.getUsername()) != null) {
+        else if(userDAO.containsUsername(user.getUsername())) {
             ServerException ex = new ServerException("Incorrect password.");
             return new LoginResults(false, null, ex.getMessage());
         }

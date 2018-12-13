@@ -54,8 +54,13 @@ public class UserSQLDAO implements UserDAO{
 
     @Override
     public boolean containsUser(User user) {
-        return ((getUserByUsername(user.getUsername()).getPassword() == user.getPassword()) &&
-                (containsUsername(user.getUsername())));
+
+        if(!containsUsername(user.getUsername())){
+            return false;
+        }
+
+        User dbUser = getUserByUsername(user.getUsername());
+        return (dbUser.getPassword().equals(user.getPassword()));
     }
 
     @Override
