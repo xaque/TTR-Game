@@ -1,5 +1,6 @@
 package cs340.game.server.DAOs;
 
+import java.lang.reflect.Executable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,9 +36,10 @@ public class LobbySQLDAO implements LobbyDAO {
 
                 stmt.setString(1, game.getName());
                 stmt.setString(2, game.getPlayers().get(0));
-                if(stmt.executeUpdate() != 1) {
+                if (stmt.executeUpdate() != 1) {
                     System.out.println("addGame failed.");
                 }
+
             }
             finally {
                 if(stmt != null) {
@@ -93,11 +95,15 @@ public class LobbySQLDAO implements LobbyDAO {
             String nameOfSQLColumn = "player" + Integer.toString(numberOfPlayers + 1);
             try {
                 try {
+                    System.out.println("11");
                     String addPlayerString = "UPDATE LobbyGame SET " + nameOfSQLColumn + "=?, playerNumber=? WHERE name=?";
+                    System.out.println("12");
                     stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addPlayerString);
+                    System.out.println("13");
                     stmt.setString(1, username);
                     stmt.setInt(2, numberOfPlayers + 1);
                     stmt.setString(3, game.getName());
+                    System.out.println("14");
 
                     if (stmt.executeUpdate() != 1) {
                         System.out.println("addPlayerToGame failed.");
@@ -294,11 +300,11 @@ public class LobbySQLDAO implements LobbyDAO {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS LobbyGame ( name TEXT PRIMARY KEY NOT NULL UNIQUE," +
                         "gameStarted INTEGER NOT NULL," +
                         "playerNumber INTEGER NOT NULL," +
-                        "player1 TEXT NOT NULL UNIQUE," +
-                        "player2 TEXT UNIQUE," +
-                        "player3 TEXT UNIQUE," +
-                        "player4 TEXT UNIQUE," +
-                        "player5 TEXT UNIQUE," +
+                        "player1 TEXT NOT NULL," +
+                        "player2 TEXT," +
+                        "player3 TEXT," +
+                        "player4 TEXT," +
+                        "player5 TEXT," +
                         "CHECK(gameStarted IN (0,1)))");
             }
             finally {

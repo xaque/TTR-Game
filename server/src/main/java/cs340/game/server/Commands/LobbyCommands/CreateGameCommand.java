@@ -40,7 +40,6 @@ public class CreateGameCommand implements iCommand {
         LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
         // check if a game already exists with the entered name
         if(lobbyDAO.getGame(lobbyData.getGameID()) != null){
-            System.out.println("1");
             ServerException ex = new ServerException("There is already a game in the lobby with this name.");
             return new LobbyResults(false, ex.getMessage());
         }
