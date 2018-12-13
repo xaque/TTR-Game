@@ -42,7 +42,10 @@ public abstract class FlatFileDAO {
         try {
             b64 = new Scanner(new File(filename)).useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return null;
+        }
+        if (b64 == null){
             return null;
         }
         try {

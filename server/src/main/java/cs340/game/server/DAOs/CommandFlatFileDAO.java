@@ -7,7 +7,7 @@ import cs340.game.shared.data.Data;
 
 public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
     private static final String filename = "command.fdb";
-    HashMap<String,ArrayList<Data>> gamesCommands;
+    HashMap<String,ArrayList<Data>> gamesCommands = new HashMap<>();
 
     private static CommandFlatFileDAO instance;
 

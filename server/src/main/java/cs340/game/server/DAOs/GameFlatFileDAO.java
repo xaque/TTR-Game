@@ -73,7 +73,12 @@ public class GameFlatFileDAO extends FlatFileDAO implements GameDAO{
 
     @Override
     protected boolean loadDB() {
-        gameStates = super.readObjectFromFile(filename, gameStates.getClass());
+        try{
+            gameStates = super.readObjectFromFile(filename, gameStates.getClass());
+        }catch (NullPointerException e){
+            return false;
+        }
+
         if (gameStates == null){
             return false;
         }
