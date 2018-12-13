@@ -156,7 +156,46 @@ public class LobbySQLDAO implements LobbyDAO {
 
     @Override
     public ArrayList<Game> getAllGames() {
-        return null;
+
+        ArrayList<Game> games = new ArrayList<>();
+        try {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            try {
+                String getUserStr = "SELECT * FROM LobbyGame";
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUserStr);
+
+                rs = stmt.executeQuery();
+                while(rs.next()) {
+                    ArrayList<String> playerNames = new ArrayList<>();
+                    for(int i = 4; i < 9; i++) {
+                        if(rs.getString(i) != null) {
+                            System.out.println(rs.getString(i));
+                            playerNames.add(rs.getString(i)); // this loop may cause a problem if resultSet needs to be read in sequential order
+                        }
+                    }
+                    Game rowGame = new Game(rs.getString(1),
+                            rs.getBoolean(2), //this line may have a problem, as SQLite actually stores an int, not a boolean
+                            playerNames);
+                    games.add(rowGame);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+            return games;
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
