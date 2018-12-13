@@ -43,7 +43,7 @@ public class CommandSQLDAO implements CommandDAO{
 
         try {
             byte[] decodedByte = Base64.decode(serializedData, 0);
-            Blob blobData = new SerialBlob(decodedByte);
+            //Blob blobData = new SerialBlob(decodedByte);
 
             PreparedStatement stmt = null;
             try {
@@ -53,7 +53,7 @@ public class CommandSQLDAO implements CommandDAO{
 
                 stmt.setString(1, gameName);
                 stmt.setInt(2, getNextSequenceNumber(gameName));
-                stmt.setBlob(3, blobData);
+                stmt.setBytes(3, decodedByte); // Our JCDB driver does not support setBlob
                 if(stmt.executeUpdate() != 1) {
                     System.out.println("addUser failed.");
                 }
