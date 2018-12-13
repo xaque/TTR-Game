@@ -32,17 +32,23 @@ public class CreateGameCommand implements iCommand {
         // check if user is logged in with an authToken
         UserDAO userDAO = daoFactory.getUserDAO();
         User user = userDAO.getUserByUsername(lobbyData.getUsername());
+        System.out.println("Getting auth token");
         String authToken = user.getAuthToken();
+        System.out.println(authToken);
         if(authToken.isEmpty()){
+            System.out.println("Auth token does not exist");
             return new LobbyResults(false, "You are not logged in!");
         }
 
         LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
         // check if a game already exists with the entered name
+        System.out.println("Getting game");
         if(lobbyDAO.getGame(lobbyData.getGameID()) != null){
+            System.out.println("1");
             ServerException ex = new ServerException("There is already a game in the lobby with this name.");
             return new LobbyResults(false, ex.getMessage());
         }
+        System.out.println("HErE");
 
         Game game = new Game(lobbyData.getGameID(), lobbyData.getUsername());
         lobbyDAO.addGame(game);

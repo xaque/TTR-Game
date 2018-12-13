@@ -207,13 +207,14 @@ public class LobbySQLDAO implements LobbyDAO {
             try {
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS LobbyGame ( name TEXT NOT NULL UNIQUE," +
-                        "gameStarted INTEGER NOT NULL CHECK(gameStarted = 0 OR gameStarted = 1)," +
-                        "playerNumber INTEGER NOT NULL" +
+                        "gameStarted INTEGER NOT NULL," +
+                        "playerNumber INTEGER NOT NULL," +
                         "player1 TEXT NOT NULL UNIQUE," +
                         "player2 TEXT UNIQUE," +
                         "player3 TEXT UNIQUE," +
                         "player4 TEXT UNIQUE," +
-                        "player5 TEXT UNIQUE)");
+                        "player5 TEXT UNIQUE," +
+                        "CHECK(gameStarted IN (0,1)))");
             }
             finally {
                 if(stmt != null) {
