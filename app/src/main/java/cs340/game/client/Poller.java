@@ -66,7 +66,7 @@ public class Poller implements Runnable{
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         LobbyPollerResults results = (LobbyPollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
 
-        if(results.isSuccess()) {
+        if(results != null && results.isSuccess()) {
             System.out.println("Success");
             // GameList of NEW or CHANGED games
             GameList games = results.getData();
@@ -98,7 +98,7 @@ public class Poller implements Runnable{
         ClientCommunicator communicator = ClientCommunicator.getInstance();
         GamePollerResults results = (GamePollerResults)communicator.send(CommonData.POLLER_URI, pollerData);
 
-        if(results.isSuccess()) {
+        if(results != null && results.isSuccess()) {
             System.out.println("Success");
             GameState newState = results.getData();
 
