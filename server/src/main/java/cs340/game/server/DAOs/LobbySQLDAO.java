@@ -26,10 +26,15 @@ public class LobbySQLDAO implements LobbyDAO {
         try {
             PreparedStatement stmt = null;
             try {
-                String insertGameStr = "INSERT INTO User (name, gameStarted, playerNumber, player1) " +
-                        "VALUES (?,0,1,?)";
-                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertGameStr);
-
+                try {
+                    System.out.println("1");
+                    String insertGameStr = "INSERT INTO LobbyGame (name, gameStarted, playerNumber, player1) " +
+                            "VALUES (?,0,1,?)";
+                    System.out.println("2");
+                    stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertGameStr);
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                }
                 stmt.setString(1, game.getName());
                 stmt.setString(2, game.getPlayers().get(0));
                 if(stmt.executeUpdate() != 1) {
