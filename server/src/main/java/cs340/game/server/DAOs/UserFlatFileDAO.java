@@ -28,7 +28,7 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
     public void addUser(String userName, String password) {
         User u = new User(userName, password);
         u.setAuthToken(UUID.randomUUID().toString());
-        users.add(new User(userName, password));
+        users.add(u);
         updateDB();
     }
 
@@ -92,17 +92,4 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
         deleteFile(filename);
     }
 
-    public String getGameNameByAuthToken(String authToken) {
-        for (User u : users){
-            if (u.getAuthToken().equals(authToken)){
-                return getGameNameByUsername(u.getUsername());
-            }
-        }
-        return null;
-    }
-
-    public String getGameNameByUsername(String username){
-        //TODO not sure if this is actually used. Just copying it from the UserSQLDAO
-        return null;
-    }
 }
