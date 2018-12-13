@@ -11,4 +11,5 @@ public interface GameDAO {
     public ServerGameState getGameByUsername(String username);
     public ServerGameState getGameByAuthToken(String authToken);
     public ArrayList<ServerGameState> getAllGames();
+    public void clearData();
 }

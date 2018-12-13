@@ -55,6 +55,11 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
     }
 
     @Override
+    public String getUsernameByAuthToken(String authToken) {
+        return null;
+    }
+
+    @Override
     public ArrayList<User> getAllUsers() {
         return users;
     }
@@ -71,5 +76,10 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void clearData() {
+
     }
 }

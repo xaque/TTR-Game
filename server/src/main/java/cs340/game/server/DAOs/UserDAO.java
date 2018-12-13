@@ -11,4 +11,5 @@ public interface UserDAO {
     public User getUserByUsername(String username);
     public String getUsernameByAuthToken(String authToken);
     public ArrayList<User> getAllUsers();
+    public void clearData();
 }

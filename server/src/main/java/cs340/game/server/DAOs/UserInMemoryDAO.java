@@ -27,7 +27,17 @@ public class UserInMemoryDAO implements UserDAO{
     }
 
     @Override
+    public String getUsernameByAuthToken(String authToken) {
+        return null;
+    }
+
+    @Override
     public ArrayList<User> getAllUsers() {
         return null;
+    }
+
+    @Override
+    public void clearData() {
+
     }
 }

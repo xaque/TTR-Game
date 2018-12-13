@@ -49,4 +49,9 @@ public class CommandFlatFileDAO extends FlatFileDAO implements CommandDAO{
     protected boolean loadDB() {
         return false;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

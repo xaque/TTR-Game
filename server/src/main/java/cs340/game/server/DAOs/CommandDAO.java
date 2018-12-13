@@ -10,4 +10,5 @@ public interface CommandDAO {
     public void clearCommandsForGame(String gameName);
     public ArrayList<Data> getCommandsForGame(String gameName);
     public int getNextSequenceNumber(String gameName);
+    public void clearData();
 }

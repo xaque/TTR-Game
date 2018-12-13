@@ -69,4 +69,9 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
         }
         return true;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

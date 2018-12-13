@@ -105,11 +105,46 @@ public class UserSQLDAO implements UserDAO{
     }
 
     @Override
+    public String getUsernameByAuthToken(String authToken) {
+        try {
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String username = null;
+            try {
+                String getUsernameStr = "SELECT * FROM User WHERE authToken=?";
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getUsernameStr);
+                stmt.setString(1, authToken);
+
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    username = rs.getString(1);
+                }
+            }
+            finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+            return username;
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public ArrayList<User> getAllUsers() {
         return null;
     }
 
-    public void clearUserTable() {
+    @Override
+    public void clearData() {
         try {
             Statement stmt = null;
             try {

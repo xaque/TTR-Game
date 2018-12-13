@@ -53,4 +53,9 @@ public class GameFlatFileDAO extends FlatFileDAO implements GameDAO{
     protected boolean loadDB() {
         return false;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

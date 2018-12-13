@@ -30,4 +30,9 @@ public class LobbyInMemoryDAO implements LobbyDAO {
     public void startGame(Game game) {
 
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

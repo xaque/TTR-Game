@@ -11,4 +11,5 @@ public interface LobbyDAO {
     Game getGame(String gameName);
     ArrayList<Game> getAllGames();
     void startGame(Game game);
+    public void clearData();
 }

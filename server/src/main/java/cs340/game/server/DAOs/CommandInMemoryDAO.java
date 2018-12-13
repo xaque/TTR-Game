@@ -25,4 +25,9 @@ public class CommandInMemoryDAO implements CommandDAO{
     public int getNextSequenceNumber(String gameName) {
         return 0;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

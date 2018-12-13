@@ -20,6 +20,7 @@ import cs340.game.shared.models.Game;
 
 public class Main {
     public static void main(String[] args){
+        boolean clearAllTables = false;
 
         if(args.length > 0) {
             CommonData.HOSTNAME = args[0];
@@ -30,11 +31,29 @@ public class Main {
             CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[2]);
         }
 
+        if(args.length == 4) {
+            CommonData.PERSISTENCE_TYPE = args[1];
+            CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[2]);
+            if(args[3].equals("wipe")) {
+                clearAllTables = true;
+            }
+        }
+
         DAOFactory daoFactory = getDAOFactory();
+        if(clearAllTables) {
+            clearTables(daoFactory);
+        }
         loadAllLobbyData(daoFactory);
         loadAllGameData(daoFactory);
 
         new ServerCommunicator().run();
+    }
+
+    private static void clearTables(DAOFactory daoFactory) {
+        daoFactory.getCommandDAO().clearData();
+        daoFactory.getGameDAO().clearData();
+        daoFactory.getLobbyDAO().clearData();
+        daoFactory.getUserDAO().clearData();
     }
 
     private static void loadAllLobbyData(DAOFactory daoFactory){

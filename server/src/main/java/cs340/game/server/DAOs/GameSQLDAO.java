@@ -179,4 +179,26 @@ public class GameSQLDAO implements GameDAO{
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public void clearData() {
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
+
+                stmt.executeUpdate("DELETE FROM ActiveGame");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+        }
+    }
 }

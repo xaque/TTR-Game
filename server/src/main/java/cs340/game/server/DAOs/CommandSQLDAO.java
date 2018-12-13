@@ -174,7 +174,8 @@ public class CommandSQLDAO implements CommandDAO{
         }
     }
 
-    public void clearCommandTable() {
+    @Override
+    public void clearData() {
         try {
             Statement stmt = null;
             try {
@@ -201,7 +202,7 @@ public class CommandSQLDAO implements CommandDAO{
             try {
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Commands ( gameName TEXT NOT NULL UNIQUE," +
-                        "sequenceNumber INTEGER NOT NULL UNIQUE," +
+                        "sequenceNumber INTEGER NOT NULL," +
                         "commandData BLOB NOT NULL)");
             }
             finally {

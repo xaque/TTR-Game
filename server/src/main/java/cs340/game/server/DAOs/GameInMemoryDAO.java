@@ -30,4 +30,9 @@ public class GameInMemoryDAO implements GameDAO{
     public ArrayList<ServerGameState> getAllGames() {
         return null;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

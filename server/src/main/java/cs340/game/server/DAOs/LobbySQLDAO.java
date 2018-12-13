@@ -261,7 +261,8 @@ public class LobbySQLDAO implements LobbyDAO {
         }
     }
 
-    public void clearLobbyTable() {
+    @Override
+    public void clearData() {
         try {
             Statement stmt = null;
             try {
