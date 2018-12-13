@@ -89,14 +89,18 @@ public class LobbySQLDAO implements LobbyDAO {
             int numberOfPlayers = getNumberOfPlayersInGame(game);
             String nameOfSQLColumn = "player" + Integer.toString(numberOfPlayers + 1);
             try {
-                String addPlayerString = "UPDATE LobbyGame SET ?=? WHERE name=?";
-                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addPlayerString);
-                stmt.setString(1, nameOfSQLColumn);
-                stmt.setString(2, username);
-                stmt.setString(3, game.getName());
+                try {
+                    String addPlayerString = "UPDATE LobbyGame SET " + nameOfSQLColumn + "=?, playerNumber=? WHERE name=?";
+                    stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addPlayerString);
+                    stmt.setString(1, username);
+                    stmt.setInt(2, numberOfPlayers);
+                    stmt.setString(3, game.getName());
 
-                if(stmt.executeUpdate() != 1) {
-                    System.out.println("addPlayerToGame failed.");
+                    if (stmt.executeUpdate() != 1) {
+                        System.out.println("addPlayerToGame failed.");
+                    }
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
                 }
             }
             finally {
@@ -126,7 +130,7 @@ public class LobbySQLDAO implements LobbyDAO {
 
                 rs = stmt.executeQuery();
                 if (rs.next()) {
-                    for(int i = 3; i < 8; i++) {
+                    for(int i = 4; i < 9; i++) {
                         if(rs.getString(i) != null) {
                             playerNames.add(rs.getString(i)); // this loop may cause a problem if resultSet needs to be read in sequential order
                         }
@@ -170,7 +174,6 @@ public class LobbySQLDAO implements LobbyDAO {
                     ArrayList<String> playerNames = new ArrayList<>();
                     for(int i = 4; i < 9; i++) {
                         if(rs.getString(i) != null) {
-                            System.out.println(rs.getString(i));
                             playerNames.add(rs.getString(i)); // this loop may cause a problem if resultSet needs to be read in sequential order
                         }
                     }
