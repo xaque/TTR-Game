@@ -26,15 +26,10 @@ public class LobbySQLDAO implements LobbyDAO {
         try {
             PreparedStatement stmt = null;
             try {
-                try {
-                    System.out.println("1");
-                    String insertGameStr = "INSERT INTO LobbyGame (name, gameStarted, playerNumber, player1) " +
-                            "VALUES (?,0,1,?)";
-                    System.out.println("2");
-                    stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertGameStr);
-                }catch (Exception ex){
-                    System.out.println(ex.getMessage());
-                }
+                String insertGameStr = "INSERT INTO LobbyGame (name, gameStarted, playerNumber, player1) " +
+                        "VALUES (?,0,1,?)";
+                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertGameStr);
+
                 stmt.setString(1, game.getName());
                 stmt.setString(2, game.getPlayers().get(0));
                 if(stmt.executeUpdate() != 1) {
@@ -185,6 +180,27 @@ public class LobbySQLDAO implements LobbyDAO {
         }
     }
 
+    public void dropLobbyTable(){
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
+
+                stmt.executeUpdate("DROP TABLE LobbyGame");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+        }
+    }
+
     public void clearLobbyTable() {
         try {
             Statement stmt = null;
@@ -211,7 +227,7 @@ public class LobbySQLDAO implements LobbyDAO {
             Statement stmt = null;
             try {
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS LobbyGame ( name TEXT NOT NULL UNIQUE," +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS LobbyGame ( name TEXT PRIMARY KEY NOT NULL UNIQUE," +
                         "gameStarted INTEGER NOT NULL," +
                         "playerNumber INTEGER NOT NULL," +
                         "player1 TEXT NOT NULL UNIQUE," +
