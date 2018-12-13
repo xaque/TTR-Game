@@ -1,5 +1,6 @@
 package cs340.game.client;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -30,9 +31,12 @@ public final class ClientCommunicator {
      */
     public Results send(String urlSuffix, Data data){
         HttpURLConnection connection = openConnection(urlSuffix, true);
+        if(connection == null) {
+            return null;
+        }
         sendRequest(connection, data);
         Results r = getResult(connection);
-        connection.disconnect();
+        //connection.disconnect();
         return r;
     }
 
@@ -48,16 +52,18 @@ public final class ClientCommunicator {
             URL url = new URL("http://" + CommonData.HOSTNAME + ":" + CommonData.PORT_NUMBER + uri);
             HttpURLConnection result = (HttpURLConnection)url.openConnection();
             result.setRequestMethod("POST");
+            result.setConnectTimeout(2000);
             result.setDoOutput(sendingObject);
             result.connect();
             return result;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("<<<<<<< OPEN CONNECTION >>>>>>>>");
             e.printStackTrace();
         }
         System.out.println("Failed to make HTTP connection on http://" + CommonData.HOSTNAME + ":" + CommonData.PORT_NUMBER + uri);
-        System.exit(0);
+        //System.exit(0);
         return null;
     }
 
@@ -72,6 +78,7 @@ public final class ClientCommunicator {
             osw.write(Serializer.serializeData(data));
             osw.close();
         } catch (IOException e) {
+            System.out.println("<<<<<<<<< SEND REQUEST >>>>>>>>>");
             e.printStackTrace();
         }
     }
@@ -84,20 +91,27 @@ public final class ClientCommunicator {
     private Results getResult(HttpURLConnection connection){
         Results result = null;
         try {
+            connection.setReadTimeout(2000);
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                if(connection.getContentLength() == -1) {
+                if (connection.getContentLength() == -1) {
                     Scanner s = new Scanner(connection.getInputStream()).useDelimiter("\\A");
                     String raw = s.hasNext() ? s.next() : "";
                     result = Serializer.deserializeResults(raw);
                 }
-            }
-            else {
+            } else {
                 throw new Exception("http code " + connection.getResponseCode());
             }
+        } catch(EOFException e) {
+            System.out.println("<<<<<<<<<<<< GET RESULT EOF >>>>>>>>>>>>");
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("<<<<<<<<<<<< GET RESULT IO >>>>>>>>>>>>");
             e.printStackTrace();
         } catch (Exception e) {
+            System.out.println("<<<<<<<<<<<< GET RESULT EXCEPTION >>>>>>>>>");
             e.getMessage();
+        } finally {
+            connection.disconnect();
         }
         return result;
     }
