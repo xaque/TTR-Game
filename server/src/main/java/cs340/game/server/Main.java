@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import cs340.game.server.DAOs.CommandDAO;
 import cs340.game.server.DAOs.GameDAO;
+import cs340.game.server.DAOs.LobbyDAO;
 import cs340.game.server.DB.ActiveGamesDatabase;
+import cs340.game.server.DB.LobbyCommandLog;
 import cs340.game.server.DB.ServerGameState;
 import cs340.game.server.Factories.DAOFactory;
 import cs340.game.server.Factories.FlatFileDAOFactory;
@@ -14,6 +16,7 @@ import cs340.game.server.Handlers.GenericHandler;
 import cs340.game.shared.CommandData;
 import cs340.game.shared.CommonData;
 import cs340.game.shared.data.Data;
+import cs340.game.shared.models.Game;
 
 public class Main {
     public static void main(String[] args){
@@ -27,14 +30,25 @@ public class Main {
             CommonData.COMMANDS_BETWEEN_CHECKPOINTS = Integer.parseInt(args[2]);
         }
 
-        loadAllGameData();
+        DAOFactory daoFactory = getDAOFactory();
+        loadAllLobbyData(daoFactory);
+        loadAllGameData(daoFactory);
 
         new ServerCommunicator().run();
     }
 
-    private static void loadAllGameData(){
+    private static void loadAllLobbyData(DAOFactory daoFactory){
+        LobbyDAO lobbyDAO = daoFactory.getLobbyDAO();
+        ArrayList<Game> lobbyGames = lobbyDAO.getAllGames();
 
-        DAOFactory daoFactory = getDAOFactory();
+        LobbyCommandLog log = LobbyCommandLog.getInstance();
+        for(int i = 0; i < lobbyGames.size(); i++){
+            log.addLobbyCommand(lobbyGames.get(i));
+        }
+    }
+
+    private static void loadAllGameData(DAOFactory daoFactory){
+
         GameDAO gameDAO = daoFactory.getGameDAO();
         CommandDAO commandDAO = daoFactory.getCommandDAO();
 

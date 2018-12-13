@@ -9,5 +9,6 @@ public interface LobbyDAO {
     void addGame(Game game);
     void addPlayerToGame(String username, Game game);
     Game getGame(String gameName);
+    ArrayList<Game> getAllGames();
     void startGame(Game game);
 }

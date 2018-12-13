@@ -45,6 +45,11 @@ public class LobbyFlatFileDAO extends FlatFileDAO implements LobbyDAO {
     }
 
     @Override
+    public ArrayList<Game> getAllGames() {
+        return null;
+    }
+
+    @Override
     public void startGame(Game game) {
         //TODO need to validate here?
         game.setGameStarted(true);

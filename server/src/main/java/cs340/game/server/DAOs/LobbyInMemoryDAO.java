@@ -22,6 +22,11 @@ public class LobbyInMemoryDAO implements LobbyDAO {
     }
 
     @Override
+    public ArrayList<Game> getAllGames() {
+        return null;
+    }
+
+    @Override
     public void startGame(Game game) {
 
     }
