@@ -1,6 +1,7 @@
 package cs340.game.server.DAOs;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import cs340.game.shared.models.User;
 
@@ -25,6 +26,8 @@ public class UserFlatFileDAO extends FlatFileDAO implements UserDAO{
 
     @Override
     public void addUser(String userName, String password) {
+        User u = new User(userName, password);
+        u.setAuthToken(UUID.randomUUID().toString());
         users.add(new User(userName, password));
         updateDB();
     }
