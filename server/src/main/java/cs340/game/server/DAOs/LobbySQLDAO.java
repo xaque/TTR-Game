@@ -93,7 +93,7 @@ public class LobbySQLDAO implements LobbyDAO {
                     String addPlayerString = "UPDATE LobbyGame SET " + nameOfSQLColumn + "=?, playerNumber=? WHERE name=?";
                     stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addPlayerString);
                     stmt.setString(1, username);
-                    stmt.setInt(2, numberOfPlayers);
+                    stmt.setInt(2, numberOfPlayers + 1);
                     stmt.setString(3, game.getName());
 
                     if (stmt.executeUpdate() != 1) {
@@ -135,8 +135,15 @@ public class LobbySQLDAO implements LobbyDAO {
                             playerNames.add(rs.getString(i)); // this loop may cause a problem if resultSet needs to be read in sequential order
                         }
                     }
+                    boolean gameStarted;
+                    if(rs.getInt(2) == 0){
+                        gameStarted = false;
+                    }else{
+                        gameStarted = true;
+                    }
+
                     resultGame = new Game(rs.getString(1),
-                            rs.getBoolean(2), //this line may have a problem, as SQLite actually stores an int, not a boolean
+                            gameStarted,
                             playerNames);
                 }
             }
@@ -177,8 +184,14 @@ public class LobbySQLDAO implements LobbyDAO {
                             playerNames.add(rs.getString(i)); // this loop may cause a problem if resultSet needs to be read in sequential order
                         }
                     }
+                    boolean gameStarted;
+                    if(rs.getInt(2) == 0){
+                        gameStarted = false;
+                    }else{
+                        gameStarted = true;
+                    }
                     Game rowGame = new Game(rs.getString(1),
-                            rs.getBoolean(2), //this line may have a problem, as SQLite actually stores an int, not a boolean
+                            gameStarted,
                             playerNames);
                     games.add(rowGame);
                 }
