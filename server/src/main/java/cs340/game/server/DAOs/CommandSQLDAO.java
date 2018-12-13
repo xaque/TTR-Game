@@ -41,21 +41,27 @@ public class CommandSQLDAO implements CommandDAO{
             ex.printStackTrace();
         }
 
+        int nextSequenceNumber = getNextSequenceNumber(gameName);
+
         try {
             byte[] decodedByte = Base64.decode(serializedData, 0);
             //Blob blobData = new SerialBlob(decodedByte);
 
             PreparedStatement stmt = null;
             try {
-                String insertUserStr = "INSERT INTO Commands (gameName, sequenceNumber, commandData) " +
-                        "VALUES (?,?,?)";
-                stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertUserStr);
+                try {
+                    String insertUserStr = "INSERT INTO Commands (gameName, sequenceNumber, commandData) " +
+                            "VALUES (?,?,?)";
+                    stmt = SQLiteConnectionProxy.openConnection().prepareStatement(insertUserStr);
 
-                stmt.setString(1, gameName);
-                stmt.setInt(2, getNextSequenceNumber(gameName));
-                stmt.setBytes(3, decodedByte); // Our JCDB driver does not support setBlob
-                if(stmt.executeUpdate() != 1) {
-                    System.out.println("addUser failed.");
+                    stmt.setString(1, gameName);
+                    stmt.setInt(2, nextSequenceNumber);
+                    stmt.setBytes(3, decodedByte); // Our JCDB driver does not support setBlob
+                    if (stmt.executeUpdate() != 1) {
+                        System.out.println("addUser failed.");
+                    }
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
                 }
             }
             finally {
@@ -171,6 +177,27 @@ public class CommandSQLDAO implements CommandDAO{
         }
     }
 
+    public void dropTable() {
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
+
+                stmt.executeUpdate("DROP TABLE Commands");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public void clearData() {
         try {
@@ -198,9 +225,10 @@ public class CommandSQLDAO implements CommandDAO{
             Statement stmt = null;
             try {
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Commands ( gameName TEXT NOT NULL UNIQUE," +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Commands ( gameName TEXT NOT NULL," +
                         "sequenceNumber INTEGER NOT NULL," +
-                        "commandData BLOB NOT NULL)");
+                        "commandData BLOB NOT NULL," +
+                        "PRIMARY KEY(gameName, sequenceNumber) )");
             }
             finally {
                 if(stmt != null) {
