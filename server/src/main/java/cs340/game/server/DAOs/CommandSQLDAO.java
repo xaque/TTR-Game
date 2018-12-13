@@ -44,7 +44,7 @@ public class CommandSQLDAO implements CommandDAO{
         int nextSequenceNumber = getNextSequenceNumber(gameName);
 
         try {
-            byte[] decodedByte = Base64.decode(serializedData, 0);
+            //fbyte[] decodedByte = Base64.decode(serializedData, 0);
             //Blob blobData = new SerialBlob(decodedByte);
 
             PreparedStatement stmt = null;
@@ -56,7 +56,7 @@ public class CommandSQLDAO implements CommandDAO{
 
                     stmt.setString(1, gameName);
                     stmt.setInt(2, nextSequenceNumber);
-                    stmt.setBytes(3, decodedByte); // Our JCDB driver does not support setBlob
+                    stmt.setString(3, serializedData); // Our JCDB driver does not support setBlob
                     if (stmt.executeUpdate() != 1) {
                         System.out.println("addUser failed.");
                     }
@@ -110,15 +110,15 @@ public class CommandSQLDAO implements CommandDAO{
                 String getCommandsStr = "SELECT * FROM Commands WHERE gameName=?";
                 stmt = SQLiteConnectionProxy.openConnection().prepareStatement(getCommandsStr);
                 stmt.setString(1, gameName);
-                if(stmt.executeUpdate() != 1) {
-                    System.out.println("getCommandsForGame failed.");
-                }
+
+                rs = stmt.executeQuery();
                 if (rs.next()) {
-                    SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
+                    /*SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
                     InputStream in = blobResult.getBinaryStream();
                     byte[] array = new byte[in.available()];
                     in.read(array);
-                    String s = array.toString();
+                    String s = array.toString();*/
+                    String s = rs.getString(3);
                     resultCommand = Serializer.deserializeObject(s, Data.class);
                     commandList.add(resultCommand);
                 }
@@ -130,8 +130,9 @@ public class CommandSQLDAO implements CommandDAO{
                 if (stmt != null) {
                     stmt.close();
                 }
-                SQLiteConnectionProxy.closeConnection(true);
+
             }
+            SQLiteConnectionProxy.closeConnection(true);
             return commandList;
         }
         catch(ClassNotFoundException | IOException | SQLException ex) {
@@ -218,6 +219,9 @@ public class CommandSQLDAO implements CommandDAO{
             SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
+        finally {
+            dropTable();
+        }
     }
 
     public void createCommandTable() {
@@ -227,8 +231,8 @@ public class CommandSQLDAO implements CommandDAO{
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Commands ( gameName TEXT NOT NULL," +
                         "sequenceNumber INTEGER NOT NULL," +
-                        "commandData BLOB NOT NULL," +
-                        "PRIMARY KEY(gameName, sequenceNumber) )");
+                        "commandData BLOB NOT NULL)");
+                        //"PRIMARY KEY(gameName, sequenceNumber) )");
             }
             finally {
                 if(stmt != null) {

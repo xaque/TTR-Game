@@ -41,8 +41,8 @@ public class GameSQLDAO implements GameDAO{
         }
 
         try {
-            byte[] decodedByte = Base64.decode(serializedGame, 0);
-            Blob blobData = new SerialBlob(decodedByte);
+            //byte[] decodedByte = Base64.decode(serializedGame, 0);
+            //Blob blobData = new SerialBlob(decodedByte);
             PreparedStatement stmt = null;
             try {
                 String addGameStr = "INSERT INTO ActiveGame (name, gameState) " +
@@ -50,7 +50,8 @@ public class GameSQLDAO implements GameDAO{
                 stmt = SQLiteConnectionProxy.openConnection().prepareStatement(addGameStr);
 
                 stmt.setString(1, gameName);
-                stmt.setBlob(2, blobData);
+                //stmt.setBlob(2, blobData);
+                stmt.setString(2, serializedGame);
                 if(stmt.executeUpdate() != 1) {
                     System.out.println("addGame failed.");
                 }
@@ -85,11 +86,15 @@ public class GameSQLDAO implements GameDAO{
 
                 rs = stmt.executeQuery();
                 if (rs.next()) {
-                    SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
+                    /*SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
                     InputStream in = blobResult.getBinaryStream();
                     byte[] array = new byte[in.available()];
                     in.read(array);
                     String s = array.toString();
+                    resultGame = Serializer.deserializeObject(s, ServerGameState.class);*/
+                    //byte[] blob = rs.getBytes(2);
+                    //String s = new String(blob);
+                    String s = rs.getString(2);
                     resultGame = Serializer.deserializeObject(s, ServerGameState.class);
                 }
             }
@@ -134,11 +139,14 @@ public class GameSQLDAO implements GameDAO{
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
                 rs = stmt.executeQuery("SELECT * FROM ActiveGame");
                 if (rs.next()) {
-                    SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
+                    /*SerialBlob blobResult = (SerialBlob)(rs.getBlob(2));
                     InputStream in = blobResult.getBinaryStream();
                     byte[] array = new byte[in.available()];
                     in.read(array);
-                    String s = array.toString();
+                    String s = array.toString();*/
+                    //byte[] blobResult = rs.getBytes(2);
+                    //String s = new String(blobResult);
+                    String s = rs.getString(2);
                     resultGame = Serializer.deserializeObject(s, ServerGameState.class);
                     gameList.add(resultGame);
                 }
@@ -191,6 +199,30 @@ public class GameSQLDAO implements GameDAO{
                 stmt = SQLiteConnectionProxy.openConnection().createStatement();
 
                 stmt.executeUpdate("DELETE FROM ActiveGame");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+        }
+        finally {
+            dropTable();
+        }
+    }
+
+    public void dropTable() {
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
+
+                stmt.executeUpdate("DROP TABLE ActiveGame");
             }
             finally {
                 if(stmt != null) {

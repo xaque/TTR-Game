@@ -166,6 +166,9 @@ public class UserSQLDAO implements UserDAO{
             SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
+        finally {
+            dropTable();
+        }
     }
 
     public String getGameNameByUsername(String username) {
@@ -243,6 +246,27 @@ public class UserSQLDAO implements UserDAO{
                 "password TEXT NOT NULL," +
                 "authToken TEXT NOT NULL UNIQUE," +
                 "gameName TEXT)");
+            }
+            finally {
+                if(stmt != null) {
+                    stmt.close();
+                }
+                SQLiteConnectionProxy.closeConnection(true);
+            }
+        }
+        catch(SQLException ex) {
+            SQLiteConnectionProxy.closeConnection(false);
+            ex.printStackTrace();
+        }
+    }
+
+    public void dropTable() {
+        try {
+            Statement stmt = null;
+            try {
+                stmt = SQLiteConnectionProxy.openConnection().createStatement();
+
+                stmt.executeUpdate("DROP TABLE User");
             }
             finally {
                 if(stmt != null) {

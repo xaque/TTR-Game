@@ -290,6 +290,9 @@ public class LobbySQLDAO implements LobbyDAO {
             SQLiteConnectionProxy.closeConnection(false);
             ex.printStackTrace();
         }
+        finally {
+            dropLobbyTable();
+        }
     }
 
     public void createLobbyTable() {
