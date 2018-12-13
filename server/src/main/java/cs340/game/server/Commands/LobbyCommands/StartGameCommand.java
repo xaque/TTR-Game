@@ -72,7 +72,7 @@ public class StartGameCommand implements iCommand {
         GameDAO gameDAO = daoFactory.getGameDAO();
         gameDAO.addGame(lobbyData.getGameID(), gameState);
 
-        //LobbyGameDatabase.getInstance().startGame(startingGame);
+        LobbyGameDatabase.getInstance().startGame(startingGame);
         lobbyDAO.startGame(startingGame);
         return new LobbyResults(true, null);
     }

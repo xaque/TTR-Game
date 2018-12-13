@@ -33,7 +33,7 @@ public class JoinGameCommand implements iCommand {
             ServerException ex = new ServerException("This game is already full.");
             return new LobbyResults(false, ex.getMessage());
         }
-        //LobbyGameDatabase.getInstance().addPlayerToGame(lobbyData.getUsername(), game);
+        LobbyGameDatabase.getInstance().addPlayerToGame(lobbyData.getUsername(), game);
         lobbyDAO.addPlayerToGame(lobbyData.getUsername(), game);
         return new LobbyResults(true, null);
 

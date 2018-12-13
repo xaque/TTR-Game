@@ -47,6 +47,7 @@ public class CreateGameCommand implements iCommand {
         }
 
         Game game = new Game(lobbyData.getGameID(), lobbyData.getUsername());
+        LobbyGameDatabase.getInstance().addGame(game);
         lobbyDAO.addGame(game);
         return new LobbyResults(true, null);
 
