@@ -24,7 +24,8 @@ public class DiscardTrainCardsCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
-        String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        //String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        String username = daoFactory.getUserDAO().getUsernameByAuthToken(authToken);
         ArrayList<TrainCard> discardedCards = trainCardData.getCards();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {

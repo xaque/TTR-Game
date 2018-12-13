@@ -20,7 +20,6 @@ public class ChatCommand implements iCommand {
         System.out.println(chatData.getChatContent());
         System.out.println(chatData.getUsername());
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(chatData.getUsername());
-        //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername("a");
 
         String chatMessage = chatData.getUsername() + ": "  + chatData.getChatContent();
         GameHistoryAction action = new GameHistoryAction(chatMessage, null);

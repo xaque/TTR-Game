@@ -24,7 +24,8 @@ public class DrawTrainCardFaceUpCommand implements iCommand {
 
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
-        String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        //String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        String username = daoFactory.getUserDAO().getUsernameByAuthToken(authToken);
         System.out.println("USERNAME: " + username + " AUTH TOKEN: " + authToken);
         int position = trainCardData.getFaceUpPosition();
 

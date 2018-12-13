@@ -9,5 +9,6 @@ public interface UserDAO {
     public boolean containsUser(User user);
     public boolean containsUsername(String username);
     public User getUserByUsername(String username);
+    public String getUsernameByAuthToken(String authToken);
     public ArrayList<User> getAllUsers();
 }

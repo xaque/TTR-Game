@@ -22,7 +22,8 @@ public class DrawTrainCardFromDeckCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         TrainCardData trainCardData = (TrainCardData)data;
         String authToken = trainCardData.getAuthToken();
-        String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        //String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        String username = daoFactory.getUserDAO().getUsernameByAuthToken(authToken);
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
 
         TrainCard drawnCard = game.drawTrainCardFromDeck(username);

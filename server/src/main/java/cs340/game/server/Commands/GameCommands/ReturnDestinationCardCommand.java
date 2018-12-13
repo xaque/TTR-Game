@@ -26,7 +26,8 @@ public class ReturnDestinationCardCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         DestinationCardData destinationCardData = (DestinationCardData)data;
         String authToken = destinationCardData.getAuthToken();
-        String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        //String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        String username = daoFactory.getUserDAO().getUsernameByAuthToken(authToken);
         ArrayList<DestinationCard> returnedCards = destinationCardData.getCards();
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         //ServerGameState game = ActiveGamesDatabase.getInstance().getGameByUsername(authToken);

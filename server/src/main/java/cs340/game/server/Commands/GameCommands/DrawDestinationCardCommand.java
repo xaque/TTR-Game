@@ -22,7 +22,8 @@ public class DrawDestinationCardCommand implements iCommand {
     public Results execute(Data data, DAOFactory daoFactory) {
         DestinationCardData destinationCardData = (DestinationCardData)data;
         String authToken = destinationCardData.getAuthToken();
-        String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        //String username = AuthTokenDatabase.getInstance().getUsernameByAuthToken(authToken);
+        String username = daoFactory.getUserDAO().getUsernameByAuthToken(authToken);
         ServerGameState game = ActiveGamesDatabase.getInstance().getGameByAuthToken(authToken);
         if(game == null) {
             ServerException ex = new ServerException("You are not in an active game.");
